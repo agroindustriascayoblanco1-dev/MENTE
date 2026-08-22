@@ -154,7 +154,14 @@ function buildStars(){
 function mood(m){
   const d=moods[m];
   if(!d) return;
+  document.body.classList.remove("mood-changing");
+  void document.body.offsetWidth;
+  document.body.classList.add("mood-changing");
+  setTimeout(()=>document.body.classList.remove("mood-changing"),800);
   document.body.dataset.mood=m;
+  const themeColors={"muy-bien":"#167b83","bien":"#12433f","regular":"#3b4650","mal":"#13263a","muy-mal":"#0d1222"};
+  const themeMeta=document.querySelector('meta[name="theme-color"]');
+  if(themeMeta) themeMeta.setAttribute("content",themeColors[m]||"#10212b");
   $$(".moods button").forEach(b=>b.classList.toggle("selected",b.dataset.mood===m));
   $("#moodIcon").textContent=d.i;
   $("#moodTitle").textContent=d.t;
