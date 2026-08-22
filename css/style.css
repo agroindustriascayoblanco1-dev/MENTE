@@ -1,1 +1,1998 @@
+/* =========================================
+   MENTE
+   ESTILOS PRINCIPALES
+========================================= */
 
+:root {
+
+    --bg: #f4f7f6;
+    --surface: rgba(255,255,255,.88);
+    --surface-solid: #ffffff;
+
+    --text: #20312f;
+    --muted: #70807d;
+
+    --primary: #527b72;
+    --primary-dark: #345950;
+
+    --blue: #7395b8;
+    --purple: #9185b8;
+    --peach: #d89b7b;
+    --yellow: #d8b66d;
+    --pink: #c78c9c;
+
+    --border: rgba(40,65,60,.08);
+
+    --shadow:
+        0 18px 45px rgba(40,60,56,.08);
+
+    --radius-xl: 30px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+
+    --transition: .28s ease;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f8f7,
+            #eef4f2
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   AMBIENTE
+========================================= */
+
+.ambient-background {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf5f3,
+            #f8faf9
+        );
+
+    transition:
+        background 1.2s ease,
+        filter 1.2s ease;
+}
+
+
+.sun {
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,226,148,.9),
+            rgba(255,226,148,0)
+        );
+
+    top: 5%;
+    right: 5%;
+
+    opacity: .7;
+
+    transition: 1.5s ease;
+}
+
+
+.cloud {
+
+    position: absolute;
+
+    width: 180px;
+    height: 60px;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.7);
+
+    filter: blur(1px);
+
+    opacity: .65;
+
+    animation:
+        cloudMove 35s linear infinite;
+}
+
+
+.cloud::before,
+.cloud::after {
+
+    content: "";
+
+    position: absolute;
+
+    background: inherit;
+
+    border-radius: 50%;
+}
+
+
+.cloud::before {
+
+    width: 80px;
+    height: 80px;
+
+    top: -35px;
+    left: 30px;
+}
+
+
+.cloud::after {
+
+    width: 100px;
+    height: 100px;
+
+    top: -45px;
+    right: 20px;
+}
+
+
+.cloud-one {
+    top: 18%;
+    left: -220px;
+}
+
+
+.cloud-two {
+
+    top: 35%;
+
+    left: -300px;
+
+    animation-delay: -15s;
+
+    transform: scale(.7);
+}
+
+
+@keyframes cloudMove {
+
+    from {
+        transform: translateX(-250px);
+    }
+
+    to {
+        transform: translateX(calc(100vw + 350px));
+    }
+}
+
+
+.rain {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+
+    background-image:
+        linear-gradient(
+            120deg,
+            transparent 45%,
+            rgba(95,120,130,.16) 47%,
+            transparent 49%
+        );
+
+    background-size: 14px 22px;
+
+    animation:
+        rainMove .5s linear infinite;
+}
+
+
+@keyframes rainMove {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 14px 22px;
+    }
+}
+
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.9) 1px,
+            transparent 2px
+        );
+
+    background-size: 55px 55px;
+
+    animation:
+        starsMove 8s linear infinite;
+}
+
+
+@keyframes starsMove {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(30px);
+    }
+}
+
+
+/* =========================================
+   ESTADOS DEL CLIMA
+========================================= */
+
+body.weather-sunny
+.ambient-background {
+
+    background:
+        linear-gradient(
+            180deg,
+            #dff2ee,
+            #f8faf8
+        );
+}
+
+
+body.weather-cloudy
+.ambient-background {
+
+    background:
+        linear-gradient(
+            180deg,
+            #dfe7e8,
+            #f3f5f5
+        );
+}
+
+
+body.weather-rainy
+.ambient-background {
+
+    background:
+        linear-gradient(
+            180deg,
+            #bac9ce,
+            #e4e9ea
+        );
+
+    filter: saturate(.75);
+}
+
+
+body.weather-rainy .rain {
+
+    opacity: 1;
+}
+
+
+body.weather-night
+.ambient-background {
+
+    background:
+        linear-gradient(
+            180deg,
+            #18232d,
+            #303d47
+        );
+}
+
+
+body.weather-night {
+
+    color: #edf4f3;
+
+    --surface: rgba(38,49,57,.92);
+
+    --surface-solid: #263139;
+
+    --text: #edf4f3;
+
+    --muted: #b4c1c0;
+}
+
+
+body.weather-night .stars {
+    opacity: 1;
+}
+
+
+body.weather-night .sun {
+    opacity: 0;
+}
+
+
+body.weather-rainy .sun {
+    opacity: .15;
+}
+
+
+body.weather-cloudy .sun {
+    opacity: .3;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+
+    width: min(100%, 900px);
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding:
+        20px
+        20px
+        110px;
+
+    position: relative;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.topbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.brand-icon {
+
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-size: 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #769f94
+        );
+
+    box-shadow:
+        0 8px 20px rgba(82,123,114,.22);
+}
+
+
+.brand h1 {
+
+    font-size: 20px;
+
+    letter-spacing: 1px;
+}
+
+
+.brand span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 2px;
+}
+
+
+.icon-button {
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background: var(--surface);
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+}
+
+
+.icon-button:hover {
+
+    transform: translateY(-2px);
+}
+
+
+.icon-button:active {
+
+    transform: scale(.92);
+}
+
+
+/* =========================================
+   PANTALLAS
+========================================= */
+
+.screen {
+
+    display: none;
+
+    animation:
+        screenIn .45s ease;
+}
+
+
+.screen.active {
+
+    display: block;
+}
+
+
+@keyframes screenIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+
+    padding:
+        20px
+        4px
+        25px;
+}
+
+
+.eyebrow,
+.mini-label {
+
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.hero h2 {
+
+    margin-top: 9px;
+
+    font-size:
+        clamp(34px, 9vw, 58px);
+
+    letter-spacing: -2px;
+}
+
+
+.hero p {
+
+    margin-top: 10px;
+
+    max-width: 600px;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   SECCIONES
+========================================= */
+
+.section {
+
+    margin-top: 12px;
+
+    margin-bottom: 26px;
+}
+
+
+.section-title,
+.section-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+
+.section h3 {
+
+    font-size: 21px;
+
+    margin-top: 4px;
+}
+
+
+.discover {
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   EMOCIONES
+========================================= */
+
+.mood-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 9px;
+}
+
+
+.mood-card {
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    border-radius: 20px;
+
+    padding:
+        16px
+        8px;
+
+    min-height: 115px;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+    box-shadow:
+        0 8px 25px rgba(40,60,56,.05);
+
+    transition: var(--transition);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.mood-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 30px rgba(40,60,56,.10);
+}
+
+
+.mood-card.selected {
+
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
+    border-color:
+        currentColor;
+
+    box-shadow:
+        0 15px 35px rgba(40,60,56,.14);
+}
+
+
+.mood-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 5px;
+}
+
+
+.mood-card span:not(.mood-icon) {
+
+    font-weight: 700;
+
+    font-size: 13px;
+}
+
+
+.mood-card small {
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.mood-great {
+    color: #a18139;
+}
+
+
+.mood-good {
+    color: #668d65;
+}
+
+
+.mood-neutral {
+    color: #7c8784;
+}
+
+
+.mood-bad {
+    color: #7c8599;
+}
+
+
+.mood-very-bad {
+    color: #896f7d;
+}
+
+
+/* =========================================
+   DAILY CARD
+========================================= */
+
+.daily-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    border-radius: var(--radius-lg);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.92),
+            rgba(241,248,245,.9)
+        );
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 28px;
+
+    transition: 1s ease;
+}
+
+
+.daily-icon {
+
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 16px;
+
+    background: #e4efec;
+
+    font-size: 23px;
+}
+
+
+.daily-card p {
+
+    margin-top: 5px;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   HERRAMIENTAS
+========================================= */
+
+.tool-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+
+.tool-card {
+
+    min-height: 155px;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    box-shadow:
+        0 10px 30px rgba(40,60,56,.05);
+
+    transition: var(--transition);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+.tool-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 20px 40px rgba(40,60,56,.11);
+}
+
+
+.tool-card:active {
+
+    transform:
+        scale(.97);
+}
+
+
+.tool-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+
+.tool-card strong {
+
+    font-size: 15px;
+}
+
+
+.tool-card small {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   VERSÍCULO
+========================================= */
+
+.verse-card {
+
+    margin-top: 28px;
+
+    padding: 23px;
+
+    border-radius: var(--radius-lg);
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #526f68,
+            #718e87
+        );
+
+    box-shadow:
+        0 20px 40px rgba(64,91,85,.2);
+}
+
+
+.verse-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.verse-top span {
+
+    font-size: 10px;
+
+    letter-spacing: 1.4px;
+
+    font-weight: 800;
+
+    opacity: .8;
+}
+
+
+.verse-top button {
+
+    width: 34px;
+    height: 34px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.14);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: .2s;
+}
+
+
+.verse-top button:hover {
+
+    background:
+        rgba(255,255,255,.24);
+
+    transform:
+        rotate(20deg);
+}
+
+
+.verse-card p {
+
+    margin-top: 22px;
+
+    font-size: 17px;
+
+    line-height: 1.65;
+
+    font-weight: 500;
+}
+
+
+.verse-card > span:last-child {
+
+    display: block;
+
+    margin-top: 15px;
+
+    font-size: 12px;
+
+    opacity: .8;
+}
+
+
+/* =========================================
+   TOOL SCREEN
+========================================= */
+
+.back-button {
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    margin:
+        10px
+        0
+        30px;
+
+    padding: 5px;
+
+    transition: .2s;
+}
+
+
+.back-button:hover {
+
+    color: var(--text);
+
+    transform:
+        translateX(-4px);
+}
+
+
+.tool-header {
+
+    text-align: center;
+
+    max-width: 650px;
+
+    margin:
+        0
+        auto
+        30px;
+}
+
+
+.tool-header-icon {
+
+    width: 75px;
+    height: 75px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin:
+        0
+        auto
+        15px;
+
+    border-radius: 25px;
+
+    background: var(--surface);
+
+    box-shadow: var(--shadow);
+
+    font-size: 36px;
+}
+
+
+.tool-header h2 {
+
+    font-size:
+        clamp(28px, 7vw, 42px);
+
+    margin-top: 8px;
+
+    letter-spacing: -1px;
+}
+
+
+.tool-header p {
+
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================
+   PANELES
+========================================= */
+
+.exercise-panel,
+.writing-panel,
+.thought-panel,
+.focus-panel,
+.relax-panel,
+.learn-panel {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    padding: 25px;
+
+    border-radius: var(--radius-xl);
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+}
+
+
+.hidden {
+
+    display: none !important;
+}
+
+
+/* =========================================
+   RESPIRACIÓN
+========================================= */
+
+.breathing-circle {
+
+    width:
+        min(70vw, 270px);
+
+    height:
+        min(70vw, 270px);
+
+    margin:
+        20px
+        auto
+        25px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #dceee9,
+            #c9e1dc
+        );
+
+    box-shadow:
+        0 0 0 20px rgba(210,235,229,.35),
+        0 20px 50px rgba(70,100,94,.12);
+
+    transition:
+        transform 4s ease-in-out,
+        background 1s ease;
+}
+
+
+.breathing-inner {
+
+    text-align: center;
+}
+
+
+.breathing-inner span {
+
+    display: block;
+
+    font-weight: 800;
+
+    font-size: 20px;
+}
+
+
+.breathing-inner strong {
+
+    display: block;
+
+    font-size: 40px;
+
+    margin-top: 5px;
+}
+
+
+.breathing-circle.inhale {
+
+    transform:
+        scale(1.18);
+
+    background:
+        radial-gradient(
+            circle,
+            #d8efe8,
+            #b9dcd4
+        );
+}
+
+
+.breathing-circle.exhale {
+
+    transform:
+        scale(.85);
+
+    background:
+        radial-gradient(
+            circle,
+            #e7edf1,
+            #ccd9df
+        );
+}
+
+
+.exercise-info {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+
+.exercise-info span {
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+
+.exercise-info p {
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   BOTONES
+========================================= */
+
+.primary-button,
+.secondary-button {
+
+    border: 0;
+
+    border-radius: 16px;
+
+    padding:
+        15px
+        20px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+
+    font-size: 14px;
+}
+
+
+.primary-button {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #6c928a
+        );
+
+    box-shadow:
+        0 10px 25px rgba(82,123,114,.2);
+}
+
+
+.primary-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(82,123,114,.28);
+}
+
+
+.primary-button:active,
+.secondary-button:active {
+
+    transform:
+        scale(.97);
+}
+
+
+.secondary-button {
+
+    color: var(--text);
+
+    background:
+        rgba(80,100,95,.08);
+}
+
+
+.exercise-panel .primary-button,
+.relax-panel .primary-button {
+
+    display: block;
+
+    margin:
+        0
+        auto;
+}
+
+
+/* =========================================
+   ESCRITURA
+========================================= */
+
+.writing-panel label {
+
+    display: block;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+textarea {
+
+    width: 100%;
+
+    min-height: 230px;
+
+    resize: vertical;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    background:
+        rgba(245,248,247,.8);
+
+    color: var(--text);
+
+    font:
+        inherit;
+
+    outline: none;
+
+    transition: .2s;
+}
+
+
+textarea:focus {
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(82,123,114,.1);
+}
+
+
+.writing-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+
+.saved-note {
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: #e7f4ef;
+
+    color: #477368;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   PENSAMIENTOS
+========================================= */
+
+.question {
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.thought-options {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+
+.thought-options button {
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.65);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: .2s;
+}
+
+
+.thought-options button:hover {
+
+    border-color:
+        var(--primary);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.response-box {
+
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(82,123,114,.08);
+
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.focus-panel {
+
+    text-align: center;
+}
+
+
+.focus-timer {
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+
+.focus-timer span {
+
+    font-size: 90px;
+
+    font-weight: 800;
+
+    letter-spacing: -5px;
+}
+
+
+.focus-timer small {
+
+    color: var(--muted);
+}
+
+
+.focus-panel p {
+
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   RELAJACIÓN
+========================================= */
+
+.relax-panel {
+
+    text-align: center;
+}
+
+
+.relax-orb {
+
+    width: 150px;
+    height: 150px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin:
+        0
+        auto
+        25px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f1e7d2,
+            #e6d6ba
+        );
+
+    font-size: 45px;
+
+    animation:
+        relaxPulse 4s ease-in-out infinite;
+}
+
+
+@keyframes relaxPulse {
+
+    0%,
+    100% {
+        transform: scale(.95);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+
+.relax-panel h3 {
+
+    font-size: 22px;
+}
+
+
+.relax-panel p {
+
+    max-width: 420px;
+
+    margin:
+        10px
+        auto
+        25px;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   APRENDER
+========================================= */
+
+.learn-panel {
+
+    display: grid;
+
+    gap: 12px;
+}
+
+
+.learn-panel article {
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(245,248,247,.8);
+}
+
+
+.learn-panel article > span {
+
+    font-size: 27px;
+}
+
+
+.learn-panel h3 {
+
+    margin-top: 8px;
+
+    font-size: 17px;
+}
+
+
+.learn-panel p {
+
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+.bottom-nav {
+
+    position: fixed;
+
+    z-index: 20;
+
+    left: 50%;
+
+    bottom: 16px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            calc(100% - 28px),
+            550px
+        );
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    padding: 7px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.7);
+
+    border-radius: 23px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 15px 45px
+        rgba(30,50,46,.16);
+}
+
+
+.nav-item {
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 9px 5px;
+
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+
+.nav-item span {
+
+    font-size: 20px;
+}
+
+
+.nav-item small {
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+.nav-item.active {
+
+    background:
+        rgba(82,123,114,.12);
+
+    color: var(--primary);
+}
+
+
+.nav-item:hover {
+
+    color: var(--primary);
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast {
+
+    position: fixed;
+
+    z-index: 50;
+
+    left: 50%;
+
+    bottom: 95px;
+
+    transform:
+        translate(-50%, 30px);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        13px
+        18px;
+
+    border-radius: 15px;
+
+    color: white;
+
+    background:
+        #243733;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,.18);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .3s ease;
+
+    font-size: 13px;
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .app {
+
+        padding:
+            15px
+            15px
+            105px;
+    }
+
+
+    .mood-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .mood-card {
+
+        min-height: 105px;
+    }
+
+
+    .mood-card:last-child {
+
+        grid-column:
+            span 3;
+    }
+
+
+    .tool-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .tool-card {
+
+        min-height: 140px;
+
+        padding: 17px;
+    }
+
+
+    .hero {
+
+        padding-top: 10px;
+    }
+
+
+    .hero h2 {
+
+        font-size: 39px;
+    }
+
+
+    .verse-card {
+
+        padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .mood-grid {
+
+        gap: 7px;
+    }
+
+
+    .mood-card {
+
+        padding:
+            12px
+            5px;
+    }
+
+
+    .mood-icon {
+
+        font-size: 25px;
+    }
+
+
+    .mood-card span:not(.mood-icon) {
+
+        font-size: 11px;
+    }
+
+
+    .tool-grid {
+
+        gap: 9px;
+    }
+
+
+    .tool-card {
+
+        min-height: 135px;
+
+        padding: 15px;
+    }
+
+
+    .tool-icon {
+
+        font-size: 26px;
+    }
+
+
+    .bottom-nav {
+
+        bottom: 10px;
+    }
+
+}
+
+
+/* =========================================
+   ACCESIBILIDAD
+========================================= */
+
+button {
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+button:focus-visible,
+textarea:focus-visible {
+
+    outline:
+        3px solid
+        rgba(82,123,114,.35);
+
+    outline-offset: 2px;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+    }
+}
