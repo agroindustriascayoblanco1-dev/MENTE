@@ -1,16 +1,16 @@
-/* =========================================
+/* =========================================================
    MENTE
    ESTILOS PRINCIPALES
-========================================= */
+========================================================= */
 
 :root {
 
     --bg: #f4f7f6;
-    --surface: rgba(255,255,255,.88);
+    --surface: rgba(255,255,255,.82);
     --surface-solid: #ffffff;
 
-    --text: #20312f;
-    --muted: #70807d;
+    --text: #253532;
+    --muted: #71807c;
 
     --primary: #527b72;
     --primary-dark: #345950;
@@ -24,15 +24,18 @@
     --border: rgba(40,65,60,.08);
 
     --shadow:
-        0 18px 45px rgba(40,60,56,.08);
+        0 15px 45px rgba(40,65,60,.08);
 
-    --radius-xl: 30px;
-    --radius-lg: 24px;
-    --radius-md: 18px;
+    --radius: 24px;
 
-    --transition: .28s ease;
+    --transition:
+        .3s cubic-bezier(.2,.8,.2,1);
 }
 
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -51,9 +54,9 @@ body {
     min-height: 100vh;
 
     font-family:
+        Inter,
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Display",
         "Segoe UI",
         Arial,
         sans-serif;
@@ -61,38 +64,53 @@ body {
     color: var(--text);
 
     background:
-        linear-gradient(
-            135deg,
-            #f5f8f7,
-            #eef4f2
-        );
+        radial-gradient(
+            circle at top left,
+            rgba(199,140,156,.14),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at top right,
+            rgba(115,149,184,.13),
+            transparent 35%
+        ),
+        var(--bg);
 
     overflow-x: hidden;
 }
 
 
-/* =========================================
-   AMBIENTE
-========================================= */
+button,
+textarea,
+input {
+    font: inherit;
+}
 
-.ambient-background {
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+
+button:active {
+    transform: scale(.97);
+}
+
+
+/* =========================================================
+   FONDO CLIMÁTICO
+========================================================= */
+
+.weather-background {
 
     position: fixed;
 
     inset: 0;
 
-    pointer-events: none;
+    z-index: -10;
 
     overflow: hidden;
-
-    z-index: -1;
-
-    background:
-        linear-gradient(
-            180deg,
-            #edf5f3,
-            #f8faf9
-        );
 
     transition:
         background 1.2s ease,
@@ -100,28 +118,94 @@ body {
 }
 
 
+.weather-default {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f7f6,
+            #e8f0ed
+        );
+}
+
+
+.weather-sunny {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff6d9,
+            #dff2ec
+        );
+}
+
+
+.weather-cloudy {
+
+    background:
+        linear-gradient(
+            135deg,
+            #dfe6e6,
+            #cbd5d6
+        );
+}
+
+
+.weather-rainy {
+
+    background:
+        linear-gradient(
+            135deg,
+            #aebbc4,
+            #697a84
+        );
+}
+
+
+.weather-night {
+
+    background:
+        linear-gradient(
+            135deg,
+            #252d3b,
+            #141a25
+        );
+}
+
+
+.weather-rainy + .app {
+    color: #243433;
+}
+
+
 .sun {
 
     position: absolute;
 
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
 
     border-radius: 50%;
+
+    right: -50px;
+    top: 70px;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,226,148,.9),
-            rgba(255,226,148,0)
+            rgba(255,221,117,.9),
+            rgba(255,221,117,.25) 55%,
+            transparent 70%
         );
 
-    top: 5%;
-    right: 5%;
+    opacity: 0;
 
-    opacity: .7;
+    transition: opacity 1s;
+}
 
-    transition: 1.5s ease;
+
+.weather-sunny .sun {
+    opacity: 1;
 }
 
 
@@ -130,18 +214,18 @@ body {
     position: absolute;
 
     width: 180px;
-    height: 60px;
+    height: 55px;
 
     border-radius: 50px;
 
-    background: rgba(255,255,255,.7);
+    background:
+        rgba(255,255,255,.5);
 
-    filter: blur(1px);
+    filter: blur(2px);
 
-    opacity: .65;
+    opacity: 0;
 
-    animation:
-        cloudMove 35s linear infinite;
+    transition: opacity 1s;
 }
 
 
@@ -160,53 +244,65 @@ body {
 
 .cloud::before {
 
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
 
-    top: -35px;
-    left: 30px;
+    left: 25px;
+    bottom: 10px;
 }
 
 
 .cloud::after {
 
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
 
-    top: -45px;
-    right: 20px;
+    right: 25px;
+    bottom: 5px;
 }
 
 
 .cloud-one {
-    top: 18%;
-    left: -220px;
+
+    top: 150px;
+    left: 8%;
+
+    animation: cloudMove 18s linear infinite;
 }
 
 
 .cloud-two {
 
-    top: 35%;
+    top: 300px;
+    right: 10%;
 
-    left: -300px;
+    animation: cloudMove 24s linear infinite reverse;
+}
 
-    animation-delay: -15s;
 
-    transform: scale(.7);
+.weather-cloudy .cloud,
+.weather-rainy .cloud {
+    opacity: .8;
 }
 
 
 @keyframes cloudMove {
 
-    from {
-        transform: translateX(-250px);
+    0% {
+        transform: translateX(-30px);
     }
 
-    to {
-        transform: translateX(calc(100vw + 350px));
+    50% {
+        transform: translateX(30px);
+    }
+
+    100% {
+        transform: translateX(-30px);
     }
 }
 
+
+/* LLUVIA */
 
 .rain {
 
@@ -214,65 +310,48 @@ body {
 
     inset: 0;
 
+    pointer-events: none;
+
     opacity: 0;
 
-    transition: opacity 1s ease;
-
-    background-image:
-        linear-gradient(
-            120deg,
-            transparent 45%,
-            rgba(95,120,130,.16) 47%,
-            transparent 49%
-        );
-
-    background-size: 14px 22px;
-
-    animation:
-        rainMove .5s linear infinite;
+    transition: opacity .8s;
 }
 
 
-@keyframes rainMove {
-
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 14px 22px;
-    }
+.weather-rainy .rain {
+    opacity: 1;
 }
 
 
-.stars {
+.rain::before {
+
+    content: "";
 
     position: absolute;
 
-    inset: 0;
-
-    opacity: 0;
-
-    transition: opacity 1s ease;
+    inset: -100px;
 
     background-image:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.9) 1px,
-            transparent 2px
+        linear-gradient(
+            115deg,
+            transparent 0%,
+            transparent 47%,
+            rgba(255,255,255,.25) 48%,
+            transparent 50%
         );
 
-    background-size: 55px 55px;
+    background-size:
+        18px 28px;
 
     animation:
-        starsMove 8s linear infinite;
+        rainFall .5s linear infinite;
 }
 
 
-@keyframes starsMove {
+@keyframes rainFall {
 
     from {
-        transform: translateY(0);
+        transform: translateY(-30px);
     }
 
     to {
@@ -281,242 +360,98 @@ body {
 }
 
 
-/* =========================================
-   ESTADOS DEL CLIMA
-========================================= */
-
-body.weather-sunny
-.ambient-background {
-
-    background:
-        linear-gradient(
-            180deg,
-            #dff2ee,
-            #f8faf8
-        );
-}
-
-
-body.weather-cloudy
-.ambient-background {
-
-    background:
-        linear-gradient(
-            180deg,
-            #dfe7e8,
-            #f3f5f5
-        );
-}
-
-
-body.weather-rainy
-.ambient-background {
-
-    background:
-        linear-gradient(
-            180deg,
-            #bac9ce,
-            #e4e9ea
-        );
-
-    filter: saturate(.75);
-}
-
-
-body.weather-rainy .rain {
-
-    opacity: 1;
-}
-
-
-body.weather-night
-.ambient-background {
-
-    background:
-        linear-gradient(
-            180deg,
-            #18232d,
-            #303d47
-        );
-}
-
-
-body.weather-night {
-
-    color: #edf4f3;
-
-    --surface: rgba(38,49,57,.92);
-
-    --surface-solid: #263139;
-
-    --text: #edf4f3;
-
-    --muted: #b4c1c0;
-}
-
-
-body.weather-night .stars {
-    opacity: 1;
-}
-
-
-body.weather-night .sun {
-    opacity: 0;
-}
-
-
-body.weather-rainy .sun {
-    opacity: .15;
-}
-
-
-body.weather-cloudy .sun {
-    opacity: .3;
-}
-
-
-/* =========================================
+/* =========================================================
    APP
-========================================= */
+========================================================= */
 
 .app {
 
-    width: min(100%, 900px);
-
-    min-height: 100vh;
+    width: min(100%, 1050px);
 
     margin: auto;
 
     padding:
+        25px
         20px
-        20px
-        110px;
+        50px;
 
-    position: relative;
+    transition:
+        color 1s ease;
 }
 
 
-/* =========================================
+/* =========================================================
    HEADER
-========================================= */
+========================================================= */
 
-.topbar {
+.top-header {
 
     display: flex;
 
+    justify-content: space-between;
     align-items: center;
 
-    justify-content: space-between;
-
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 
 .brand {
 
-    display: flex;
+    font-size: clamp(34px, 7vw, 48px);
 
-    align-items: center;
+    font-weight: 900;
 
-    gap: 12px;
+    letter-spacing: -2px;
 }
 
 
-.brand-icon {
-
-    width: 45px;
-    height: 45px;
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 15px;
-
-    color: white;
-
-    font-size: 23px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            #769f94
-        );
-
-    box-shadow:
-        0 8px 20px rgba(82,123,114,.22);
-}
-
-
-.brand h1 {
-
-    font-size: 20px;
-
-    letter-spacing: 1px;
-}
-
-
-.brand span {
-
-    display: block;
+.brand-subtitle {
 
     color: var(--muted);
 
-    font-size: 11px;
+    font-size: 14px;
 
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 
 .icon-button {
 
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
 
-    border: 1px solid var(--border);
+    border-radius: 50%;
 
-    border-radius: 15px;
-
-    background: var(--surface);
-
-    cursor: pointer;
-
-    font-size: 18px;
+    background:
+        rgba(255,255,255,.7);
 
     box-shadow: var(--shadow);
 
     transition: var(--transition);
+
+    font-size: 20px;
 }
 
 
 .icon-button:hover {
-
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 
-.icon-button:active {
-
-    transform: scale(.92);
-}
-
-
-/* =========================================
+/* =========================================================
    PANTALLAS
-========================================= */
+========================================================= */
 
 .screen {
 
     display: none;
 
     animation:
-        screenIn .45s ease;
+        screenIn .5s ease;
 }
 
 
 .screen.active {
-
     display: block;
 }
 
@@ -528,7 +463,7 @@ body.weather-cloudy .sun {
         opacity: 0;
 
         transform:
-            translateY(15px);
+            translateY(20px);
 
     }
 
@@ -543,226 +478,178 @@ body.weather-cloudy .sun {
 }
 
 
-/* =========================================
-   HERO
-========================================= */
+/* =========================================================
+   SALUDO
+========================================================= */
 
-.hero {
+.greeting-card {
 
-    padding:
-        20px
-        4px
-        25px;
+    text-align: center;
+
+    max-width: 750px;
+
+    margin:
+        0 auto
+        35px;
 }
 
 
-.eyebrow,
-.mini-label {
+.greeting-time {
 
-    color: var(--primary);
+    display: block;
 
-    font-size: 10px;
+    font-size: clamp(32px, 7vw, 52px);
 
-    font-weight: 800;
+    font-weight: 850;
 
-    letter-spacing: 1.5px;
+    letter-spacing: -1.5px;
+
+    margin-bottom: 10px;
 }
 
 
-.hero h2 {
+.greeting-card h1 {
 
-    margin-top: 9px;
+    font-size: clamp(22px, 5vw, 30px);
 
-    font-size:
-        clamp(34px, 9vw, 58px);
-
-    letter-spacing: -2px;
+    margin-bottom: 10px;
 }
 
 
-.hero p {
-
-    margin-top: 10px;
-
-    max-width: 600px;
+.greeting-card p {
 
     color: var(--muted);
 
+    max-width: 550px;
+
+    margin: auto;
+
     line-height: 1.6;
-
-    font-size: 15px;
 }
 
 
-/* =========================================
-   SECCIONES
-========================================= */
+/* =========================================================
+   TITULOS
+========================================================= */
 
-.section {
-
-    margin-top: 12px;
-
-    margin-bottom: 26px;
-}
-
-
-.section-title,
-.section-heading {
+.section-title {
 
     display: flex;
 
     justify-content: space-between;
+    align-items: end;
 
-    align-items: center;
+    margin:
+        30px 0
+        15px;
 
-    margin-bottom: 14px;
+    gap: 15px;
 }
 
 
-.section h3 {
+.section-title span {
 
-    font-size: 21px;
+    font-size: 20px;
 
-    margin-top: 4px;
+    font-weight: 800;
 }
 
 
-.discover {
-
-    font-size: 12px;
+.section-title small {
 
     color: var(--muted);
+
+    font-size: 12px;
 }
 
 
-/* =========================================
+/* =========================================================
    EMOCIONES
-========================================= */
+========================================================= */
 
-.mood-grid {
+.emotion-grid {
 
     display: grid;
 
     grid-template-columns:
         repeat(5, 1fr);
 
-    gap: 9px;
+    gap: 12px;
 }
 
 
-.mood-card {
+.emotion-card {
 
-    border: 1px solid var(--border);
+    min-height: 120px;
 
-    background: var(--surface);
+    border-radius: var(--radius);
 
-    border-radius: 20px;
+    background:
+        rgba(255,255,255,.78);
 
-    padding:
-        16px
-        8px;
-
-    min-height: 115px;
-
-    cursor: pointer;
+    box-shadow: var(--shadow);
 
     color: var(--text);
 
-    box-shadow:
-        0 8px 25px rgba(40,60,56,.05);
-
-    transition: var(--transition);
-
     display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     flex-direction: column;
 
-    gap: 4px;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    transition: var(--transition);
+
+    border:
+        1px solid
+        rgba(255,255,255,.7);
 }
 
 
-.mood-card:hover {
+.emotion-card:hover {
 
     transform:
-        translateY(-5px);
+        translateY(-6px);
 
     box-shadow:
-        0 15px 30px rgba(40,60,56,.10);
+        0 20px 45px
+        rgba(40,65,60,.13);
 }
 
 
-.mood-card.selected {
+.emotion-card.selected {
 
     transform:
         translateY(-5px)
-        scale(1.02);
+        scale(1.03);
 
-    border-color:
-        currentColor;
-
-    box-shadow:
-        0 15px 35px rgba(40,60,56,.14);
+    outline:
+        3px solid
+        rgba(82,123,114,.3);
 }
 
 
-.mood-icon {
+.emotion-icon {
 
     font-size: 30px;
-
-    margin-bottom: 5px;
 }
 
 
-.mood-card span:not(.mood-icon) {
+.emotion-card span:last-child {
+
+    font-size: 14px;
 
     font-weight: 700;
-
-    font-size: 13px;
 }
 
 
-.mood-card small {
+/* =========================================================
+   MENSAJE EMOCIÓN
+========================================================= */
 
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-
-.mood-great {
-    color: #a18139;
-}
-
-
-.mood-good {
-    color: #668d65;
-}
-
-
-.mood-neutral {
-    color: #7c8784;
-}
-
-
-.mood-bad {
-    color: #7c8599;
-}
-
-
-.mood-very-bad {
-    color: #896f7d;
-}
-
-
-/* =========================================
-   DAILY CARD
-========================================= */
-
-.daily-card {
+.emotion-message {
 
     display: flex;
 
@@ -770,93 +657,196 @@ body.weather-cloudy .sun {
 
     gap: 15px;
 
-    padding: 20px;
+    margin-top: 15px;
 
-    border-radius: var(--radius-lg);
+    padding: 18px;
+
+    border-radius: 20px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.92),
-            rgba(241,248,245,.9)
-        );
+        rgba(255,255,255,.65);
 
-    border: 1px solid var(--border);
+    backdrop-filter: blur(15px);
 
     box-shadow: var(--shadow);
 
-    margin-bottom: 28px;
-
-    transition: 1s ease;
+    animation:
+        slideDown .4s ease;
 }
 
 
-.daily-icon {
+.message-icon {
 
     width: 48px;
     height: 48px;
 
-    flex-shrink: 0;
-
     display: grid;
-
     place-items: center;
 
-    border-radius: 16px;
+    border-radius: 15px;
 
-    background: #e4efec;
+    background:
+        rgba(255,255,255,.7);
 
-    font-size: 23px;
+    font-size: 25px;
 }
 
 
-.daily-card p {
+.emotion-message strong {
+    font-size: 16px;
+}
 
-    margin-top: 5px;
 
-    line-height: 1.5;
+.emotion-message p {
+
+    margin-top: 4px;
+
+    color: var(--muted);
 
     font-size: 14px;
 
-    color: var(--muted);
+    line-height: 1.5;
 }
 
 
-/* =========================================
-   HERRAMIENTAS
-========================================= */
+@keyframes slideDown {
 
-.tool-grid {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   SABIDURÍA
+========================================================= */
+
+.wisdom-card {
+
+    position: relative;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.86),
+            rgba(255,255,255,.58)
+        );
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(15px);
+
+    overflow: hidden;
+}
+
+
+.wisdom-card::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    right: 25px;
+    top: 15px;
+
+    font-size: 45px;
+
+    opacity: .08;
+}
+
+
+.wisdom-label {
+
+    color: var(--primary);
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+}
+
+
+.wisdom-text {
+
+    font-size: clamp(19px, 4vw, 25px);
+
+    font-weight: 700;
+
+    line-height: 1.45;
+}
+
+
+.wisdom-source {
+
+    color: var(--muted);
+
+    margin-top: 10px;
+
+    font-size: 13px;
+}
+
+
+.small-button {
+
+    margin-top: 18px;
+
+    padding:
+        10px
+        15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(82,123,114,.1);
+
+    color: var(--primary-dark);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   HERRAMIENTAS
+========================================================= */
+
+.tools-grid {
 
     display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 12px;
+    gap: 15px;
 }
 
 
 .tool-card {
 
+    padding: 23px;
+
     min-height: 155px;
-
-    padding: 20px;
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius-lg);
-
-    background: var(--surface);
-
-    color: var(--text);
-
-    cursor: pointer;
 
     text-align: left;
 
-    box-shadow:
-        0 10px 30px rgba(40,60,56,.05);
+    border-radius: 24px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    box-shadow: var(--shadow);
 
     transition: var(--transition);
 
@@ -864,9 +854,11 @@ body.weather-cloudy .sun {
 
     flex-direction: column;
 
-    justify-content: space-between;
-
     align-items: flex-start;
+
+    justify-content: center;
+
+    gap: 8px;
 }
 
 
@@ -876,28 +868,20 @@ body.weather-cloudy .sun {
         translateY(-6px);
 
     box-shadow:
-        0 20px 40px rgba(40,60,56,.11);
+        0 22px 45px
+        rgba(40,65,60,.14);
 }
 
 
-.tool-card:active {
-
-    transform:
-        scale(.97);
-}
-
-
-.tool-icon {
+.tool-card > span {
 
     font-size: 30px;
-
-    margin-bottom: 15px;
 }
 
 
 .tool-card strong {
 
-    font-size: 15px;
+    font-size: 16px;
 }
 
 
@@ -905,151 +889,76 @@ body.weather-cloudy .sun {
 
     color: var(--muted);
 
-    font-size: 11px;
-
     line-height: 1.4;
-
-    margin-top: 5px;
 }
 
 
-/* =========================================
-   VERSÍCULO
-========================================= */
+/* =========================================================
+   ACCIONES RÁPIDAS
+========================================================= */
 
-.verse-card {
-
-    margin-top: 28px;
-
-    padding: 23px;
-
-    border-radius: var(--radius-lg);
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #526f68,
-            #718e87
-        );
-
-    box-shadow:
-        0 20px 40px rgba(64,91,85,.2);
-}
-
-
-.verse-top {
+.quick-actions {
 
     display: flex;
 
-    align-items: center;
+    flex-wrap: wrap;
 
-    justify-content: space-between;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
 }
 
 
-.verse-top span {
+.quick-actions button {
 
-    font-size: 10px;
+    padding:
+        12px
+        16px;
 
-    letter-spacing: 1.4px;
-
-    font-weight: 800;
-
-    opacity: .8;
-}
-
-
-.verse-top button {
-
-    width: 34px;
-    height: 34px;
-
-    border: 0;
-
-    border-radius: 12px;
+    border-radius: 50px;
 
     background:
-        rgba(255,255,255,.14);
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 18px;
-
-    transition: .2s;
-}
-
-
-.verse-top button:hover {
-
-    background:
-        rgba(255,255,255,.24);
-
-    transform:
-        rotate(20deg);
-}
-
-
-.verse-card p {
-
-    margin-top: 22px;
-
-    font-size: 17px;
-
-    line-height: 1.65;
-
-    font-weight: 500;
-}
-
-
-.verse-card > span:last-child {
-
-    display: block;
-
-    margin-top: 15px;
-
-    font-size: 12px;
-
-    opacity: .8;
-}
-
-
-/* =========================================
-   TOOL SCREEN
-========================================= */
-
-.back-button {
-
-    border: 0;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    cursor: pointer;
-
-    font-size: 14px;
-
-    margin:
-        10px
-        0
-        30px;
-
-    padding: 5px;
-
-    transition: .2s;
-}
-
-
-.back-button:hover {
+        rgba(255,255,255,.7);
 
     color: var(--text);
 
+    box-shadow:
+        0 5px 20px
+        rgba(40,65,60,.05);
+
+    transition: var(--transition);
+}
+
+
+.quick-actions button:hover {
+
     transform:
-        translateX(-4px);
+        translateY(-3px);
+}
+
+
+/* =========================================================
+   PANTALLA HERRAMIENTA
+========================================================= */
+
+.back-button {
+
+    background:
+        rgba(255,255,255,.7);
+
+    padding:
+        11px
+        17px;
+
+    border-radius: 50px;
+
+    color: var(--text);
+
+    font-weight: 700;
+
+    margin-bottom: 30px;
 }
 
 
@@ -1057,36 +966,17 @@ body.weather-cloudy .sun {
 
     text-align: center;
 
-    max-width: 650px;
-
-    margin:
-        0
-        auto
-        30px;
+    margin-bottom: 30px;
 }
 
 
-.tool-header-icon {
+.tool-header > span {
 
-    width: 75px;
-    height: 75px;
+    font-size: 55px;
 
-    display: grid;
+    display: block;
 
-    place-items: center;
-
-    margin:
-        0
-        auto
-        15px;
-
-    border-radius: 25px;
-
-    background: var(--surface);
-
-    box-shadow: var(--shadow);
-
-    font-size: 36px;
+    margin-bottom: 10px;
 }
 
 
@@ -1094,8 +984,6 @@ body.weather-cloudy .sun {
 
     font-size:
         clamp(28px, 7vw, 42px);
-
-    margin-top: 8px;
 
     letter-spacing: -1px;
 }
@@ -1105,187 +993,43 @@ body.weather-cloudy .sun {
 
     color: var(--muted);
 
-    line-height: 1.6;
-
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 
-/* =========================================
-   PANELES
-========================================= */
-
-.exercise-panel,
-.writing-panel,
-.thought-panel,
-.focus-panel,
-.relax-panel,
-.learn-panel {
+.tool-content {
 
     max-width: 650px;
 
     margin: auto;
 
-    padding: 25px;
+    padding: 30px;
 
-    border-radius: var(--radius-xl);
+    border-radius: 30px;
 
-    background: var(--surface);
+    background:
+        rgba(255,255,255,.76);
 
-    border: 1px solid var(--border);
+    backdrop-filter: blur(18px);
 
     box-shadow: var(--shadow);
 }
 
 
-.hidden {
-
-    display: none !important;
-}
-
-
-/* =========================================
-   RESPIRACIÓN
-========================================= */
-
-.breathing-circle {
-
-    width:
-        min(70vw, 270px);
-
-    height:
-        min(70vw, 270px);
-
-    margin:
-        20px
-        auto
-        25px;
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #dceee9,
-            #c9e1dc
-        );
-
-    box-shadow:
-        0 0 0 20px rgba(210,235,229,.35),
-        0 20px 50px rgba(70,100,94,.12);
-
-    transition:
-        transform 4s ease-in-out,
-        background 1s ease;
-}
-
-
-.breathing-inner {
-
-    text-align: center;
-}
-
-
-.breathing-inner span {
-
-    display: block;
-
-    font-weight: 800;
-
-    font-size: 20px;
-}
-
-
-.breathing-inner strong {
-
-    display: block;
-
-    font-size: 40px;
-
-    margin-top: 5px;
-}
-
-
-.breathing-circle.inhale {
-
-    transform:
-        scale(1.18);
-
-    background:
-        radial-gradient(
-            circle,
-            #d8efe8,
-            #b9dcd4
-        );
-}
-
-
-.breathing-circle.exhale {
-
-    transform:
-        scale(.85);
-
-    background:
-        radial-gradient(
-            circle,
-            #e7edf1,
-            #ccd9df
-        );
-}
-
-
-.exercise-info {
-
-    text-align: center;
-
-    margin-bottom: 25px;
-}
-
-
-.exercise-info span {
-
-    font-weight: 800;
-
-    font-size: 14px;
-}
-
-
-.exercise-info p {
-
-    margin-top: 5px;
-
-    color: var(--muted);
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   BOTONES
-========================================= */
-
 .primary-button,
 .secondary-button {
 
-    border: 0;
-
-    border-radius: 16px;
+    min-height: 52px;
 
     padding:
-        15px
-        20px;
+        0
+        22px;
 
-    cursor: pointer;
+    border-radius: 15px;
 
-    font-weight: 700;
+    font-weight: 800;
 
     transition: var(--transition);
-
-    font-size: 14px;
 }
 
 
@@ -1297,102 +1041,160 @@ body.weather-cloudy .sun {
         linear-gradient(
             135deg,
             var(--primary),
-            #6c928a
+            var(--primary-dark)
         );
 
     box-shadow:
-        0 10px 25px rgba(82,123,114,.2);
-}
-
-
-.primary-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 15px 30px rgba(82,123,114,.28);
-}
-
-
-.primary-button:active,
-.secondary-button:active {
-
-    transform:
-        scale(.97);
+        0 10px 25px
+        rgba(52,89,80,.2);
 }
 
 
 .secondary-button {
 
-    color: var(--text);
-
     background:
-        rgba(80,100,95,.08);
+        rgba(82,123,114,.1);
+
+    color: var(--primary-dark);
 }
 
 
-.exercise-panel .primary-button,
-.relax-panel .primary-button {
+.primary-button:hover,
+.secondary-button:hover {
 
-    display: block;
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================================
+   RESPIRACIÓN
+========================================================= */
+
+.breathing-circle {
+
+    width: min(70vw, 260px);
+    height: min(70vw, 260px);
 
     margin:
-        0
-        auto;
+        15px auto
+        20px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(82,123,114,.22),
+            rgba(82,123,114,.06)
+        );
+
+    border:
+        8px solid
+        rgba(82,123,114,.08);
+
+    transition:
+        transform 4s ease,
+        box-shadow 4s ease;
 }
 
 
-/* =========================================
-   ESCRITURA
-========================================= */
+.breathing-circle.breathe-in {
 
-.writing-panel label {
+    transform:
+        scale(1.25);
 
-    display: block;
-
-    font-weight: 700;
-
-    margin-bottom: 12px;
+    box-shadow:
+        0 0 70px
+        rgba(82,123,114,.22);
 }
 
+
+.breathing-circle.breathe-out {
+
+    transform:
+        scale(.82);
+
+    box-shadow:
+        0 0 20px
+        rgba(82,123,114,.08);
+}
+
+
+#breathingText {
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+.breathing-counter {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    margin-bottom: 20px;
+}
+
+
+.helper-text {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
 
 textarea {
 
     width: 100%;
 
-    min-height: 230px;
+    min-height: 180px;
 
     resize: vertical;
 
-    border: 1px solid var(--border);
+    margin-top: 12px;
+
+    padding: 17px;
 
     border-radius: 18px;
 
-    padding: 18px;
+    border:
+        1px solid
+        var(--border);
 
     background:
-        rgba(245,248,247,.8);
+        rgba(255,255,255,.75);
 
     color: var(--text);
 
-    font:
-        inherit;
-
     outline: none;
 
-    transition: .2s;
+    transition: var(--transition);
 }
 
 
 textarea:focus {
 
     border-color:
-        var(--primary);
+        rgba(82,123,114,.35);
 
     box-shadow:
         0 0 0 4px
-        rgba(82,123,114,.1);
+        rgba(82,123,114,.08);
 }
 
 
@@ -1400,222 +1202,138 @@ textarea:focus {
 
     display: flex;
 
-    justify-content: flex-end;
-
     gap: 10px;
 
     margin-top: 12px;
 }
 
 
-.saved-note {
+.writing-actions button {
+
+    flex: 1;
+}
+
+
+.saved-message {
 
     margin-top: 15px;
 
     padding: 13px;
 
-    border-radius: 14px;
-
-    background: #e7f4ef;
-
-    color: #477368;
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   PENSAMIENTOS
-========================================= */
-
-.question {
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-    margin-bottom: 18px;
-}
-
-
-.thought-options {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-}
-
-
-.thought-options button {
-
-    padding: 15px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 15px;
+    border-radius: 13px;
 
     background:
-        rgba(255,255,255,.65);
+        rgba(82,123,114,.1);
 
-    color: var(--text);
-
-    cursor: pointer;
-
-    text-align: left;
-
-    transition: .2s;
-}
-
-
-.thought-options button:hover {
-
-    border-color:
-        var(--primary);
-
-    transform:
-        translateY(-2px);
-}
-
-
-.response-box {
-
-    margin-top: 18px;
-
-    padding: 18px;
-
-    border-radius: 16px;
-
-    background:
-        rgba(82,123,114,.08);
-
-    color: var(--muted);
-
-    line-height: 1.6;
-
-    font-size: 14px;
-}
-
-
-/* =========================================
-   FOCUS
-========================================= */
-
-.focus-panel {
+    color: var(--primary-dark);
 
     text-align: center;
 }
 
 
+/* =========================================================
+   RESULTADO
+========================================================= */
+
+.result-card {
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(82,123,114,.08);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TEMPORIZADOR
+========================================================= */
+
 .focus-timer {
 
-    display: flex;
+    font-size:
+        clamp(60px, 15vw, 100px);
 
-    align-items: baseline;
+    text-align: center;
 
-    justify-content: center;
+    font-weight: 900;
 
-    gap: 8px;
+    letter-spacing: -4px;
 
-    margin-bottom: 10px;
+    margin:
+        20px 0;
 }
 
 
-.focus-timer span {
+.focus-tool p {
 
-    font-size: 90px;
-
-    font-weight: 800;
-
-    letter-spacing: -5px;
+    text-align: center;
 }
 
 
-.focus-timer small {
+/* =========================================================
+   RELAJACIÓN
+========================================================= */
+
+.relax-icon {
+
+    text-align: center;
+
+    font-size: 80px;
+
+    margin-bottom: 20px;
+}
+
+
+#relaxTool p {
+
+    text-align: center;
 
     color: var(--muted);
-}
 
-
-.focus-panel p {
-
-    color: var(--muted);
-
-    line-height: 1.6;
+    line-height: 1.7;
 
     margin-bottom: 25px;
 }
 
 
-/* =========================================
-   RELAJACIÓN
-========================================= */
+/* =========================================================
+   LECCIÓN
+========================================================= */
 
-.relax-panel {
+.lesson-card {
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(145,133,184,.09);
 
     text-align: center;
 }
 
 
-.relax-orb {
+.lesson-card > span {
 
-    width: 150px;
-    height: 150px;
-
-    display: grid;
-
-    place-items: center;
-
-    margin:
-        0
-        auto
-        25px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #f1e7d2,
-            #e6d6ba
-        );
-
-    font-size: 45px;
-
-    animation:
-        relaxPulse 4s ease-in-out infinite;
+    font-size: 50px;
 }
 
 
-@keyframes relaxPulse {
-
-    0%,
-    100% {
-        transform: scale(.95);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-}
-
-
-.relax-panel h3 {
-
-    font-size: 22px;
-}
-
-
-.relax-panel p {
-
-    max-width: 420px;
+.lesson-card h3 {
 
     margin:
         10px
-        auto
-        25px;
+        0;
+}
+
+
+.lesson-card p {
 
     color: var(--muted);
 
@@ -1623,281 +1341,311 @@ textarea:focus {
 }
 
 
-/* =========================================
-   APRENDER
-========================================= */
+.lesson-card + button {
 
-.learn-panel {
+    width: 100%;
 
-    display: grid;
-
-    gap: 12px;
+    margin-top: 15px;
 }
 
 
-.learn-panel article {
+/* =========================================================
+   FRASES
+========================================================= */
 
-    padding: 20px;
+.quote-big {
 
-    border-radius: 18px;
+    font-size:
+        clamp(25px, 6vw, 38px);
 
-    background:
-        rgba(245,248,247,.8);
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    text-align: center;
 }
 
 
-.learn-panel article > span {
+.quote-source {
 
-    font-size: 27px;
-}
-
-
-.learn-panel h3 {
-
-    margin-top: 8px;
-
-    font-size: 17px;
-}
-
-
-.learn-panel p {
-
-    margin-top: 7px;
+    text-align: center;
 
     color: var(--muted);
 
-    line-height: 1.6;
-
-    font-size: 13px;
+    margin:
+        20px 0;
 }
 
 
-/* =========================================
-   NAVEGACIÓN
-========================================= */
+/* =========================================================
+   DIARIO
+========================================================= */
 
-.bottom-nav {
-
-    position: fixed;
-
-    z-index: 20;
-
-    left: 50%;
-
-    bottom: 16px;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        min(
-            calc(100% - 28px),
-            550px
-        );
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    padding: 7px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.7);
-
-    border-radius: 23px;
-
-    background:
-        rgba(255,255,255,.82);
-
-    backdrop-filter:
-        blur(20px);
-
-    -webkit-backdrop-filter:
-        blur(20px);
-
-    box-shadow:
-        0 15px 45px
-        rgba(30,50,46,.16);
-}
-
-
-.nav-item {
-
-    border: 0;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 9px 5px;
-
-    border-radius: 17px;
-
-    cursor: pointer;
-
-    transition: .25s;
+.diary-entries {
 
     display: flex;
 
     flex-direction: column;
 
-    align-items: center;
-
-    gap: 3px;
+    gap: 12px;
 }
 
 
-.nav-item span {
+.diary-entry {
 
-    font-size: 20px;
-}
+    padding: 18px;
 
-
-.nav-item small {
-
-    font-size: 9px;
-
-    font-weight: 700;
-}
-
-
-.nav-item.active {
+    border-radius: 18px;
 
     background:
-        rgba(82,123,114,.12);
+        rgba(255,255,255,.65);
 
-    color: var(--primary);
+    line-height: 1.6;
 }
 
 
-.nav-item:hover {
+.diary-date {
 
-    color: var(--primary);
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
 }
 
 
-/* =========================================
-   TOAST
-========================================= */
+/* =========================================================
+   FOOTER
+========================================================= */
 
-.toast {
+footer {
 
-    position: fixed;
+    text-align: center;
 
-    z-index: 50;
+    margin-top: 50px;
 
-    left: 50%;
-
-    bottom: 95px;
-
-    transform:
-        translate(-50%, 30px);
+    color: var(--muted);
 
     display: flex;
 
-    align-items: center;
+    flex-direction: column;
 
-    gap: 9px;
+    gap: 5px;
 
-    padding:
-        13px
-        18px;
+    font-size: 12px;
+}
 
-    border-radius: 15px;
 
-    color: white;
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 20px;
+}
+
+
+.modal-overlay {
+
+    position: absolute;
+
+    inset: 0;
 
     background:
-        #243733;
+        rgba(20,30,28,.45);
+
+    backdrop-filter:
+        blur(8px);
+}
+
+
+.modal-box {
+
+    position: relative;
+
+    width: min(100%, 500px);
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(255,255,255,.94);
 
     box-shadow:
-        0 15px 35px
-        rgba(0,0,0,.18);
+        0 30px 80px
+        rgba(0,0,0,.2);
 
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: .3s ease;
-
-    font-size: 13px;
+    animation:
+        modalIn .35s ease;
 }
 
 
-.toast.show {
+.modal-close {
 
-    opacity: 1;
+    position: absolute;
 
-    transform:
-        translate(-50%, 0);
+    top: 15px;
+    right: 15px;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,.06);
+
+    font-size: 23px;
 }
 
 
-/* =========================================
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.92)
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+}
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
    RESPONSIVE
-========================================= */
+========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
     .app {
 
         padding:
+            20px
             15px
-            15px
-            105px;
+            40px;
     }
 
 
-    .mood-grid {
+    .emotion-grid {
 
         grid-template-columns:
             repeat(3, 1fr);
     }
 
 
-    .mood-card {
+    .emotion-card {
 
         min-height: 105px;
     }
 
 
-    .mood-card:last-child {
+    .tools-grid {
 
-        grid-column:
-            span 3;
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .top-header {
+
+        margin-bottom: 25px;
     }
 
 
-    .tool-grid {
+    .brand-subtitle {
+
+        max-width: 240px;
+
+        line-height: 1.4;
+    }
+
+
+    .emotion-grid {
 
         grid-template-columns:
             repeat(2, 1fr);
     }
 
 
+    .emotion-card:last-child {
+
+        grid-column:
+            1 / -1;
+    }
+
+
+    .tools-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
     .tool-card {
 
-        min-height: 140px;
-
-        padding: 17px;
+        min-height: 115px;
     }
 
 
-    .hero {
+    .tool-content {
 
-        padding-top: 10px;
+        padding: 22px 17px;
     }
 
 
-    .hero h2 {
+    .section-title {
 
-        font-size: 39px;
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
     }
 
 
-    .verse-card {
+    .writing-actions {
+
+        flex-direction: column;
+    }
+
+
+    .wisdom-card {
 
         padding: 20px;
     }
@@ -1905,94 +1653,25 @@ textarea:focus {
 }
 
 
-@media (max-width: 420px) {
+/* =========================================================
+   ANIMACIÓN DE SELECCIÓN
+========================================================= */
 
-    .mood-grid {
+@keyframes pulseSoft {
 
-        gap: 7px;
+    0%,
+    100% {
+        transform: scale(1);
     }
 
-
-    .mood-card {
-
-        padding:
-            12px
-            5px;
+    50% {
+        transform: scale(1.025);
     }
-
-
-    .mood-icon {
-
-        font-size: 25px;
-    }
-
-
-    .mood-card span:not(.mood-icon) {
-
-        font-size: 11px;
-    }
-
-
-    .tool-grid {
-
-        gap: 9px;
-    }
-
-
-    .tool-card {
-
-        min-height: 135px;
-
-        padding: 15px;
-    }
-
-
-    .tool-icon {
-
-        font-size: 26px;
-    }
-
-
-    .bottom-nav {
-
-        bottom: 10px;
-    }
-
 }
 
 
-/* =========================================
-   ACCESIBILIDAD
-========================================= */
+.emotion-card.selected {
 
-button {
-
-    -webkit-tap-highlight-color:
-        transparent;
-}
-
-
-button:focus-visible,
-textarea:focus-visible {
-
-    outline:
-        3px solid
-        rgba(82,123,114,.35);
-
-    outline-offset: 2px;
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-
-        animation-duration: .01ms !important;
-
-        animation-iteration-count: 1 !important;
-
-        transition-duration: .01ms !important;
-    }
+    animation:
+        pulseSoft 1.5s ease infinite;
 }
