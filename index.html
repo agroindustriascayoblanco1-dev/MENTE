@@ -537,4 +537,1181 @@
         </div>
 
         <button
-            id="bot
+            id="botonRespiracion"
+            class="boton-principal"
+            onclick="iniciarRespiracion()">
+            ▶ Comenzar ejercicio
+        </button>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- TRISTEZA -->
+
+    <div id="herramientaTristeza" class="herramienta">
+
+        <h2>
+            💚 Puedes darte un momento
+        </h2>
+
+        <p>
+            No tienes que explicar todo lo que sientes.
+            A veces comenzar escribiendo unas pocas palabras
+            puede ayudarnos a entender lo que está pasando.
+        </p>
+
+        <textarea
+            id="textoTristeza"
+            placeholder="Escribe aquí lo que estás sintiendo..."></textarea>
+
+        <br>
+
+        <button
+            class="boton-principal"
+            onclick="guardarTexto('textoTristeza', 'mensajeTristeza')">
+            💾 Guardar en este dispositivo
+        </button>
+
+        <div
+            id="mensajeTristeza"
+            class="mensaje-guardado">
+        </div>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- AGOTAMIENTO -->
+
+    <div id="herramientaAgotamiento" class="herramienta">
+
+        <h2>
+            😩 Hagamos una pausa
+        </h2>
+
+        <p>
+            Si estás agotado, quizá no necesites hacer más cosas.
+            Tal vez necesites unos minutos para detenerte.
+        </p>
+
+        <div class="temporizador" id="descansoTimer">
+            02:00
+        </div>
+
+        <p class="temporizador-descripcion">
+            Dos minutos de pausa consciente.
+        </p>
+
+        <button
+            class="boton-principal"
+            onclick="iniciarDescanso()">
+            ▶ Comenzar pausa
+        </button>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- EXPLORADOR DE EMOCIONES -->
+
+    <div id="herramientaEmociones" class="herramienta">
+
+        <h2>
+            🤷 Vamos a descubrirlo
+        </h2>
+
+        <p>
+            No siempre sabemos exactamente qué sentimos.
+            Elige la opción que más se acerque a lo que ocurre.
+        </p>
+
+        <div class="opciones-respuesta">
+
+            <button
+                class="opcion-respuesta"
+                onclick="mostrarEmocion('Tengo demasiados pensamientos')">
+                🧠 Demasiados pensamientos
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="mostrarEmocion('Siento tensión o nervios')">
+                😰 Tensión o nervios
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="mostrarEmocion('Me siento sin energía')">
+                😴 Sin energía
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="mostrarEmocion('Siento ganas de aislarme')">
+                🌧️ Quiero aislarme
+            </button>
+
+        </div>
+
+        <p id="resultadoEmocion"></p>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- SECCIÓN PRINCIPAL -->
+
+    <section class="seccion">
+
+        <h2>
+            ¿Qué necesitas ahora?
+        </h2>
+
+        <div class="opciones">
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('ansiedad')">
+
+                <span class="icono">
+                    🌬️
+                </span>
+
+                Calmarme
+
+            </div>
+
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('mente')">
+
+                <span class="icono">
+                    🧠
+                </span>
+
+                Ordenar mi mente
+
+            </div>
+
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('concentracion')">
+
+                <span class="icono">
+                    🎯
+                </span>
+
+                Concentrarme
+
+            </div>
+
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('diario')">
+
+                <span class="icono">
+                    📝
+                </span>
+
+                Escribir
+
+            </div>
+
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('relajacion')">
+
+                <span class="icono">
+                    😴
+                </span>
+
+                Relajarme
+
+            </div>
+
+
+            <div
+                class="opcion"
+                onclick="abrirHerramienta('aprender')">
+
+                <span class="icono">
+                    📚
+                </span>
+
+                Aprender
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ORDENAR LA MENTE -->
+
+    <div id="herramientaMente" class="herramienta">
+
+        <h2>
+            🧠 Ordenemos un poco la mente
+        </h2>
+
+        <p>
+            Escribe aquello que está ocupando tu cabeza.
+            No necesitas organizarlo todavía.
+        </p>
+
+        <textarea
+            id="ordenMental"
+            placeholder="¿Qué está pasando por tu mente?"></textarea>
+
+        <br>
+
+        <button
+            class="boton-principal"
+            onclick="guardarTexto('ordenMental', 'mensajeMente')">
+            💾 Guardar
+        </button>
+
+        <div
+            id="mensajeMente"
+            class="mensaje-guardado">
+        </div>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- CONCENTRACIÓN -->
+
+    <div id="herramientaConcentracion" class="herramienta">
+
+        <h2>
+            🎯 Tiempo de concentración
+        </h2>
+
+        <p>
+            Elige una tarea pequeña y concéntrate únicamente
+            en ella durante este tiempo.
+        </p>
+
+        <div
+            id="concentracionTimer"
+            class="temporizador">
+            05:00
+        </div>
+
+        <button
+            class="boton-principal"
+            onclick="iniciarConcentracion()">
+            ▶ Comenzar
+        </button>
+
+        <button
+            class="boton-secundario"
+            onclick="reiniciarConcentracion()">
+            ↻ Reiniciar
+        </button>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- DIARIO -->
+
+    <div id="herramientaDiario" class="herramienta">
+
+        <h2>
+            📝 Mi espacio
+        </h2>
+
+        <p>
+            Este espacio funciona como un pequeño diario
+            guardado únicamente en este navegador.
+        </p>
+
+        <textarea
+            id="diario"
+            placeholder="Escribe lo que quieras guardar..."></textarea>
+
+        <br>
+
+        <button
+            class="boton-principal"
+            onclick="guardarDiario()">
+            💾 Guardar
+        </button>
+
+        <button
+            class="boton-secundario"
+            onclick="borrarDiario()">
+            🗑️ Borrar
+        </button>
+
+        <div
+            id="mensajeDiario"
+            class="mensaje-guardado">
+        </div>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- RELAJACIÓN -->
+
+    <div id="herramientaRelajacion" class="herramienta">
+
+        <h2>
+            😴 Momento de relajarte
+        </h2>
+
+        <p>
+            Cierra los ojos si te resulta cómodo.
+            Relaja los hombros y respira lentamente.
+        </p>
+
+        <div class="respiracion">
+
+            <div class="respiracion-contenido">
+
+                <div>
+                    🌿
+                </div>
+
+                <div>
+                    Tómate un momento
+                </div>
+
+            </div>
+
+        </div>
+
+        <p>
+            No tienes que conseguir nada durante estos minutos.
+            Simplemente permite que tu cuerpo descanse.
+        </p>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- APRENDER -->
+
+    <div id="herramientaAprender" class="herramienta">
+
+        <h2>
+            📚 Aprender sobre bienestar
+        </h2>
+
+        <p>
+            MENTE puede ayudarte a conocer mejor tus emociones,
+            hábitos y formas de organizar tu día.
+        </p>
+
+        <div class="opciones-respuesta">
+
+            <button class="opcion-respuesta">
+                🧠 Emociones
+            </button>
+
+            <button class="opcion-respuesta">
+                🌬️ Ansiedad
+            </button>
+
+            <button class="opcion-respuesta">
+                😴 Sueño
+            </button>
+
+            <button class="opcion-respuesta">
+                🎯 Concentración
+            </button>
+
+        </div>
+
+        <button
+            class="boton-secundario"
+            onclick="cerrarHerramientas()">
+            ← Volver
+        </button>
+
+    </div>
+
+
+    <!-- SEGURIDAD -->
+
+    <div class="seguridad">
+
+        <strong>
+            💚 MENTE es una herramienta de acompañamiento
+        </strong>
+
+        <p>
+            MENTE no realiza diagnósticos y no sustituye
+            la atención de profesionales de la salud.
+            Si sientes que estás en peligro o que podrías
+            hacerte daño, busca ayuda humana y profesional
+            de inmediato.
+        </p>
+
+    </div>
+
+
+    <footer>
+
+        MENTE · Plataforma de bienestar mental<br>
+        Hecho para acompañarte, un paso a la vez.
+
+    </footer>
+
+
+</main>
+
+
+<script>
+
+
+/* =========================================
+   ESTADO DE ÁNIMO
+========================================= */
+
+function seleccionarEmocion(emocion, boton) {
+
+    const respuesta =
+        document.getElementById("respuesta");
+
+    const titulo =
+        document.getElementById("tituloRespuesta");
+
+    const texto =
+        document.getElementById("textoRespuesta");
+
+
+    document
+        .querySelectorAll(".emocion")
+        .forEach(function(b) {
+
+            b.classList.remove("seleccionada");
+
+        });
+
+
+    boton.classList.add("seleccionada");
+
+
+    localStorage.setItem(
+        "mente_estado",
+        emocion
+    );
+
+
+    if (emocion === "muy bien") {
+
+        titulo.textContent =
+            "¡Qué bueno saberlo! 😊";
+
+        texto.textContent =
+            "Disfruta este momento. También puedes utilizar MENTE para fortalecer hábitos y cuidar tu bienestar.";
+
+    }
+
+    else if (emocion === "bien") {
+
+        titulo.textContent =
+            "Me alegra saberlo 🙂";
+
+        texto.textContent =
+            "Cuidar tu mente también es importante cuando te encuentras bien. ¿Hay algo que quieras hacer por ti hoy?";
+
+    }
+
+    else if (emocion === "regular") {
+
+        titulo.textContent =
+            "Gracias por contármelo 💚";
+
+        texto.textContent =
+            "A veces necesitamos detenernos y reconocer cómo nos sentimos. Puedes elegir una herramienta para este momento.";
+
+    }
+
+    else if (emocion === "mal") {
+
+        titulo.textContent =
+            "Gracias por decirlo 💚";
+
+        texto.textContent =
+            "No tienes que solucionar todo de una vez. Podemos comenzar con un pequeño paso.";
+
+    }
+
+    else {
+
+        titulo.textContent =
+            "Estoy aquí para acompañarte 💚";
+
+        texto.textContent =
+            "Lo que estás sintiendo importa. No tienes que resolver todo al mismo tiempo. Vamos paso a paso.";
+
+    }
+
+
+    respuesta.classList.add("visible");
+
+
+    respuesta.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* =========================================
+   ABRIR HERRAMIENTAS
+========================================= */
+
+function abrirHerramienta(tipo) {
+
+    cerrarHerramientas();
+
+
+    let elemento = null;
+
+
+    if (tipo === "ansiedad") {
+
+        elemento =
+            document.getElementById("herramientaAnsiedad");
+
+    }
+
+    if (tipo === "tristeza") {
+
+        elemento =
+            document.getElementById("herramientaTristeza");
+
+    }
+
+    if (tipo === "agotamiento") {
+
+        elemento =
+            document.getElementById("herramientaAgotamiento");
+
+    }
+
+    if (tipo === "emociones") {
+
+        elemento =
+            document.getElementById("herramientaEmociones");
+
+    }
+
+    if (tipo === "mente") {
+
+        elemento =
+            document.getElementById("herramientaMente");
+
+    }
+
+    if (tipo === "concentracion") {
+
+        elemento =
+            document.getElementById("herramientaConcentracion");
+
+    }
+
+    if (tipo === "diario") {
+
+        elemento =
+            document.getElementById("herramientaDiario");
+
+    }
+
+    if (tipo === "relajacion") {
+
+        elemento =
+            document.getElementById("herramientaRelajacion");
+
+    }
+
+    if (tipo === "aprender") {
+
+        elemento =
+            document.getElementById("herramientaAprender");
+
+    }
+
+
+    if (elemento) {
+
+        elemento.classList.add("visible");
+
+        elemento.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+}
+
+
+/* =========================================
+   CERRAR HERRAMIENTAS
+========================================= */
+
+function cerrarHerramientas() {
+
+    detenerRespiracion();
+
+    clearInterval(descansoIntervalo);
+
+    clearInterval(concentracionIntervalo);
+
+
+    document
+        .querySelectorAll(".herramienta")
+        .forEach(function(elemento) {
+
+            elemento.classList.remove("visible");
+
+        });
+
+}
+
+
+/* =========================================
+   RESPIRACIÓN
+========================================= */
+
+let respirando = false;
+let respiracionIntervalo;
+
+
+function iniciarRespiracion() {
+
+    if (respirando) {
+
+        detenerRespiracion();
+
+        return;
+
+    }
+
+
+    respirando = true;
+
+
+    document
+        .getElementById("botonRespiracion")
+        .textContent = "■ Detener";
+
+
+    cicloRespiracion();
+
+}
+
+
+function cicloRespiracion() {
+
+    if (!respirando) {
+        return;
+    }
+
+
+    ejecutarFase(
+        "INHALA",
+        4,
+        "inhalar",
+        function() {
+
+            ejecutarFase(
+                "MANTÉN",
+                2,
+                "mantener",
+                function() {
+
+                    ejecutarFase(
+                        "EXHALA",
+                        6,
+                        "exhalar",
+                        function() {
+
+                            cicloRespiracion();
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+function ejecutarFase(
+    nombre,
+    segundos,
+    clase,
+    siguiente
+) {
+
+    if (!respirando) {
+        return;
+    }
+
+
+    const fase =
+        document.getElementById("fase");
+
+    const contador =
+        document.getElementById("contador");
+
+    const circulo =
+        document.getElementById("circulo");
+
+
+    fase.textContent = nombre;
+
+
+    circulo.classList.remove(
+        "inhalar",
+        "mantener",
+        "exhalar"
+    );
+
+
+    circulo.classList.add(clase);
+
+
+    let tiempo = segundos;
+
+    contador.textContent = tiempo;
+
+
+    clearInterval(respiracionIntervalo);
+
+
+    respiracionIntervalo =
+        setInterval(function() {
+
+            tiempo--;
+
+            contador.textContent =
+                tiempo;
+
+
+            if (tiempo <= 0) {
+
+                clearInterval(
+                    respiracionIntervalo
+                );
+
+                siguiente();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function detenerRespiracion() {
+
+    respirando = false;
+
+
+    clearInterval(
+        respiracionIntervalo
+    );
+
+
+    const fase =
+        document.getElementById("fase");
+
+    const contador =
+        document.getElementById("contador");
+
+    const circulo =
+        document.getElementById("circulo");
+
+    const boton =
+        document.getElementById("botonRespiracion");
+
+
+    if (fase) {
+
+        fase.textContent = "Listo";
+
+    }
+
+
+    if (contador) {
+
+        contador.textContent = "—";
+
+    }
+
+
+    if (circulo) {
+
+        circulo.classList.remove(
+            "inhalar",
+            "mantener",
+            "exhalar"
+        );
+
+    }
+
+
+    if (boton) {
+
+        boton.textContent =
+            "▶ Comenzar ejercicio";
+
+    }
+
+}
+
+
+/* =========================================
+   GUARDAR TEXTOS
+========================================= */
+
+function guardarTexto(
+    campo,
+    mensaje
+) {
+
+    const texto =
+        document.getElementById(campo).value;
+
+
+    localStorage.setItem(
+        "mente_" + campo,
+        texto
+    );
+
+
+    document
+        .getElementById(mensaje)
+        .textContent =
+        "✓ Guardado en este dispositivo.";
+
+
+}
+
+
+/* =========================================
+   DIARIO
+========================================= */
+
+function guardarDiario() {
+
+    const texto =
+        document.getElementById("diario").value;
+
+
+    localStorage.setItem(
+        "mente_diario",
+        texto
+    );
+
+
+    document
+        .getElementById("mensajeDiario")
+        .textContent =
+        "✓ Tu diario fue guardado en este dispositivo.";
+
+}
+
+
+function borrarDiario() {
+
+    if (
+        confirm(
+            "¿Quieres borrar lo que escribiste?"
+        )
+    ) {
+
+        localStorage.removeItem(
+            "mente_diario"
+        );
+
+
+        document
+            .getElementById("diario")
+            .value = "";
+
+
+        document
+            .getElementById("mensajeDiario")
+            .textContent =
+            "El diario está vacío.";
+
+    }
+
+}
+
+
+/* =========================================
+   DESCANSO
+========================================= */
+
+let descansoIntervalo;
+let descansoSegundos = 120;
+
+
+function iniciarDescanso() {
+
+    clearInterval(
+        descansoIntervalo
+    );
+
+
+    descansoSegundos = 120;
+
+    actualizarDescanso();
+
+
+    descansoIntervalo =
+        setInterval(function() {
+
+            descansoSegundos--;
+
+            actualizarDescanso();
+
+
+            if (descansoSegundos <= 0) {
+
+                clearInterval(
+                    descansoIntervalo
+                );
+
+                alert(
+                    "Terminaste tu pausa. 💚"
+                );
+
+            }
+
+        }, 1000);
+
+}
+
+
+function actualizarDescanso() {
+
+    const minutos =
+        Math.floor(
+            descansoSegundos / 60
+        );
+
+    const segundos =
+        descansoSegundos % 60;
+
+
+    document
+        .getElementById("descansoTimer")
+        .textContent =
+        String(minutos).padStart(2, "0")
+        + ":" +
+        String(segundos).padStart(2, "0");
+
+}
+
+
+/* =========================================
+   EXPLORADOR DE EMOCIONES
+========================================= */
+
+function mostrarEmocion(texto) {
+
+    document
+        .getElementById("resultadoEmocion")
+        .textContent =
+        "Gracias por identificarlo. Puedes comenzar con una pausa, respirar lentamente o escribir lo que estás sintiendo.";
+
+}
+
+
+/* =========================================
+   CONCENTRACIÓN
+========================================= */
+
+let concentracionIntervalo;
+let concentracionSegundos = 300;
+
+
+function iniciarConcentracion() {
+
+    clearInterval(
+        concentracionIntervalo
+    );
+
+
+    concentracionIntervalo =
+        setInterval(function() {
+
+            concentracionSegundos--;
+
+            actualizarConcentracion();
+
+
+            if (concentracionSegundos <= 0) {
+
+                clearInterval(
+                    concentracionIntervalo
+                );
+
+                alert(
+                    "Terminaste tu sesión de concentración. 🎯"
+                );
+
+            }
+
+        }, 1000);
+
+}
+
+
+function actualizarConcentracion() {
+
+    const minutos =
+        Math.floor(
+            concentracionSegundos / 60
+        );
+
+    const segundos =
+        concentracionSegundos % 60;
+
+
+    document
+        .getElementById("concentracionTimer")
+        .textContent =
+        String(minutos).padStart(2, "0")
+        + ":" +
+        String(segundos).padStart(2, "0");
+
+}
+
+
+function reiniciarConcentracion() {
+
+    clearInterval(
+        concentracionIntervalo
+    );
+
+
+    concentracionSegundos = 300;
+
+    actualizarConcentracion();
+
+}
+
+
+/* =========================================
+   RECUPERAR INFORMACIÓN GUARDADA
+========================================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const diario =
+            localStorage.getItem(
+                "mente_diario"
+            );
+
+
+        if (diario) {
+
+            document
+                .getElementById("diario")
+                .value = diario;
+
+        }
+
+
+        const tristeza =
+            localStorage.getItem(
+                "mente_textoTristeza"
+            );
+
+
+        if (tristeza) {
+
+            document
+                .getElementById("textoTristeza")
+                .value = tristeza;
+
+        }
+
+
+        const orden =
+            localStorage.getItem(
+                "mente_ordenMental"
+            );
+
+
+        if (orden) {
+
+            document
+                .getElementById("ordenMental")
+                .value = orden;
+
+        }
+
+    });
+
+
+</script>
+
+</body>
+
+</html>
