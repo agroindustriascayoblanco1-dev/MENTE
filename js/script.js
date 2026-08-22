@@ -1,577 +1,517 @@
-/* =========================================
+/* =========================================================
    MENTE
    JAVASCRIPT PRINCIPAL
-========================================= */
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    /* =====================================
-       ELEMENTOS
-    ===================================== */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-    const homeScreen =
-        document.getElementById("homeScreen");
+const state = {
 
-    const toolScreen =
-        document.getElementById("toolScreen");
+    emotion: null,
 
-    const backButton =
-        document.getElementById("backButton");
+    sound: true,
 
-    const toolTitle =
-        document.getElementById("toolTitle");
+    breathingRunning: false,
 
-    const toolDescription =
-        document.getElementById("toolDescription");
+    focusRunning: false,
 
-    const toolHeaderIcon =
-        document.getElementById("toolHeaderIcon");
+    focusSeconds: 300,
 
-    const toolLabel =
-        document.getElementById("toolLabel");
+    focusInterval: null,
 
-    const dailyMessage =
-        document.getElementById("dailyMessage");
+    breathingTimeout: null,
 
-    const dailyIcon =
-        document.getElementById("dailyIcon");
+    weather: "default"
 
-    const verseText =
-        document.getElementById("verseText");
+};
 
-    const verseReference =
-        document.getElementById("verseReference");
 
-    const toast =
-        document.getElementById("toast");
+/* =========================================================
+   ELEMENTOS
+========================================================= */
 
-    const toastMessage =
-        document.getElementById("toastMessage");
+const homeScreen =
+    document.getElementById("homeScreen");
 
+const toolScreen =
+    document.getElementById("toolScreen");
 
-    /* =====================================
-       HERRAMIENTAS
-    ===================================== */
+const weatherBackground =
+    document.getElementById("weatherBackground");
 
-    const panels = {
+const weatherParticles =
+    document.getElementById("weatherParticles");
 
-        calmar:
-            document.getElementById("breathingPanel"),
+const rain =
+    document.getElementById("rain");
 
-        ordenar:
-            document.getElementById("thoughtPanel"),
+const soundToggle =
+    document.getElementById("soundToggle");
 
-        concentrarme:
-            document.getElementById("focusPanel"),
+const selectedEmotionLabel =
+    document.getElementById("selectedEmotionLabel");
 
-        escribir:
-            document.getElementById("writingPanel"),
+const emotionMessage =
+    document.getElementById("emotionMessage");
 
-        relajarme:
-            document.getElementById("relaxPanel"),
+const emotionMessageIcon =
+    document.getElementById("emotionMessageIcon");
 
-        aprender:
-            document.getElementById("learnPanel")
+const emotionMessageTitle =
+    document.getElementById("emotionMessageTitle");
 
-    };
+const emotionMessageText =
+    document.getElementById("emotionMessageText");
 
+const wisdomText =
+    document.getElementById("wisdomText");
 
-    const tools = {
+const wisdomSource =
+    document.getElementById("wisdomSource");
 
-        calmar: {
+const newWisdom =
+    document.getElementById("newWisdom");
 
-            icon: "🌬️",
+const toolTitle =
+    document.getElementById("toolTitle");
 
-            title:
-                "Vamos a bajar el ritmo",
+const toolDescription =
+    document.getElementById("toolDescription");
 
-            description:
-                "No necesitas hacer que todo desaparezca. Vamos a concentrarnos solamente en este momento.",
+const toolIcon =
+    document.getElementById("toolIcon");
 
-            label:
-                "CALMARME"
+const backHome =
+    document.getElementById("backHome");
 
-        },
 
+/* =========================================================
+   DATOS DE EMOCIONES
+========================================================= */
 
-        ordenar: {
+const emotions = {
 
-            icon: "🧠",
+    "muy-bien": {
 
-            title:
-                "Vamos a ordenar tus pensamientos",
+        weather: "sunny",
 
-            description:
-                "No tienes que solucionar todo de una vez. Primero vamos a identificar qué ocupa más espacio.",
+        icon: "☀️",
 
-            label:
-                "ORDENAR MI MENTE"
+        title: "Qué bonito saberlo.",
 
-        },
-
-
-        concentrarme: {
-
-            icon: "🎯",
-
-            title:
-                "Un momento de concentración",
-
-            description:
-                "Vamos a reducir el ruido y dedicar unos minutos a una sola cosa.",
-
-            label:
-                "CONCENTRARME"
-
-        },
-
-
-        escribir: {
-
-            icon: "📝",
-
-            title:
-                "Ponlo en palabras",
-
-            description:
-                "Escribir puede ayudarte a sacar lo que tienes dando vueltas en la cabeza.",
-
-            label:
-                "ESCRIBIR"
-
-        },
-
-
-        relajarme: {
-
-            icon: "😴",
-
-            title:
-                "Es momento de aflojar",
-
-            description:
-                "Suelta los hombros. Relaja la mandíbula. No tienes que estar haciendo algo todo el tiempo.",
-
-            label:
-                "RELAJARME"
-
-        },
-
-
-        aprender: {
-
-            icon: "📚",
-
-            title:
-                "Entenderte también es cuidarte",
-
-            description:
-                "Conocer cómo funcionan tus pensamientos y emociones puede ayudarte a tratarlos con más paciencia.",
-
-            label:
-                "APRENDER"
-
-        }
-
-    };
-
-
-    /* =====================================
-       MENSAJES POR EMOCIÓN
-    ===================================== */
-
-    const moodData = {
-
-        "muy-bien": {
-
-            weather: "sunny",
-
-            icon: "☀️",
-
-            message:
-                "Disfruta este momento. No tienes que esperar a sentirte mal para reconocer que hoy estás bien.",
-
-            sound: "sunny"
-
-        },
-
-
-        "bien": {
-
-            weather: "sunny",
-
-            icon: "🌤️",
-
-            message:
-                "Qué bueno que hoy estás bien. Guarda un poco de esta calma para los días difíciles.",
-
-            sound: "sunny"
-
-        },
-
-
-        "regular": {
-
-            weather: "cloudy",
-
-            icon: "⛅",
-
-            message:
-                "No todos los días tienen que ser extraordinarios. Hoy también cuenta.",
-
-            sound: "cloudy"
-
-        },
-
-
-        "mal": {
-
-            weather: "rainy",
-
-            icon: "🌧️",
-
-            message:
-                "Está bien reconocer que hoy no estás bien. No tienes que fingir lo contrario.",
-
-            sound: "rain"
-
-        },
-
-
-        "muy-mal": {
-
-            weather: "night",
-
-            icon: "🌙",
-
-            message:
-                "Si todo parece demasiado ahora, no intentes resolverlo todo. Quédate con el siguiente pequeño paso.",
-
-            sound: "rain"
-
-        }
-
-    };
-
-
-    /* =====================================
-       VERSÍCULOS
-    ===================================== */
-
-    const verses = [
-
-        {
-
-            text:
-                "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios.",
-
-            reference:
-                "Isaías 41:10"
-
-        },
-
-
-        {
-
-            text:
-                "Echa sobre Jehová tu carga, y él te sustentará.",
-
-            reference:
-                "Salmos 55:22"
-
-        },
-
-
-        {
-
-            text:
-                "El Señor es mi pastor; nada me faltará.",
-
-            reference:
-                "Salmos 23:1"
-
-        },
-
-
-        {
-
-            text:
-                "Todo lo puedo en Cristo que me fortalece.",
-
-            reference:
-                "Filipenses 4:13"
-
-        },
-
-
-        {
-
-            text:
-                "Cercano está Jehová a los quebrantados de corazón.",
-
-            reference:
-                "Salmos 34:18"
-
-        },
-
-
-        {
-
-            text:
-                "Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.",
-
-            reference:
-                "Mateo 11:28"
-
-        },
-
-
-        {
-
-            text:
-                "Encomienda a Jehová tus obras, y tus pensamientos serán afirmados.",
-
-            reference:
-                "Proverbios 16:3"
-
-        },
-
-
-        {
-
-            text:
-                "Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios.",
-
-            reference:
-                "Filipenses 4:6"
-
-        },
-
-
-        {
-
-            text:
-                "Jehová es mi luz y mi salvación; ¿de quién temeré?",
-
-            reference:
-                "Salmos 27:1"
-
-        },
-
-
-        {
-
-            text:
-                "Aun cuando pase por el valle más oscuro, no temeré peligro alguno, porque tú estás conmigo.",
-
-            reference:
-                "Salmos 23:4"
-
-        }
-
-    ];
-
-
-    /* =====================================
-       FRASES
-    ===================================== */
-
-    const phrases = [
-
-        "No tienes que tener todo resuelto hoy.",
-
-        "Respirar también es avanzar.",
-
-        "Puedes descansar sin sentir culpa.",
-
-        "Un momento difícil no define toda tu historia.",
-
-        "Sé paciente contigo.",
-
-        "No necesitas ir tan rápido.",
-
-        "Haz solamente lo que puedas hacer ahora.",
-
-        "Tus emociones merecen ser escuchadas.",
-
-        "También puedes empezar de nuevo.",
-
-        "Un pequeño paso sigue siendo un paso."
-
-    ];
-
-
-    /* =====================================
-       CAMBIAR VERSÍCULO
-    ===================================== */
-
-    function showRandomVerse() {
-
-        const current =
-            verses[
-                Math.floor(
-                    Math.random() *
-                    verses.length
-                )
-            ];
-
-        verseText.textContent =
-            `"${current.text}"`;
-
-        verseReference.textContent =
-            current.reference;
-
-    }
-
-
-    const newVerseButton =
-        document.getElementById("newVerseButton");
-
-
-    if (newVerseButton) {
-
-        newVerseButton.addEventListener(
-            "click",
-            () => {
-
-                showRandomVerse();
-
-                showToast(
-                    "Nueva palabra para este momento."
-                );
-
+        text:
+            "Disfruta este momento. También vale la pena reconocer cuando las cosas están bien.",
+
+        wisdom: [
+            {
+                text: "“Este es el día que hizo el Señor; nos gozaremos y alegraremos en él.”",
+                source: "Salmos 118:24"
+            },
+            {
+                text: "“Todo tiene su tiempo, y todo lo que se quiere debajo del cielo tiene su hora.”",
+                source: "Eclesiastés 3:1"
             }
+        ]
+
+    },
+
+
+    "bien": {
+
+        weather: "sunny",
+
+        icon: "🌤️",
+
+        title: "Me alegra saber que estás bien.",
+
+        text:
+            "No necesitas sentirte increíble todo el tiempo. Estar bien también es suficiente.",
+
+        wisdom: [
+            {
+                text: "“El corazón alegre constituye buen remedio.”",
+                source: "Proverbios 17:22"
+            },
+            {
+                text: "A veces la tranquilidad también es una forma de felicidad.",
+                source: "MENTE"
+            }
+        ]
+
+    },
+
+
+    "regular": {
+
+        weather: "cloudy",
+
+        icon: "🌥️",
+
+        title: "Hoy parece un día intermedio.",
+
+        text:
+            "No tienes que solucionar todo ahora. Podemos empezar por entender qué necesitas.",
+
+        wisdom: [
+            {
+                text: "“Todo lo puedo en Cristo que me fortalece.”",
+                source: "Filipenses 4:13"
+            },
+            {
+                text: "No todos los días tienen que ser extraordinarios.",
+                source: "MENTE"
+            }
+        ]
+
+    },
+
+
+    "mal": {
+
+        weather: "rainy",
+
+        icon: "🌧️",
+
+        title: "Gracias por decirlo.",
+
+        text:
+            "No tienes que esconder cómo te sientes. Vamos paso a paso.",
+
+        wisdom: [
+            {
+                text: "“Cercano está Jehová a los quebrantados de corazón.”",
+                source: "Salmos 34:18"
+            },
+            {
+                text: "“Echa sobre Jehová tu carga, y él te sustentará.”",
+                source: "Salmos 55:22"
+            },
+            {
+                text: "Está bien detenerte un momento. No tienes que resolverlo todo hoy.",
+                source: "MENTE"
+            }
+        ]
+
+    },
+
+
+    "muy-mal": {
+
+        weather: "rainy",
+
+        icon: "🌧️",
+
+        title: "No estás obligado a cargarlo todo solo.",
+
+        text:
+            "Quédate aquí un momento. Respira. Podemos ir buscando un pequeño siguiente paso.",
+
+        wisdom: [
+            {
+                text: "“Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.”",
+                source: "Mateo 11:28"
+            },
+            {
+                text: "“No temas, porque yo estoy contigo.”",
+                source: "Isaías 41:10"
+            },
+            {
+                text: "Un momento difícil no define toda tu historia.",
+                source: "MENTE"
+            }
+        ]
+
+    }
+
+};
+
+
+/* =========================================================
+   FRASES GENERALES
+========================================================= */
+
+const quotes = [
+
+    {
+        text: "“No tienes que resolver toda tu vida hoy.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“Después de la tormenta viene la calma.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“Un pequeño paso sigue siendo un paso.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“También mereces hablarte con paciencia.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“Lo que sientes importa.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“Descansar no significa rendirse.”",
+        source: "MENTE"
+    },
+
+    {
+        text: "“Mañana puede ser diferente.”",
+        source: "MENTE"
+    }
+
+];
+
+
+let wisdomIndex = 0;
+
+let quoteIndex = 0;
+
+
+/* =========================================================
+   HORA Y SALUDO
+========================================================= */
+
+function updateGreeting() {
+
+    const hour =
+        new Date().getHours();
+
+    const greeting =
+        document.getElementById("greetingTime");
+
+    if (hour < 12) {
+
+        greeting.textContent =
+            "Buenos días ☀️";
+
+    } else if (hour < 19) {
+
+        greeting.textContent =
+            "Buenas tardes 🌤️";
+
+    } else {
+
+        greeting.textContent =
+            "Buenas noches 🌙";
+
+    }
+
+}
+
+
+updateGreeting();
+
+
+/* =========================================================
+   SONIDO
+========================================================= */
+
+function playSound(type = "click") {
+
+    if (!state.sound) {
+        return;
+    }
+
+    /*
+       Usamos Web Audio para evitar depender
+       de archivos externos.
+    */
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) {
+            return;
+        }
+
+        const context =
+            new AudioContext();
+
+        const oscillator =
+            context.createOscillator();
+
+        const gain =
+            context.createGain();
+
+        oscillator.connect(gain);
+
+        gain.connect(context.destination);
+
+        const frequencies = {
+
+            click: 420,
+
+            success: 620,
+
+            soft: 300
+
+        };
+
+        oscillator.frequency.value =
+            frequencies[type] || 420;
+
+        oscillator.type = "sine";
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            context.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.04,
+            context.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            context.currentTime + 0.25
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            context.currentTime + 0.25
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Audio no disponible."
         );
 
     }
 
-
-    /* =====================================
-       TOAST
-    ===================================== */
-
-    let toastTimer;
+}
 
 
-    function showToast(message) {
+/* =========================================================
+   BOTÓN SONIDO
+========================================================= */
 
-        toastMessage.textContent =
-            message;
+soundToggle.addEventListener(
+    "click",
+    () => {
 
-        toast.classList.add("show");
+        state.sound =
+            !state.sound;
 
-        clearTimeout(toastTimer);
+        soundToggle.textContent =
+            state.sound
+                ? "🔊"
+                : "🔇";
 
-        toastTimer =
-            setTimeout(() => {
+        if (state.sound) {
+            playSound("success");
+        }
 
-                toast.classList.remove("show");
+    }
+);
 
-            }, 2800);
+
+/* =========================================================
+   CAMBIAR CLIMA
+========================================================= */
+
+function changeWeather(weather) {
+
+    weatherBackground.className =
+        "weather-background";
+
+    weatherBackground.classList.add(
+        `weather-${weather}`
+    );
+
+    state.weather =
+        weather;
+
+    createWeatherParticles(weather);
+
+}
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+function createWeatherParticles(weather) {
+
+    weatherParticles.innerHTML = "";
+
+    if (
+        weather !== "sunny" &&
+        weather !== "cloudy" &&
+        weather !== "night"
+    ) {
+        return;
+    }
+
+    const amount =
+        weather === "sunny"
+            ? 10
+            : 5;
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+        particle.style.top =
+            `${Math.random() * 100}%`;
+
+        particle.style.animationDelay =
+            `${Math.random() * 4}s`;
+
+        particle.className =
+            "weather-particle";
+
+        weatherParticles.appendChild(
+            particle
+        );
 
     }
 
-
-    /* =====================================
-       CAMBIO DE CLIMA
-    ===================================== */
-
-    function changeWeather(weather) {
-
-        document.body.classList.remove(
-            "weather-sunny",
-            "weather-cloudy",
-            "weather-rainy",
-            "weather-night"
-        );
-
-        document.body.classList.add(
-            `weather-${weather}`
-        );
-
-    }
+}
 
 
-    /* =====================================
-       SELECCIÓN DE EMOCIÓN
-    ===================================== */
+/* =========================================================
+   EMOCIONES
+========================================================= */
 
-    const moodButtons =
-        document.querySelectorAll(
-            ".mood-card"
-        );
-
-
-    moodButtons.forEach(button => {
+document
+    .querySelectorAll(".emotion-card")
+    .forEach(button => {
 
         button.addEventListener(
             "click",
             () => {
 
-                moodButtons.forEach(item => {
+                const emotion =
+                    button.dataset.emotion;
 
-                    item.classList.remove(
-                        "selected"
-                    );
-
-                });
-
-
-                button.classList.add(
-                    "selected"
-                );
-
-
-                const mood =
-                    button.dataset.mood;
-
-                const data =
-                    moodData[mood];
-
-
-                if (!data) return;
-
-
-                changeWeather(
-                    data.weather
-                );
-
-
-                dailyIcon.textContent =
-                    data.icon;
-
-                dailyMessage.textContent =
-                    data.message;
-
-
-                const phrase =
-                    phrases[
-                        Math.floor(
-                            Math.random() *
-                            phrases.length
-                        )
-                    ];
-
-
-                showToast(
-                    `${phrase}`
-                );
-
-
-                playMoodSound(
-                    data.sound
-                );
-
-
-                localStorage.setItem(
-                    "menteMood",
-                    mood
-                );
-
-
-                localStorage.setItem(
-                    "menteMoodDate",
-                    new Date().toISOString()
+                selectEmotion(
+                    emotion,
+                    button
                 );
 
             }
@@ -580,1365 +520,1383 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =====================================
-       ABRIR HERRAMIENTA
-    ===================================== */
+function selectEmotion(
+    emotion,
+    selectedButton = null
+) {
 
-    function openTool(toolName) {
+    state.emotion =
+        emotion;
 
-        const tool =
-            tools[toolName];
+    const data =
+        emotions[emotion];
 
-        if (!tool) return;
-
-
-        /* Cambiar encabezado */
-
-        toolHeaderIcon.textContent =
-            tool.icon;
-
-        toolTitle.textContent =
-            tool.title;
-
-        toolDescription.textContent =
-            tool.description;
-
-        toolLabel.textContent =
-            tool.label;
+    if (!data) {
+        return;
+    }
 
 
-        /* Ocultar todos los paneles */
+    document
+        .querySelectorAll(".emotion-card")
+        .forEach(card => {
 
-        Object.values(panels)
-            .forEach(panel => {
+            card.classList.remove(
+                "selected"
+            );
 
-                if (panel) {
-
-                    panel.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-            });
+        });
 
 
-        /* Mostrar panel */
+    if (selectedButton) {
 
-        if (panels[toolName]) {
+        selectedButton.classList.add(
+            "selected"
+        );
 
-            panels[toolName]
-                .classList.remove(
-                    "hidden"
-                );
+    }
+
+
+    selectedEmotionLabel.textContent =
+        data.title;
+
+
+    emotionMessage.classList.remove(
+        "hidden"
+    );
+
+
+    emotionMessageIcon.textContent =
+        data.icon;
+
+    emotionMessageTitle.textContent =
+        data.title;
+
+    emotionMessageText.textContent =
+        data.text;
+
+
+    changeWeather(
+        data.weather
+    );
+
+
+    showWisdomForEmotion(
+        data
+    );
+
+
+    playSound(
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   REFLEXIONES
+========================================================= */
+
+function showWisdomForEmotion(data) {
+
+    const collection =
+        data.wisdom;
+
+    wisdomIndex =
+        Math.floor(
+            Math.random() *
+            collection.length
+        );
+
+    const wisdom =
+        collection[wisdomIndex];
+
+    wisdomText.textContent =
+        wisdom.text;
+
+    wisdomSource.textContent =
+        wisdom.source;
+
+}
+
+
+newWisdom.addEventListener(
+    "click",
+    () => {
+
+        if (!state.emotion) {
+
+            showRandomWisdom();
+
+            return;
 
         }
 
+        const data =
+            emotions[state.emotion];
 
-        /* Cambiar pantalla */
+        let newIndex =
+            wisdomIndex + 1;
 
-        homeScreen.classList.remove(
+        if (
+            newIndex >=
+            data.wisdom.length
+        ) {
+
+            newIndex = 0;
+
+        }
+
+        wisdomIndex =
+            newIndex;
+
+        wisdomText.textContent =
+            data.wisdom[newIndex].text;
+
+        wisdomSource.textContent =
+            data.wisdom[newIndex].source;
+
+        playSound("click");
+
+    }
+);
+
+
+function showRandomWisdom() {
+
+    const item =
+        quotes[
+            Math.floor(
+                Math.random() *
+                quotes.length
+            )
+        ];
+
+    wisdomText.textContent =
+        item.text;
+
+    wisdomSource.textContent =
+        item.source;
+
+}
+
+
+/* =========================================================
+   HERRAMIENTAS
+========================================================= */
+
+const tools = {
+
+    calmar: {
+
+        title: "Vamos a bajar el ritmo",
+
+        description:
+            "No necesitas hacer que todo desaparezca. Solo vamos a hacer una pausa.",
+
+        icon: "🌬️",
+
+        element: "breathingTool"
+
+    },
+
+    ordenar: {
+
+        title: "Ordenemos tu mente",
+
+        description:
+            "Saca tus pensamientos de la cabeza y ponlos frente a ti.",
+
+        icon: "🧠",
+
+        element: "mindTool"
+
+    },
+
+    concentrar: {
+
+        title: "Momento de concentración",
+
+        description:
+            "Cinco minutos. Una sola cosa.",
+
+        icon: "🎯",
+
+        element: "focusTool"
+
+    },
+
+    escribir: {
+
+        title: "Escribe lo que sientes",
+
+        description:
+            "Este espacio es solamente para ti.",
+
+        icon: "📝",
+
+        element: "writingTool"
+
+    },
+
+    relajar: {
+
+        title: "Vamos a relajarnos",
+
+        description:
+            "Haz espacio para la calma.",
+
+        icon: "😴",
+
+        element: "relaxTool"
+
+    },
+
+    aprender: {
+
+        title: "Aprendamos sobre nosotros",
+
+        description:
+            "Entender lo que ocurre dentro de ti también es una herramienta.",
+
+        icon: "📚",
+
+        element: "learnTool"
+
+    },
+
+    gratitud: {
+
+        title: "Un momento de gratitud",
+
+        description:
+            "Busca algo pequeño que haya sido bueno.",
+
+        icon: "💛",
+
+        element: "gratitudeTool"
+
+    },
+
+    frases: {
+
+        title: "Palabras para este momento",
+
+        description:
+            "Quizá alguna de ellas sea justo lo que necesitabas leer.",
+
+        icon: "💬",
+
+        element: "quotesTool"
+
+    },
+
+    journal: {
+
+        title: "Mi diario",
+
+        description:
+            "Lo que escribas se guarda solamente en este dispositivo.",
+
+        icon: "📖",
+
+        element: "diaryTool"
+
+    }
+
+};
+
+
+/* =========================================================
+   ABRIR HERRAMIENTA
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-tool]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const tool =
+                    button.dataset.tool;
+
+                openTool(tool);
+
+            }
+        );
+
+    });
+
+
+function openTool(toolName) {
+
+    const tool =
+        tools[toolName];
+
+    if (!tool) {
+        return;
+    }
+
+
+    homeScreen.classList.remove(
+        "active"
+    );
+
+    toolScreen.classList.add(
+        "active"
+    );
+
+
+    toolTitle.textContent =
+        tool.title;
+
+    toolDescription.textContent =
+        tool.description;
+
+    toolIcon.textContent =
+        tool.icon;
+
+
+    document
+        .querySelectorAll(".tool-content")
+        .forEach(content => {
+
+            content.classList.add(
+                "hidden"
+            );
+
+        });
+
+
+    const content =
+        document.getElementById(
+            tool.element
+        );
+
+    if (content) {
+
+        content.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    if (toolName === "journal") {
+
+        loadDiary();
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    playSound("click");
+
+}
+
+
+/* =========================================================
+   VOLVER
+========================================================= */
+
+backHome.addEventListener(
+    "click",
+    () => {
+
+        toolScreen.classList.remove(
             "active"
         );
 
-        toolScreen.classList.add(
+        homeScreen.classList.add(
             "active"
         );
-
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
 
-    }
-
-
-    /* =====================================
-       BOTONES DE HERRAMIENTAS
-    ===================================== */
-
-    const toolButtons =
-        document.querySelectorAll(
-            ".tool-card"
-        );
-
-
-    toolButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                openTool(
-                    button.dataset.tool
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================
-       VOLVER
-    ===================================== */
-
-    backButton.addEventListener(
-        "click",
-        () => {
-
-            toolScreen.classList.remove(
-                "active"
-            );
-
-            homeScreen.classList.add(
-                "active"
-            );
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-    );
-
-
-    /* =====================================
-       NAVEGACIÓN INFERIOR
-    ===================================== */
-
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    function activateNav(item) {
-
-        navItems.forEach(nav => {
-
-            nav.classList.remove(
-                "active"
-            );
-
-        });
-
-        if (item) {
-
-            item.classList.add(
-                "active"
-            );
-
-        }
+        playSound("click");
 
     }
+);
 
 
-    navItems.forEach(item => {
+/* =========================================================
+   RESPIRACIÓN
+========================================================= */
 
-        item.addEventListener(
-            "click",
-            () => {
+const breathingCircle =
+    document.getElementById(
+        "breathingCircle"
+    );
 
-                const screen =
-                    item.dataset.screen;
+const breathingText =
+    document.getElementById(
+        "breathingText"
+    );
 
-                if (screen === "homeScreen") {
+const breathingCounter =
+    document.getElementById(
+        "breathingCounter"
+    );
 
-                    toolScreen.classList.remove(
-                        "active"
-                    );
-
-                    homeScreen.classList.add(
-                        "active"
-                    );
-
-                    activateNav(item);
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                }
-
-            }
-        );
-
-    });
-
-
-    /* =====================================
-       PARA TI
-    ===================================== */
-
-    const randomToolButton =
-        document.getElementById(
-            "randomToolButton"
-        );
-
-
-    randomToolButton.addEventListener(
-        "click",
-        () => {
-
-            const mood =
-                localStorage.getItem(
-                    "menteMood"
-                );
-
-
-            let recommended;
-
-
-            if (
-                mood === "muy-mal" ||
-                mood === "mal"
-            ) {
-
-                recommended =
-                    "calmar";
-
-            } else if (
-                mood === "regular"
-            ) {
-
-                recommended =
-                    "ordenar";
-
-            } else {
-
-                recommended =
-                    "concentrarme";
-
-            }
-
-
-            openTool(recommended);
-
-            activateNav(
-                randomToolButton
-            );
-
-        }
+const startBreathing =
+    document.getElementById(
+        "startBreathing"
     );
 
 
-    /* =====================================
-       BOTÓN PALABRA
-    ===================================== */
-
-    const verseNavButton =
-        document.getElementById(
-            "verseNavButton"
-        );
+startBreathing.addEventListener(
+    "click",
+    startBreathingExercise
+);
 
 
-    verseNavButton.addEventListener(
-        "click",
-        () => {
+function startBreathingExercise() {
 
-            showRandomVerse();
+    if (state.breathingRunning) {
+        return;
+    }
 
-            toolScreen.classList.remove(
-                "active"
-            );
+    state.breathingRunning =
+        true;
 
-            homeScreen.classList.add(
-                "active"
-            );
+    startBreathing.disabled =
+        true;
 
-            activateNav(
-                verseNavButton
-            );
+    let cycles = 0;
 
+    const phases = [
 
-            setTimeout(() => {
+        {
+            text: "Inhala",
+            className: "breathe-in",
+            seconds: 4
+        },
 
-                document
-                    .querySelector(".verse-card")
-                    .scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
+        {
+            text: "Mantén",
+            className: "breathe-in",
+            seconds: 2
+        },
 
-            }, 100);
-
+        {
+            text: "Exhala",
+            className: "breathe-out",
+            seconds: 6
         }
-    );
+
+    ];
 
 
-    /* =====================================
-       BOTÓN NOTAS
-    ===================================== */
+    function nextPhase(
+        phaseIndex = 0
+    ) {
 
-    const journalNavButton =
-        document.getElementById(
-            "journalNavButton"
-        );
-
-
-    journalNavButton.addEventListener(
-        "click",
-        () => {
-
-            openTool("escribir");
-
-            activateNav(
-                journalNavButton
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       RESPIRACIÓN
-    ===================================== */
-
-    const breathingStart =
-        document.getElementById(
-            "breathingStart"
-        );
-
-    const breathingCircle =
-        document.getElementById(
-            "breathingCircle"
-        );
-
-    const breathingInstruction =
-        document.getElementById(
-            "breathingInstruction"
-        );
-
-    const breathingCounter =
-        document.getElementById(
-            "breathingCounter"
-        );
-
-    const breathingPhase =
-        document.getElementById(
-            "breathingPhase"
-        );
-
-    const breathingText =
-        document.getElementById(
-            "breathingText"
-        );
-
-
-    let breathingRunning = false;
-
-    let breathingTimeout;
-
-
-    function startBreathing() {
-
-        if (breathingRunning) return;
-
-        breathingRunning = true;
-
-        breathingStart.textContent =
-            "Respira...";
-
-        let cycle = 0;
-
-        const totalCycles = 4;
-
-
-        function phase(
-            name,
-            duration,
-            className,
-            instruction,
-            text
+        if (
+            !state.breathingRunning
         ) {
+            return;
+        }
 
-            return new Promise(resolve => {
-
-                breathingCircle
-                    .classList.remove(
-                        "inhale",
-                        "exhale"
-                    );
+        const phase =
+            phases[phaseIndex];
 
 
-                if (className) {
-
-                    breathingCircle
-                        .classList.add(
-                            className
-                        );
-
-                }
+        breathingText.textContent =
+            phase.text;
 
 
-                breathingInstruction
-                    .textContent =
-                    instruction;
+        breathingCircle.classList.remove(
+            "breathe-in",
+            "breathe-out"
+        );
 
 
-                breathingPhase
-                    .textContent =
-                    name;
+        breathingCircle.classList.add(
+            phase.className
+        );
 
 
-                breathingText
-                    .textContent =
-                    text;
+        let remaining =
+            phase.seconds;
+
+        breathingCounter.textContent =
+            remaining;
 
 
-                let remaining =
-                    duration;
+        const timer =
+            setInterval(
+                () => {
 
+                    remaining--;
 
-                breathingCounter
-                    .textContent =
-                    remaining;
+                    breathingCounter.textContent =
+                        remaining;
 
+                    if (
+                        remaining <= 0
+                    ) {
 
-                const timer =
-                    setInterval(() => {
+                        clearInterval(timer);
 
-                        remaining--;
-
-                        breathingCounter
-                            .textContent =
-                            remaining;
-
+                        const next =
+                            phaseIndex + 1;
 
                         if (
-                            remaining <= 0
+                            next >=
+                            phases.length
                         ) {
 
-                            clearInterval(
-                                timer
-                            );
+                            cycles++;
 
-                            resolve();
+                            if (
+                                cycles >= 3
+                            ) {
+
+                                finishBreathing();
+
+                                return;
+
+                            }
+
+                            nextPhase(0);
+
+                        } else {
+
+                            nextPhase(next);
 
                         }
 
-                    }, 1000);
+                    }
 
-            });
-
-        }
-
-
-        async function runCycle() {
-
-            cycle++;
-
-
-            await phase(
-                "Inhala lentamente",
-                4,
-                "inhale",
-                "Inhala",
-                "Toma aire suavemente por la nariz."
+                },
+                1000
             );
-
-
-            await phase(
-                "Sostén",
-                2,
-                "",
-                "Mantén",
-                "Quédate aquí un instante."
-            );
-
-
-            await phase(
-                "Exhala lentamente",
-                6,
-                "exhale",
-                "Exhala",
-                "Suelta el aire poco a poco."
-            );
-
-
-            if (
-                breathingRunning &&
-                cycle < totalCycles
-            ) {
-
-                runCycle();
-
-            } else {
-
-                breathingRunning =
-                    false;
-
-                breathingCircle
-                    .classList.remove(
-                        "inhale",
-                        "exhale"
-                    );
-
-
-                breathingInstruction
-                    .textContent =
-                    "Listo";
-
-                breathingCounter
-                    .textContent =
-                    "✓";
-
-                breathingPhase
-                    .textContent =
-                    "Ejercicio terminado";
-
-                breathingText
-                    .textContent =
-                    "Tómate unos segundos para notar cómo te sientes ahora.";
-
-                breathingStart.textContent =
-                    "↻ Repetir ejercicio";
-
-                showToast(
-                    "Muy bien. Tómate un momento."
-                );
-
-            }
-
-        }
-
-
-        runCycle();
 
     }
 
 
-    breathingStart.addEventListener(
-        "click",
-        () => {
+    nextPhase();
 
-            if (!breathingRunning) {
+}
 
-                startBreathing();
 
-            } else {
+function finishBreathing() {
 
-                breathingRunning =
-                    false;
+    state.breathingRunning =
+        false;
 
-                clearTimeout(
-                    breathingTimeout
-                );
+    breathingCircle.classList.remove(
+        "breathe-in",
+        "breathe-out"
+    );
 
-            }
+    breathingText.textContent =
+        "Muy bien";
 
-        }
+    breathingCounter.textContent =
+        "✓";
+
+    startBreathing.disabled =
+        false;
+
+    playSound("success");
+
+}
+
+
+/* =========================================================
+   ESCRITURA
+========================================================= */
+
+const journalInput =
+    document.getElementById(
+        "journalInput"
+    );
+
+const saveJournal =
+    document.getElementById(
+        "saveJournal"
+    );
+
+const clearJournal =
+    document.getElementById(
+        "clearJournal"
+    );
+
+const journalSaved =
+    document.getElementById(
+        "journalSaved"
     );
 
 
-    /* =====================================
-       DIARIO
-    ===================================== */
-
-    const journalText =
-        document.getElementById(
-            "journalText"
-        );
-
-    const saveJournal =
-        document.getElementById(
-            "saveJournal"
-        );
-
-    const clearJournal =
-        document.getElementById(
-            "clearJournal"
-        );
-
-    const savedNote =
-        document.getElementById(
-            "savedNote"
-        );
+const JOURNAL_KEY =
+    "mente_journal";
 
 
-    const storedNote =
+function loadJournal() {
+
+    const saved =
         localStorage.getItem(
-            "menteJournal"
+            JOURNAL_KEY
         );
 
+    if (saved) {
 
-    if (storedNote) {
-
-        journalText.value =
-            storedNote;
+        journalInput.value =
+            saved;
 
     }
 
-
-    saveJournal.addEventListener(
-        "click",
-        () => {
-
-            const text =
-                journalText.value.trim();
+}
 
 
-            if (!text) {
-
-                showToast(
-                    "Escribe algo antes de guardar."
-                );
-
-                return;
-
-            }
+loadJournal();
 
 
-            localStorage.setItem(
-                "menteJournal",
-                text
-            );
+saveJournal.addEventListener(
+    "click",
+    () => {
 
+        const value =
+            journalInput.value.trim();
 
-            savedNote.classList.remove(
-                "hidden"
-            );
-
-
-            showToast(
-                "Tu nota quedó guardada."
-            );
-
+        if (!value) {
+            return;
         }
-    );
 
-
-    clearJournal.addEventListener(
-        "click",
-        () => {
-
-            journalText.value = "";
-
-            savedNote.classList.add(
-                "hidden"
-            );
-
-            localStorage.removeItem(
-                "menteJournal"
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       ORDENAR PENSAMIENTOS
-    ===================================== */
-
-    const thoughtButtons =
-        document.querySelectorAll(
-            ".thought-options button"
+        localStorage.setItem(
+            JOURNAL_KEY,
+            value
         );
 
-    const thoughtResponse =
-        document.getElementById(
-            "thoughtResponse"
+        journalSaved.classList.remove(
+            "hidden"
         );
 
+        playSound("success");
 
-    const thoughtResponses = {
-
-        problema:
-            "Escribe el problema en una sola frase. Después pregúntate: ¿qué parte sí está bajo mi control hoy?",
-
-        preocupacion:
-            "Una preocupación puede sentirse enorme. Intenta separar lo que sabes de lo que estás imaginando que podría ocurrir.",
-
-        decision:
-            "No necesitas encontrar la decisión perfecta. Haz una lista de las opciones y escribe qué ganas y qué pierdes con cada una.",
-
-        pensamiento:
-            "No tienes que perseguir cada pensamiento. Observa uno, ponle nombre y vuelve lentamente a lo que estabas haciendo."
-
-    };
-
-
-    thoughtButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
+        setTimeout(
             () => {
 
-                const thought =
-                    button.dataset.thought;
+                journalSaved.classList.add(
+                    "hidden"
+                );
 
-                thoughtResponse.textContent =
-                    thoughtResponses[thought];
-
-            }
+            },
+            2500
         );
-
-    });
-
-
-    /* =====================================
-       CONCENTRACIÓN
-    ===================================== */
-
-    const focusStart =
-        document.getElementById(
-            "focusStart"
-        );
-
-    const focusStop =
-        document.getElementById(
-            "focusStop"
-        );
-
-    const focusMinutes =
-        document.getElementById(
-            "focusMinutes"
-        );
-
-
-    let focusSeconds = 300;
-
-    let focusInterval = null;
-
-
-    function updateFocusDisplay() {
-
-        const minutes =
-            Math.floor(
-                focusSeconds / 60
-            );
-
-        const seconds =
-            focusSeconds % 60;
-
-
-        focusMinutes.textContent =
-            `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 
     }
+);
 
 
-    focusStart.addEventListener(
-        "click",
-        () => {
+clearJournal.addEventListener(
+    "click",
+    () => {
 
-            if (focusInterval) return;
+        journalInput.value = "";
+
+        localStorage.removeItem(
+            JOURNAL_KEY
+        );
+
+        playSound("click");
+
+    }
+);
 
 
-            focusSeconds = 300;
+/* =========================================================
+   ORDENAR MENTE
+========================================================= */
 
-            updateFocusDisplay();
+const mindInput =
+    document.getElementById(
+        "mindInput"
+    );
+
+const organizeMind =
+    document.getElementById(
+        "organizeMind"
+    );
+
+const mindResult =
+    document.getElementById(
+        "mindResult"
+    );
 
 
-            focusStart.classList.add(
+organizeMind.addEventListener(
+    "click",
+    () => {
+
+        const text =
+            mindInput.value.trim();
+
+        if (!text) {
+
+            mindResult.classList.remove(
                 "hidden"
             );
 
-            focusStop.classList.remove(
-                "hidden"
+            mindResult.textContent =
+                "Primero escribe aquello que tienes dando vueltas en tu cabeza.";
+
+            return;
+
+        }
+
+
+        const sentences =
+            text
+                .split(/[.!?]+/)
+                .map(
+                    item =>
+                        item.trim()
+                )
+                .filter(Boolean);
+
+
+        let result =
+            "<strong>Vamos a separarlo:</strong><br><br>";
+
+
+        if (sentences.length) {
+
+            result +=
+                "📝 Pensamientos que expresaste:<br>";
+
+            sentences.forEach(
+                sentence => {
+
+                    result +=
+                        `• ${escapeHTML(sentence)}<br>`;
+
+                }
             );
 
-
-            showToast(
-                "Tu momento de concentración comenzó."
-            );
+        }
 
 
-            focusInterval =
-                setInterval(() => {
+        result +=
+            "<br>🌿 Ahora pregúntate: ¿qué de esto puedo controlar hoy?";
 
-                    focusSeconds--;
 
-                    updateFocusDisplay();
+        mindResult.innerHTML =
+            result;
 
+        mindResult.classList.remove(
+            "hidden"
+        );
+
+        playSound("success");
+
+    }
+);
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   CONCENTRACIÓN
+========================================================= */
+
+const focusTimer =
+    document.getElementById(
+        "focusTimer"
+    );
+
+const startFocus =
+    document.getElementById(
+        "startFocus"
+    );
+
+const resetFocus =
+    document.getElementById(
+        "resetFocus"
+    );
+
+
+function updateFocusTimer() {
+
+    const minutes =
+        Math.floor(
+            state.focusSeconds / 60
+        );
+
+    const seconds =
+        state.focusSeconds % 60;
+
+
+    focusTimer.textContent =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+}
+
+
+startFocus.addEventListener(
+    "click",
+    () => {
+
+        if (state.focusRunning) {
+            return;
+        }
+
+        state.focusRunning =
+            true;
+
+        startFocus.textContent =
+            "⏳ En marcha...";
+
+        state.focusInterval =
+            setInterval(
+                () => {
+
+                    state.focusSeconds--;
+
+                    updateFocusTimer();
 
                     if (
-                        focusSeconds <= 0
+                        state.focusSeconds <= 0
                     ) {
 
                         clearInterval(
-                            focusInterval
+                            state.focusInterval
                         );
 
-                        focusInterval = null;
+                        state.focusRunning =
+                            false;
 
-                        focusStart.classList.remove(
-                            "hidden"
-                        );
+                        startFocus.textContent =
+                            "✓ Completado";
 
-                        focusStop.classList.add(
-                            "hidden"
-                        );
-
-                        showToast(
-                            "Terminaste tu momento de concentración."
+                        playSound(
+                            "success"
                         );
 
                     }
 
-                }, 1000);
-
-        }
-    );
-
-
-    focusStop.addEventListener(
-        "click",
-        () => {
-
-            clearInterval(
-                focusInterval
+                },
+                1000
             );
 
-            focusInterval = null;
+        playSound("click");
 
-            focusSeconds = 300;
-
-            updateFocusDisplay();
-
-            focusStart.classList.remove(
-                "hidden"
-            );
-
-            focusStop.classList.add(
-                "hidden"
-            );
-
-            showToast(
-                "Sesión detenida."
-            );
-
-        }
-    );
+    }
+);
 
 
-    /* =====================================
-       RELAJACIÓN
-    ===================================== */
+resetFocus.addEventListener(
+    "click",
+    () => {
 
-    const relaxStart =
-        document.getElementById(
-            "relaxStart"
+        clearInterval(
+            state.focusInterval
         );
 
+        state.focusRunning =
+            false;
 
-    relaxStart.addEventListener(
-        "click",
-        () => {
+        state.focusSeconds =
+            300;
 
-            relaxStart.textContent =
-                "✨ Sigue respirando";
+        startFocus.textContent =
+            "▶ Comenzar";
 
-            showToast(
-                "Permítete bajar el ritmo."
-            );
+        updateFocusTimer();
+
+    }
+);
 
 
-            setTimeout(() => {
+updateFocusTimer();
 
-                relaxStart.textContent =
-                    "Comenzar relajación";
 
-            }, 5000);
+/* =========================================================
+   RELAJACIÓN
+========================================================= */
 
-        }
+const startRelax =
+    document.getElementById(
+        "startRelax"
     );
 
 
-    /* =====================================
-       SONIDOS
-       
-       Se utiliza Web Audio API.
-       No necesitamos archivos MP3 externos.
-    ===================================== */
+startRelax.addEventListener(
+    "click",
+    () => {
 
-    let audioContext = null;
-
-    let soundEnabled = false;
-
-    let rainNodes = [];
-
-
-    const soundButton =
-        document.getElementById(
-            "soundButton"
+        changeWeather(
+            "night"
         );
 
+        startRelax.textContent =
+            "🌙 Ambiente tranquilo activado";
 
-    function getAudioContext() {
+        playSound("soft");
 
-        if (!audioContext) {
+        setTimeout(
+            () => {
 
-            const AudioCtx =
-                window.AudioContext ||
-                window.webkitAudioContext;
+                startRelax.textContent =
+                    "🌙 Comenzar relajación";
 
-            if (!AudioCtx) {
+            },
+            3000
+        );
 
-                return null;
+    }
+);
 
-            }
 
-            audioContext =
-                new AudioCtx();
+/* =========================================================
+   APRENDER
+========================================================= */
 
-        }
+const lessons = [
 
+    {
+        title:
+            "Las emociones son señales.",
+
+        text:
+            "Sentir tristeza, ansiedad, enojo o miedo no significa que estés fallando. Una emoción puede avisarte de que algo necesita atención."
+    },
+
+    {
+        title:
+            "No todo pensamiento es un hecho.",
+
+        text:
+            "A veces nuestra mente interpreta una situación de la manera más negativa posible. Puedes observar el pensamiento antes de aceptarlo como verdad."
+    },
+
+    {
+        title:
+            "Respirar puede ayudarte a hacer una pausa.",
+
+        text:
+            "Cuando estás alterado, reducir el ritmo de la respiración puede convertirse en una señal para detenerte y prestar atención al momento presente."
+    },
+
+    {
+        title:
+            "Pedir ayuda también es cuidarte.",
+
+        text:
+            "No tienes que enfrentar todo solo. Hablar con alguien de confianza o con un profesional puede ser un paso importante."
+    }
+
+];
+
+
+let lessonIndex = 0;
+
+
+const nextLesson =
+    document.getElementById(
+        "nextLesson"
+    );
+
+
+nextLesson.addEventListener(
+    "click",
+    () => {
+
+        lessonIndex++;
 
         if (
-            audioContext.state ===
-            "suspended"
+            lessonIndex >=
+            lessons.length
         ) {
 
-            audioContext.resume();
+            lessonIndex = 0;
 
         }
 
+        const lesson =
+            lessons[lessonIndex];
 
-        return audioContext;
+        document.querySelector(
+            "#learnTool .lesson-card h3"
+        ).textContent =
+            lesson.title;
 
-    }
+        document.querySelector(
+            "#learnTool .lesson-card p"
+        ).textContent =
+            lesson.text;
 
-
-    function playTone(
-        frequency,
-        duration,
-        volume = .04
-    ) {
-
-        const ctx =
-            getAudioContext();
-
-        if (!ctx || !soundEnabled)
-            return;
-
-
-        const oscillator =
-            ctx.createOscillator();
-
-        const gain =
-            ctx.createGain();
-
-
-        oscillator.frequency.value =
-            frequency;
-
-        oscillator.type =
-            "sine";
-
-
-        gain.gain.setValueAtTime(
-            0,
-            ctx.currentTime
-        );
-
-
-        gain.gain.linearRampToValueAtTime(
-            volume,
-            ctx.currentTime + .08
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            ctx.currentTime + duration
-        );
-
-
-        oscillator.connect(gain);
-
-        gain.connect(
-            ctx.destination
-        );
-
-
-        oscillator.start();
-
-        oscillator.stop(
-            ctx.currentTime +
-            duration
-        );
+        playSound("click");
 
     }
+);
 
 
-    function startRainSound() {
+/* =========================================================
+   GRATITUD
+========================================================= */
 
-        const ctx =
-            getAudioContext();
+const gratitudeInput =
+    document.getElementById(
+        "gratitudeInput"
+    );
 
-        if (!ctx || !soundEnabled)
+const saveGratitude =
+    document.getElementById(
+        "saveGratitude"
+    );
+
+
+saveGratitude.addEventListener(
+    "click",
+    () => {
+
+        const value =
+            gratitudeInput.value.trim();
+
+        if (!value) {
             return;
-
-
-        stopRainSound();
-
-
-        const bufferSize =
-            2 * ctx.sampleRate;
-
-
-        const buffer =
-            ctx.createBuffer(
-                1,
-                bufferSize,
-                ctx.sampleRate
-            );
-
-
-        const data =
-            buffer.getChannelData(0);
-
-
-        for (
-            let i = 0;
-            i < bufferSize;
-            i++
-        ) {
-
-            data[i] =
-                Math.random() * 2 - 1;
-
         }
 
 
-        const source =
-            ctx.createBufferSource();
-
-        source.buffer =
-            buffer;
-
-        source.loop =
-            true;
+        const entries =
+            getDiary();
 
 
-        const filter =
-            ctx.createBiquadFilter();
+        entries.push({
 
-        filter.type =
-            "lowpass";
+            date:
+                new Date().toLocaleString(
+                    "es-HN"
+                ),
 
-        filter.frequency.value =
-            1500;
-
-
-        const gain =
-            ctx.createGain();
-
-        gain.gain.value =
-            .035;
-
-
-        source
-            .connect(filter)
-            .connect(gain)
-            .connect(ctx.destination);
-
-
-        source.start();
-
-
-        rainNodes.push(
-            source,
-            filter,
-            gain
-        );
-
-    }
-
-
-    function stopRainSound() {
-
-        rainNodes.forEach(node => {
-
-            try {
-
-                if (
-                    node.stop
-                ) {
-
-                    node.stop();
-
-                }
-
-                node.disconnect();
-
-            } catch (error) {}
+            text:
+                `💛 Gratitud: ${value}`
 
         });
 
 
-        rainNodes = [];
+        saveDiary(
+            entries
+        );
+
+
+        gratitudeInput.value = "";
+
+        showModal(
+            "💛 Guardado",
+            "Tu momento de gratitud fue guardado en este dispositivo."
+        );
+
+        playSound("success");
 
     }
+);
 
 
-    function playMoodSound(type) {
+/* =========================================================
+   FRASES
+========================================================= */
 
-        if (!soundEnabled)
-            return;
+const quoteBig =
+    document.getElementById(
+        "quoteBig"
+    );
 
+const quoteSource =
+    document.getElementById(
+        "quoteSource"
+    );
 
-        if (type === "sunny") {
-
-            stopRainSound();
-
-            playTone(
-                523.25,
-                .6,
-                .025
-            );
-
-            setTimeout(() => {
-
-                playTone(
-                    659.25,
-                    .7,
-                    .02
-                );
-
-            }, 180);
-
-        }
-
-
-        if (type === "cloudy") {
-
-            stopRainSound();
-
-            playTone(
-                392,
-                .8,
-                .018
-            );
-
-        }
-
-
-        if (type === "rain") {
-
-            startRainSound();
-
-        }
-
-    }
-
-
-    soundButton.addEventListener(
-        "click",
-        () => {
-
-            const ctx =
-                getAudioContext();
-
-
-            if (!ctx) {
-
-                showToast(
-                    "Tu navegador no permite sonido."
-                );
-
-                return;
-
-            }
-
-
-            soundEnabled =
-                !soundEnabled;
-
-
-            if (soundEnabled) {
-
-                soundButton.textContent =
-                    "🔊";
-
-                playTone(
-                    523.25,
-                    .5,
-                    .03
-                );
-
-                showToast(
-                    "Sonidos ambientales activados."
-                );
-
-
-                const mood =
-                    localStorage.getItem(
-                        "menteMood"
-                    );
-
-
-                if (
-                    mood &&
-                    moodData[mood]
-                ) {
-
-                    playMoodSound(
-                        moodData[mood].sound
-                    );
-
-                }
-
-            } else {
-
-                soundButton.textContent =
-                    "🔇";
-
-                stopRainSound();
-
-                showToast(
-                    "Sonidos desactivados."
-                );
-
-            }
-
-        }
+const nextQuote =
+    document.getElementById(
+        "nextQuote"
     );
 
 
-    /* =====================================
-       RECUPERAR ESTADO ANTERIOR
-    ===================================== */
+nextQuote.addEventListener(
+    "click",
+    () => {
 
-    const savedMood =
-        localStorage.getItem(
-            "menteMood"
-        );
-
-
-    if (
-        savedMood &&
-        moodData[savedMood]
-    ) {
-
-        const savedButton =
-            document.querySelector(
-                `[data-mood="${savedMood}"]`
-            );
-
-
-        if (savedButton) {
-
-            savedButton.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        const data =
-            moodData[savedMood];
-
-
-        changeWeather(
-            data.weather
-        );
-
-
-        dailyIcon.textContent =
-            data.icon;
-
-        dailyMessage.textContent =
-            data.message;
-
-    } else {
-
-        changeWeather(
-            "sunny"
-        );
-
-    }
-
-
-    /* =====================================
-       CAMBIO AUTOMÁTICO DE FRASE
-    ===================================== */
-
-    setInterval(() => {
-
-        /*
-         * Solo cambiamos el mensaje
-         * ocasionalmente para que la
-         * interfaz se sienta viva.
-         */
+        quoteIndex++;
 
         if (
-            Math.random() > .65
+            quoteIndex >=
+            quotes.length
         ) {
 
-            const phrase =
-                phrases[
-                    Math.floor(
-                        Math.random() *
-                        phrases.length
-                    )
-                ];
-
-            dailyMessage.textContent =
-                phrase;
+            quoteIndex = 0;
 
         }
 
-    }, 18000);
+        quoteBig.textContent =
+            quotes[quoteIndex].text;
+
+        quoteSource.textContent =
+            quotes[quoteIndex].source;
+
+        playSound("click");
+
+    }
+);
 
 
-    /* =====================================
-       SALUDO SEGÚN HORA
-    ===================================== */
+/* =========================================================
+   DIARIO
+========================================================= */
 
-    const greetingEmoji =
+const DIARY_KEY =
+    "mente_diary";
+
+
+function getDiary() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                DIARY_KEY
+            )
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+function saveDiary(entries) {
+
+    localStorage.setItem(
+        DIARY_KEY,
+        JSON.stringify(entries)
+    );
+
+}
+
+
+function loadDiary() {
+
+    const diaryEntries =
         document.getElementById(
-            "greetingEmoji"
+            "diaryEntries"
         );
 
-    const welcomeText =
-        document.getElementById(
-            "welcomeText"
-        );
+    const entries =
+        getDiary();
 
 
-    const hour =
-        new Date().getHours();
+    diaryEntries.innerHTML = "";
 
 
-    if (hour < 12) {
+    if (!entries.length) {
 
-        greetingEmoji.textContent =
-            "🌅";
+        diaryEntries.innerHTML = `
 
-        welcomeText.textContent =
-            "Buenos días. Empieza este día a tu propio ritmo.";
+            <div class="result-card">
 
-    } else if (hour < 19) {
+                <strong>
+                    Tu diario está vacío.
+                </strong>
 
-        greetingEmoji.textContent =
-            "☀️";
+                <p style="margin-top:8px;">
+                    Lo que escribas en las herramientas
+                    de MENTE aparecerá aquí.
+                </p>
 
-        welcomeText.textContent =
-            "Tómate un momento. No tienes que correr todo el tiempo.";
+            </div>
 
-    } else {
+        `;
 
-        greetingEmoji.textContent =
-            "🌙";
-
-        welcomeText.textContent =
-            "Ya es momento de bajar un poco el ritmo.";
+        return;
 
     }
 
 
-    /* =====================================
-       INICIALIZACIÓN
-    ===================================== */
+    [...entries]
+        .reverse()
+        .forEach(entry => {
 
-    updateFocusDisplay();
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-    showRandomVerse();
+            item.className =
+                "diary-entry";
 
-});
+            item.innerHTML = `
+
+                <div class="diary-date">
+                    ${escapeHTML(entry.date)}
+                </div>
+
+                <div>
+                    ${escapeHTML(entry.text)}
+                </div>
+
+            `;
+
+            diaryEntries.appendChild(
+                item
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   GUARDAR ESCRITURA TAMBIÉN EN DIARIO
+========================================================= */
+
+saveJournal.addEventListener(
+    "click",
+    () => {
+
+        const value =
+            journalInput.value.trim();
+
+        if (!value) {
+            return;
+        }
+
+
+        const entries =
+            getDiary();
+
+
+        entries.push({
+
+            date:
+                new Date().toLocaleString(
+                    "es-HN"
+                ),
+
+            text:
+                value
+
+        });
+
+
+        saveDiary(
+            entries
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+const modal =
+    document.getElementById(
+        "modal"
+    );
+
+const modalContent =
+    document.getElementById(
+        "modalContent"
+    );
+
+const closeModal =
+    document.getElementById(
+        "closeModal"
+    );
+
+
+function showModal(
+    title,
+    text
+) {
+
+    modalContent.innerHTML = `
+
+        <h2 style="margin-bottom:10px;">
+            ${escapeHTML(title)}
+        </h2>
+
+        <p style="
+            color:#71807c;
+            line-height:1.7;
+        ">
+            ${escapeHTML(text)}
+        </p>
+
+    `;
+
+    modal.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+function closeModalWindow() {
+
+    modal.classList.add(
+        "hidden"
+    );
+
+}
+
+
+closeModal.addEventListener(
+    "click",
+    closeModalWindow
+);
+
+
+document
+    .querySelector(".modal-overlay")
+    .addEventListener(
+        "click",
+        closeModalWindow
+    );
+
+
+/* =========================================================
+   INICIALIZACIÓN
+========================================================= */
+
+changeWeather(
+    "default"
+);
+
+
+showRandomWisdom();
+
+
+console.log(
+    "MENTE iniciada correctamente ✓"
+);
