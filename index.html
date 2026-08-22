@@ -1,4056 +1,593 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#151b2b">
+    <title>MENTE | Bienestar emocional</title>
 
-<title>MENTE — Un espacio para volver a ti</title>
+    <meta name="description" content="MENTE, un espacio para entenderte, organizarte y cuidarte.">
 
-<style>
-
-/* =========================================================
-   MENTE V3
-   Bienestar • TDAH • Ansiedad • Concentración • Estado de ánimo
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        Roboto,
-        sans-serif;
-
-    min-height:100vh;
-    color:#fff;
-    overflow-x:hidden;
-
-    background:#182033;
-
-    transition:
-        background 2s ease,
-        filter 2s ease;
-}
-
-button,
-textarea,
-input{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-:root{
-
-    --glass:rgba(255,255,255,.10);
-    --glass-strong:rgba(255,255,255,.16);
-    --border:rgba(255,255,255,.14);
-
-    --shadow:
-        0 25px 80px rgba(0,0,0,.20);
-
-    --purple:#929cff;
-    --blue:#83b8ff;
-    --green:#9edbc2;
-}
-
-
-/* =========================================================
-   ESTADOS
-========================================================= */
-
-body.triste{
-    background:
-        radial-gradient(circle at 70% 10%,rgba(110,130,155,.42),transparent 30%),
-        linear-gradient(160deg,#263342,#465568,#657587);
-}
-
-body.ansioso{
-    background:
-        radial-gradient(circle at 20% 15%,rgba(150,180,185,.30),transparent 30%),
-        linear-gradient(150deg,#263c45,#52696e,#7b8d8e);
-}
-
-body.enojado{
-    background:
-        radial-gradient(circle at 75% 15%,rgba(255,175,105,.30),transparent 30%),
-        linear-gradient(150deg,#492f31,#70484a,#a97561);
-}
-
-body.cansado{
-    background:
-        radial-gradient(circle at 70% 10%,rgba(120,115,190,.30),transparent 30%),
-        linear-gradient(160deg,#111628,#27264a,#4b466d);
-}
-
-body.tranquilo{
-    background:
-        radial-gradient(circle at 70% 10%,rgba(255,240,190,.40),transparent 30%),
-        linear-gradient(150deg,#477f85,#75a9a1,#b4c9d8);
-}
-
-body.feliz{
-    background:
-        radial-gradient(circle at 75% 10%,rgba(255,239,166,.80),transparent 30%),
-        linear-gradient(150deg,#2996d1,#70c3ed,#f3d48d);
-}
-
-body.saturado{
-    background:
-        radial-gradient(circle at 30% 20%,rgba(160,160,200,.30),transparent 30%),
-        linear-gradient(150deg,#292c40,#4a4d64,#73768a);
-}
-
-
-/* =========================================================
-   AMBIENTE
-========================================================= */
-
-.environment{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:-5;
-}
-
-.glow{
-    position:absolute;
-
-    width:420px;
-    height:420px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.18),
-            transparent 68%
-        );
-
-    filter:blur(20px);
-
-    top:-160px;
-    right:-160px;
-}
-
-.sun{
-    position:absolute;
-
-    width:125px;
-    height:125px;
-
-    border-radius:50%;
-
-    top:9%;
-    right:9%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fffbe2,
-            #ffe69b 45%,
-            #f9c86d
-        );
-
-    box-shadow:
-        0 0 35px rgba(255,226,141,.75),
-        0 0 100px rgba(255,215,120,.35);
-
-    opacity:0;
-    transform:scale(.5);
-
-    transition:
-        opacity 2s ease,
-        transform 2s ease;
-}
-
-body.tranquilo .sun,
-body.feliz .sun{
-    opacity:1;
-    transform:scale(1);
-}
-
-.moon{
-    position:absolute;
-
-    width:75px;
-    height:75px;
-
-    border-radius:50%;
-
-    top:9%;
-    right:12%;
-
-    background:#f7f1cf;
-
-    box-shadow:
-        0 0 35px rgba(247,241,207,.45);
-
-    opacity:0;
-
-    transition:opacity 2s ease;
-}
-
-body.cansado .moon{
-    opacity:1;
-}
-
-.cloud{
-    position:absolute;
-
-    width:180px;
-    height:55px;
-
-    border-radius:50px;
-
-    background:rgba(255,255,255,.15);
-
-    filter:blur(2px);
-
-    animation:
-        moveCloud
-        40s
-        linear
-        infinite;
-}
-
-.cloud::before,
-.cloud::after{
-    content:"";
-    position:absolute;
-    background:inherit;
-    border-radius:50%;
-}
-
-.cloud::before{
-    width:85px;
-    height:85px;
-    left:30px;
-    top:-42px;
-}
-
-.cloud::after{
-    width:70px;
-    height:70px;
-    right:25px;
-    top:-32px;
-}
-
-.cloud.one{
-    top:22%;
-    left:-220px;
-}
-
-.cloud.two{
-    top:39%;
-    left:-400px;
-    animation-duration:52s;
-}
-
-.cloud.three{
-    top:55%;
-    left:-300px;
-    animation-duration:60s;
-}
-
-@keyframes moveCloud{
-    from{
-        transform:translateX(-300px);
-    }
-
-    to{
-        transform:translateX(140vw);
-    }
-}
-
-
-/* =========================================================
-   LLUVIA
-========================================================= */
-
-.rain{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    transition:opacity 1.5s ease;
-}
-
-body.triste .rain{
-    opacity:1;
-}
-
-.drop{
-    position:absolute;
-
-    width:1px;
-    height:35px;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(255,255,255,.55)
-        );
-
-    transform:rotate(12deg);
-
-    animation:
-        rainfall
-        1s
-        linear
-        infinite;
-}
-
-@keyframes rainfall{
-
-    from{
-        transform:
-            translate3d(0,-80px,0)
-            rotate(12deg);
-    }
-
-    to{
-        transform:
-            translate3d(-40px,110vh,0)
-            rotate(12deg);
-    }
-}
-
-
-/* =========================================================
-   PARTÍCULAS
-========================================================= */
-
-.particles{
-    position:absolute;
-    inset:0;
-}
-
-.particle{
-    position:absolute;
-
-    width:4px;
-    height:4px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.55);
-
-    animation:
-        floatParticle
-        var(--duration)
-        ease-in-out
-        infinite
-        alternate;
-
-    opacity:.4;
-}
-
-@keyframes floatParticle{
-
-    from{
-        transform:
-            translate3d(0,20px,0)
-            scale(.7);
-    }
-
-    to{
-        transform:
-            translate3d(20px,-50px,0)
-            scale(1.4);
-    }
-}
-
-
-/* =========================================================
-   APP
-========================================================= */
-
-.app{
-    width:100%;
-    max-width:650px;
-    margin:auto;
-
-    padding:
-        18px
-        18px
-        70px;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-bottom:18px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.brand-mark{
-    width:42px;
-    height:42px;
-
-    border-radius:14px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(255,255,255,.13);
-
-    border:
-        1px solid
-        rgba(255,255,255,.18);
-
-    backdrop-filter:blur(20px);
-
-    font-size:20px;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:800;
-    letter-spacing:4px;
-}
-
-.subtitle{
-    font-size:10px;
-    opacity:.65;
-    margin-top:2px;
-}
-
-.header-actions{
-    display:flex;
-    gap:8px;
-}
-
-.icon-button{
-    width:43px;
-    height:43px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(255,255,255,.16);
-
-    background:
-        rgba(255,255,255,.10);
-
-    color:white;
-
-    backdrop-filter:blur(18px);
-
-    font-size:18px;
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
-}
-
-.icon-button:active{
-    transform:scale(.9);
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    padding:
-        40px 8px 28px;
-
-    text-align:center;
-}
-
-.hero-small{
-    font-size:12px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    opacity:.6;
-
-    margin-bottom:12px;
-}
-
-.hero h1{
-    font-size:
-        clamp(34px,9vw,52px);
-
-    line-height:1.03;
-
-    letter-spacing:-1.8px;
-
-    font-weight:800;
-
-    margin-bottom:16px;
-}
-
-.hero p{
-    max-width:460px;
-
-    margin:auto;
-
-    font-size:15px;
-
-    line-height:1.6;
-
-    opacity:.72;
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.card{
-    position:relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.14),
-            rgba(255,255,255,.055)
-        );
-
-    border:
-        1px solid
-        var(--border);
-
-    backdrop-filter:
-        blur(28px)
-        saturate(130%);
-
-    -webkit-backdrop-filter:
-        blur(28px)
-        saturate(130%);
-
-    border-radius:30px;
-
-    padding:22px;
-
-    margin-bottom:15px;
-
-    box-shadow:
-        var(--shadow);
-
-    overflow:hidden;
-}
-
-.card::after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(255,255,255,.07),
-            transparent 45%
-        );
-
-    pointer-events:none;
-}
-
-
-/* =========================================================
-   EMOCIONES
-========================================================= */
-
-.emotion-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-
-    margin-bottom:18px;
-}
-
-.emotion-header h2{
-    font-size:19px;
-}
-
-.emotion-header p{
-    font-size:11px;
-    opacity:.55;
-    margin-top:4px;
-}
-
-.emotions{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:9px;
-}
-
-.emotion{
-    position:relative;
-
-    border:none;
-
-    color:white;
-
-    min-height:100px;
-
-    border-radius:22px;
-
-    padding:13px 5px;
-
-    background:
-        rgba(255,255,255,.075);
-
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
-    transition:
-        transform .3s ease,
-        background .3s ease,
-        box-shadow .3s ease;
-
-    overflow:hidden;
-}
-
-.emotion:active{
-    transform:scale(.94);
-}
-
-.emotion.active{
-    background:
-        rgba(255,255,255,.2);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.15);
-}
-
-.emotion span{
-    display:block;
-
-    font-size:31px;
-
-    margin-bottom:7px;
-}
-
-.emotion small{
-    font-size:11px;
-    opacity:.8;
-}
-
-
-/* =========================================================
-   MENSAJE
-========================================================= */
-
-.emotional-message{
-    text-align:center;
-
-    padding:
-        28px 16px;
-}
-
-.emotional-icon{
-    width:70px;
-    height:70px;
-
-    margin:
-        0 auto
-        15px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:24px;
-
-    background:
-        rgba(255,255,255,.1);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    font-size:34px;
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.12);
-}
-
-.emotional-message h2{
-    font-size:24px;
-    margin-bottom:9px;
-}
-
-.emotional-message p{
-    font-size:14px;
-    line-height:1.7;
-    opacity:.72;
-}
-
-
-/* =========================================================
-   SECCIONES
-========================================================= */
-
-.section-heading{
-    margin-bottom:17px;
-}
-
-.section-label{
-    font-size:10px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    opacity:.5;
-
-    margin-bottom:7px;
-}
-
-.section-heading h2{
-    font-size:22px;
-}
-
-.section-heading p{
-    font-size:12px;
-    opacity:.55;
-    margin-top:5px;
-}
-
-
-/* =========================================================
-   CAJA DE HERRAMIENTAS
-========================================================= */
-
-.tools-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-}
-
-.tool{
-    position:relative;
-
-    border:none;
-
-    color:white;
-
-    text-align:left;
-
-    min-height:150px;
-
-    padding:18px;
-
-    border-radius:24px;
-
-    background:
-        rgba(255,255,255,.075);
-
-    border:
-        1px solid
-        rgba(255,255,255,.10);
-
-    overflow:hidden;
-
-    transition:
-        transform .3s ease,
-        background .3s ease;
-}
-
-.tool:active{
-    transform:scale(.96);
-}
-
-.tool:hover{
-    background:
-        rgba(255,255,255,.13);
-}
-
-.tool-icon{
-    width:48px;
-    height:48px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:16px;
-
-    background:
-        rgba(255,255,255,.10);
-
-    font-size:24px;
-
-    margin-bottom:15px;
-}
-
-.tool h3{
-    font-size:14px;
-    margin-bottom:5px;
-}
-
-.tool p{
-    font-size:11px;
-
-    line-height:1.45;
-
-    opacity:.55;
-}
-
-.tool-arrow{
-    position:absolute;
-
-    right:15px;
-    bottom:15px;
-
-    opacity:.45;
-
-    font-size:16px;
-}
-
-
-/* =========================================================
-   BOTÓN ¿QUÉ HAGO?
-========================================================= */
-
-.now-button{
-    width:100%;
-
-    border:none;
-
-    color:white;
-
-    padding:19px;
-
-    border-radius:23px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(145,155,255,.8),
-            rgba(116,126,235,.65)
-        );
-
-    box-shadow:
-        0 15px 40px
-        rgba(85,95,200,.22);
-
-    text-align:left;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    transition:
-        transform .25s ease;
-}
-
-.now-button:active{
-    transform:scale(.97);
-}
-
-.now-icon{
-    width:52px;
-    height:52px;
-
-    border-radius:17px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        rgba(255,255,255,.16);
-
-    font-size:25px;
-}
-
-.now-text strong{
-    display:block;
-
-    font-size:15px;
-
-    margin-bottom:4px;
-}
-
-.now-text span{
-    font-size:11px;
-    opacity:.7;
-}
-
-
-/* =========================================================
-   VERSÍCULO
-========================================================= */
-
-.verse-top{
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-bottom:17px;
-}
-
-.verse-symbol{
-    width:36px;
-    height:36px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.1);
-}
-
-.verse-label{
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    opacity:.55;
-}
-
-.verse-text{
-    font-family:Georgia,serif;
-
-    font-size:20px;
-
-    line-height:1.6;
-}
-
-.verse-reference{
-    display:inline-block;
-
-    margin-top:15px;
-
-    padding:
-        7px 11px;
-
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    font-size:11px;
-
-    opacity:.7;
-}
-
-
-/* =========================================================
-   ACCIONES
-========================================================= */
-
-.action-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-}
-
-.action{
-    border:none;
-
-    color:white;
-
-    text-align:left;
-
-    padding:18px;
-
-    min-height:125px;
-
-    border-radius:24px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    transition:
-        transform .25s ease;
-}
-
-.action:active{
-    transform:scale(.96);
-}
-
-.action-icon{
-    font-size:27px;
-    margin-bottom:13px;
-}
-
-.action-title{
-    font-weight:700;
-    font-size:14px;
-}
-
-.action-description{
-    font-size:11px;
-    opacity:.55;
-    margin-top:5px;
-    line-height:1.4;
-}
-
-
-/* =========================================================
-   RESPIRACIÓN
-========================================================= */
-
-.breathing{
-    text-align:center;
-}
-
-.breathing-description{
-    font-size:13px;
-    opacity:.6;
-    margin-top:6px;
-}
-
-.breath-circle{
-    width:175px;
-    height:175px;
-
-    margin:
-        27px auto;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    position:relative;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.25),
-            rgba(255,255,255,.05) 65%,
-            transparent 70%
-        );
-
-    box-shadow:
-        0 0 0 1px
-        rgba(255,255,255,.1),
-
-        0 0 70px
-        rgba(168,192,255,.2);
-
-    transition:
-        transform 4s ease;
-}
-
-.breath-circle.inhale{
-    transform:scale(1.18);
-}
-
-.breath-circle.exhale{
-    transform:scale(.84);
-}
-
-.breath-content{
-    position:relative;
-    z-index:2;
-}
-
-.breath-icon{
-    font-size:25px;
-    margin-bottom:6px;
-}
-
-.breath-text{
-    font-size:14px;
-    font-weight:700;
-}
-
-
-/* =========================================================
-   BOTONES
-========================================================= */
-
-.primary-button{
-    border:none;
-
-    color:white;
-
-    padding:
-        15px 25px;
-
-    border-radius:17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #8f9cff,
-            #7c83fd
-        );
-
-    box-shadow:
-        0 12px 30px
-        rgba(124,131,253,.28);
-
-    font-size:14px;
-
-    font-weight:700;
-
-    transition:
-        transform .25s ease;
-}
-
-.primary-button:active{
-    transform:scale(.96);
-}
-
-
-/* =========================================================
-   PROGRESO
-========================================================= */
-
-.progress-header{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:10px;
-}
-
-.progress-title{
-    font-size:13px;
-    font-weight:600;
-}
-
-.progress-number{
-    font-size:12px;
-    opacity:.6;
-}
-
-.progress{
-    height:9px;
-
-    border-radius:30px;
-
-    background:
-        rgba(0,0,0,.12);
-
-    overflow:hidden;
-}
-
-.progress-bar{
-    width:20%;
-
-    height:100%;
-
-    border-radius:30px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #9aa7ff,
-            #a8e6cf
-        );
-
-    transition:
-        width 1s ease;
-}
-
-
-/* =========================================================
-   NOTA
-========================================================= */
-
-.note-title{
-    font-size:19px;
-    margin-bottom:5px;
-}
-
-.note-description{
-    font-size:12px;
-    opacity:.55;
-    margin-bottom:15px;
-}
-
-textarea,
-input{
-    width:100%;
-
-    border:none;
-
-    outline:none;
-
-    color:white;
-
-    font-size:14px;
-
-    line-height:1.6;
-
-    background:
-        rgba(0,0,0,.12);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius:19px;
-
-    padding:15px;
-}
-
-textarea{
-    min-height:125px;
-    resize:none;
-}
-
-input{
-    min-height:52px;
-}
-
-textarea::placeholder,
-input::placeholder{
-    color:
-        rgba(255,255,255,.45);
-}
-
-.save-note{
-    margin-top:12px;
-}
-
-
-/* =========================================================
-   PEQUEÑAS VICTORIAS
-========================================================= */
-
-.victories{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:9px;
-}
-
-.victory{
-    border:none;
-
-    color:white;
-
-    width:100%;
-
-    padding:14px;
-
-    border-radius:17px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    text-align:left;
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
-}
-
-.victory:active{
-    transform:scale(.98);
-}
-
-.victory.done{
-    background:
-        rgba(158,219,194,.16);
-}
-
-.victory-check{
-    width:28px;
-    height:28px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        rgba(255,255,255,.08);
-
-    flex-shrink:0;
-}
-
-.victory.done .victory-check{
-    background:
-        rgba(158,219,194,.55);
-}
-
-.victory-text{
-    font-size:12px;
-}
-
-
-/* =========================================================
-   MODAL GENERAL
-========================================================= */
-
-.modal{
-    position:fixed;
-
-    inset:0;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:center;
-
-    background:
-        rgba(7,10,18,.55);
-
-    backdrop-filter:
-        blur(12px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:
-        opacity .35s ease;
-
-    z-index:100;
-}
-
-.modal.show{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.modal-content{
-    width:
-        min(100%,650px);
-
-    max-height:88vh;
-
-    overflow-y:auto;
-
-    padding:
-        27px 20px 35px;
-
-    border-radius:
-        30px
-        30px
-        0
-        0;
-
-    background:
-        rgba(28,35,52,.97);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    box-shadow:
-        0 -20px 70px
-        rgba(0,0,0,.35);
-
-    transform:
-        translateY(100px);
-
-    transition:
-        transform .45s ease;
-}
-
-.modal.show .modal-content{
-    transform:
-        translateY(0);
-}
-
-.modal-handle{
-    width:40px;
-    height:4px;
-
-    border-radius:10px;
-
-    background:
-        rgba(255,255,255,.25);
-
-    margin:
-        0 auto
-        20px;
-}
-
-.modal-content h2{
-    font-size:24px;
-    margin-bottom:8px;
-}
-
-.modal-content > p{
-    font-size:13px;
-    line-height:1.6;
-    opacity:.65;
-    margin-bottom:20px;
-}
-
-.modal-close{
-    width:100%;
-}
-
-
-/* =========================================================
-   TOOL MODAL
-========================================================= */
-
-.tool-modal-icon{
-    width:68px;
-    height:68px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:22px;
-
-    background:
-        rgba(255,255,255,.10);
-
-    font-size:32px;
-
-    margin-bottom:17px;
-}
-
-.tool-modal-content{
-    margin-top:10px;
-}
-
-.step-list{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-    margin:
-        18px 0;
-}
-
-.step{
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    padding:14px;
-
-    border-radius:17px;
-
-    background:
-        rgba(255,255,255,.07);
-}
-
-.step-number{
-    width:30px;
-    height:30px;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        rgba(255,255,255,.10);
-
-    font-size:12px;
-
-    flex-shrink:0;
-}
-
-.step span{
-    font-size:12px;
-    line-height:1.4;
-}
-
-
-/* =========================================================
-   DESCARGA MENTAL
-========================================================= */
-
-.mind-dump-results{
-    display:none;
-
-    margin-top:18px;
-}
-
-.result-box{
-    padding:15px;
-
-    border-radius:18px;
-
-    background:
-        rgba(255,255,255,.06);
-
-    margin-bottom:10px;
-}
-
-.result-box h4{
-    font-size:12px;
-    margin-bottom:8px;
-}
-
-.result-box p{
-    font-size:11px;
-    opacity:.65;
-    margin:0;
-}
-
-
-/* =========================================================
-   FOCUS TIMER
-========================================================= */
-
-.focus-timer{
-    text-align:center;
-
-    padding:
-        15px 0 5px;
-}
-
-.timer-number{
-    font-size:60px;
-
-    font-weight:700;
-
-    letter-spacing:-3px;
-
-    margin:12px 0 20px;
-}
-
-.timer-input{
-    margin-bottom:12px;
-}
-
-.timer-status{
-    font-size:11px;
-
-    opacity:.55;
-
-    margin-bottom:17px;
-}
-
-
-/* =========================================================
-   ÁNIMO
-========================================================= */
-
-.mood-scale{
-    display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:6px;
-
-    margin:
-        15px 0 20px;
-}
-
-.mood-choice{
-    border:none;
-
-    color:white;
-
-    padding:12px 3px;
-
-    border-radius:15px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    font-size:22px;
-
-    transition:
-        transform .2s ease,
-        background .2s ease;
-}
-
-.mood-choice.active{
-    background:
-        rgba(255,255,255,.2);
-
-    transform:translateY(-3px);
-}
-
-
-/* =========================================================
-   AHORA
-========================================================= */
-
-.recommendation{
-    padding:17px;
-
-    border-radius:20px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    margin-bottom:10px;
-}
-
-.recommendation strong{
-    display:block;
-
-    font-size:13px;
-
-    margin-bottom:5px;
-}
-
-.recommendation span{
-    font-size:11px;
-
-    opacity:.6;
-
-    line-height:1.5;
-}
-
-
-/* =========================================================
-   INMERSIVO
-========================================================= */
-
-.immersive{
-    position:fixed;
-
-    inset:0;
-
-    z-index:200;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:25px;
-
-    background:
-        rgba(13,18,29,.84);
-
-    backdrop-filter:
-        blur(25px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:
-        opacity .6s ease;
-}
-
-.immersive.active{
-    opacity:1;
-
-    pointer-events:auto;
-}
-
-.immersive-content{
-    text-align:center;
-
-    max-width:430px;
-}
-
-.immersive-logo{
-    font-size:42px;
-
-    font-weight:800;
-
-    letter-spacing:7px;
-
-    margin-bottom:12px;
-}
-
-.immersive-content p{
-    font-size:14px;
-
-    line-height:1.7;
-
-    opacity:.6;
-
-    margin-bottom:25px;
-}
-
-.immersive-button{
-    border:none;
-
-    color:white;
-
-    padding:
-        17px 28px;
-
-    border-radius:20px;
-
-    background:
-        rgba(255,255,255,.13);
-
-    border:
-        1px solid
-        rgba(255,255,255,.15);
-
-    font-weight:700;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-    text-align:center;
-
-    padding:
-        20px 10px;
-
-    font-size:10px;
-
-    line-height:1.7;
-
-    opacity:.45;
-}
-
-
-
-function revealEmotionExperience(emotion){document.querySelectorAll(".after-emotion").forEach(el=>el.classList.add("revealed"));const title=document.getElementById("recommendationTitle"),text=document.getElementById("recommendationText"),actions=document.getElementById("quickActions");const map={triste:["Hoy no tienes que cargarlo todo","Empieza por algo pequeño y amable contigo.",[["🌬️","Respirar","Bajar un poco el ritmo","ansiedad"],["🌱","Pequeña victoria","Reconocer un avance","victorias"]]],ansioso:["Primero calma, después lo demás","Tu siguiente paso no tiene que resolver todo.",[["🫁","Respirar","Crear espacio","ansiedad"],["👀","Ordenar mi mente","Sacar pensamientos","mente"]]],enojado:["Antes de reaccionar, haz una pausa","Darte unos segundos también es cuidarte.",[["🌬️","Bajar el ritmo","Respiración guiada","ansiedad"],["💭","Vaciar la mente","Escribir sin filtro","mente"]]],cansado:["Hoy también puedes ir despacio","Descansar y reducir la carga también cuenta.",[["🌱","Algo pequeño","Reconocer un avance","victorias"],["💙","Registrar ánimo","Observar cómo estás","animo"]]],saturado:["Vamos a quitar peso","No tienes que organizar toda tu vida ahora mismo.",[["💭","Descarga mental","Sacar lo que pesa","mente"],["🎯","Un solo paso","Enfocarte en una cosa","enfoque"]]],tranquilo:["Protege este momento","Puedes usar esta calma para conocerte.",[["📖","Otra palabra","Leer otro versículo","verse"],["✍️","Escribir","Guardar este momento","note"]]],feliz:["Guarda lo bueno","También merece la pena reconocer los días buenos.",[["🌱","Pequeña victoria","Guardar algo positivo","victorias"],["📖","Una palabra","Leer un versículo","verse"]]]};const m=map[emotion]||map.tranquilo;title.textContent=m[0];text.textContent=m[1];actions.innerHTML=m[2].map(a=>`<button class="quick-action" onclick="quickAction('${a[3]}')"><span>${a[0]}</span><strong>${a[1]}</strong><small>${a[2]}</small></button>`).join("");document.getElementById("messageCard")?.scrollIntoView({behavior:"smooth",block:"center"});}
-function quickAction(a){if(a==="verse"){changeVerse();return}if(a==="note"){showView("mind");setTimeout(()=>document.getElementById("note")?.focus(),250);return}openTool(a)}
-function showView(v){
-    const target = document.getElementById("view-" + v);
-    if(!target) return;
-    document.querySelectorAll(".view").forEach(function(view){ view.classList.remove("active"); });
-    target.classList.add("active");
-    document.querySelectorAll(".nav-item").forEach(function(item){
-        item.classList.toggle("active", item.getAttribute("data-view") === v);
-    });
-    window.scrollTo(0,0);
-}
-
-/* Navegación reforzada: funciona también si el navegador bloquea inline onclick */
-document.addEventListener("DOMContentLoaded", function(){
-    document.querySelectorAll(".nav-item[data-view]").forEach(function(button){
-        button.type = "button";
-        button.addEventListener("click", function(event){
-            event.preventDefault();
-            event.stopPropagation();
-            showView(button.getAttribute("data-view"));
-        });
-    });
-});
-function setGreeting(){const h=new Date().getHours(),t=h<12?"Buenos días. Este momento es tuyo":h<19?"Buenas tardes. Este momento es tuyo":"Buenas noches. Este momento es tuyo";const e=document.getElementById("greeting");if(e)e.textContent=t}setGreeting();
-
-/* =========================================================
-   ANIMACIÓN
-========================================================= */
-
-.fade-in{
-    animation:
-        fadeIn
-        .7s
-        ease;
-}
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:700px){
-
-    .app{
-        padding-top:30px;
-    }
-
-    .hero{
-        padding-top:70px;
-    }
-
-    .card{
-        margin-bottom:18px;
-    }
-}
-
-
-/* MENTE V4 */
-.view{display:none;animation:pageIn .45s ease both}.view.active{display:block}.after-emotion{display:none}.after-emotion.revealed{display:block;animation:reveal .55s ease both}@keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}.page-heading{padding:28px 5px 20px}.page-heading h1{font-size:32px;letter-spacing:-1.2px;margin-bottom:8px}.page-heading p{font-size:13px;line-height:1.6;opacity:.65}.category-card{margin-bottom:15px}.category-title{font-size:15px;font-weight:750;margin:0 4px 11px}.compact-tools{grid-template-columns:repeat(2,1fr)}.compact-tools .tool{min-height:138px;padding:16px}.quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}.quick-action{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:white;border-radius:18px;padding:13px;text-align:left;min-height:76px}.quick-action span{display:block;font-size:20px;margin-bottom:6px}.quick-action strong{font-size:11px}.quick-action small{display:block;opacity:.5;margin-top:3px;font-size:9px}.ghost-button{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);color:white;border-radius:14px;padding:10px 14px;margin-top:15px;font-size:11px}.gentle-next h2{font-size:22px;margin-bottom:6px}.gentle-next>p{font-size:12px;line-height:1.55;opacity:.58;margin-bottom:14px}.first-visit{display:flex;align-items:center;gap:13px}.discover-icon{width:43px;height:43px;border-radius:15px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}.first-visit h3{font-size:14px;margin-bottom:4px}.first-visit p{font-size:10px;line-height:1.45;opacity:.52}.small-arrow{border:none;background:rgba(255,255,255,.08);color:white;width:36px;height:36px;border-radius:50%;font-size:20px;flex-shrink:0}.safety-card{margin-top:18px}.safety-card strong{font-size:12px}.safety-card p{font-size:10px;line-height:1.5;opacity:.5;margin-top:7px}.progress-hint{font-size:10px;opacity:.5;margin-top:9px}.bottom-nav{pointer-events:auto;position:fixed;z-index:9999;bottom:12px;left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),430px);padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;border:1px solid rgba(255,255,255,.13);border-radius:24px;background:rgba(22,28,43,.72);backdrop-filter:blur(25px);box-shadow:0 15px 50px rgba(0,0,0,.25)}.nav-item{border:0;background:transparent;color:white;border-radius:17px;padding:7px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.48}.nav-item span{font-size:18px}.nav-item small{font-size:9px}.nav-item.active{background:rgba(255,255,255,.11);opacity:1}.app{padding-bottom:105px}@media(max-width:380px){.emotions{grid-template-columns:repeat(2,1fr)}.compact-tools{grid-template-columns:1fr}.hero h1{font-size:31px}}
-</style>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 
+<body>
 
-<body class="tranquilo">
+    <!-- =========================
+         FONDO / AMBIENTE
+    ========================== -->
 
-
-<!-- =====================================================
-     AMBIENTE
-===================================================== -->
-
-<div class="environment">
-
-    <div class="glow"></div>
-
-    <div class="sun"></div>
-
-    <div class="moon"></div>
-
-    <div class="cloud one"></div>
-    <div class="cloud two"></div>
-    <div class="cloud three"></div>
-
-    <div
-        class="rain"
-        id="rain">
+    <div class="ambient-background" id="ambientBackground">
+        <div class="sun"></div>
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="rain" id="rain"></div>
+        <div class="stars" id="stars"></div>
     </div>
 
-    <div
-        class="particles"
-        id="particles">
-    </div>
 
-</div>
+    <!-- =========================
+         APP
+    ========================== -->
 
+    <main class="app">
 
-<main class="app">
-<header><div class="brand"><div class="brand-mark">✦</div><div><div class="logo">MENTE</div><div class="subtitle">Un espacio para volver a ti</div></div></div><div class="header-actions"><button class="icon-button" id="soundButton" onclick="toggleSound()">🔇</button><button class="icon-button" onclick="openImmersive()">✨</button></div></header>
-<section class="view active" id="view-home">
-<section class="hero fade-in"><div class="hero-small" id="greeting">Este momento es tuyo</div><h1>¿Cómo está<br>tu mente hoy?</h1><p>No necesitas encontrar las palabras perfectas. Empieza simplemente por reconocer cómo te sientes.</p></section>
-<section class="card emotion-card fade-in"><div class="emotion-header"><div><h2>Elige cómo te sientes</h2><p>No hay una respuesta correcta.</p></div><span>✦</span></div><div class="emotions">
-<button class="emotion" data-emotion="tranquilo" onclick="selectEmotion('tranquilo')"><span>🌿</span><small>Tranquilo</small></button><button class="emotion" data-emotion="feliz" onclick="selectEmotion('feliz')"><span>😊</span><small>Feliz</small></button><button class="emotion" data-emotion="ansioso" onclick="selectEmotion('ansioso')"><span>😰</span><small>Ansioso</small></button><button class="emotion" data-emotion="triste" onclick="selectEmotion('triste')"><span>😔</span><small>Triste</small></button><button class="emotion" data-emotion="enojado" onclick="selectEmotion('enojado')"><span>😡</span><small>Enojado</small></button><button class="emotion" data-emotion="cansado" onclick="selectEmotion('cansado')"><span>🌙</span><small>Cansado</small></button><button class="emotion" data-emotion="saturado" onclick="selectEmotion('saturado')"><span>😵</span><small>Saturado</small></button>
-</div></section>
-<section class="card after-emotion" id="messageCard"><div class="emotional-message"><div class="emotional-icon" id="messageIcon">🌿</div><h2 id="messageTitle">Quédate aquí</h2><p id="messageText">Disfruta este momento. No necesitas apresurarlo.</p></div><div class="recommendation"><strong id="recommendationTitle">Una pequeña sugerencia</strong><span id="recommendationText">Puedes elegir algo que te ayude a cuidar este momento.</span></div><div class="quick-actions" id="quickActions"></div></section>
-<section class="card after-emotion"><div class="verse-top"><div class="verse-symbol">📖</div><div><div class="verse-label">Para este momento</div><div style="font-size:12px;opacity:.55">Una palabra para acompañarte</div></div></div><div class="verse-text" id="verseText">"Estad quietos, y conoced que yo soy Dios."</div><div class="verse-reference" id="verseReference">Salmos 46:10</div><button class="ghost-button" onclick="changeVerse()">↻ Quiero otra</button></section>
-<section class="card after-emotion gentle-next"><div class="section-label">¿Qué necesitas ahora?</div><h2>Déjate guiar</h2><p>Si no sabes qué hacer, Mente puede ayudarte a encontrar una herramienta para este momento.</p><button class="now-button" onclick="openNowModal()"><div class="now-icon">🧭</div><div class="now-text"><strong>¿Qué hago ahora?</strong><span>Cuéntame qué necesitas y te guío</span></div><b>›</b></button></section>
-<section class="card first-visit"><div class="discover-icon">✦</div><div><div class="section-label">Explora cuando quieras</div><h3>Hay más dentro de Mente</h3><p>Respiración, concentración, TDAH, escritura, ánimo y más. No tienes que verlo todo ahora.</p></div><button class="small-arrow" onclick="showView('explore')">›</button></section>
-</section>
-<section class="view" id="view-explore"><section class="page-heading"><div class="section-label">Explorar</div><h1>Herramientas para tu mente</h1><p>Descubre solo lo que necesites, cuando lo necesites.</p></section>
-<section class="category-card"><div class="category-title">🌿 Calmarme</div><div class="tools-grid compact-tools"><button class="tool" onclick="openTool('ansiedad')"><div class="tool-icon">🫁</div><h3>Respirar y calmarme</h3><p>Baja el ritmo y crea espacio.</p><span class="tool-arrow">›</span></button><button class="tool" onclick="showView('mind');setTimeout(scrollToBreathing,100)"><div class="tool-icon">🌬️</div><h3>Respiración guiada</h3><p>Un ejercicio paso a paso.</p><span class="tool-arrow">›</span></button></div></section>
-<section class="category-card"><div class="category-title">🧠 TDAH y enfoque</div><div class="tools-grid compact-tools"><button class="tool" onclick="openTool('tdah')"><div class="tool-icon">🧩</div><h3>Dividir una tarea</h3><p>Convierte lo grande en un primer paso.</p><span class="tool-arrow">›</span></button><button class="tool" onclick="openTool('enfoque')"><div class="tool-icon">🎯</div><h3>Modo concentración</h3><p>Una cosa a la vez.</p><span class="tool-arrow">›</span></button><button class="tool" onclick="openTool('mente')"><div class="tool-icon">💭</div><h3>Descarga mental</h3><p>Saca pensamientos de tu cabeza.</p><span class="tool-arrow">›</span></button></div></section>
-<section class="category-card"><div class="category-title">💙 Conocerme</div><div class="tools-grid compact-tools"><button class="tool" onclick="openTool('animo')"><div class="tool-icon">📊</div><h3>Registrar mi ánimo</h3><p>Observa cómo te sientes.</p><span class="tool-arrow">›</span></button><button class="tool" onclick="openTool('victorias')"><div class="tool-icon">🌱</div><h3>Pequeñas victorias</h3><p>Reconoce tus avances.</p><span class="tool-arrow">›</span></button><button class="tool" onclick="showView('mind');setTimeout(()=>document.getElementById('note')?.focus(),200)"><div class="tool-icon">✍️</div><h3>Escribir</h3><p>Deja aquí lo que llevas dentro.</p><span class="tool-arrow">›</span></button></div></section><section class="card safety-card"><strong>🤍 Mente es un espacio de apoyo</strong><p>Estas herramientas pueden acompañarte, pero no sustituyen la atención de un profesional de salud mental.</p></section></section>
-<section class="view" id="view-mind"><section class="page-heading"><div class="section-label">Mi mente</div><h1>Un espacio para ti</h1><p>Aquí puedes guardar pequeñas señales de cómo estás y reconocer tus avances.</p></section><section class="card"><div class="progress-header"><span class="progress-title">Tu recorrido de hoy</span><span class="progress-number" id="progressText">20%</span></div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><p class="progress-hint">Cada pequeña acción cuenta.</p></section><section class="card"><h2 class="note-title">✍️ Lo que quiero sacar de mi cabeza</h2><p class="note-description">Escribe sin preocuparte por hacerlo perfecto.</p><textarea id="note" placeholder="Hoy estoy pensando en..."></textarea><button class="primary-button save-note" onclick="saveNote()">Guardar nota</button></section><section class="card" id="breathingSection"><div class="section-label">Respiración</div><h2>Volver al presente</h2><p class="breathing-description">Sigue el círculo sin forzarte.</p><div class="breath-circle" id="breathCircle"><div class="breath-content"><div class="breath-icon">🌬️</div><div class="breath-text" id="breathText">Listo</div></div></div><button class="primary-button" onclick="startBreathing()">Comenzar respiración</button></section><section class="card"><div class="section-label">Una pregunta</div><h2>¿Cómo estás ahora?</h2><p class="note-description">Puedes registrar tu estado después de usar una herramienta.</p><button class="now-button" onclick="openTool('animo')"><div class="now-icon">💙</div><div class="now-text"><strong>Registrar mi estado</strong><span>Guarda cómo te sientes</span></div><b>›</b></button></section></section>
-<nav class="bottom-nav"><button type="button" class="nav-item active" data-view="home" onclick="showView('home')"><span>⌂</span><small>Inicio</small></button><button type="button" class="nav-item" data-view="explore" onclick="showView('explore')"><span>✦</span><small>Explorar</small></button><button type="button" class="nav-item" data-view="mind" onclick="showView('mind')"><span>♡</span><small>Mi mente</small></button></nav><footer>Mente está diseñado como una herramienta de acompañamiento y autocuidado.</footer></main>
+        <!-- HEADER -->
 
+        <header class="topbar">
 
-<!-- =====================================================
-     MODAL DE HERRAMIENTAS
-===================================================== -->
+            <div class="brand">
+                <div class="brand-icon">✦</div>
 
-<div
-    class="modal"
-    id="toolModal">
-
-    <div class="modal-content">
-
-        <div class="modal-handle"></div>
-
-        <div
-            class="tool-modal-icon"
-            id="toolModalIcon">
-
-            🧠
-
-        </div>
-
-        <h2
-            id="toolModalTitle">
-
-            Herramienta
-
-        </h2>
-
-        <p
-            id="toolModalDescription">
-
-            Una herramienta para este momento.
-
-        </p>
-
-
-        <div
-            class="tool-modal-content"
-            id="toolModalContent">
-
-        </div>
-
-
-        <button
-            class="primary-button modal-close"
-            onclick="closeToolModal()">
-
-            Terminar
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     MODAL ¿QUÉ HAGO?
-===================================================== -->
-
-<div
-    class="modal"
-    id="nowModal">
-
-    <div class="modal-content">
-
-        <div class="modal-handle"></div>
-
-        <div class="tool-modal-icon">
-            🧭
-        </div>
-
-        <h2>
-            ¿Qué necesitas ahora?
-        </h2>
-
-        <p>
-            No tienes que saber exactamente qué hacer.
-            Elige lo que más se parece a lo que estás viviendo.
-        </p>
-
-
-        <button
-            class="recommendation"
-            onclick="recommend('calmar')">
-
-            <strong>
-                😰 Estoy demasiado alterado
-            </strong>
-
-            <span>
-                Vamos a bajar el ritmo primero.
-            </span>
-
-        </button>
-
-
-        <button
-            class="recommendation"
-            onclick="recommend('concentrar')">
-
-            <strong>
-                🧠 No puedo concentrarme
-            </strong>
-
-            <span>
-                Vamos a trabajar solamente durante unos minutos.
-            </span>
-
-        </button>
-
-
-        <button
-            class="recommendation"
-            onclick="recommend('saturado')">
-
-            <strong>
-                😵 Tengo demasiadas cosas
-            </strong>
-
-            <span>
-                Saquemos los pensamientos de tu cabeza.
-            </span>
-
-        </button>
-
-
-        <button
-            class="recommendation"
-            onclick="recommend('empezar')">
-
-            <strong>
-                ⚡ No logro empezar
-            </strong>
-
-            <span>
-                Hagamos solamente el primer paso.
-            </span>
-
-        </button>
-
-
-        <button
-            class="recommendation"
-            onclick="recommend('triste')">
-
-            <strong>
-                💙 Me siento muy abajo
-            </strong>
-
-            <span>
-                Empecemos por una pequeña acción de cuidado.
-            </span>
-
-        </button>
-
-
-        <button
-            class="primary-button modal-close"
-            onclick="closeNowModal()">
-
-            Volver
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     MODAL GUARDADO
-===================================================== -->
-
-<div
-    class="modal"
-    id="savedModal">
-
-    <div class="modal-content">
-
-        <div class="modal-handle"></div>
-
-        <div class="tool-modal-icon">
-            💙
-        </div>
-
-        <h2>
-            Tu momento quedó guardado
-        </h2>
-
-        <p>
-            Lo que escribiste permanece únicamente
-            en este dispositivo.
-        </p>
-
-        <button
-            class="primary-button modal-close"
-            onclick="closeSavedModal()">
-
-            Continuar
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     MODO INMERSIVO
-===================================================== -->
-
-<div
-    class="immersive"
-    id="immersive">
-
-    <div class="immersive-content">
-
-        <div class="immersive-logo">
-            MENTE
-        </div>
-
-        <p>
-            Deja el ruido afuera durante unos minutos.
-            Respira, escucha y quédate en este momento.
-        </p>
-
-
-        <button
-            class="immersive-button"
-            onclick="activateImmersive()">
-
-            ✨ Entrar en modo inmersivo
-
-        </button>
-
-        <br><br>
-
-        <button
-            class="immersive-button"
-            onclick="closeImmersive()">
-
-            Salir
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-let currentEmotion =
-    "tranquilo";
-
-let progress =
-    20;
-
-let soundEnabled =
-    false;
-
-let breathingRunning =
-    false;
-
-let audioContext =
-    null;
-
-let audioNodes =
-    {};
-
-let focusInterval =
-    null;
-
-let focusSeconds =
-    300;
-
-
-/* =========================================================
-   DATOS EMOCIONALES
-========================================================= */
-
-const emotionalData = {
-
-    triste:{
-        icon:"🌧️",
-        title:"Puedes sentirte así",
-        message:
-        "No tienes que fingir que todo está bien. Permítete sentirlo. Quédate aquí un momento y respira.",
-        verse:
-        '"Cercano está Jehová a los quebrantados de corazón."',
-        reference:
-        "Salmos 34:18"
-    },
-
-    ansioso:{
-        icon:"🌬️",
-        title:"Vamos despacio",
-        message:
-        "No necesitas resolverlo todo ahora. Concéntrate solamente en este momento.",
-        verse:
-        '"Por nada estéis afanosos; sino sean conocidas vuestras peticiones delante de Dios."',
-        reference:
-        "Filipenses 4:6"
-    },
-
-    enojado:{
-        icon:"🔥",
-        title:"Haz una pausa",
-        message:
-        "Tu emoción es válida. Antes de reaccionar, date unos segundos para respirar.",
-        verse:
-        '"La blanda respuesta quita la ira."',
-        reference:
-        "Proverbios 15:1"
-    },
-
-    cansado:{
-        icon:"🌙",
-        title:"Puedes descansar",
-        message:
-        "No todo tiene que hacerse hoy. A veces descansar también es avanzar.",
-        verse:
-        '"En paz me acostaré, y asimismo dormiré."',
-        reference:
-        "Salmos 4:8"
-    },
-
-    tranquilo:{
-        icon:"🌿",
-        title:"Quédate aquí",
-        message:
-        "Disfruta este momento. No necesitas apresurarlo.",
-        verse:
-        '"Estad quietos, y conoced que yo soy Dios."',
-        reference:
-        "Salmos 46:10"
-    },
-
-    feliz:{
-        icon:"☀️",
-        title:"Disfruta este momento",
-        message:
-        "Guarda este instante. También mereces reconocer los días buenos.",
-        verse:
-        '"Este es el día que hizo Jehová; nos gozaremos y alegraremos en él."',
-        reference:
-        "Salmos 118:24"
-    },
-
-    saturado:{
-        icon:"😵",
-        title:"Vamos a quitar peso",
-        message:
-        "No necesitas resolver todo a la vez. Primero vamos a sacar algunas cosas de tu cabeza.",
-        verse:
-        '"Echa sobre Jehová tu carga, y él te sustentará."',
-        reference:
-        "Salmos 55:22"
-    }
-
-};
-
-
-/* =========================================================
-   SELECCIONAR EMOCIÓN
-========================================================= */
-
-function selectEmotion(emotion){
-
-    currentEmotion =
-        emotion;
-
-    document.body.className =
-        emotion;
-
-
-    document
-        .querySelectorAll(".emotion")
-        .forEach(button => {
-
-            button.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    const selected =
-        document.querySelector(
-            `[data-emotion="${emotion}"]`
-        );
-
-
-    if(selected){
-        selected.classList.add(
-            "active"
-        );
-    }
-
-
-    const data =
-        emotionalData[emotion];
-
-
-    document.getElementById(
-        "messageIcon"
-    ).textContent =
-        data.icon;
-
-
-    document.getElementById(
-        "messageTitle"
-    ).textContent =
-        data.title;
-
-
-    document.getElementById(
-        "messageText"
-    ).textContent =
-        data.message;
-
-
-    document.getElementById(
-        "verseText"
-    ).textContent =
-        data.verse;
-
-
-    document.getElementById(
-        "verseReference"
-    ).textContent =
-        data.reference;
-
-
-    animateElement(
-        "messageCard"
-    );
-
-
-    increaseProgress(5);
-
-
-    if(soundEnabled){
-
-        playEmotionSound(
-            emotion
-        );
-
-    }
-
-    revealEmotionExperience(emotion);
-
-
-}
-
-
-/* =========================================================
-   ANIMACIÓN
-========================================================= */
-
-function animateElement(id){
-
-    const element =
-        document.getElementById(id);
-
-    element.classList.remove(
-        "fade-in"
-    );
-
-    void element.offsetWidth;
-
-    element.classList.add(
-        "fade-in"
-    );
-
-}
-
-
-/* =========================================================
-   PROGRESO
-========================================================= */
-
-function increaseProgress(amount){
-
-    progress += amount;
-
-    if(progress > 100){
-        progress = 100;
-    }
-
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
-        progress + "%";
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        progress + "%";
-
-}
-
-
-/* =========================================================
-   LLUVIA
-========================================================= */
-
-function createRain(){
-
-    const rain =
-        document.getElementById(
-            "rain"
-        );
-
-    rain.innerHTML = "";
-
-
-    for(
-        let i=0;
-        i<130;
-        i++
-    ){
-
-        const drop =
-            document.createElement(
-                "div"
-            );
-
-
-        drop.className =
-            "drop";
-
-
-        drop.style.left =
-            Math.random()*105 +
-            "%";
-
-
-        drop.style.animationDuration =
-            (.6 +
-            Math.random()*1.1) +
-            "s";
-
-
-        drop.style.animationDelay =
-            Math.random()*2 +
-            "s";
-
-
-        drop.style.opacity =
-            .2 +
-            Math.random()*.7;
-
-
-        rain.appendChild(
-            drop
-        );
-
-    }
-
-}
-
-createRain();
-
-
-/* =========================================================
-   PARTÍCULAS
-========================================================= */
-
-function createParticles(){
-
-    const container =
-        document.getElementById(
-            "particles"
-        );
-
-
-    for(
-        let i=0;
-        i<35;
-        i++
-    ){
-
-        const particle =
-            document.createElement(
-                "div"
-            );
-
-
-        particle.className =
-            "particle";
-
-
-        particle.style.left =
-            Math.random()*100 +
-            "%";
-
-
-        particle.style.top =
-            Math.random()*100 +
-            "%";
-
-
-        particle.style.setProperty(
-            "--duration",
-            (4 +
-            Math.random()*7) +
-            "s"
-        );
-
-
-        particle.style.animationDelay =
-            Math.random()*5 +
-            "s";
-
-
-        container.appendChild(
-            particle
-        );
-
-    }
-
-}
-
-createParticles();
-
-
-/* =========================================================
-   HERRAMIENTAS
-========================================================= */
-
-function openTool(tool){
-
-    const modal =
-        document.getElementById(
-            "toolModal"
-        );
-
-    const icon =
-        document.getElementById(
-            "toolModalIcon"
-        );
-
-    const title =
-        document.getElementById(
-            "toolModalTitle"
-        );
-
-    const description =
-        document.getElementById(
-            "toolModalDescription"
-        );
-
-    const content =
-        document.getElementById(
-            "toolModalContent"
-        );
-
-
-    if(tool === "ansiedad"){
-
-        icon.textContent =
-            "🫁";
-
-        title.textContent =
-            "Vamos a bajar el ritmo";
-
-        description.textContent =
-            "No necesitas eliminar lo que sientes. Primero vamos a crear un poco de espacio.";
-
-        content.innerHTML = `
-
-            <div class="step-list">
-
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <span>
-                        Apoya los pies en el suelo.
-                    </span>
+                <div>
+                    <h1>MENTE</h1>
+                    <span>Tu espacio para estar contigo.</span>
                 </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <span>
-                        Mira lentamente a tu alrededor.
-                    </span>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <span>
-                        Inhala suavemente durante 4 segundos.
-                    </span>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <span>
-                        Exhala lentamente durante 6 segundos.
-                    </span>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <span>
-                        Repite varias veces sin forzarte.
-                    </span>
-                </div>
-
             </div>
 
             <button
-                class="primary-button"
-                onclick="closeToolModal();scrollToBreathing();">
-
-                🌬️ Hacer respiración
-
+                class="icon-button"
+                id="soundButton"
+                aria-label="Activar sonido">
+                🔊
             </button>
 
-        `;
-
-    }
+        </header>
 
 
-    if(tool === "tdah"){
+        <!-- =========================
+             INICIO
+        ========================== -->
 
-        icon.textContent =
-            "🧠";
+        <section class="screen active" id="homeScreen">
 
-        title.textContent =
-            "Vamos a empezar pequeño";
+            <div class="hero">
 
-        description.textContent =
-            "Cuando una tarea parece enorme, podemos reducirla hasta encontrar el primer paso.";
+                <span class="eyebrow">
+                    UN MOMENTO PARA TI
+                </span>
 
-        content.innerHTML = `
+                <h2>
+                    Hola <span id="greetingEmoji">👋</span>
+                </h2>
 
-            <input
-                id="tdahTask"
-                placeholder="¿Qué necesitas hacer?">
+                <p id="welcomeText">
+                    No tienes que resolverlo todo ahora.
+                    Empecemos por saber cómo estás.
+                </p>
 
-            <div
-                style="height:10px">
             </div>
 
-            <button
-                class="primary-button"
-                onclick="breakTask()">
 
-                Dividir mi tarea
+            <!-- ESTADO -->
 
-            </button>
+            <section class="section">
 
-            <div
-                id="taskResult"
-                style="margin-top:18px">
-            </div>
-
-        `;
-
-    }
+                <div class="section-title">
+                    <div>
+                        <span class="mini-label">01</span>
+                        <h3>¿Cómo te sientes?</h3>
+                    </div>
+                </div>
 
 
-    if(tool === "enfoque"){
+                <div class="mood-grid">
 
-        icon.textContent =
-            "🎯";
+                    <button class="mood-card mood-great" data-mood="muy-bien">
+                        <span class="mood-icon">😊</span>
+                        <span>Muy bien</span>
+                        <small>Con energía</small>
+                    </button>
 
-        title.textContent =
-            "Una cosa a la vez";
+                    <button class="mood-card mood-good" data-mood="bien">
+                        <span class="mood-icon">🙂</span>
+                        <span>Bien</span>
+                        <small>Tranquilo/a</small>
+                    </button>
 
-        description.textContent =
-            "No necesitas terminar todo. Solo necesitas comenzar.";
+                    <button class="mood-card mood-neutral" data-mood="regular">
+                        <span class="mood-icon">😐</span>
+                        <span>Regular</span>
+                        <small>Normal</small>
+                    </button>
 
-        content.innerHTML = `
+                    <button class="mood-card mood-bad" data-mood="mal">
+                        <span class="mood-icon">😔</span>
+                        <span>Mal</span>
+                        <small>Necesito parar</small>
+                    </button>
 
-            <div class="focus-timer">
-
-                <div class="timer-status"
-                    id="focusStatus">
-
-                    Preparado para comenzar
+                    <button class="mood-card mood-very-bad" data-mood="muy-mal">
+                        <span class="mood-icon">😣</span>
+                        <span>Muy mal</span>
+                        <small>Necesito apoyo</small>
+                    </button>
 
                 </div>
 
-                <div
-                    class="timer-number"
-                    id="timerNumber">
+            </section>
 
-                    05:00
+
+            <!-- MENSAJE DEL MOMENTO -->
+
+            <section class="daily-card" id="dailyCard">
+
+                <div class="daily-icon" id="dailyIcon">
+                    🌿
+                </div>
+
+                <div>
+                    <span class="mini-label">PARA ESTE MOMENTO</span>
+
+                    <p id="dailyMessage">
+                        A veces avanzar significa simplemente
+                        darte permiso para descansar.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- ACCIONES -->
+
+            <section class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="mini-label">02</span>
+                        <h3>¿Qué necesitas?</h3>
+                    </div>
+
+                    <span class="discover">
+                        Explora
+                    </span>
+                </div>
+
+
+                <div class="tool-grid">
+
+                    <button class="tool-card" data-tool="calmar">
+
+                        <span class="tool-icon">🌬️</span>
+
+                        <strong>Calmarme</strong>
+
+                        <small>
+                            Respiración y relajación
+                        </small>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="ordenar">
+
+                        <span class="tool-icon">🧠</span>
+
+                        <strong>Ordenar mi mente</strong>
+
+                        <small>
+                            Organiza lo que piensas
+                        </small>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="concentrarme">
+
+                        <span class="tool-icon">🎯</span>
+
+                        <strong>Concentrarme</strong>
+
+                        <small>
+                            Reduce distracciones
+                        </small>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="escribir">
+
+                        <span class="tool-icon">📝</span>
+
+                        <strong>Escribir</strong>
+
+                        <small>
+                            Saca lo que llevas dentro
+                        </small>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="relajarme">
+
+                        <span class="tool-icon">😴</span>
+
+                        <strong>Relajarme</strong>
+
+                        <small>
+                            Baja el ritmo
+                        </small>
+
+                    </button>
+
+
+                    <button class="tool-card" data-tool="aprender">
+
+                        <span class="tool-icon">📚</span>
+
+                        <strong>Aprender</strong>
+
+                        <small>
+                            Entiende mejor lo que sientes
+                        </small>
+
+                    </button>
 
                 </div>
+
+            </section>
+
+
+            <!-- VERSÍCULO -->
+
+            <section class="verse-card">
+
+                <div class="verse-top">
+                    <span>✦ PALABRA PARA HOY</span>
+
+                    <button id="newVerseButton">
+                        ↻
+                    </button>
+                </div>
+
+                <p id="verseText">
+                    "No temas, porque yo estoy contigo;
+                    no desmayes, porque yo soy tu Dios."
+                </p>
+
+                <span id="verseReference">
+                    Isaías 41:10
+                </span>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================
+             PANTALLA DE HERRAMIENTA
+        ========================== -->
+
+        <section class="screen" id="toolScreen">
+
+            <button class="back-button" id="backButton">
+                ← Volver
+            </button>
+
+            <div class="tool-header">
+
+                <span class="tool-header-icon" id="toolHeaderIcon">
+                    🌬️
+                </span>
+
+                <span class="mini-label" id="toolLabel">
+                    HERRAMIENTA
+                </span>
+
+                <h2 id="toolTitle">
+                    Vamos a bajar el ritmo
+                </h2>
+
+                <p id="toolDescription">
+                    No necesitas solucionar todo ahora.
+                    Solo vamos a dar un pequeño paso.
+                </p>
+
+            </div>
+
+
+            <!-- RESPIRACIÓN -->
+
+            <div class="exercise-panel" id="breathingPanel">
+
+                <div class="breathing-circle" id="breathingCircle">
+
+                    <div class="breathing-inner">
+
+                        <span id="breathingInstruction">
+                            Listo
+                        </span>
+
+                        <strong id="breathingCounter">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="exercise-info">
+
+                    <span id="breathingPhase">
+                        Preparado
+                    </span>
+
+                    <p id="breathingText">
+                        Cuando estés listo, comenzamos.
+                    </p>
+
+                </div>
+
 
                 <button
                     class="primary-button"
-                    id="focusButton"
-                    onclick="startFocus()">
+                    id="breathingStart">
 
-                    ▶ Comenzar
+                    ▶ Comenzar ejercicio
 
                 </button>
 
             </div>
 
-        `;
 
-    }
+            <!-- ESCRITURA -->
+
+            <div class="writing-panel hidden" id="writingPanel">
+
+                <label for="journalText">
+                    Escribe sin preocuparte por hacerlo perfecto.
+                </label>
+
+                <textarea
+                    id="journalText"
+                    placeholder="¿Qué está pasando por tu mente?"></textarea>
+
+                <div class="writing-actions">
+
+                    <button
+                        class="secondary-button"
+                        id="clearJournal">
+                        Limpiar
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        id="saveJournal">
+                        Guardar nota
+                    </button>
+
+                </div>
+
+                <div class="saved-note hidden" id="savedNote">
+                    ✓ Tu nota se guardó en este dispositivo.
+                </div>
+
+            </div>
 
 
-    if(tool === "mente"){
+            <!-- ORDENAR LA MENTE -->
 
-        icon.textContent =
-            "💭";
+            <div class="thought-panel hidden" id="thoughtPanel">
 
-        title.textContent =
-            "Descarga mental";
+                <p class="question">
+                    ¿Qué ocupa más espacio en tu cabeza ahora?
+                </p>
 
-        description.textContent =
-            "Escribe todo lo que esté ocupando espacio en tu cabeza. No tienes que organizarlo todavía.";
+                <div class="thought-options">
 
-        content.innerHTML = `
+                    <button data-thought="problema">
+                        🧩 Un problema
+                    </button>
 
-            <textarea
-                id="mindDump"
-                style="min-height:170px"
-                placeholder="Tengo que...
-Estoy pensando en...
-Me preocupa...
-No quiero olvidar...
-"></textarea>
+                    <button data-thought="preocupacion">
+                        🌧️ Una preocupación
+                    </button>
 
-            <br><br>
+                    <button data-thought="decision">
+                        ⚖️ Una decisión
+                    </button>
 
-            <button
-                class="primary-button"
-                onclick="organizeMind()">
+                    <button data-thought="pensamiento">
+                        💭 Muchos pensamientos
+                    </button>
 
-                🧠 Ordenar mi mente
+                </div>
+
+                <div class="response-box" id="thoughtResponse">
+                    Selecciona una opción para comenzar.
+                </div>
+
+            </div>
+
+
+            <!-- CONCENTRACIÓN -->
+
+            <div class="focus-panel hidden" id="focusPanel">
+
+                <div class="focus-timer">
+
+                    <span id="focusMinutes">
+                        05
+                    </span>
+
+                    <small>
+                        minutos
+                    </small>
+
+                </div>
+
+                <p>
+                    Durante este tiempo intenta hacer
+                    solamente una cosa.
+                </p>
+
+                <button
+                    class="primary-button"
+                    id="focusStart">
+                    ▶ Empezar
+                </button>
+
+                <button
+                    class="secondary-button hidden"
+                    id="focusStop">
+                    Detener
+                </button>
+
+            </div>
+
+
+            <!-- RELAJACIÓN -->
+
+            <div class="relax-panel hidden" id="relaxPanel">
+
+                <div class="relax-orb">
+                    ✨
+                </div>
+
+                <h3>
+                    No tienes que hacer nada ahora.
+                </h3>
+
+                <p>
+                    Suelta los hombros.
+                    Afloja la mandíbula.
+                    Respira lentamente.
+                </p>
+
+                <button
+                    class="primary-button"
+                    id="relaxStart">
+                    Comenzar relajación
+                </button>
+
+            </div>
+
+
+            <!-- APRENDER -->
+
+            <div class="learn-panel hidden" id="learnPanel">
+
+                <article>
+                    <span>🧠</span>
+
+                    <h3>
+                        Entender tus emociones
+                    </h3>
+
+                    <p>
+                        Una emoción no es una orden.
+                        Es información. Puedes sentir algo
+                        intensamente sin tener que actuar
+                        inmediatamente sobre ello.
+                    </p>
+                </article>
+
+                <article>
+                    <span>🌱</span>
+
+                    <h3>
+                        Pequeños pasos
+                    </h3>
+
+                    <p>
+                        Cuando algo parece demasiado grande,
+                        dividirlo en acciones pequeñas puede
+                        hacerlo más manejable.
+                    </p>
+                </article>
+
+                <article>
+                    <span>💛</span>
+
+                    <h3>
+                        Sé paciente contigo
+                    </h3>
+
+                    <p>
+                        Tener un día difícil no significa
+                        que estés retrocediendo.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             NAVEGACIÓN
+        ========================== -->
+
+        <nav class="bottom-nav">
+
+            <button class="nav-item active" data-screen="homeScreen">
+
+                <span>⌂</span>
+                <small>Inicio</small>
 
             </button>
 
-            <div
-                class="mind-dump-results"
-                id="mindDumpResults">
 
-            </div>
+            <button class="nav-item" id="randomToolButton">
 
-        `;
-
-    }
-
-
-    if(tool === "animo"){
-
-        icon.textContent =
-            "💙";
-
-        title.textContent =
-            "Mi estado de ánimo";
-
-        description.textContent =
-            "Registrar cómo te sientes puede ayudarte a observar tus propios patrones con el tiempo.";
-
-        content.innerHTML = `
-
-            <p style="margin-bottom:10px">
-                ¿Cómo te sientes ahora?
-            </p>
-
-            <div class="mood-scale">
-
-                <button
-                    class="mood-choice"
-                    onclick="selectMood(this,1)">
-                    😔
-                </button>
-
-                <button
-                    class="mood-choice"
-                    onclick="selectMood(this,2)">
-                    😕
-                </button>
-
-                <button
-                    class="mood-choice"
-                    onclick="selectMood(this,3)">
-                    😐
-                </button>
-
-                <button
-                    class="mood-choice"
-                    onclick="selectMood(this,4)">
-                    🙂
-                </button>
-
-                <button
-                    class="mood-choice"
-                    onclick="selectMood(this,5)">
-                    😊
-                </button>
-
-            </div>
-
-            <button
-                class="primary-button"
-                onclick="saveMood()">
-
-                Guardar estado
+                <span>✦</span>
+                <small>Para ti</small>
 
             </button>
 
-            <div
-                id="moodResult"
-                style="margin-top:15px;font-size:12px;opacity:.65">
-            </div>
 
-        `;
+            <button class="nav-item" id="verseNavButton">
 
-    }
+                <span>♡</span>
+                <small>Palabra</small>
 
+            </button>
 
-    if(tool === "victorias"){
 
-        icon.textContent =
-            "🌱";
+            <button class="nav-item" id="journalNavButton">
 
-        title.textContent =
-            "Pequeña victoria";
+                <span>✎</span>
+                <small>Notas</small>
 
-        description.textContent =
-            "A veces avanzar significa hacer algo pequeño cuando no tenías ganas.";
+            </button>
 
-        content.innerHTML = `
+        </nav>
 
-            <div class="step-list">
+    </main>
 
-                <div class="step">
-                    <div class="step-number">✓</div>
-                    <span>
-                        Tomaste agua.
-                    </span>
-                </div>
 
-                <div class="step">
-                    <div class="step-number">✓</div>
-                    <span>
-                        Te levantaste.
-                    </span>
-                </div>
+    <!-- TOAST -->
 
-                <div class="step">
-                    <div class="step-number">✓</div>
-                    <span>
-                        Pediste ayuda.
-                    </span>
-                </div>
+    <div class="toast" id="toast">
+        <span>✓</span>
+        <p id="toastMessage">
+            Listo
+        </p>
+    </div>
 
-                <div class="step">
-                    <div class="step-number">✓</div>
-                    <span>
-                        Hiciste una tarea.
-                    </span>
-                </div>
 
-                <div class="step">
-                    <div class="step-number">✓</div>
-                    <span>
-                        Te diste permiso para descansar.
-                    </span>
-                </div>
-
-            </div>
-
-            <p style="margin-top:15px">
-                No minimices las cosas pequeñas.
-                Son parte del camino.
-            </p>
-
-        `;
-
-    }
-
-
-    modal.classList.add(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   CERRAR TOOL
-========================================================= */
-
-function closeToolModal(){
-
-    document
-        .getElementById(
-            "toolModal"
-        )
-        .classList.remove(
-            "show"
-        );
-
-}
-
-
-/* =========================================================
-   TDAH - DIVIDIR TAREA
-========================================================= */
-
-function breakTask(){
-
-    const input =
-        document.getElementById(
-            "tdahTask"
-        );
-
-    const task =
-        input.value.trim();
-
-
-    if(!task){
-
-        alert(
-            "Escribe primero la tarea."
-        );
-
-        return;
-
-    }
-
-
-    const result =
-        document.getElementById(
-            "taskResult"
-        );
-
-
-    result.innerHTML = `
-
-        <div class="step-list">
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <span>
-                    Acércate al lugar donde
-                    realizarás: <strong>${escapeHTML(task)}</strong>
-                </span>
-            </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <span>
-                    Prepara solamente lo necesario.
-                </span>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <span>
-                    Haz la primera acción durante
-                    solamente 5 minutos.
-                </span>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <span>
-                    Cuando terminen los 5 minutos,
-                    decide si quieres continuar.
-                </span>
-            </div>
-
-        </div>
-
-    `;
-
-    increaseProgress(5);
-
-}
-
-
-/* =========================================================
-   ESCAPAR HTML
-========================================================= */
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.textContent =
-        text;
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================================================
-   FOCUS
-========================================================= */
-
-function startFocus(){
-
-    if(focusInterval){
-
-        clearInterval(
-            focusInterval
-        );
-
-        focusInterval =
-            null;
-
-        document.getElementById(
-            "focusButton"
-        ).textContent =
-            "▶ Continuar";
-
-        document.getElementById(
-            "focusStatus"
-        ).textContent =
-            "Pausa";
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "focusStatus"
-    ).textContent =
-        "Concéntrate solamente en esto.";
-
-
-    focusInterval =
-        setInterval(
-            () => {
-
-                focusSeconds--;
-
-
-                updateTimer();
-
-
-                if(
-                    focusSeconds <= 0
-                ){
-
-                    clearInterval(
-                        focusInterval
-                    );
-
-                    focusInterval =
-                        null;
-
-
-                    document.getElementById(
-                        "focusStatus"
-                    ).textContent =
-                        "🎉 Terminaste tus 5 minutos";
-
-
-                    document.getElementById(
-                        "focusButton"
-                    ).textContent =
-                        "✓ Completado";
-
-
-                    increaseProgress(
-                        15
-                    );
-
-                }
-
-            },
-            1000
-        );
-
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-function updateTimer(){
-
-    const minutes =
-        Math.floor(
-            focusSeconds / 60
-        );
-
-    const seconds =
-        focusSeconds % 60;
-
-
-    document.getElementById(
-        "timerNumber"
-    ).textContent =
-        String(minutes).padStart(2,"0")
-        +
-        ":"
-        +
-        String(seconds).padStart(2,"0");
-
-}
-
-
-/* =========================================================
-   DESCARGA MENTAL
-========================================================= */
-
-function organizeMind(){
-
-    const text =
-        document.getElementById(
-            "mindDump"
-        ).value.trim();
-
-
-    if(!text){
-
-        alert(
-            "Escribe primero lo que tienes en mente."
-        );
-
-        return;
-
-    }
-
-
-    const results =
-        document.getElementById(
-            "mindDumpResults"
-        );
-
-
-    results.style.display =
-        "block";
-
-
-    results.innerHTML = `
-
-        <div class="result-box">
-
-            <h4>
-                🌱 AHORA
-            </h4>
-
-            <p>
-                Elige solamente una cosa
-                pequeña que puedas hacer hoy.
-            </p>
-
-        </div>
-
-        <div class="result-box">
-
-            <h4>
-                🕊️ DESPUÉS
-            </h4>
-
-            <p>
-                Lo demás puede esperar.
-                No necesitas resolverlo todo al mismo tiempo.
-            </p>
-
-        </div>
-
-        <div class="result-box">
-
-            <h4>
-                💙 RECUERDA
-            </h4>
-
-            <p>
-                Un pensamiento no siempre
-                es una emergencia.
-            </p>
-
-        </div>
-
-    `;
-
-
-    increaseProgress(10);
-
-}
-
-
-/* =========================================================
-   ESTADO DE ÁNIMO
-========================================================= */
-
-let selectedMood =
-    0;
-
-
-function selectMood(button,value){
-
-    selectedMood =
-        value;
-
-
-    document
-        .querySelectorAll(
-            ".mood-choice"
-        )
-        .forEach(
-            b => b.classList.remove(
-                "active"
-            )
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
-}
-
-
-function saveMood(){
-
-    if(!selectedMood){
-
-        alert(
-            "Selecciona primero cómo te sientes."
-        );
-
-        return;
-
-    }
-
-
-    const moods =
-        JSON.parse(
-            localStorage.getItem(
-                "mente_moods"
-            ) || "[]"
-        );
-
-
-    moods.push({
-
-        value:selectedMood,
-
-        date:new Date()
-            .toISOString()
-
-    });
-
-
-    localStorage.setItem(
-        "mente_moods",
-        JSON.stringify(
-            moods
-        )
-    );
-
-
-    document.getElementById(
-        "moodResult"
-    ).textContent =
-        "✓ Guardado en este dispositivo.";
-
-
-    increaseProgress(10);
-
-}
-
-
-/* =========================================================
-   VICTORIAS
-========================================================= */
-
-function completeVictory(button){
-
-    if(
-        button.classList.contains(
-            "done"
-        )
-    ){
-
-        return;
-
-    }
-
-
-    button.classList.add(
-        "done"
-    );
-
-
-    increaseProgress(5);
-
-
-    const check =
-        button.querySelector(
-            ".victory-check"
-        );
-
-
-    check.textContent =
-        "✓";
-
-
-    localStorage.setItem(
-        "mente_victory_" +
-        Date.now(),
-        "true"
-    );
-
-}
-
-
-/* =========================================================
-   ¿QUÉ HAGO AHORA?
-========================================================= */
-
-function openNowModal(){
-
-    document
-        .getElementById(
-            "nowModal"
-        )
-        .classList.add(
-            "show"
-        );
-
-}
-
-
-function closeNowModal(){
-
-    document
-        .getElementById(
-            "nowModal"
-        )
-        .classList.remove(
-            "show"
-        );
-
-}
-
-
-function recommend(type){
-
-    closeNowModal();
-
-
-    if(type === "calmar"){
-
-        openTool(
-            "ansiedad"
-        );
-
-        return;
-
-    }
-
-
-    if(type === "concentrar"){
-
-        openTool(
-            "enfoque"
-        );
-
-        return;
-
-    }
-
-
-    if(type === "saturado"){
-
-        openTool(
-            "mente"
-        );
-
-        return;
-
-    }
-
-
-    if(type === "empezar"){
-
-        openTool(
-            "tdah"
-        );
-
-        return;
-
-    }
-
-
-    if(type === "triste"){
-
-        openTool(
-            "victorias"
-        );
-
-        return;
-
-    }
-
-}
-
-
-/* =========================================================
-   RESPIRACIÓN
-========================================================= */
-
-function startBreathing(){
-
-    if(breathingRunning){
-        return;
-    }
-
-
-    breathingRunning =
-        true;
-
-
-    const circle =
-        document.getElementById(
-            "breathCircle"
-        );
-
-
-    const text =
-        document.getElementById(
-            "breathText"
-        );
-
-
-    let cycles =
-        0;
-
-
-    function inhale(){
-
-        if(
-            cycles >= 5
-        ){
-
-            finishBreathing();
-
-            return;
-
-        }
-
-
-        text.textContent =
-            "Inhala";
-
-
-        circle.className =
-            "breath-circle inhale";
-
-
-        if(soundEnabled){
-            playBreathTone(320);
-        }
-
-
-        setTimeout(
-            exhale,
-            4000
-        );
-
-    }
-
-
-    function exhale(){
-
-        text.textContent =
-            "Exhala";
-
-
-        circle.className =
-            "breath-circle exhale";
-
-
-        if(soundEnabled){
-            playBreathTone(220);
-        }
-
-
-        setTimeout(
-            () => {
-
-                cycles++;
-
-                inhale();
-
-            },
-            6000
-        );
-
-    }
-
-
-    inhale();
-
-}
-
-
-function finishBreathing(){
-
-    const circle =
-        document.getElementById(
-            "breathCircle"
-        );
-
-
-    const text =
-        document.getElementById(
-            "breathText"
-        );
-
-
-    circle.className =
-        "breath-circle";
-
-
-    text.textContent =
-        "Muy bien";
-
-
-    increaseProgress(
-        20
-    );
-
-
-    breathingRunning =
-        false;
-
-}
-
-
-/* =========================================================
-   NOTAS
-========================================================= */
-
-function saveNote(){
-
-    const note =
-        document.getElementById(
-            "note"
-        ).value;
-
-
-    if(!note.trim()){
-
-        alert(
-            "Escribe algo antes de guardar."
-        );
-
-        return;
-
-    }
-
-
-    localStorage.setItem(
-        "mente_note",
-        note
-    );
-
-
-    increaseProgress(
-        10
-    );
-
-
-    document
-        .getElementById(
-            "savedModal"
-        )
-        .classList.add(
-            "show"
-        );
-
-}
-
-
-function closeSavedModal(){
-
-    document
-        .getElementById(
-            "savedModal"
-        )
-        .classList.remove(
-            "show"
-        );
-
-}
-
-
-/* =========================================================
-   RECUPERAR NOTA
-========================================================= */
-
-const savedNote =
-    localStorage.getItem(
-        "mente_note"
-    );
-
-
-if(savedNote){
-
-    document.getElementById(
-        "note"
-    ).value =
-        savedNote;
-
-}
-
-
-/* =========================================================
-   SCROLL RESPIRACIÓN
-========================================================= */
-
-function scrollToBreathing(){
-
-    document
-        .getElementById(
-            "breathingSection"
-        )
-        .scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-}
-
-
-/* =========================================================
-   VERSÍCULOS
-========================================================= */
-
-const extraVerses = [
-
-    {
-        text:
-        '"Todo lo puedo en Cristo que me fortalece."',
-        reference:
-        "Filipenses 4:13"
-    },
-
-    {
-        text:
-        '"Jehová es mi pastor; nada me faltará."',
-        reference:
-        "Salmos 23:1"
-    },
-
-    {
-        text:
-        '"No temas, porque yo estoy contigo."',
-        reference:
-        "Isaías 41:10"
-    },
-
-    {
-        text:
-        '"El Señor es mi luz y mi salvación; ¿de quién temeré?"',
-        reference:
-        "Salmos 27:1"
-    },
-
-    {
-        text:
-        '"Encomienda a Jehová tus obras, y tus pensamientos serán afirmados."',
-        reference:
-        "Proverbios 16:3"
-    },
-
-    {
-        text:
-        '"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."',
-        reference:
-        "Mateo 11:28"
-    }
-
-];
-
-
-function changeVerse(){
-
-    const verse =
-        extraVerses[
-            Math.floor(
-                Math.random() *
-                extraVerses.length
-            )
-        ];
-
-
-    document.getElementById(
-        "verseText"
-    ).textContent =
-        verse.text;
-
-
-    document.getElementById(
-        "verseReference"
-    ).textContent =
-        verse.reference;
-
-
-    increaseProgress(
-        5
-    );
-
-}
-
-
-/* =========================================================
-   SONIDO
-========================================================= */
-
-function toggleSound(){
-
-    soundEnabled =
-        !soundEnabled;
-
-
-    const button =
-        document.getElementById(
-            "soundButton"
-        );
-
-
-    if(soundEnabled){
-
-        button.textContent =
-            "🔊";
-
-
-        initializeAudio();
-
-        playEmotionSound(
-            currentEmotion
-        );
-
-    }
-    else{
-
-        button.textContent =
-            "🔇";
-
-        stopAmbient();
-
-    }
-
-}
-
-
-function initializeAudio(){
-
-    try{
-
-        if(!audioContext){
-
-            audioContext =
-                new(
-                    window.AudioContext ||
-                    window.webkitAudioContext
-                )();
-
-        }
-
-
-        if(
-            audioContext.state ===
-            "suspended"
-        ){
-
-            audioContext.resume();
-
-        }
-
-    }
-    catch(error){
-
-        console.log(
-            "Audio no disponible",
-            error
-        );
-
-    }
-
-}
-
-
-function playEmotionSound(emotion){
-
-    if(!audioContext){
-        return;
-    }
-
-
-    const frequencies = {
-
-        triste:180,
-        ansioso:260,
-        enojado:140,
-        cansado:120,
-        tranquilo:330,
-        feliz:440,
-        saturado:210
-
-    };
-
-
-    const oscillator =
-        audioContext.createOscillator();
-
-
-    const gain =
-        audioContext.createGain();
-
-
-    oscillator.type =
-        "sine";
-
-
-    oscillator.frequency.value =
-        frequencies[emotion];
-
-
-    gain.gain.setValueAtTime(
-        .0001,
-        audioContext.currentTime
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .045,
-        audioContext.currentTime+.4
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .0001,
-        audioContext.currentTime+2
-    );
-
-
-    oscillator.connect(
-        gain
-    );
-
-
-    gain.connect(
-        audioContext.destination
-    );
-
-
-    oscillator.start();
-
-
-    oscillator.stop(
-        audioContext.currentTime+2
-    );
-
-}
-
-
-function playBreathTone(frequency){
-
-    if(!audioContext){
-        return;
-    }
-
-
-    const oscillator =
-        audioContext.createOscillator();
-
-
-    const gain =
-        audioContext.createGain();
-
-
-    oscillator.type =
-        "sine";
-
-
-    oscillator.frequency.value =
-        frequency;
-
-
-    gain.gain.setValueAtTime(
-        .0001,
-        audioContext.currentTime
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .025,
-        audioContext.currentTime+.5
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .0001,
-        audioContext.currentTime+2
-    );
-
-
-    oscillator.connect(
-        gain
-    );
-
-
-    gain.connect(
-        audioContext.destination
-    );
-
-
-    oscillator.start();
-
-
-    oscillator.stop(
-        audioContext.currentTime+2
-    );
-
-}
-
-
-/* =========================================================
-   MODO INMERSIVO
-========================================================= */
-
-function openImmersive(){
-
-    document
-        .getElementById(
-            "immersive"
-        )
-        .classList.add(
-            "active"
-        );
-
-}
-
-
-function closeImmersive(){
-
-    document
-        .getElementById(
-            "immersive"
-        )
-        .classList.remove(
-            "active"
-        );
-
-}
-
-
-function activateImmersive(){
-
-    soundEnabled =
-        true;
-
-
-    document.getElementById(
-        "soundButton"
-    ).textContent =
-        "🔊";
-
-
-    initializeAudio();
-
-
-    playEmotionSound(
-        currentEmotion
-    );
-
-
-    closeImmersive();
-
-
-    increaseProgress(
-        5
-    );
-
-}
-
-
-/* =========================================================
-   CERRAR MODALES AL TOCAR FONDO
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".modal"
-    )
-    .forEach(
-        modal => {
-
-            modal.addEventListener(
-                "click",
-                function(event){
-
-                    if(
-                        event.target ===
-                        this
-                    ){
-
-                        this.classList.remove(
-                            "show"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   INICIALIZAR
-========================================================= */
-
-document.body.className = "tranquilo";
-const initialEmotion = document.querySelector('[data-emotion="tranquilo"]');
-if(initialEmotion) initialEmotion.classList.add("active");
-
-</script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
