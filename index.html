@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>MENTE | Bienestar mental</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7f6;
+            color: #24332f;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            font-size: 18px;
+            color: #64736e;
+            margin-bottom: 50px;
+        }
+
+        .saludo {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .pregunta {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .emociones {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .emocion {
+            border: none;
+            background: white;
+            border-radius: 18px;
+            padding: 18px 22px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .emocion:hover {
+            transform: translateY(-3px);
+        }
+
+        .seccion {
+            margin-top: 50px;
+        }
+
+        .seccion h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .opciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .opcion {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            cursor: pointer;
+        }
+
+        .opcion:hover {
+            transform: translateY(-3px);
+        }
+
+        .icono {
+            font-size: 35px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            padding: 25px;
+            color: #7a8783;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <div class="logo">MENTE</div>
+
+        <div class="subtitulo">
+            Un espacio para entenderte, organizarte y cuidarte.
+        </div>
+
+        <h1 class="saludo">Hola 👋</h1>
+
+        <p class="pregunta">
+            ¿Cómo te sientes hoy?
+        </p>
+
+        <div class="emociones">
+
+            <button class="emocion">😊 Muy bien</button>
+            <button class="emocion">🙂 Bien</button>
+            <button class="emocion">😐 Regular</button>
+            <button class="emocion">😔 Mal</button>
+            <button class="emocion">😣 Muy mal</button>
+
+        </div>
+
+        <section class="seccion">
+
+            <h2>¿Qué necesitas ahora?</h2>
+
+            <div class="opciones">
+
+                <div class="opcion">
+                    <span class="icono">🌬️</span>
+                    Calmarme
+                </div>
+
+                <div class="opcion">
+                    <span class="icono">🧠</span>
+                    Ordenar mi mente
+                </div>
+
+                <div class="opcion">
+                    <span class="icono">🎯</span>
+                    Concentrarme
+                </div>
+
+                <div class="opcion">
+                    <span class="icono">📝</span>
+                    Escribir
+                </div>
+
+                <div class="opcion">
+                    <span class="icono">😴</span>
+                    Relajarme
+                </div>
+
+                <div class="opcion">
+                    <span class="icono">📚</span>
+                    Aprender
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer>
+            MENTE · Plataforma de bienestar mental
+        </footer>
+
+    </main>
+
+</body>
+</html>
