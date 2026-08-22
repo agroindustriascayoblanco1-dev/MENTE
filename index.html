@@ -13,37 +13,53 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #f5f7f6;
             color: #24332f;
         }
 
-        .contenedor {
-            max-width: 900px;
-            margin: auto;
-            padding: 40px 20px;
+        button,
+        textarea {
+            font-family: inherit;
         }
 
+        .contenedor {
+            max-width: 950px;
+            margin: auto;
+            padding: 30px 20px 50px;
+        }
+
+        /* LOGO */
+
         .logo {
-            font-size: 42px;
+            font-size: 44px;
             font-weight: bold;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 25px;
+            letter-spacing: 2px;
         }
 
         .subtitulo {
             text-align: center;
             font-size: 18px;
             color: #64736e;
-            margin-bottom: 50px;
+            margin: 8px auto 45px;
+            max-width: 600px;
+            line-height: 1.5;
         }
+
+        /* INICIO */
 
         .saludo {
             text-align: center;
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 30px;
+            margin-bottom: 8px;
         }
 
         .pregunta {
@@ -55,7 +71,7 @@
         .emociones {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -63,8 +79,8 @@
             border: none;
             background: white;
             border-radius: 18px;
-            padding: 18px 22px;
-            font-size: 18px;
+            padding: 17px 20px;
+            font-size: 17px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             transition: 0.2s;
@@ -76,16 +92,18 @@
 
         .emocion.seleccionada {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 7px 22px rgba(0,0,0,0.14);
         }
+
+        /* RESPUESTA */
 
         .respuesta {
             display: none;
             background: white;
-            margin: 35px auto 0;
+            margin: 30px auto;
             padding: 30px;
-            max-width: 650px;
-            border-radius: 22px;
+            max-width: 700px;
+            border-radius: 24px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.07);
             text-align: center;
             animation: aparecer 0.3s ease;
@@ -97,12 +115,12 @@
 
         .respuesta h2 {
             margin-top: 0;
-            font-size: 24px;
+            font-size: 25px;
         }
 
         .respuesta p {
             font-size: 17px;
-            line-height: 1.6;
+            line-height: 1.65;
             color: #5d6b67;
         }
 
@@ -116,25 +134,64 @@
 
         .opcion-respuesta {
             border: none;
-            background: #f1f4f3;
-            padding: 13px 18px;
+            background: #eef2f0;
+            padding: 13px 17px;
             border-radius: 14px;
             cursor: pointer;
             font-size: 15px;
+            transition: 0.2s;
         }
 
         .opcion-respuesta:hover {
-            background: #e5ebe8;
+            transform: translateY(-2px);
         }
 
-        /* HERRAMIENTA DE ANSIEDAD */
+        /* TARJETAS */
+
+        .seccion {
+            margin-top: 50px;
+        }
+
+        .seccion h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .opciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .opcion {
+            background: white;
+            padding: 25px 18px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opcion:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.10);
+        }
+
+        .icono {
+            font-size: 35px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* HERRAMIENTAS */
 
         .herramienta {
             display: none;
             background: white;
             margin: 35px auto;
             padding: 35px 25px;
-            max-width: 650px;
+            max-width: 700px;
             border-radius: 25px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.08);
             text-align: center;
@@ -152,8 +209,10 @@
 
         .herramienta p {
             color: #63706c;
-            line-height: 1.6;
+            line-height: 1.65;
         }
+
+        /* RESPIRACIÓN */
 
         .respiracion {
             margin: 35px auto;
@@ -186,84 +245,106 @@
         }
 
         #fase {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: bold;
         }
 
         #contador {
             font-size: 40px;
             font-weight: bold;
-            margin-top: 8px;
+            margin-top: 5px;
         }
+
+        /* BOTONES */
 
         .boton-principal {
             border: none;
             background: #24332f;
             color: white;
-            padding: 15px 25px;
-            border-radius: 15px;
-            font-size: 17px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .boton-principal:hover {
-            opacity: 0.9;
-        }
-
-        .boton-secundario {
-            border: none;
-            background: #edf1ef;
-            color: #24332f;
-            padding: 14px 22px;
+            padding: 14px 23px;
             border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             margin: 5px;
         }
 
-        .seccion {
-            margin-top: 50px;
-        }
-
-        .seccion h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .opciones {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .opcion {
-            background: white;
-            padding: 25px;
-            border-radius: 18px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        .boton-secundario {
+            border: none;
+            background: #edf1ef;
+            color: #24332f;
+            padding: 13px 21px;
+            border-radius: 15px;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.2s;
+            margin: 5px;
         }
 
-        .opcion:hover {
-            transform: translateY(-3px);
+        /* DIARIO */
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            border: 1px solid #dfe5e2;
+            border-radius: 18px;
+            padding: 18px;
+            font-size: 16px;
+            outline: none;
+            background: #fafcfa;
         }
 
-        .icono {
-            font-size: 35px;
-            display: block;
-            margin-bottom: 10px;
+        textarea:focus {
+            border-color: #9caaa5;
         }
+
+        .mensaje-guardado {
+            color: #65736e;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        /* TEMPORIZADOR */
+
+        .temporizador {
+            font-size: 58px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        .temporizador-descripcion {
+            font-size: 18px;
+            color: #63706c;
+        }
+
+        /* CRISIS */
+
+        .seguridad {
+            margin-top: 50px;
+            padding: 22px;
+            background: #fff;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #e5e8e6;
+        }
+
+        .seguridad p {
+            color: #63706c;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
 
         footer {
             text-align: center;
-            margin-top: 70px;
+            margin-top: 60px;
             padding: 25px;
             color: #7a8783;
             font-size: 14px;
+            line-height: 1.6;
         }
+
+        /* ANIMACIÓN */
 
         @keyframes aparecer {
 
@@ -279,6 +360,51 @@
 
         }
 
+        /* CELULAR */
+
+        @media (max-width: 600px) {
+
+            .contenedor {
+                padding: 25px 15px 40px;
+            }
+
+            .logo {
+                font-size: 38px;
+            }
+
+            .subtitulo {
+                font-size: 16px;
+            }
+
+            .saludo {
+                font-size: 26px;
+            }
+
+            .pregunta {
+                font-size: 18px;
+            }
+
+            .emocion {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .respuesta,
+            .herramienta {
+                padding: 25px 18px;
+            }
+
+            .respiracion {
+                width: 165px;
+                height: 165px;
+            }
+
+            .temporizador {
+                font-size: 48px;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -286,546 +412,129 @@
 
 <body>
 
-    <main class="contenedor">
+<main class="contenedor">
 
-        <div class="logo">
-            MENTE
+
+    <!-- LOGO -->
+
+    <div class="logo">
+        MENTE
+    </div>
+
+    <div class="subtitulo">
+        Un espacio para entenderte, organizarte y cuidarte.
+    </div>
+
+
+    <!-- ESTADO DE ÁNIMO -->
+
+    <h1 class="saludo">
+        Hola 👋
+    </h1>
+
+    <p class="pregunta">
+        ¿Cómo te sientes hoy?
+    </p>
+
+
+    <div class="emociones">
+
+        <button class="emocion"
+            onclick="seleccionarEmocion('muy bien', this)">
+            😊 Muy bien
+        </button>
+
+        <button class="emocion"
+            onclick="seleccionarEmocion('bien', this)">
+            🙂 Bien
+        </button>
+
+        <button class="emocion"
+            onclick="seleccionarEmocion('regular', this)">
+            😐 Regular
+        </button>
+
+        <button class="emocion"
+            onclick="seleccionarEmocion('mal', this)">
+            😔 Mal
+        </button>
+
+        <button class="emocion"
+            onclick="seleccionarEmocion('muy mal', this)">
+            😣 Muy mal
+        </button>
+
+    </div>
+
+
+    <!-- RESPUESTA -->
+
+    <div id="respuesta" class="respuesta">
+
+        <h2 id="tituloRespuesta"></h2>
+
+        <p id="textoRespuesta"></p>
+
+        <div class="opciones-respuesta">
+
+            <button
+                class="opcion-respuesta"
+                onclick="abrirHerramienta('ansiedad')">
+                😰 Estoy ansioso/a
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="abrirHerramienta('tristeza')">
+                😢 Estoy triste
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="abrirHerramienta('agotamiento')">
+                😩 Estoy agotado/a
+            </button>
+
+            <button
+                class="opcion-respuesta"
+                onclick="abrirHerramienta('emociones')">
+                🤷 No sé qué siento
+            </button>
+
         </div>
 
-        <div class="subtitulo">
-            Un espacio para entenderte, organizarte y cuidarte.
-        </div>
+    </div>
 
 
-        <h1 class="saludo">
-            Hola 👋
-        </h1>
+    <!-- ANSIEDAD -->
 
-        <p class="pregunta">
-            ¿Cómo te sientes hoy?
+    <div id="herramientaAnsiedad" class="herramienta">
+
+        <h2>
+            🌬️ Vamos a bajar un poco el ritmo
+        </h2>
+
+        <p>
+            No necesitas hacer que la ansiedad desaparezca
+            inmediatamente. Vamos a concentrarnos solamente
+            en nuestra respiración durante unos momentos.
         </p>
 
+        <div id="circulo" class="respiracion">
 
-        <div class="emociones">
+            <div class="respiracion-contenido">
 
-            <button class="emocion"
-                onclick="seleccionarEmocion('muy bien', this)">
-                😊 Muy bien
-            </button>
+                <div id="fase">
+                    Listo
+                </div>
 
-            <button class="emocion"
-                onclick="seleccionarEmocion('bien', this)">
-                🙂 Bien
-            </button>
-
-            <button class="emocion"
-                onclick="seleccionarEmocion('regular', this)">
-                😐 Regular
-            </button>
-
-            <button class="emocion"
-                onclick="seleccionarEmocion('mal', this)">
-                😔 Mal
-            </button>
-
-            <button class="emocion"
-                onclick="seleccionarEmocion('muy mal', this)">
-                😣 Muy mal
-            </button>
-
-        </div>
-
-
-        <!-- RESPUESTA -->
-
-        <div id="respuesta" class="respuesta">
-
-            <h2 id="tituloRespuesta"></h2>
-
-            <p id="textoRespuesta"></p>
-
-
-            <div class="opciones-respuesta">
-
-                <button
-                    class="opcion-respuesta"
-                    onclick="abrirAnsiedad()">
-
-                    😰 Estoy ansioso/a
-
-                </button>
-
-
-                <button class="opcion-respuesta">
-
-                    😢 Estoy triste
-
-                </button>
-
-
-                <button class="opcion-respuesta">
-
-                    😩 Estoy agotado/a
-
-                </button>
-
-
-                <button class="opcion-respuesta">
-
-                    🤷 No sé qué siento
-
-                </button>
+                <div id="contador">
+                    —
+                </div>
 
             </div>
 
         </div>
 
-
-        <!-- HERRAMIENTA DE RESPIRACIÓN -->
-
-        <div id="herramientaAnsiedad" class="herramienta">
-
-            <h2>
-                🌬️ Vamos a bajar un poco el ritmo
-            </h2>
-
-            <p>
-                No necesitas hacer que la ansiedad desaparezca
-                inmediatamente. Vamos a concentrarnos solamente
-                en nuestra respiración durante unos momentos.
-            </p>
-
-
-            <div id="circulo" class="respiracion">
-
-                <div class="respiracion-contenido">
-
-                    <div id="fase">
-                        Listo
-                    </div>
-
-                    <div id="contador">
-                        —
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <button
-                id="botonRespiracion"
-                class="boton-principal"
-                onclick="iniciarRespiracion()">
-
-                ▶ Comenzar ejercicio
-
-            </button>
-
-
-            <button
-                class="boton-secundario"
-                onclick="cerrarAnsiedad()">
-
-                ← Volver
-
-            </button>
-
-        </div>
-
-
-        <!-- OPCIONES PRINCIPALES -->
-
-        <section class="seccion">
-
-            <h2>
-                ¿Qué necesitas ahora?
-            </h2>
-
-
-            <div class="opciones">
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        🌬️
-                    </span>
-
-                    Calmarme
-
-                </div>
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        🧠
-                    </span>
-
-                    Ordenar mi mente
-
-                </div>
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        🎯
-                    </span>
-
-                    Concentrarme
-
-                </div>
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        📝
-                    </span>
-
-                    Escribir
-
-                </div>
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        😴
-                    </span>
-
-                    Relajarme
-
-                </div>
-
-
-                <div class="opcion">
-
-                    <span class="icono">
-                        📚
-                    </span>
-
-                    Aprender
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <footer>
-
-            MENTE · Plataforma de bienestar mental
-
-        </footer>
-
-    </main>
-
-
-    <script>
-
-        /* ================================
-           SELECCIÓN DE EMOCIONES
-        ================================= */
-
-        function seleccionarEmocion(emocion, boton) {
-
-            const respuesta =
-                document.getElementById("respuesta");
-
-            const titulo =
-                document.getElementById("tituloRespuesta");
-
-            const texto =
-                document.getElementById("textoRespuesta");
-
-
-            document
-                .querySelectorAll(".emocion")
-                .forEach(function(boton) {
-
-                    boton.classList.remove("seleccionada");
-
-                });
-
-
-            boton.classList.add("seleccionada");
-
-
-            if (emocion === "muy bien") {
-
-                titulo.textContent =
-                    "¡Qué bueno saberlo! 😊";
-
-                texto.textContent =
-                    "Disfruta este momento. También puedes utilizar MENTE para fortalecer tus hábitos y cuidar tu bienestar.";
-
-            }
-
-
-            else if (emocion === "bien") {
-
-                titulo.textContent =
-                    "Me alegra saberlo 🙂";
-
-                texto.textContent =
-                    "Recuerda que cuidar tu mente también es importante cuando te encuentras bien.";
-
-            }
-
-
-            else if (emocion === "regular") {
-
-                titulo.textContent =
-                    "Gracias por contármelo 💚";
-
-                texto.textContent =
-                    "A veces simplemente necesitamos detenernos un momento y reconocer cómo nos sentimos.";
-
-            }
-
-
-            else if (emocion === "mal") {
-
-                titulo.textContent =
-                    "Gracias por decirlo 💚";
-
-                texto.textContent =
-                    "No tienes que solucionar todo de una vez. Podemos ir paso a paso. ¿Qué es lo que más necesitas en este momento?";
-
-            }
-
-
-            else if (emocion === "muy mal") {
-
-                titulo.textContent =
-                    "Estoy aquí para acompañarte 💚";
-
-                texto.textContent =
-                    "Lo que estás sintiendo importa. No tienes que enfrentarlo todo al mismo tiempo. Vamos a dar un pequeño paso.";
-
-            }
-
-
-            respuesta.classList.add("visible");
-
-
-            respuesta.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }
-
-
-        /* ================================
-           ABRIR HERRAMIENTA DE ANSIEDAD
-        ================================= */
-
-        function abrirAnsiedad() {
-
-            const herramienta =
-                document.getElementById("herramientaAnsiedad");
-
-            herramienta.classList.add("visible");
-
-            herramienta.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }
-
-
-        /* ================================
-           CERRAR HERRAMIENTA
-        ================================= */
-
-        function cerrarAnsiedad() {
-
-            detenerRespiracion();
-
-            document
-                .getElementById("herramientaAnsiedad")
-                .classList.remove("visible");
-
-        }
-
-
-        /* ================================
-           RESPIRACIÓN
-        ================================= */
-
-        let respirando = false;
-
-        let intervalo;
-
-
-        function iniciarRespiracion() {
-
-            if (respirando) {
-
-                detenerRespiracion();
-
-                return;
-
-            }
-
-
-            respirando = true;
-
-
-            document
-                .getElementById("botonRespiracion")
-                .textContent = "■ Detener";
-
-
-            cicloRespiracion();
-
-        }
-
-
-        function cicloRespiracion() {
-
-            if (!respirando) {
-                return;
-            }
-
-
-            ejecutarFase(
-                "INHALA",
-                4,
-                "inhalar",
-                function() {
-
-                    ejecutarFase(
-                        "MANTÉN",
-                        2,
-                        "mantener",
-                        function() {
-
-                            ejecutarFase(
-                                "EXHALA",
-                                6,
-                                "exhalar",
-                                function() {
-
-                                    cicloRespiracion();
-
-                                }
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-
-
-        function ejecutarFase(
-            nombre,
-            segundos,
-            clase,
-            siguiente
-        ) {
-
-            if (!respirando) {
-                return;
-            }
-
-
-            const fase =
-                document.getElementById("fase");
-
-            const contador =
-                document.getElementById("contador");
-
-            const circulo =
-                document.getElementById("circulo");
-
-
-            fase.textContent = nombre;
-
-
-            circulo.classList.remove(
-                "inhalar",
-                "mantener",
-                "exhalar"
-            );
-
-
-            circulo.classList.add(clase);
-
-
-            let tiempo = segundos;
-
-
-            contador.textContent = tiempo;
-
-
-            clearInterval(intervalo);
-
-
-            intervalo = setInterval(function() {
-
-                tiempo--;
-
-                contador.textContent = tiempo;
-
-
-                if (tiempo <= 0) {
-
-                    clearInterval(intervalo);
-
-                    siguiente();
-
-                }
-
-            }, 1000);
-
-        }
-
-
-        function detenerRespiracion() {
-
-            respirando = false;
-
-            clearInterval(intervalo);
-
-
-            document
-                .getElementById("fase")
-                .textContent = "Listo";
-
-
-            document
-                .getElementById("contador")
-                .textContent = "—";
-
-
-            document
-                .getElementById("circulo")
-                .classList.remove(
-                    "inhalar",
-                    "mantener",
-                    "exhalar"
-                );
-
-
-            document
-                .getElementById("botonRespiracion")
-                .textContent =
-                "▶ Comenzar ejercicio";
-
-        }
-
-    </script>
-
-</body>
-
-</html>
+        <button
+            id="bot
