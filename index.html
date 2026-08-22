@@ -2,305 +2,310 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>MENTE | Bienestar emocional</title>
+    <meta name="theme-color" content="#f5f7f6">
+    <meta name="description" content="MENTE - un espacio para entenderte, organizarte y cuidarte.">
 
-    <meta name="description" content="MENTE, un espacio para entenderte, organizarte y cuidarte.">
+    <title>MENTE | Bienestar</title>
 
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         FONDO / AMBIENTE
-    ========================== -->
+    <!-- =====================================================
+         FONDO DINÁMICO
+    ====================================================== -->
 
-    <div class="ambient-background" id="ambientBackground">
+    <div id="weatherBackground" class="weather-background weather-default">
+
+        <div class="weather-particles" id="weatherParticles"></div>
+
         <div class="sun"></div>
+
         <div class="cloud cloud-one"></div>
         <div class="cloud cloud-two"></div>
+
         <div class="rain" id="rain"></div>
-        <div class="stars" id="stars"></div>
+
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          APP
-    ========================== -->
+    ====================================================== -->
 
     <main class="app">
 
         <!-- HEADER -->
 
-        <header class="topbar">
+        <header class="top-header">
 
-            <div class="brand">
-                <div class="brand-icon">✦</div>
-
-                <div>
-                    <h1>MENTE</h1>
-                    <span>Tu espacio para estar contigo.</span>
+            <div>
+                <div class="brand">MENTE</div>
+                <div class="brand-subtitle">
+                    Un espacio para entenderte, organizarte y cuidarte.
                 </div>
             </div>
 
             <button
+                id="soundToggle"
                 class="icon-button"
-                id="soundButton"
-                aria-label="Activar sonido">
+                aria-label="Activar o desactivar sonidos">
                 🔊
             </button>
 
         </header>
 
 
-        <!-- =========================
+        <!-- =================================================
              INICIO
-        ========================== -->
+        ================================================== -->
 
-        <section class="screen active" id="homeScreen">
+        <section id="homeScreen" class="screen active">
 
-            <div class="hero">
+            <div class="greeting-card">
 
-                <span class="eyebrow">
-                    UN MOMENTO PARA TI
+                <span class="greeting-time" id="greetingTime">
+                    Hola 👋
                 </span>
 
-                <h2>
-                    Hola <span id="greetingEmoji">👋</span>
-                </h2>
+                <h1 id="greetingText">
+                    ¿Cómo te sientes hoy?
+                </h1>
 
-                <p id="welcomeText">
-                    No tienes que resolverlo todo ahora.
-                    Empecemos por saber cómo estás.
+                <p>
+                    No tienes que sentirte de una determinada manera.
+                    Solo cuéntame cómo estás.
                 </p>
 
             </div>
 
 
-            <!-- ESTADO -->
+            <!-- EMOCIONES -->
 
-            <section class="section">
-
-                <div class="section-title">
-                    <div>
-                        <span class="mini-label">01</span>
-                        <h3>¿Cómo te sientes?</h3>
-                    </div>
-                </div>
+            <div class="section-title">
+                <span>Tu estado de hoy</span>
+                <small id="selectedEmotionLabel">
+                    Selecciona una emoción
+                </small>
+            </div>
 
 
-                <div class="mood-grid">
+            <div class="emotion-grid">
 
-                    <button class="mood-card mood-great" data-mood="muy-bien">
-                        <span class="mood-icon">😊</span>
-                        <span>Muy bien</span>
-                        <small>Con energía</small>
-                    </button>
+                <button class="emotion-card emotion-happy"
+                        data-emotion="muy-bien"
+                        data-label="Muy bien">
 
-                    <button class="mood-card mood-good" data-mood="bien">
-                        <span class="mood-icon">🙂</span>
-                        <span>Bien</span>
-                        <small>Tranquilo/a</small>
-                    </button>
+                    <span class="emotion-icon">😊</span>
+                    <span>Muy bien</span>
 
-                    <button class="mood-card mood-neutral" data-mood="regular">
-                        <span class="mood-icon">😐</span>
-                        <span>Regular</span>
-                        <small>Normal</small>
-                    </button>
-
-                    <button class="mood-card mood-bad" data-mood="mal">
-                        <span class="mood-icon">😔</span>
-                        <span>Mal</span>
-                        <small>Necesito parar</small>
-                    </button>
-
-                    <button class="mood-card mood-very-bad" data-mood="muy-mal">
-                        <span class="mood-icon">😣</span>
-                        <span>Muy mal</span>
-                        <small>Necesito apoyo</small>
-                    </button>
-
-                </div>
-
-            </section>
+                </button>
 
 
-            <!-- MENSAJE DEL MOMENTO -->
+                <button class="emotion-card emotion-good"
+                        data-emotion="bien"
+                        data-label="Bien">
 
-            <section class="daily-card" id="dailyCard">
+                    <span class="emotion-icon">🙂</span>
+                    <span>Bien</span>
 
-                <div class="daily-icon" id="dailyIcon">
+                </button>
+
+
+                <button class="emotion-card emotion-neutral"
+                        data-emotion="regular"
+                        data-label="Regular">
+
+                    <span class="emotion-icon">😐</span>
+                    <span>Regular</span>
+
+                </button>
+
+
+                <button class="emotion-card emotion-sad"
+                        data-emotion="mal"
+                        data-label="Mal">
+
+                    <span class="emotion-icon">😔</span>
+                    <span>Mal</span>
+
+                </button>
+
+
+                <button class="emotion-card emotion-very-sad"
+                        data-emotion="muy-mal"
+                        data-label="Muy mal">
+
+                    <span class="emotion-icon">😣</span>
+                    <span>Muy mal</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- MENSAJE DINÁMICO -->
+
+            <div id="emotionMessage" class="emotion-message hidden">
+
+                <div class="message-icon" id="emotionMessageIcon">
                     🌿
                 </div>
 
                 <div>
-                    <span class="mini-label">PARA ESTE MOMENTO</span>
+                    <strong id="emotionMessageTitle">
+                        Está bien.
+                    </strong>
 
-                    <p id="dailyMessage">
-                        A veces avanzar significa simplemente
-                        darte permiso para descansar.
+                    <p id="emotionMessageText">
+                        Gracias por decir cómo te sientes.
                     </p>
                 </div>
 
-            </section>
+            </div>
+
+
+            <!-- FRASE / VERSÍCULO -->
+
+            <div id="dailyWisdom" class="wisdom-card">
+
+                <div class="wisdom-label">
+                    ✨ Para este momento
+                </div>
+
+                <div class="wisdom-text" id="wisdomText">
+                    “Cada día puede comenzar de nuevo.”
+                </div>
+
+                <div class="wisdom-source" id="wisdomSource">
+                    Una pequeña pausa también es avanzar.
+                </div>
+
+                <button id="newWisdom" class="small-button">
+                    Otra reflexión
+                </button>
+
+            </div>
 
 
             <!-- ACCIONES -->
 
-            <section class="section">
-
-                <div class="section-heading">
-                    <div>
-                        <span class="mini-label">02</span>
-                        <h3>¿Qué necesitas?</h3>
-                    </div>
-
-                    <span class="discover">
-                        Explora
-                    </span>
-                </div>
+            <div class="section-title tools-heading">
+                <span>¿Qué necesitas ahora?</span>
+                <small>Explora a tu ritmo</small>
+            </div>
 
 
-                <div class="tool-grid">
+            <div class="tools-grid">
 
-                    <button class="tool-card" data-tool="calmar">
+                <button class="tool-card"
+                        data-tool="calmar">
 
-                        <span class="tool-icon">🌬️</span>
+                    <span>🌬️</span>
+                    <strong>Calmarme</strong>
+                    <small>Respira y baja el ritmo</small>
 
-                        <strong>Calmarme</strong>
-
-                        <small>
-                            Respiración y relajación
-                        </small>
-
-                    </button>
+                </button>
 
 
-                    <button class="tool-card" data-tool="ordenar">
+                <button class="tool-card"
+                        data-tool="ordenar">
 
-                        <span class="tool-icon">🧠</span>
+                    <span>🧠</span>
+                    <strong>Ordenar mi mente</strong>
+                    <small>Saca lo que tienes dentro</small>
 
-                        <strong>Ordenar mi mente</strong>
-
-                        <small>
-                            Organiza lo que piensas
-                        </small>
-
-                    </button>
+                </button>
 
 
-                    <button class="tool-card" data-tool="concentrarme">
+                <button class="tool-card"
+                        data-tool="concentrar">
 
-                        <span class="tool-icon">🎯</span>
+                    <span>🎯</span>
+                    <strong>Concentrarme</strong>
+                    <small>Un momento de enfoque</small>
 
-                        <strong>Concentrarme</strong>
-
-                        <small>
-                            Reduce distracciones
-                        </small>
-
-                    </button>
+                </button>
 
 
-                    <button class="tool-card" data-tool="escribir">
+                <button class="tool-card"
+                        data-tool="escribir">
 
-                        <span class="tool-icon">📝</span>
+                    <span>📝</span>
+                    <strong>Escribir</strong>
+                    <small>Déjalo salir</small>
 
-                        <strong>Escribir</strong>
-
-                        <small>
-                            Saca lo que llevas dentro
-                        </small>
-
-                    </button>
+                </button>
 
 
-                    <button class="tool-card" data-tool="relajarme">
+                <button class="tool-card"
+                        data-tool="relajar">
 
-                        <span class="tool-icon">😴</span>
+                    <span>😴</span>
+                    <strong>Relajarme</strong>
+                    <small>Prepararte para descansar</small>
 
-                        <strong>Relajarme</strong>
-
-                        <small>
-                            Baja el ritmo
-                        </small>
-
-                    </button>
+                </button>
 
 
-                    <button class="tool-card" data-tool="aprender">
+                <button class="tool-card"
+                        data-tool="aprender">
 
-                        <span class="tool-icon">📚</span>
+                    <span>📚</span>
+                    <strong>Aprender</strong>
+                    <small>Entender lo que sientes</small>
 
-                        <strong>Aprender</strong>
+                </button>
 
-                        <small>
-                            Entiende mejor lo que sientes
-                        </small>
-
-                    </button>
-
-                </div>
-
-            </section>
+            </div>
 
 
-            <!-- VERSÍCULO -->
+            <!-- ACCESOS EXTRA -->
 
-            <section class="verse-card">
+            <div class="quick-actions">
 
-                <div class="verse-top">
-                    <span>✦ PALABRA PARA HOY</span>
+                <button data-tool="gratitud">
+                    💛 Gratitud
+                </button>
 
-                    <button id="newVerseButton">
-                        ↻
-                    </button>
-                </div>
+                <button data-tool="journal">
+                    📖 Mi diario
+                </button>
 
-                <p id="verseText">
-                    "No temas, porque yo estoy contigo;
-                    no desmayes, porque yo soy tu Dios."
-                </p>
+                <button data-tool="frases">
+                    💬 Frases
+                </button>
 
-                <span id="verseReference">
-                    Isaías 41:10
-                </span>
-
-            </section>
+            </div>
 
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              PANTALLA DE HERRAMIENTA
-        ========================== -->
+        ================================================== -->
 
-        <section class="screen" id="toolScreen">
+        <section id="toolScreen" class="screen">
 
-            <button class="back-button" id="backButton">
+            <button id="backHome" class="back-button">
                 ← Volver
             </button>
 
             <div class="tool-header">
 
-                <span class="tool-header-icon" id="toolHeaderIcon">
-                    🌬️
-                </span>
-
-                <span class="mini-label" id="toolLabel">
-                    HERRAMIENTA
+                <span id="toolIcon">
+                    🌿
                 </span>
 
                 <h2 id="toolTitle">
-                    Vamos a bajar el ritmo
+                    Herramienta
                 </h2>
 
                 <p id="toolDescription">
-                    No necesitas solucionar todo ahora.
-                    Solo vamos a dar un pequeño paso.
+                    Un pequeño espacio para ti.
                 </p>
 
             </div>
@@ -308,150 +313,102 @@
 
             <!-- RESPIRACIÓN -->
 
-            <div class="exercise-panel" id="breathingPanel">
+            <div id="breathingTool" class="tool-content hidden">
 
                 <div class="breathing-circle" id="breathingCircle">
 
-                    <div class="breathing-inner">
-
-                        <span id="breathingInstruction">
-                            Listo
-                        </span>
-
-                        <strong id="breathingCounter">
-                            —
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="exercise-info">
-
-                    <span id="breathingPhase">
-                        Preparado
+                    <span id="breathingText">
+                        Listo
                     </span>
 
-                    <p id="breathingText">
-                        Cuando estés listo, comenzamos.
-                    </p>
-
                 </div>
 
+                <div class="breathing-counter" id="breathingCounter">
+                    0
+                </div>
 
-                <button
-                    class="primary-button"
-                    id="breathingStart">
-
+                <button id="startBreathing" class="primary-button">
                     ▶ Comenzar ejercicio
-
                 </button>
+
+                <p class="helper-text">
+                    Sigue el círculo. No tienes que hacerlo perfecto.
+                </p>
 
             </div>
 
 
             <!-- ESCRITURA -->
 
-            <div class="writing-panel hidden" id="writingPanel">
+            <div id="writingTool" class="tool-content hidden">
 
-                <label for="journalText">
-                    Escribe sin preocuparte por hacerlo perfecto.
+                <label for="journalInput">
+                    Escribe lo que tengas en mente.
                 </label>
 
                 <textarea
-                    id="journalText"
-                    placeholder="¿Qué está pasando por tu mente?"></textarea>
+                    id="journalInput"
+                    placeholder="Puedes escribir aquí sin juzgarte..."
+                    maxlength="5000"></textarea>
 
                 <div class="writing-actions">
 
-                    <button
-                        class="secondary-button"
-                        id="clearJournal">
-                        Limpiar
+                    <button id="saveJournal" class="primary-button">
+                        Guardar
                     </button>
 
-                    <button
-                        class="primary-button"
-                        id="saveJournal">
-                        Guardar nota
+                    <button id="clearJournal" class="secondary-button">
+                        Limpiar
                     </button>
 
                 </div>
 
-                <div class="saved-note hidden" id="savedNote">
-                    ✓ Tu nota se guardó en este dispositivo.
+                <div id="journalSaved" class="saved-message hidden">
+                    ✓ Guardado en este dispositivo.
                 </div>
 
             </div>
 
 
-            <!-- ORDENAR LA MENTE -->
+            <!-- ORDENAR MENTE -->
 
-            <div class="thought-panel hidden" id="thoughtPanel">
+            <div id="mindTool" class="tool-content hidden">
 
-                <p class="question">
-                    ¿Qué ocupa más espacio en tu cabeza ahora?
+                <p class="tool-question">
+                    ¿Qué está ocupando más espacio en tu mente?
                 </p>
 
-                <div class="thought-options">
+                <textarea
+                    id="mindInput"
+                    placeholder="Escribe todo lo que quieras sacar de tu cabeza..."></textarea>
 
-                    <button data-thought="problema">
-                        🧩 Un problema
-                    </button>
+                <button id="organizeMind" class="primary-button">
+                    Organizar mi mente
+                </button>
 
-                    <button data-thought="preocupacion">
-                        🌧️ Una preocupación
-                    </button>
-
-                    <button data-thought="decision">
-                        ⚖️ Una decisión
-                    </button>
-
-                    <button data-thought="pensamiento">
-                        💭 Muchos pensamientos
-                    </button>
-
-                </div>
-
-                <div class="response-box" id="thoughtResponse">
-                    Selecciona una opción para comenzar.
-                </div>
+                <div id="mindResult" class="result-card hidden"></div>
 
             </div>
 
 
             <!-- CONCENTRACIÓN -->
 
-            <div class="focus-panel hidden" id="focusPanel">
+            <div id="focusTool" class="tool-content hidden">
 
-                <div class="focus-timer">
-
-                    <span id="focusMinutes">
-                        05
-                    </span>
-
-                    <small>
-                        minutos
-                    </small>
-
+                <div class="focus-timer" id="focusTimer">
+                    05:00
                 </div>
 
                 <p>
-                    Durante este tiempo intenta hacer
-                    solamente una cosa.
+                    Durante estos minutos, intenta hacer solamente una cosa.
                 </p>
 
-                <button
-                    class="primary-button"
-                    id="focusStart">
-                    ▶ Empezar
+                <button id="startFocus" class="primary-button">
+                    ▶ Comenzar
                 </button>
 
-                <button
-                    class="secondary-button hidden"
-                    id="focusStop">
-                    Detener
+                <button id="resetFocus" class="secondary-button">
+                    Reiniciar
                 </button>
 
             </div>
@@ -459,26 +416,19 @@
 
             <!-- RELAJACIÓN -->
 
-            <div class="relax-panel hidden" id="relaxPanel">
+            <div id="relaxTool" class="tool-content hidden">
 
-                <div class="relax-orb">
-                    ✨
+                <div class="relax-icon">
+                    🌙
                 </div>
 
-                <h3>
-                    No tienes que hacer nada ahora.
-                </h3>
-
                 <p>
-                    Suelta los hombros.
-                    Afloja la mandíbula.
-                    Respira lentamente.
+                    Baja un poco la luz de la pantalla, acomódate y deja que
+                    tu respiración se vuelva más lenta.
                 </p>
 
-                <button
-                    class="primary-button"
-                    id="relaxStart">
-                    Comenzar relajación
+                <button id="startRelax" class="primary-button">
+                    🌙 Comenzar relajación
                 </button>
 
             </div>
@@ -486,9 +436,10 @@
 
             <!-- APRENDER -->
 
-            <div class="learn-panel hidden" id="learnPanel">
+            <div id="learnTool" class="tool-content hidden">
 
-                <article>
+                <div class="lesson-card">
+
                     <span>🧠</span>
 
                     <h3>
@@ -496,96 +447,107 @@
                     </h3>
 
                     <p>
-                        Una emoción no es una orden.
-                        Es información. Puedes sentir algo
-                        intensamente sin tener que actuar
-                        inmediatamente sobre ello.
+                        Una emoción no es una orden. Es una señal.
+                        Puedes reconocerla sin dejar que decida todo por ti.
                     </p>
-                </article>
 
-                <article>
-                    <span>🌱</span>
+                </div>
 
-                    <h3>
-                        Pequeños pasos
-                    </h3>
+                <button id="nextLesson" class="primary-button">
+                    Siguiente
+                </button>
 
-                    <p>
-                        Cuando algo parece demasiado grande,
-                        dividirlo en acciones pequeñas puede
-                        hacerlo más manejable.
-                    </p>
-                </article>
+            </div>
 
-                <article>
-                    <span>💛</span>
 
-                    <h3>
-                        Sé paciente contigo
-                    </h3>
+            <!-- GRATITUD -->
 
-                    <p>
-                        Tener un día difícil no significa
-                        que estés retrocediendo.
-                    </p>
-                </article>
+            <div id="gratitudeTool" class="tool-content hidden">
+
+                <div class="gratitude-question">
+                    ¿Qué fue algo pequeño que agradeces hoy?
+                </div>
+
+                <textarea
+                    id="gratitudeInput"
+                    placeholder="Puede ser algo muy sencillo..."></textarea>
+
+                <button id="saveGratitude" class="primary-button">
+                    Guardar gratitud
+                </button>
+
+            </div>
+
+
+            <!-- FRASES -->
+
+            <div id="quotesTool" class="tool-content hidden">
+
+                <div class="quote-big" id="quoteBig">
+                    “No tienes que resolver toda tu vida hoy.”
+                </div>
+
+                <div class="quote-source" id="quoteSource">
+                    MENTE
+                </div>
+
+                <button id="nextQuote" class="primary-button">
+                    ✨ Otra frase
+                </button>
+
+            </div>
+
+
+            <!-- DIARIO -->
+
+            <div id="diaryTool" class="tool-content hidden">
+
+                <div id="diaryEntries" class="diary-entries"></div>
 
             </div>
 
         </section>
 
 
-        <!-- =========================
-             NAVEGACIÓN
-        ========================== -->
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
 
-        <nav class="bottom-nav">
+        <footer>
 
-            <button class="nav-item active" data-screen="homeScreen">
+            <span>MENTE</span>
 
-                <span>⌂</span>
-                <small>Inicio</small>
+            <small>
+                Un espacio para hacer una pausa.
+            </small>
 
-            </button>
-
-
-            <button class="nav-item" id="randomToolButton">
-
-                <span>✦</span>
-                <small>Para ti</small>
-
-            </button>
-
-
-            <button class="nav-item" id="verseNavButton">
-
-                <span>♡</span>
-                <small>Palabra</small>
-
-            </button>
-
-
-            <button class="nav-item" id="journalNavButton">
-
-                <span>✎</span>
-                <small>Notas</small>
-
-            </button>
-
-        </nav>
+        </footer>
 
     </main>
 
 
-    <!-- TOAST -->
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
 
-    <div class="toast" id="toast">
-        <span>✓</span>
-        <p id="toastMessage">
-            Listo
-        </p>
+    <div id="modal" class="modal hidden">
+
+        <div class="modal-overlay"></div>
+
+        <div class="modal-box">
+
+            <button id="closeModal" class="modal-close">
+                ×
+            </button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
     </div>
 
+
+    <!-- JAVASCRIPT -->
 
     <script src="js/script.js"></script>
 
