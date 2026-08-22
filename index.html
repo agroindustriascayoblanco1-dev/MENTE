@@ -4,337 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#10212b">
-  <meta name="description" content="MENTE · Un espacio interactivo para entenderte, organizarte y cuidarte.">
+  <meta name="description" content="MENTE · Un espacio para entenderte, organizarte y cuidarte.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>MENTE · Bienestar</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-mood="bien">
   <div class="ambient-bg" aria-hidden="true">
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
-    <div id="rainLayer"></div>
-    <div id="starsLayer"></div>
-    <div class="fog fog-a"></div>
-    <div class="fog fog-b"></div>
+    <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div>
+    <div id="rainLayer"></div><div id="starsLayer"></div>
+    <div class="fog fog-a"></div><div class="fog fog-b"></div>
   </div>
 
   <div id="toast" class="toast" role="status"></div>
+  <div id="overlay"></div>
 
   <div class="app-shell">
     <header class="topbar glass">
       <button class="icon-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
       <a class="brand" href="#" data-section="inicio" aria-label="Ir al inicio">
-        <span class="brand-mark">✦</span>
-        <span><strong>MENTE</strong><small>tu espacio</small></span>
+        <span class="brand-mark">✦</span><span><strong>MENTE</strong><small>tu espacio</small></span>
       </a>
       <button class="icon-btn" id="soundBtn" aria-label="Activar ambiente">🔇</button>
     </header>
 
     <aside id="drawer" class="drawer glass" aria-label="Menú principal">
-      <div class="drawer-head">
-        <div><span class="eyebrow">TU ESPACIO</span><b>MENTE</b></div>
-        <button class="icon-btn" id="closeBtn" aria-label="Cerrar menú">×</button>
-      </div>
-      <div class="drawer-user glass-soft">
-        <div class="mini-orb">🌿</div>
-        <div><b>Vuelve a ti</b><small>Un momento a la vez.</small></div>
-      </div>
+      <div class="drawer-head"><div><span class="eyebrow">TU ESPACIO</span><b>MENTE</b></div><button class="icon-btn" id="closeBtn">×</button></div>
+      <div class="drawer-user glass-soft"><div class="mini-orb">🌿</div><div><b>Vuelve a ti</b><small>Un momento a la vez.</small></div></div>
       <nav class="drawer-nav">
-        <button data-section="inicio">🏠 <span>Inicio</span><small>Tu punto de partida</small></button>
+        <button data-section="inicio">🏠 <span>Inicio</span><small>Cómo te sientes hoy</small></button>
         <button data-section="herramientas">🧰 <span>Herramientas</span><small>Regulación y enfoque</small></button>
-        <button data-section="juegos">✨ <span>Relajación</span><small>Juegos tranquilos</small></button>
+        <button data-section="juegos">✨ <span>Juegos de calma</span><small>Relajación sin presión</small></button>
         <button data-section="diario">📖 <span>Mi diario</span><small>Escribe sin juzgarte</small></button>
         <button data-section="frases">📜 <span>Palabras</span><small>Frases y versículos</small></button>
-        <button data-section="ayuda">🤍 <span>Momento difícil</span><small>Apoyo y contactos</small></button>
+        <button data-section="ayuda">🤍 <span>Ayuda</span><small>Apoyo y emergencia</small></button>
       </nav>
       <div class="drawer-note">🔒 Tus notas se guardan localmente en este dispositivo.</div>
     </aside>
-    <div id="overlay"></div>
 
     <main>
-      <!-- INICIO -->
+      <!-- INICIO: deliberadamente simple -->
       <section class="section active" id="inicio">
-        <div class="hero">
-          <div class="hero-badge"><span class="pulse-dot"></span> UN ESPACIO PARA TI</div>
-          <h1>Hola, <span>qué bueno que estás aquí.</span> 👋</h1>
-          <p>Entenderte también es una forma de cuidarte.</p>
+        <div class="home-intro">
+          <span class="hero-badge"><span class="pulse-dot"></span> UN MOMENTO PARA TI</span>
+          <h1>¿Cómo te sientes <span>hoy?</span> 👋</h1>
+          <p>No tienes que sentirte de una determinada manera. Solo cuéntame cómo estás.</p>
         </div>
 
-        <div class="glass-panel checkin-card">
-          <div class="section-top">
-            <div>
-              <span class="eyebrow">CHECK-IN</span>
-              <h2>¿Cómo te sientes hoy?</h2>
-            </div>
-            <div class="mood-count"><span id="moodStep">1</span>/5</div>
-          </div>
-          <p class="muted">No tienes que sentirte de una determinada manera. Solo cuéntame cómo estás.</p>
-
-          <div class="moods">
+        <div class="glass-panel mood-panel">
+          <div class="mood-heading"><span class="eyebrow">TU ESTADO DE HOY</span><span class="mood-step" id="moodStep">1 / 5</span></div>
+          <div class="moods" aria-label="Selecciona una emoción">
             <button data-mood="muy-bien"><span>😊</span><b>Muy bien</b><small>Ligero</small></button>
             <button data-mood="bien" class="selected"><span>🙂</span><b>Bien</b><small>Estable</small></button>
             <button data-mood="regular"><span>😐</span><b>Regular</b><small>Neutro</small></button>
             <button data-mood="mal"><span>😔</span><b>Mal</b><small>Pesado</small></button>
             <button data-mood="muy-mal"><span>😣</span><b>Muy mal</b><small>Difícil</small></button>
           </div>
+        </div>
 
-          <div class="response glass-soft">
-            <span class="response-icon" id="moodIcon">🌿</span>
-            <div><b id="moodTitle">Está bien.</b><p id="moodText">Gracias por decir cómo te sientes. Vamos paso a paso.</p></div>
-            <span class="response-arrow">→</span>
+        <!-- Aparece solamente después de elegir una emoción -->
+        <div id="moodResult" class="mood-result glass-panel" aria-live="polite">
+          <div class="result-symbol" id="moodIcon">🌿</div>
+          <div class="result-copy">
+            <span class="eyebrow" id="moodKind">PARA ESTE MOMENTO</span>
+            <h2 id="moodTitle">Está bien.</h2>
+            <p id="moodText">Gracias por decir cómo te sientes. Vamos paso a paso.</p>
+            <div class="quote-mini"><span>“</span><div><strong id="quoteText">Una pequeña pausa también es avanzar.</strong><small id="quoteSource">Reflexión</small></div></div>
+            <button class="primary-btn help-open" id="openHelp">🤍 Te ayudaré a sentirte mejor <span>→</span></button>
           </div>
         </div>
 
-        <div class="weather-card glass-panel" id="weather">
-          <div class="sky" id="sky">
-            <div class="sun"></div>
-            <div class="moon"></div>
-            <div class="cloud cloud-a"></div>
-            <div class="cloud cloud-b"></div>
-            <div class="weather-haze"></div>
-            <div class="birds">⌁　⌁　⌁</div>
+        <div id="helpPanel" class="glass-panel help-panel" hidden>
+          <div class="help-header">
+            <div><span class="eyebrow">A TU MEDIDA</span><h2 id="helpTitle">Podemos empezar por algo pequeño.</h2><p id="helpSubtitle">Estas opciones están pensadas para este momento.</p></div>
+            <button class="round-btn" id="closeHelp" aria-label="Cerrar">×</button>
           </div>
-          <div class="weather-copy">
-            <div class="weather-status"><span class="weather-dot"></span><span id="weatherMode">AMBIENTE TRANQUILO</span></div>
-            <span class="eyebrow">TU AMBIENTE</span>
-            <h2 id="weatherTitle">Un día tranquilo</h2>
-            <p id="weatherText">No necesitas cambiarlo todo hoy. Un pequeño paso también cuenta.</p>
-            <button class="soft-btn light" id="ambientBtn">🔊 Escuchar ambiente</button>
-          </div>
-          <div class="weather-hint">El ambiente cambia contigo</div>
+          <div class="recommended-grid" id="recommendedTools"></div>
+          <div class="help-footer"><span>💡 No tienes que hacerlas todas.</span><button class="soft-btn" data-section="herramientas">Ver todas las herramientas</button></div>
         </div>
 
-        <div class="glass-panel quote-card">
-          <div class="quote-header">
-            <span class="eyebrow" id="quoteKind">PARA ESTE MOMENTO</span>
-            <button class="round-btn" id="newQuote" aria-label="Otra reflexión">↻</button>
-          </div>
-          <div class="quote">
-            <b>“</b>
-            <p id="quoteText">Cada día puede comenzar de nuevo.</p>
-            <small id="quoteSource">Una pausa también es avanzar.</small>
-          </div>
-          <div class="quote-tag">✦ Una palabra puede cambiar el ritmo de un momento.</div>
-        </div>
-
-        <div class="discover">
-          <div class="section-heading">
-            <div><span class="eyebrow">EXPLORA A TU RITMO</span><h2>¿Qué necesitas ahora?</h2></div>
-            <span class="step-pill">elige una</span>
-          </div>
-          <p class="muted">Empieza por una cosa. Las demás estarán aquí cuando las necesites.</p>
-          <div class="tools-grid">
-            <button data-tool="respirar"><span class="tool-emoji mint">🌬️</span><span><b>Calmarme</b><small>Respira y baja el ritmo</small></span><em>→</em></button>
-            <button data-tool="ordenar"><span class="tool-emoji lavender">🧠</span><span><b>Ordenar mi mente</b><small>Saca lo que tienes dentro</small></span><em>→</em></button>
-            <button data-tool="enfoque"><span class="tool-emoji blue">🎯</span><span><b>Concentrarme</b><small>Un bloque, una cosa</small></span><em>→</em></button>
-            <button data-tool="proactivo"><span class="tool-emoji coral">🌱</span><span><b>Prevenir el bajón</b><small>Haz algo antes de saturarte</small></span><em>→</em></button>
-            <button data-tool="relajar"><span class="tool-emoji yellow">🫧</span><span><b>Relajarme</b><small>Vuelve al presente</small></span><em>→</em></button>
-            <button data-section="juegos"><span class="tool-emoji pink">✨</span><span><b>Jugar un momento</b><small>Relajación sin presión</small></span><em>→</em></button>
-          </div>
-        </div>
-
-        <div class="glass-panel ritual-card">
-          <div class="ritual-icon">🌙</div>
-          <div><span class="eyebrow">UN MINUTO PARA TI</span><h3>No tienes que hacerlo perfecto.</h3><p>Apoya los pies, suelta los hombros y haz una respiración lenta.</p></div>
-          <button class="primary-btn" data-tool="respirar">Empezar <span>→</span></button>
+        <div class="home-footer">
+          <button class="subtle-link" data-section="frases">📖 Leer una palabra</button>
+          <button class="subtle-link" data-section="diario">✍️ Escribir en mi diario</button>
+          <button class="subtle-link" data-section="ayuda">🤍 Necesito ayuda</button>
         </div>
       </section>
 
       <!-- HERRAMIENTAS -->
       <section class="section" id="herramientas">
-        <div class="page-head">
-          <button class="link-btn" data-section="inicio">← Volver</button>
-          <span class="eyebrow">HERRAMIENTAS</span>
-          <h1>Pequeñas acciones. <span>Resultados reales.</span></h1>
-          <p>Cuando el cuerpo baja un poco el ritmo, pensar suele ser más fácil.</p>
-        </div>
+        <div class="page-head"><button class="link-btn" data-section="inicio">← Volver</button><span class="eyebrow">HERRAMIENTAS</span><h1>Pequeñas acciones. <span>Un momento a la vez.</span></h1><p>Elige según lo que necesites ahora.</p></div>
+        <div class="glass-panel tool-hero"><div class="tool-hero-orb">🌿</div><div><span class="eyebrow">TU KIT</span><h2>Primero regula. Después decide.</h2><p class="muted">No necesitas usar todo. Una herramienta útil es suficiente.</p></div></div>
 
-        <div class="glass-panel tool-hero">
-          <div class="tool-hero-orb">🌿</div>
-          <div><span class="eyebrow">TU KIT DE HOY</span><h2>Primero regula. Después decide.</h2><p class="muted">No necesitas usar todo. Escoge la herramienta que encaje con este momento.</p></div>
-        </div>
+        <article class="glass-panel tool-panel" id="tool-respirar"><div class="tool-title"><span class="tool-icon mint">🌬️</span><div><span class="eyebrow">CALMAR</span><h2>Respiración guiada</h2><p class="muted">Inhala suave y exhala un poco más lento.</p></div></div><div class="breath-wrap"><div class="breath-ring"><div class="breath" id="breath"><b id="breathLabel">Listo</b><small id="breathTime">0</small></div></div><div class="breath-tip">Inhala · sostén · exhala</div><div><button class="primary-btn" id="breathStart">▶ Comenzar</button> <button class="soft-btn" id="breathStop">Detener</button></div></div></article>
 
-        <article class="glass-panel tool-panel" id="tool-respirar">
-          <div class="tool-title"><span class="tool-icon mint">🌬️</span><div><span class="eyebrow">01 · CALMAR</span><h2>Respiración guiada</h2><p class="muted">Inhala suave y exhala un poco más lento.</p></div></div>
-          <div class="breath-wrap">
-            <div class="breath-ring"><div class="breath" id="breath"><b id="breathLabel">Listo</b><small id="breathTime">0</small></div></div>
-            <div class="breath-tip">Inhala · sostén · exhala</div>
-            <div><button class="primary-btn" id="breathStart">▶ Comenzar</button> <button class="soft-btn" id="breathStop">Detener</button></div>
-          </div>
-        </article>
+        <article class="glass-panel tool-panel" id="tool-ordenar"><div class="tool-title"><span class="tool-icon lavender">🧠</span><div><span class="eyebrow">ORDENAR</span><h2>Vacía tu mente</h2><p class="muted">Escribe sin intentar resolverlo mientras lo haces.</p></div></div><div class="prompt-chip">💭 ¿Qué está ocupando espacio en tu cabeza?</div><textarea id="mind" placeholder="Escribe aquí todo lo que tengas en mente..."></textarea><div><button class="primary-btn" id="saveMind">Guardar</button> <button class="soft-btn" id="clearMind">Limpiar</button></div></article>
 
-        <article class="glass-panel tool-panel" id="tool-ordenar">
-          <div class="tool-title"><span class="tool-icon lavender">🧠</span><div><span class="eyebrow">02 · ORDENAR</span><h2>Vacía tu mente</h2><p class="muted">No intentes resolverlo mientras escribes.</p></div></div>
-          <div class="prompt-chip">💭 ¿Qué está ocupando espacio en tu cabeza?</div>
-          <textarea id="mind" placeholder="Escribe aquí todo lo que tengas en mente..."></textarea>
-          <div><button class="primary-btn" id="saveMind">Guardar</button> <button class="soft-btn" id="clearMind">Limpiar</button></div>
-        </article>
+        <article class="glass-panel tool-panel" id="tool-enfoque"><div class="tool-title"><span class="tool-icon blue">🎯</span><div><span class="eyebrow">ENFOQUE</span><h2>Un bloque, una cosa</h2><p class="muted">Para estudiar, trabajar o empezar algo que estás evitando.</p></div></div><div class="center"><strong class="timer" id="focusTime">10:00</strong><div class="timer-options"><button data-min="5">5 min</button><button data-min="10" class="active">10 min</button><button data-min="20">20 min</button></div><button class="primary-btn" id="focusStart">▶ Iniciar</button> <button class="soft-btn" id="focusReset">Reiniciar</button></div></article>
 
-        <article class="glass-panel tool-panel" id="tool-enfoque">
-          <div class="tool-title"><span class="tool-icon blue">🎯</span><div><span class="eyebrow">03 · ENFOQUE</span><h2>Un bloque, una cosa</h2><p class="muted">Ideal para estudiar, trabajar o empezar algo que estás evitando.</p></div></div>
-          <div class="center">
-            <strong class="timer" id="focusTime">10:00</strong>
-            <div class="timer-options"><button data-min="5">5 min</button><button data-min="10" class="active">10 min</button><button data-min="20">20 min</button></div>
-            <button class="primary-btn" id="focusStart">▶ Iniciar</button> <button class="soft-btn" id="focusReset">Reiniciar</button>
-          </div>
-        </article>
+        <article class="glass-panel tool-panel" id="tool-proactivo"><div class="tool-title"><span class="tool-icon coral">🌱</span><div><span class="eyebrow">PROACTIVO</span><h2>Antes de saturarte</h2><p class="muted">Cuida tu energía antes de llegar al límite.</p></div></div><div class="proactive-grid"><button class="action-card" data-proactive="cuerpo"><span>💧</span><b>Necesidades básicas</b><small>Agua, comida, sueño, movimiento.</small></button><button class="action-card" data-proactive="pausa"><span>⏸️</span><b>Pausa preventiva</b><small>Dos minutos sin pantalla ni exigencias.</small></button><button class="action-card" data-proactive="prioridad"><span>🎯</span><b>Una sola prioridad</b><small>Elige qué sí importa ahora.</small></button><button class="action-card" data-proactive="conexion"><span>💬</span><b>Conexión</b><small>Escribe a alguien antes de aislarte.</small></button></div><div id="proactiveResult" class="result-box"></div></article>
 
-        <article class="glass-panel tool-panel" id="tool-proactivo">
-          <div class="tool-title"><span class="tool-icon coral">🌱</span><div><span class="eyebrow">04 · PROACTIVO</span><h2>Antes de saturarte</h2><p class="muted">Un pequeño chequeo para cuidar tu energía antes de llegar al límite.</p></div></div>
-          <div class="proactive-grid">
-            <button class="action-card" data-proactive="cuerpo"><span>💧</span><b>Necesidades básicas</b><small>Agua, comida, sueño, movimiento.</small></button>
-            <button class="action-card" data-proactive="pausa"><span>⏸️</span><b>Pausa preventiva</b><small>Dos minutos sin pantalla ni exigencias.</small></button>
-            <button class="action-card" data-proactive="prioridad"><span>🎯</span><b>Una sola prioridad</b><small>Elige qué sí importa en las próximas horas.</small></button>
-            <button class="action-card" data-proactive="conexion"><span>💬</span><b>Conexión</b><small>Escribe a alguien antes de aislarte.</small></button>
-          </div>
-          <div id="proactiveResult" class="result-box"></div>
-        </article>
+        <article class="glass-panel tool-panel" id="tool-relajar"><div class="tool-title"><span class="tool-icon yellow">🫧</span><div><span class="eyebrow">PRESENTE</span><h2>5-4-3-2-1</h2><p class="muted">Usa tus sentidos para volver al aquí y ahora.</p></div></div><div id="grounding" class="grounding-box"><p>Cuando estés listo, comenzamos.</p><button class="primary-btn" id="groundingStart">Comenzar práctica</button></div></article>
 
-        <article class="glass-panel tool-panel" id="tool-relajar">
-          <div class="tool-title"><span class="tool-icon yellow">🫧</span><div><span class="eyebrow">05 · PRESENTE</span><h2>5-4-3-2-1</h2><p class="muted">Usa tus sentidos para volver al aquí y ahora.</p></div></div>
-          <div id="grounding" class="grounding-box"><p>Cuando estés listo, comenzamos.</p><button class="primary-btn" id="groundingStart">Comenzar práctica</button></div>
-        </article>
+        <article class="glass-panel tool-panel"><div class="tool-title"><span class="tool-icon teal">🫶</span><div><span class="eyebrow">AUTOCUIDADO</span><h2>Escáner corporal</h2><p class="muted">Observa dónde acumulas tensión sin intentar cambiarla.</p></div></div><div class="body-scan" id="bodyScan"><button data-scan="frente">🙂 Frente</button><button data-scan="mandibula">😬 Mandíbula</button><button data-scan="hombros">🙆 Hombros</button><button data-scan="pecho">🫁 Pecho</button><button data-scan="manos">🤲 Manos</button><button data-scan="piernas">🦵 Piernas</button></div><div id="scanResult" class="result-box"></div></article>
 
-        <article class="glass-panel tool-panel">
-          <div class="tool-title"><span class="tool-icon teal">🫶</span><div><span class="eyebrow">06 · AUTOCUIDADO</span><h2>Escáner corporal</h2><p class="muted">Observa dónde estás acumulando tensión sin intentar cambiarla.</p></div></div>
-          <div class="body-scan" id="bodyScan">
-            <button data-scan="frente">🙂 Frente</button><button data-scan="mandibula">😬 Mandíbula</button><button data-scan="hombros">🙆 Hombros</button><button data-scan="pecho">🫁 Pecho</button><button data-scan="manos">🤲 Manos</button><button data-scan="piernas">🦵 Piernas</button>
-          </div>
-          <div id="scanResult" class="result-box"></div>
-        </article>
-
-        <article class="glass-panel tool-panel">
-          <div class="tool-title"><span class="tool-icon pink">📚</span><div><span class="eyebrow">07 · APRENDER</span><h2>Entender lo que sientes</h2><p class="muted">Comprender puede ayudarte a responder con más intención.</p></div></div>
-          <div class="learn">
-            <button data-learn="ansiedad">¿Qué es la ansiedad?</button>
-            <button data-learn="tdah">¿Por qué cuesta concentrarse?</button>
-            <button data-learn="rumiacion">¿Qué es rumiar?</button>
-            <button data-learn="emociones">¿Para qué sirven las emociones?</button>
-          </div>
-          <div id="answer" class="result-box"></div>
-        </article>
+        <article class="glass-panel tool-panel"><div class="tool-title"><span class="tool-icon pink">📚</span><div><span class="eyebrow">APRENDER</span><h2>Entender lo que sientes</h2><p class="muted">Comprender puede ayudarte a responder con más intención.</p></div></div><div class="learn"><button data-learn="ansiedad">¿Qué es la ansiedad?</button><button data-learn="tdah">¿Por qué cuesta concentrarse?</button><button data-learn="rumiacion">¿Qué es rumiar?</button><button data-learn="emociones">¿Para qué sirven las emociones?</button></div><div id="answer" class="result-box"></div></article>
       </section>
 
       <!-- JUEGOS -->
-      <section class="section" id="juegos">
-        <div class="page-head">
-          <button class="link-btn" data-section="inicio">← Volver</button>
-          <span class="eyebrow">RELAJACIÓN</span>
-          <h1>Juega sin prisa. <span>Respira mientras juegas.</span></h1>
-          <p>Sin récords, sin presión. Solo pequeños estímulos para llevar tu atención al presente.</p>
-        </div>
-
-        <div class="glass-panel game-card">
-          <div class="game-head"><span class="game-badge">✨ CALMA VISUAL</span><span id="gameScore">0 / 12</span></div>
-          <h2>Persigue las luciérnagas</h2>
-          <p class="muted">Toca cada luz cuando aparezca. No necesitas hacerlo rápido.</p>
-          <div class="firefly-field" id="fireflyField">
-            <div class="game-start"><span>🌌</span><b>Un pequeño juego para aquietar la mente</b><button class="primary-btn" id="startFireflies">Empezar</button></div>
-          </div>
-          <div class="game-footer"><span id="gameMessage">Busca una luz y síguela.</span><button class="soft-btn" id="resetFireflies">Reiniciar</button></div>
-        </div>
-
-        <div class="glass-panel game-card">
-          <div class="game-head"><span class="game-badge pink">🫧 RITMO</span><span>sin puntuación</span></div>
-          <h2>Burbuja de calma</h2>
-          <p class="muted">Toca la burbuja cuando se haga grande. Acompaña el movimiento con una exhalación lenta.</p>
-          <div class="bubble-field" id="bubbleField"><button class="calm-bubble" id="calmBubble">toca</button></div>
-          <div class="game-footer"><span id="bubbleMessage">Inhala mientras crece. Exhala cuando la toques.</span></div>
-        </div>
+      <section class="section" id="juegos"><div class="page-head"><button class="link-btn" data-section="inicio">← Volver</button><span class="eyebrow">JUEGOS DE CALMA</span><h1>Juega sin prisa. <span>Respira mientras juegas.</span></h1><p>Sin récords, sin presión. Solo estímulos para llevar tu atención al presente.</p></div>
+        <div class="glass-panel game-card"><div class="game-head"><span class="game-badge">✨ CALMA VISUAL</span><span id="gameScore">0 / 12</span></div><h2>Persigue las luciérnagas</h2><p class="muted">Toca cada luz cuando aparezca. No necesitas hacerlo rápido.</p><div class="firefly-field" id="fireflyField"><div class="game-start"><span>🌌</span><b>Un pequeño juego para aquietar la mente</b><button class="primary-btn" id="startFireflies">Empezar</button></div></div><div class="game-footer"><span id="gameMessage">Busca una luz y síguela.</span><button class="soft-btn" id="resetFireflies">Reiniciar</button></div></div>
+        <div class="glass-panel game-card"><div class="game-head"><span class="game-badge pink">🫧 RITMO</span><span>sin puntuación</span></div><h2>Burbuja de calma</h2><p class="muted">Toca la burbuja cuando se haga grande. Acompaña el movimiento con una exhalación lenta.</p><div class="bubble-field" id="bubbleField"><button class="calm-bubble" id="calmBubble">toca</button></div><div class="game-footer"><span id="bubbleMessage">Inhala mientras crece. Exhala cuando la toques.</span></div></div>
       </section>
 
       <!-- DIARIO -->
-      <section class="section" id="diario">
-        <div class="page-head">
-          <button class="link-btn" data-section="inicio">← Volver</button>
-          <span class="eyebrow">MI DIARIO</span>
-          <h1>Lo que escribes, <span>queda contigo.</span></h1>
-          <p>Tu diario se guarda solo en este dispositivo.</p>
-        </div>
-
-        <div class="glass-panel diary-card">
-          <label for="diaryMood" class="eyebrow">¿Cómo te sientes mientras escribes?</label>
-          <select id="diaryMood">
-            <option>🙂 Bien</option><option>😐 Regular</option><option>😔 Mal</option><option>😣 Muy mal</option><option>😊 Muy bien</option>
-          </select>
-          <textarea id="diaryText" placeholder="Hoy quiero decir que..."></textarea>
-          <div><button class="primary-btn" id="saveDiary">Guardar entrada</button> <button class="soft-btn" id="clearDiary">Limpiar</button></div>
-        </div>
-        <div class="diary-list" id="entries"></div>
-      </section>
+      <section class="section" id="diario"><div class="page-head"><button class="link-btn" data-section="inicio">← Volver</button><span class="eyebrow">MI DIARIO</span><h1>Lo que escribes, <span>queda contigo.</span></h1><p>Tu diario se guarda solo en este dispositivo.</p></div><div class="glass-panel diary-card"><label for="diaryMood" class="eyebrow">¿Cómo te sientes mientras escribes?</label><select id="diaryMood"><option>🙂 Bien</option><option>😐 Regular</option><option>😔 Mal</option><option>😣 Muy mal</option><option>😊 Muy bien</option></select><textarea id="diaryText" placeholder="Hoy quiero decir que..."></textarea><div><button class="primary-btn" id="saveDiary">Guardar entrada</button> <button class="soft-btn" id="clearDiary">Limpiar</button></div></div><div class="diary-list" id="entries"></div></section>
 
       <!-- FRASES -->
-      <section class="section" id="frases">
-        <div class="page-head">
-          <button class="link-btn" data-section="inicio">← Volver</button>
-          <span class="eyebrow">PALABRAS</span>
-          <h1>Palabras para <span>el momento.</span></h1>
-          <p>Reflexiones y versículos para leer despacio. No tienes que sentir algo específico para recibirlos.</p>
-        </div>
-        <div class="quote-wall" id="quoteWall"></div>
-        <button class="primary-btn wide" id="moreQuotes">Mostrar otras palabras</button>
-      </section>
+      <section class="section" id="frases"><div class="page-head"><button class="link-btn" data-section="inicio">← Volver</button><span class="eyebrow">PALABRAS</span><h1>Palabras para <span>el momento.</span></h1><p>Reflexiones y versículos para leer despacio.</p></div><div class="quote-wall" id="quoteWall"></div><button class="primary-btn wide" id="moreQuotes">Mostrar otras palabras</button></section>
 
       <!-- AYUDA -->
-      <section class="section" id="ayuda">
-        <div class="page-head">
-          <button class="link-btn" data-section="inicio">← Volver</button>
-          <span class="eyebrow">MOMENTO DIFÍCIL</span>
-          <h1>Primero <span>ponte a salvo.</span></h1>
-          <p>MENTE puede acompañarte con ejercicios, pero no sustituye atención profesional o de emergencia.</p>
-        </div>
-
-        <div class="glass-panel safety-card">
-          <div class="safety-icon">🤍</div>
-          <div>
-            <span class="eyebrow">SI HAY PELIGRO INMEDIATO</span>
-            <h2>Busca ayuda humana ahora.</h2>
-            <p>Si estás en Honduras y existe una emergencia o riesgo inmediato, llama al <strong>911</strong>. El Sistema Nacional de Emergencias 911 atiende emergencias en todo el territorio nacional. citeturn0search3turn0search4</p>
-          </div>
-          <a class="emergency-btn" href="tel:911">☎ Llamar al 911</a>
-        </div>
-
-        <div class="glass-panel support-card">
-          <div class="section-heading"><div><span class="eyebrow">CONTACTO DE CONFIANZA</span><h2>Ten a alguien preparado.</h2></div><span>🫂</span></div>
-          <p class="muted">Puedes guardar aquí una persona de confianza. El nombre y teléfono quedan solamente en este dispositivo.</p>
-          <div class="contact-form">
-            <input id="trustedName" type="text" placeholder="Nombre de la persona">
-            <input id="trustedPhone" type="tel" placeholder="Teléfono">
-            <button class="primary-btn" id="saveTrusted">Guardar contacto</button>
-          </div>
-          <div id="trustedContact" class="trusted-contact"></div>
-        </div>
-
-        <div class="glass-panel crisis-plan">
-          <span class="eyebrow">PLAN DE 3 PASOS</span>
-          <h2>Cuando todo se sienta demasiado.</h2>
-          <div class="safety-steps">
-            <div><span>1</span><b>Aléjate del peligro</b><small>Ve a un lugar donde haya otras personas si es posible.</small></div>
-            <div><span>2</span><b>Contacta a alguien</b><small>Llama o escribe a una persona de confianza y dile claramente que necesitas compañía.</small></div>
-            <div><span>3</span><b>Pide ayuda profesional</b><small>Si el malestar es intenso, persistente o estás en riesgo, busca atención profesional o de emergencia.</small></div>
-          </div>
-        </div>
-
-        <div class="glass-panel grounding-now">
-          <span class="eyebrow">AHORA MISMO</span>
-          <h2>Quédate conmigo durante un minuto.</h2>
-          <p>Apoya los pies. Mira tres cosas a tu alrededor. Suelta la mandíbula. Haz una exhalación lenta.</p>
-          <button class="primary-btn" id="helpBreath">🌬️ Respirar conmigo</button>
-        </div>
+      <section class="section" id="ayuda"><div class="page-head"><button class="link-btn" data-section="inicio">← Volver</button><span class="eyebrow">APOYO</span><h1>Si este momento es <span>demasiado pesado.</span></h1><p>MENTE puede acompañarte con ejercicios, pero no sustituye atención profesional o de emergencia.</p></div>
+        <div class="glass-panel safety-card"><div class="safety-icon">🤍</div><div><span class="eyebrow">SI HAY PELIGRO INMEDIATO</span><h2>Busca ayuda humana ahora.</h2><p>Si estás en Honduras y existe una emergencia o riesgo inmediato, llama al <strong>911</strong>.</p></div><a class="emergency-btn" href="tel:911">☎ Llamar al 911</a></div>
+        <div class="glass-panel support-card"><div class="section-heading"><div><span class="eyebrow">CONTACTO DE CONFIANZA</span><h2>Ten a alguien preparado.</h2></div><span>🫂</span></div><p class="muted">El nombre y teléfono quedan solamente en este dispositivo.</p><div class="contact-form"><input id="trustedName" type="text" placeholder="Nombre de la persona"><input id="trustedPhone" type="tel" placeholder="Teléfono"><button class="primary-btn" id="saveTrusted">Guardar contacto</button></div><div id="trustedContact" class="trusted-contact"></div></div>
+        <div class="glass-panel crisis-plan"><span class="eyebrow">PLAN DE 3 PASOS</span><h2>Cuando todo se sienta demasiado.</h2><div class="safety-steps"><div><span>1</span><b>Aléjate del peligro</b><small>Ve a un lugar donde haya otras personas si es posible.</small></div><div><span>2</span><b>Contacta a alguien</b><small>Llama o escribe a una persona de confianza.</small></div><div><span>3</span><b>Pide ayuda profesional</b><small>Si estás en riesgo, busca atención profesional o de emergencia.</small></div></div></div>
+        <div class="glass-panel grounding-now"><span class="eyebrow">AHORA MISMO</span><h2>Quédate conmigo durante un minuto.</h2><p>Apoya los pies. Mira tres cosas a tu alrededor. Suelta la mandíbula. Haz una exhalación lenta.</p><button class="primary-btn" id="helpBreath">🌬️ Respirar conmigo</button></div>
       </section>
     </main>
 
-    <nav class="bottom glass" aria-label="Navegación">
-      <button data-section="inicio" class="active"><span>⌂</span><small>Inicio</small></button>
-      <button data-section="herramientas"><span>◌</span><small>Herramientas</small></button>
-      <button data-section="juegos"><span>✦</span><small>Calma</small></button>
-      <button data-section="diario"><span>▤</span><small>Diario</small></button>
-      <button data-section="ayuda"><span>♡</span><small>Ayuda</small></button>
-    </nav>
+    <nav class="bottom glass" aria-label="Navegación"><button data-section="inicio" class="active"><span>⌂</span><small>Inicio</small></button><button data-section="herramientas"><span>◌</span><small>Herramientas</small></button><button data-section="juegos"><span>✦</span><small>Calma</small></button><button data-section="diario"><span>▤</span><small>Diario</small></button><button data-section="ayuda"><span>♡</span><small>Ayuda</small></button></nav>
   </div>
-
   <script src="js/script.js"></script>
 </body>
 </html>
