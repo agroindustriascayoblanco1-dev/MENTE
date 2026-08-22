@@ -261,3 +261,367 @@ select option{background:#13222b;color:#fff}
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}
 }
+
+
+/* =========================================================
+   MENTE · PALETA EMOCIONAL VIVA
+   El ambiente cambia de forma MUY visible según la emoción.
+   ========================================================= */
+
+body{
+  --mood-a:#66d9c4;
+  --mood-b:#68d4e8;
+  --mood-c:#b9a3ff;
+  --mood-glow:rgba(104,212,232,.22);
+  --mood-panel:rgba(255,255,255,.10);
+  --mood-line:rgba(255,255,255,.16);
+  transition:
+    background 1.25s ease,
+    color .6s ease,
+    filter .8s ease;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  opacity:.9;
+  background:
+    radial-gradient(circle at 16% 10%,var(--mood-glow),transparent 25%),
+    radial-gradient(circle at 88% 22%,color-mix(in srgb,var(--mood-c) 30%,transparent),transparent 28%),
+    radial-gradient(circle at 52% 110%,color-mix(in srgb,var(--mood-b) 22%,transparent),transparent 34%);
+  transition:background 1.2s ease,opacity 1s ease;
+}
+
+/* ☀️ MUY BIEN — cambio radical a día luminoso */
+body[data-mood="muy-bien"]{
+  --mood-a:#52e0b9;
+  --mood-b:#54cfe9;
+  --mood-c:#ffd166;
+  --mood-glow:rgba(255,209,102,.38);
+  --mood-panel:rgba(255,255,255,.20);
+  --mood-line:rgba(255,255,255,.30);
+  color:#f9ffff;
+  background:
+    radial-gradient(circle at 78% 9%,rgba(255,226,123,.52),transparent 20%),
+    radial-gradient(circle at 8% 18%,rgba(82,224,185,.35),transparent 25%),
+    linear-gradient(135deg,#0d5663 0%,#167b83 38%,#267e9c 68%,#425f9d 100%);
+}
+body[data-mood="muy-bien"]::before{
+  opacity:1;
+  background:
+    radial-gradient(circle at 78% 13%,rgba(255,228,130,.42),transparent 18%),
+    radial-gradient(circle at 12% 8%,rgba(106,241,202,.35),transparent 24%);
+}
+body[data-mood="muy-bien"] .orb-a{opacity:.62;filter:blur(8px)}
+body[data-mood="muy-bien"] .orb-b{opacity:.35}
+body[data-mood="muy-bien"] .orb-c{opacity:.42}
+
+/* 🌿 BIEN — fresco, verde y estable */
+body[data-mood="bien"]{
+  --mood-a:#5de0b5;
+  --mood-b:#4fd1c5;
+  --mood-c:#8bd8a6;
+  --mood-glow:rgba(93,224,181,.25);
+  background:
+    radial-gradient(circle at 15% 12%,rgba(93,224,181,.24),transparent 26%),
+    radial-gradient(circle at 86% 18%,rgba(79,209,197,.20),transparent 27%),
+    linear-gradient(145deg,#092b2a,#12433f 48%,#123b46 100%);
+}
+
+/* 🌤️ REGULAR — cálido, equilibrado, sin dramatismo */
+body[data-mood="regular"]{
+  --mood-a:#f0c36a;
+  --mood-b:#83c7d7;
+  --mood-c:#b7a7db;
+  --mood-glow:rgba(240,195,106,.22);
+  background:
+    radial-gradient(circle at 78% 10%,rgba(240,195,106,.22),transparent 23%),
+    linear-gradient(145deg,#29313a,#3b4650 48%,#263744 100%);
+}
+
+/* 🌧️ MAL — azul profundo, lluvia visible y ambiente pesado */
+body[data-mood="mal"]{
+  --mood-a:#5f9fd8;
+  --mood-b:#6683d4;
+  --mood-c:#8c76bd;
+  --mood-glow:rgba(92,136,204,.18);
+  --mood-panel:rgba(30,45,65,.43);
+  --mood-line:rgba(180,210,235,.18);
+  background:
+    radial-gradient(circle at 80% 18%,rgba(88,105,180,.24),transparent 25%),
+    linear-gradient(145deg,#081521,#13263a 45%,#111a2d 100%);
+}
+body[data-mood="mal"]::before{
+  opacity:.72;
+  background:
+    linear-gradient(180deg,rgba(75,105,135,.08),rgba(7,17,28,.28)),
+    radial-gradient(circle at 80% 15%,rgba(110,110,205,.18),transparent 30%);
+}
+
+/* 🌌 MUY MAL — noche profunda, violeta y azul */
+body[data-mood="muy-mal"]{
+  --mood-a:#8f86d9;
+  --mood-b:#6574bb;
+  --mood-c:#b38bd7;
+  --mood-glow:rgba(116,104,184,.15);
+  --mood-panel:rgba(19,26,48,.48);
+  --mood-line:rgba(184,180,230,.16);
+  background:
+    radial-gradient(circle at 82% 12%,rgba(120,106,200,.20),transparent 25%),
+    linear-gradient(145deg,#050812,#0d1222 48%,#151128 100%);
+}
+body[data-mood="muy-mal"]::before{
+  opacity:.8;
+  background:
+    radial-gradient(circle at 80% 12%,rgba(150,130,225,.16),transparent 18%),
+    radial-gradient(circle at 20% 80%,rgba(76,93,170,.12),transparent 25%);
+}
+
+/* Paneles: adoptan el ambiente */
+body[data-mood] .glass,
+body[data-mood] .glass-panel,
+body[data-mood] .glass-soft{
+  border-color:var(--mood-line);
+}
+body[data-mood] .glass-panel{
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb,var(--mood-a) 13%,rgba(255,255,255,.08)),
+      rgba(255,255,255,.055));
+}
+
+/* Barra superior más viva */
+body[data-mood="muy-bien"] .topbar{
+  background:linear-gradient(135deg,rgba(94,225,190,.25),rgba(84,207,233,.18));
+  box-shadow:0 18px 55px rgba(26,160,157,.20);
+}
+body[data-mood="bien"] .topbar{
+  background:linear-gradient(135deg,rgba(82,224,181,.18),rgba(79,209,197,.13));
+}
+body[data-mood="regular"] .topbar{
+  background:linear-gradient(135deg,rgba(240,195,106,.15),rgba(131,199,215,.12));
+}
+body[data-mood="mal"] .topbar{
+  background:linear-gradient(135deg,rgba(77,116,164,.17),rgba(91,88,166,.12));
+}
+body[data-mood="muy-mal"] .topbar{
+  background:linear-gradient(135deg,rgba(111,99,179,.17),rgba(91,88,160,.12));
+}
+
+/* Tarjetas de emoción */
+.moods button{
+  position:relative;
+  overflow:hidden;
+  min-height:116px;
+  background:rgba(255,255,255,.065);
+  border-color:rgba(255,255,255,.13);
+}
+.moods button::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0;
+  background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.30),transparent 58%);
+  transition:opacity .35s ease;
+}
+.moods button:hover::before,
+.moods button.selected::before{opacity:1}
+.moods button.selected{
+  transform:translateY(-5px) scale(1.015);
+  border-width:1.5px;
+  box-shadow:0 18px 42px color-mix(in srgb,var(--mood-a) 22%,rgba(0,0,0,.2));
+}
+
+/* Cuando seleccionas una emoción, TODAS las tarjetas muestran su color */
+body[data-mood="muy-bien"] .moods button.selected{
+  border-color:#62e8c0;
+  background:linear-gradient(145deg,rgba(82,224,185,.35),rgba(255,209,102,.22));
+  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 20px 50px rgba(65,224,190,.25);
+}
+body[data-mood="bien"] .moods button.selected{
+  border-color:#62e0bd;
+  background:linear-gradient(145deg,rgba(82,224,181,.30),rgba(79,209,197,.16));
+}
+body[data-mood="regular"] .moods button.selected{
+  border-color:#e8c56c;
+  background:linear-gradient(145deg,rgba(240,195,106,.28),rgba(131,199,215,.15));
+}
+body[data-mood="mal"] .moods button.selected{
+  border-color:#79a8df;
+  background:linear-gradient(145deg,rgba(76,128,190,.28),rgba(112,100,188,.16));
+}
+body[data-mood="muy-mal"] .moods button.selected{
+  border-color:#a99be8;
+  background:linear-gradient(145deg,rgba(117,104,190,.27),rgba(178,139,215,.13));
+}
+
+/* Emoji más expresivo */
+.moods button span{
+  filter:drop-shadow(0 5px 9px rgba(0,0,0,.22));
+  transition:transform .3s ease,filter .3s ease;
+}
+.moods button:hover span,
+.moods button.selected span{
+  transform:scale(1.16);
+  filter:drop-shadow(0 7px 14px rgba(0,0,0,.28));
+}
+
+/* Respuesta emocional: color inmediato */
+.response{
+  border-color:color-mix(in srgb,var(--mood-a) 35%,rgba(255,255,255,.15));
+  background:
+    linear-gradient(110deg,
+      color-mix(in srgb,var(--mood-a) 20%,rgba(255,255,255,.08)),
+      color-mix(in srgb,var(--mood-b) 11%,rgba(255,255,255,.05)));
+  box-shadow:0 18px 50px color-mix(in srgb,var(--mood-a) 13%,rgba(0,0,0,.18));
+}
+.response-icon{
+  background:linear-gradient(145deg,
+    color-mix(in srgb,var(--mood-a) 32%,rgba(255,255,255,.14)),
+    color-mix(in srgb,var(--mood-b) 22%,rgba(255,255,255,.08))) !important;
+  box-shadow:0 8px 24px color-mix(in srgb,var(--mood-a) 20%,transparent);
+}
+
+/* ☀️ El clima debe contar la historia */
+.weather-card{
+  border-color:color-mix(in srgb,var(--mood-a) 34%,rgba(255,255,255,.14));
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.22),
+    0 0 55px color-mix(in srgb,var(--mood-a) 12%,transparent);
+}
+body[data-mood="muy-bien"] .weather-card{
+  box-shadow:0 30px 80px rgba(0,0,0,.20),0 0 80px rgba(255,207,90,.18);
+}
+body[data-mood="muy-bien"] .weather-card .sky{
+  background:
+    linear-gradient(180deg,#45c7dc 0%,#69d7df 45%,#86b9d0 100%) !important;
+}
+body[data-mood="bien"] .weather-card .sky{
+  background:
+    linear-gradient(180deg,#4aaea9 0%,#5fc8c2 48%,#4c7f91 100%) !important;
+}
+body[data-mood="regular"] .weather-card .sky{
+  background:
+    linear-gradient(180deg,#728c99 0%,#667986 52%,#344955 100%) !important;
+}
+body[data-mood="mal"] .weather-card .sky{
+  background:
+    linear-gradient(180deg,#243c52 0%,#182c3d 50%,#0e1b28 100%) !important;
+}
+body[data-mood="muy-mal"] .weather-card .sky{
+  background:
+    radial-gradient(circle at 78% 20%,rgba(137,123,207,.22),transparent 18%),
+    linear-gradient(180deg,#121c31 0%,#0c1425 55%,#070c17 100%) !important;
+}
+
+/* Sol mucho más evidente en MUY BIEN */
+body[data-mood="muy-bien"] .weather-card .sun{
+  width:150px;height:150px;
+  right:11%;top:10%;
+  opacity:1 !important;
+  filter:blur(.2px) drop-shadow(0 0 28px rgba(255,215,90,.65));
+  background:
+    radial-gradient(circle,
+      #fffde5 0 20%,
+      #ffe889 34%,
+      #ffd15c 50%,
+      rgba(255,209,92,0) 74%);
+}
+body[data-mood="muy-bien"] .weather-card .cloud{
+  opacity:.55;
+  background:rgba(244,255,255,.30);
+}
+body[data-mood="muy-bien"] .birds{color:rgba(255,255,255,.72)}
+
+/* Lluvia: más visible sobre el fondo oscuro */
+body[data-mood="mal"] #rainLayer{
+  opacity:1;
+}
+body[data-mood="mal"] .rain-drop{
+  width:2px;
+  height:30px;
+  background:linear-gradient(
+    180deg,
+    rgba(210,238,255,0),
+    rgba(190,228,255,.78),
+    rgba(170,220,255,.10)
+  );
+  filter:drop-shadow(0 0 3px rgba(145,205,255,.35));
+}
+body[data-mood="muy-mal"] #starsLayer{
+  opacity:1;
+}
+body[data-mood="muy-mal"] .weather-card .moon{
+  filter:drop-shadow(0 0 22px rgba(182,172,255,.48));
+}
+
+/* Frase / versículo */
+body[data-mood="muy-bien"] .quote-card{
+  background:linear-gradient(135deg,rgba(255,209,102,.15),rgba(82,224,185,.10));
+}
+body[data-mood="regular"] .quote-card{
+  background:linear-gradient(135deg,rgba(240,195,106,.10),rgba(131,199,215,.08));
+}
+body[data-mood="mal"] .quote-card{
+  background:linear-gradient(135deg,rgba(76,128,190,.13),rgba(112,100,188,.09));
+}
+body[data-mood="muy-mal"] .quote-card{
+  background:linear-gradient(135deg,rgba(117,104,190,.14),rgba(178,139,215,.07));
+}
+
+/* Botones y controles principales siguen la emoción */
+body[data-mood] .primary-btn,
+body[data-mood] .soft-btn.light:hover{
+  background:linear-gradient(135deg,var(--mood-a),var(--mood-b));
+  border-color:transparent;
+  color:#06201e;
+  box-shadow:0 12px 30px color-mix(in srgb,var(--mood-a) 25%,transparent);
+}
+body[data-mood="muy-bien"] .primary-btn{
+  background:linear-gradient(135deg,#54e0ba,#ffd166);
+}
+body[data-mood="muy-mal"] .primary-btn{
+  color:#fff;
+  background:linear-gradient(135deg,#7169b8,#a884ce);
+}
+
+/* Navegación inferior */
+.bottom{
+  border-color:color-mix(in srgb,var(--mood-a) 28%,rgba(255,255,255,.13));
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.065));
+}
+.bottom button.active{
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--mood-a) 35%,rgba(255,255,255,.10)),
+    color-mix(in srgb,var(--mood-b) 20%,rgba(255,255,255,.06)));
+  color:#fff;
+  box-shadow:0 10px 28px color-mix(in srgb,var(--mood-a) 18%,transparent);
+}
+
+/* Microanimación al cambiar de emoción */
+body.mood-changing .app-shell{
+  animation:moodPulse .72s ease;
+}
+@keyframes moodPulse{
+  0%{transform:scale(1)}
+  45%{transform:scale(1.002)}
+  100%{transform:scale(1)}
+}
+
+/* Móvil: el color debe sentirse todavía más */
+@media(max-width:700px){
+  body[data-mood="muy-bien"]{
+    background:
+      radial-gradient(circle at 80% 8%,rgba(255,225,120,.46),transparent 24%),
+      linear-gradient(155deg,#0d5965,#167d83 50%,#345e99);
+  }
+  .moods button{min-height:108px}
+  .moods button.selected{transform:translateY(-3px) scale(1.01)}
+  body[data-mood="muy-bien"] .weather-card .sun{
+    width:118px;height:118px;right:8%;top:11%;
+  }
+}
+
