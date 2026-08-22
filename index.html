@@ -2,272 +2,226 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MENTE</title>
-
-<meta name="theme-color" content="#f4f1ed">
-<meta name="description" content="MENTE — un espacio para respirar, reflexionar y cuidar tu mundo interior.">
+<title>MENTE — Un espacio para ti</title>
 
 <style>
 
-/* =========================================================
-   MENTE — SISTEMA VISUAL
-========================================================= */
-
-:root{
-    --fondo:#f5f2ee;
-    --blanco:#ffffff;
-    --texto:#35434b;
-    --texto-suave:#77838a;
-
-    --azul:#9dbbc9;
-    --azul-profundo:#607b89;
-
-    --lavanda:#c9bfd8;
-    --durazno:#e7c2b3;
-    --amarillo:#efd69b;
-    --salvia:#aec2b4;
-
-    --sombra:0 14px 35px rgba(60,70,75,.09);
-
-    --clima-1:#f5f2ee;
-    --clima-2:#e8e2dc;
-    --clima-3:#ffffff;
-
-    --radio:25px;
-}
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
-    -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+:root{
+    --primary:#7c83fd;
+    --secondary:#a8c0ff;
+    --text:#263238;
+    --white:rgba(255,255,255,.88);
 }
 
 body{
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "Segoe UI",
-    sans-serif;
-
-    color:var(--texto);
-
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    color:var(--text);
     min-height:100vh;
-
     overflow-x:hidden;
-
-    background:
-    linear-gradient(
-        180deg,
-        var(--clima-1),
-        var(--clima-2) 55%,
-        var(--clima-3)
-    );
-
     transition:
-    background 1.8s ease;
+        background 1.5s ease,
+        color 1s ease;
 }
 
-button,
-textarea{
-    font-family:inherit;
+/* =========================
+   CLIMAS
+========================= */
+
+body.triste{
+    background:
+        linear-gradient(
+            rgba(48,61,77,.45),
+            rgba(73,87,105,.65)
+        ),
+        linear-gradient(
+            135deg,
+            #667085,
+            #9aa5b1
+        );
 }
 
-button{
-    cursor:pointer;
+body.ansioso{
+    background:
+        linear-gradient(
+            135deg,
+            #536976,
+            #8ca6a6
+        );
 }
 
-/* =========================================================
-   APP
-========================================================= */
-
-.app{
-    width:100%;
-    max-width:540px;
-    min-height:100vh;
-    margin:auto;
-    position:relative;
-    padding-bottom:105px;
+body.enojado{
+    background:
+        linear-gradient(
+            135deg,
+            #8b5e5e,
+            #d79b78
+        );
 }
 
-/* =========================================================
-   CIELO / AMBIENTE
-========================================================= */
+body.cansado{
+    background:
+        linear-gradient(
+            135deg,
+            #302b63,
+            #24243e
+        );
+    color:white;
+}
 
-.cielo{
+body.tranquilo{
+    background:
+        linear-gradient(
+            135deg,
+            #9be2d2,
+            #b8d8ff
+        );
+}
+
+body.feliz{
+    background:
+        linear-gradient(
+            135deg,
+            #74c9ff,
+            #ffe29f
+        );
+}
+
+/* =========================
+   CIELO
+========================= */
+
+.sky{
     position:fixed;
     inset:0;
     pointer-events:none;
     overflow:hidden;
-    z-index:-1;
+    z-index:-2;
 }
 
-.sol{
+/* Sol */
+
+.sun{
     position:absolute;
-
-    width:170px;
-    height:170px;
-
+    width:130px;
+    height:130px;
     border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        #fff7cf 0%,
-        #f5dfa1 45%,
-        rgba(245,223,161,0) 72%
-    );
-
-    top:-55px;
-    right:-45px;
+    background:#fff1a8;
+    top:10%;
+    right:10%;
+    box-shadow:
+        0 0 40px rgba(255,230,130,.7),
+        0 0 100px rgba(255,220,100,.4);
 
     opacity:0;
-
     transform:scale(.7);
 
     transition:
-    opacity 1.5s ease,
-    transform 2s ease;
+        opacity 2s ease,
+        transform 2s ease;
 }
 
-body.clima-sol .sol{
+body.feliz .sun,
+body.tranquilo .sun{
     opacity:1;
     transform:scale(1);
 }
 
-body.clima-parcial .sol{
-    opacity:.55;
-    transform:scale(.9);
-}
+/* Nubes */
 
-.nube{
+.cloud{
     position:absolute;
-
-    width:120px;
-    height:42px;
-
-    background:rgba(255,255,255,.72);
-
+    width:170px;
+    height:60px;
+    background:rgba(255,255,255,.55);
     border-radius:50px;
 
-    filter:blur(1px);
+    filter:blur(2px);
 
-    opacity:0;
-
-    transition:
-    opacity 1s ease,
-    transform 2s ease;
+    animation:
+        cloudMove 35s linear infinite;
 }
 
-.nube:before,
-.nube:after{
+.cloud:before,
+.cloud:after{
     content:"";
     position:absolute;
-
     background:inherit;
-
     border-radius:50%;
 }
 
-.nube:before{
-    width:55px;
-    height:55px;
-    left:18px;
-    bottom:0;
+.cloud:before{
+    width:80px;
+    height:80px;
+    left:30px;
+    top:-35px;
 }
 
-.nube:after{
-    width:70px;
-    height:70px;
-    right:15px;
-    bottom:0;
+.cloud:after{
+    width:65px;
+    height:65px;
+    right:25px;
+    top:-25px;
 }
 
-.nube-1{
-    top:18%;
-    left:-35px;
+.cloud:nth-child(2){
+    top:25%;
+    left:-200px;
+    animation-duration:42s;
 }
 
-.nube-2{
-    top:31%;
-    right:-45px;
-    transform:scale(.8);
+.cloud:nth-child(3){
+    top:45%;
+    left:-300px;
+    animation-duration:50s;
 }
 
-.nube-3{
-    top:50%;
-    left:20%;
-    transform:scale(.65);
-}
-
-body.clima-lluvia .nube,
-body.clima-nublado .nube{
-    opacity:1;
-}
-
-body.clima-nublado .nube{
-    opacity:.82;
-}
-
-body.clima-parcial .nube{
-    opacity:.4;
-}
-
-body.clima-sol .nube{
-    opacity:.15;
-}
-
-/* =========================================================
-   LLUVIA
-========================================================= */
-
-.lluvia{
-    position:absolute;
-    inset:0;
-
-    opacity:0;
-
-    transition:opacity 1s ease;
-}
-
-body.clima-lluvia .lluvia{
-    opacity:1;
-}
-
-body.clima-nublado .lluvia{
-    opacity:.22;
-}
-
-.gota{
-    position:absolute;
-
-    width:1px;
-    height:35px;
-
-    background:
-    linear-gradient(
-        transparent,
-        rgba(110,145,160,.42)
-    );
-
-    animation:llover linear infinite;
-}
-
-@keyframes llover{
+@keyframes cloudMove{
 
     from{
-        transform:translateY(-100px);
+        transform:translateX(-300px);
+    }
+
+    to{
+        transform:translateX(130vw);
+    }
+
+}
+
+/* =========================
+   LLUVIA
+========================= */
+
+.rain{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity 1s;
+}
+
+body.triste .rain{
+    opacity:1;
+}
+
+.drop{
+    position:absolute;
+    width:1px;
+    height:25px;
+    background:rgba(255,255,255,.45);
+    animation:rain 1s linear infinite;
+}
+
+@keyframes rain{
+
+    from{
+        transform:translateY(-50px);
     }
 
     to{
@@ -276,68 +230,339 @@ body.clima-nublado .lluvia{
 
 }
 
-/* =========================================================
-   PARTICULAS
-========================================================= */
+/* =========================
+   CONTENEDOR
+========================= */
 
-.particulas{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    transition:opacity 1.5s ease;
+.app{
+    width:100%;
+    max-width:620px;
+    margin:auto;
+    padding:22px 18px 50px;
 }
 
-body.clima-parcial .particulas,
-body.clima-sol .particulas{
-    opacity:1;
+/* =========================
+   HEADER
+========================= */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:28px;
 }
 
-.particula{
-    position:absolute;
+.logo{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:4px;
+}
 
-    width:5px;
-    height:5px;
+.subtitle{
+    font-size:12px;
+    opacity:.7;
+    margin-top:3px;
+}
+
+.sound-btn{
+    border:none;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.3);
+    backdrop-filter:blur(10px);
+    cursor:pointer;
+    font-size:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    text-align:center;
+    padding:30px 15px;
+}
+
+.hero h1{
+    font-size:32px;
+    line-height:1.15;
+    margin-bottom:12px;
+}
+
+.hero p{
+    opacity:.8;
+    font-size:16px;
+}
+
+/* =========================
+   TARJETA EMOCIONES
+========================= */
+
+.card{
+    background:var(--white);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:28px;
+    padding:22px;
+    margin-bottom:20px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.12);
+}
+
+.card h2{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.card-description{
+    font-size:13px;
+    opacity:.65;
+    margin-bottom:18px;
+}
+
+.emotions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.emotion{
+    border:none;
+    background:rgba(255,255,255,.7);
+    border-radius:20px;
+    padding:15px 5px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.emotion:hover{
+    transform:translateY(-3px);
+}
+
+.emotion:active{
+    transform:scale(.95);
+}
+
+.emotion span{
+    display:block;
+    font-size:30px;
+    margin-bottom:5px;
+}
+
+.emotion small{
+    font-size:12px;
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.message{
+    text-align:center;
+    padding:12px 5px 20px;
+}
+
+.message-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.message h2{
+    font-size:23px;
+    margin-bottom:8px;
+}
+
+.message p{
+    font-size:15px;
+    line-height:1.6;
+    opacity:.8;
+}
+
+/* =========================
+   VERSÍCULO
+========================= */
+
+.verse{
+    position:relative;
+    overflow:hidden;
+}
+
+.verse:before{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(124,131,253,.12);
+    top:-50px;
+    right:-40px;
+}
+
+.verse-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    opacity:.6;
+    margin-bottom:12px;
+}
+
+.verse-text{
+    font-family:Georgia,serif;
+    font-size:19px;
+    line-height:1.6;
+    margin-bottom:10px;
+}
+
+.verse-reference{
+    font-size:13px;
+    font-weight:600;
+    opacity:.7;
+}
+
+/* =========================
+   RESPIRACIÓN
+========================= */
+
+.breathing{
+    text-align:center;
+}
+
+.breath-circle{
+    width:150px;
+    height:150px;
+    margin:25px auto;
 
     border-radius:50%;
 
-    background:rgba(239,214,155,.65);
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.9),
+            rgba(168,192,255,.45)
+        );
 
-    animation:flotar 6s ease-in-out infinite;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 0 50px rgba(168,192,255,.4);
+
+    transition:transform 4s ease;
 }
 
-@keyframes flotar{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-20px);
-    }
-
+.breath-circle.inhale{
+    transform:scale(1.25);
 }
 
-/* =========================================================
-   PAGINAS
-========================================================= */
-
-.pagina{
-    display:none;
-    padding:22px 18px 35px;
-
-    animation:
-    aparecer .45s ease;
+.breath-circle.exhale{
+    transform:scale(.85);
 }
 
-.pagina.activa{
-    display:block;
+.breath-text{
+    font-size:15px;
+    font-weight:600;
 }
 
-@keyframes aparecer{
+.primary-btn{
+    border:none;
+    border-radius:18px;
+    padding:14px 24px;
+    background:linear-gradient(135deg,#7c83fd,#9b8cff);
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(124,131,253,.3);
+    transition:.25s;
+}
+
+.primary-btn:active{
+    transform:scale(.96);
+}
+
+/* =========================
+   PROGRESO
+========================= */
+
+.progress-section{
+    margin-top:10px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:13px;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:rgba(0,0,0,.08);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:20%;
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#7c83fd,#9be2d2);
+    transition:width 1s ease;
+}
+
+/* =========================
+   NOTA
+========================= */
+
+textarea{
+    width:100%;
+    min-height:120px;
+    resize:none;
+    border:none;
+    outline:none;
+
+    background:rgba(255,255,255,.6);
+
+    border-radius:18px;
+    padding:15px;
+
+    font-family:inherit;
+    font-size:14px;
+}
+
+.save-note{
+    margin-top:12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+    padding:25px 10px;
+    font-size:11px;
+    opacity:.6;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+.fade{
+    animation:fadeIn .7s ease;
+}
+
+@keyframes fadeIn{
 
     from{
         opacity:0;
-        transform:translateY(15px);
+        transform:translateY(10px);
     }
 
     to{
@@ -347,1113 +572,18 @@ body.clima-sol .particulas{
 
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-.encabezado{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:27px;
-}
-
-.marca{
-    display:flex;
-    align-items:center;
-    gap:11px;
-}
-
-.logo{
-    width:45px;
-    height:45px;
-
-    border-radius:16px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:21px;
-
-    background:
-    linear-gradient(
-        145deg,
-        #a9c2c9,
-        #758f9c
-    );
-
-    color:white;
-
-    box-shadow:
-    0 9px 20px rgba(86,112,124,.18);
-
-    transition:
-    background 1s ease,
-    transform .3s ease;
-}
-
-.logo:active{
-    transform:scale(.9) rotate(-5deg);
-}
-
-.marca h1{
-    font-size:22px;
-    letter-spacing:1.5px;
-    font-weight:850;
-}
-
-.marca span{
-    display:block;
-    margin-top:2px;
-
-    font-size:10px;
-
-    color:var(--texto-suave);
-}
-
-.icono-header{
-    width:42px;
-    height:42px;
-
-    border:1px solid rgba(255,255,255,.7);
-
-    border-radius:15px;
-
-    background:rgba(255,255,255,.7);
-
-    font-size:18px;
-
-    box-shadow:
-    0 7px 20px rgba(50,60,65,.06);
-}
-
-/* =========================================================
-   SALUDO
-========================================================= */
-
-.saludo{
-    margin-bottom:24px;
-}
-
-.saludo .pequeno{
-    color:var(--texto-suave);
-    font-size:12px;
-    margin-bottom:5px;
-}
-
-.saludo h2{
-    font-size:30px;
-    line-height:1.1;
-    letter-spacing:-.7px;
-}
-
-.saludo h2 span{
-    color:var(--azul-profundo);
-    transition:color 1s ease;
-}
-
-/* =========================================================
-   TARJETA PRINCIPAL
-========================================================= */
-
-.tarjeta-principal{
-    position:relative;
-    overflow:hidden;
-
-    padding:24px;
-
-    border-radius:30px;
-
-    background:
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.95),
-        rgba(255,255,255,.65)
-    );
-
-    border:
-    1px solid rgba(255,255,255,.9);
-
-    box-shadow:var(--sombra);
-
-    margin-bottom:23px;
-
-    transition:
-    background 1.5s ease,
-    transform .4s ease;
-}
-
-.tarjeta-principal:before{
-    content:"";
-
-    position:absolute;
-
-    width:160px;
-    height:160px;
-
-    border-radius:50%;
-
-    right:-70px;
-    top:-75px;
-
-    background:
-    var(--acento-clima);
-
-    opacity:.28;
-
-    transition:
-    background 1.5s ease;
-}
-
-.contenido-principal{
-    position:relative;
-    z-index:2;
-}
-
-.etiqueta{
-    display:inline-flex;
-
-    padding:7px 10px;
-
-    border-radius:20px;
-
-    background:
-    rgba(255,255,255,.65);
-
-    color:var(--azul-profundo);
-
-    font-size:9px;
-    font-weight:800;
-
-    letter-spacing:.8px;
-
-    margin-bottom:13px;
-}
-
-.tarjeta-principal h3{
-    font-size:22px;
-    line-height:1.25;
-
-    margin-bottom:8px;
-
-    transition:.5s;
-}
-
-.tarjeta-principal p{
-    color:var(--texto-suave);
-
-    font-size:13px;
-    line-height:1.65;
-
-    max-width:350px;
-}
-
-.boton-principal{
-    border:0;
-
-    margin-top:17px;
-
-    padding:13px 18px;
-
-    border-radius:15px;
-
-    background:
-    var(--boton-clima);
-
-    color:white;
-
-    font-size:12px;
-    font-weight:750;
-
-    box-shadow:
-    0 8px 20px rgba(80,100,110,.16);
-
-    transition:
-    transform .2s ease,
-    background 1s ease;
-}
-
-.boton-principal:active{
-    transform:scale(.95);
-}
-
-/* =========================================================
-   TITULOS
-========================================================= */
-
-.titulo-seccion{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin:25px 2px 13px;
-}
-
-.titulo-seccion h3{
-    font-size:17px;
-}
-
-.titulo-seccion span{
-    color:var(--azul-profundo);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.7px;
-}
-
-/* =========================================================
-   EMOCIONES
-========================================================= */
-
-.emociones{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:7px;
-}
-
-.emocion{
-    border:1px solid rgba(220,225,226,.8);
-
-    background:
-    rgba(255,255,255,.78);
-
-    border-radius:19px;
-
-    padding:12px 3px 11px;
-
-    transition:
-    transform .25s ease,
-    background .7s ease,
-    border .7s ease,
-    box-shadow .5s ease;
-
-    position:relative;
-    overflow:hidden;
-}
-
-.emocion:active{
-    transform:scale(.92);
-}
-
-.emocion .emoji{
-    display:block;
-    font-size:24px;
-    margin-bottom:6px;
-
-    transition:
-    transform .4s ease;
-}
-
-.emocion span:last-child{
-    font-size:9px;
-    color:var(--texto-suave);
-}
-
-.emocion.seleccionada{
-    transform:translateY(-5px);
-
-    background:
-    rgba(255,255,255,.95);
-
-    border-color:
-    var(--acento-clima);
-
-    box-shadow:
-    0 10px 25px rgba(70,80,85,.13);
-}
-
-.emocion.seleccionada .emoji{
-    transform:scale(1.18);
-}
-
-/* =========================================================
-   MOMENTO
-========================================================= */
-
-.momento{
-    background:
-    rgba(255,255,255,.82);
-
-    border:
-    1px solid rgba(225,229,229,.8);
-
-    border-radius:25px;
-
-    padding:19px;
-
-    margin-top:17px;
-
-    box-shadow:
-    0 9px 25px rgba(60,70,75,.06);
-
-    transition:
-    background 1s ease;
-}
-
-.momento-titulo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    font-weight:800;
-    font-size:14px;
-}
-
-.momento-icono{
-    width:37px;
-    height:37px;
-
-    border-radius:13px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-    rgba(255,255,255,.85);
-
-    font-size:17px;
-}
-
-.descripcion{
-    color:var(--texto-suave);
-
-    font-size:11px;
-    line-height:1.65;
-}
-
-.contenido-momento{
-    margin-top:14px;
-
-    padding:16px;
-
-    border-radius:19px;
-
-    background:
-    rgba(246,246,243,.85);
-
-    transition:
-    background 1s ease;
-}
-
-.contenido-momento p{
-    font-size:14px;
-    line-height:1.7;
-}
-
-.botones-momento{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-
-    margin-top:12px;
-}
-
-.mini-btn{
-    border:0;
-
-    padding:9px 12px;
-
-    border-radius:12px;
-
-    background:
-    #edf0ef;
-
-    color:
-    var(--texto);
-
-    font-size:10px;
-    font-weight:750;
-}
-
-/* =========================================================
-   TARJETA BIBLICA
-========================================================= */
-
-.versiculo-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:22px;
-
-    border-radius:27px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #e7ded4,
-        #f4ece5
-    );
-
-    box-shadow:
-    0 12px 28px rgba(100,80,65,.09);
-
-    transition:
-    transform .4s ease,
-    background 1s ease;
-}
-
-.versiculo-card:before{
-    content:"✦";
-
-    position:absolute;
-
-    right:18px;
-    top:5px;
-
-    font-size:80px;
-
-    color:
-    rgba(255,255,255,.55);
-}
-
-.versiculo-card .tag{
-    position:relative;
-    z-index:2;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:1px;
-
-    color:#806c5e;
-
-    margin-bottom:13px;
-}
-
-.versiculo-card p{
-    position:relative;
-    z-index:2;
-
-    font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-    font-size:17px;
-
-    line-height:1.6;
-
-    color:#5e5149;
-}
-
-.versiculo-card small{
-    display:block;
-
-    position:relative;
-    z-index:2;
-
-    margin-top:13px;
-
-    color:#806c5e;
-
-    font-size:10px;
-
-    font-weight:700;
-}
-
-/* =========================================================
-   HERRAMIENTAS
-========================================================= */
-
-.herramientas{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.herramienta{
-    padding:18px;
-
-    background:
-    rgba(255,255,255,.85);
-
-    border:
-    1px solid rgba(225,229,229,.8);
-
-    border-radius:22px;
-
-    transition:
-    transform .2s ease,
-    box-shadow .3s ease;
-}
-
-.herramienta:active{
-    transform:scale(.96);
-}
-
-.herramienta-icono{
-    width:41px;
-    height:41px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:#f0ece8;
-
-    font-size:20px;
-
-    margin-bottom:12px;
-}
-
-.herramienta h4{
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.herramienta p{
-    color:var(--texto-suave);
-    font-size:10px;
-    line-height:1.55;
-}
-
-/* =========================================================
-   PROGRESO EMOCIONAL
-========================================================= */
-
-.progreso-dia{
-    margin-top:13px;
-}
-
-.progreso-linea{
-    height:9px;
-
-    background:#e8e7e3;
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.progreso-fill{
-    width:0%;
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:
-    linear-gradient(
-        90deg,
-        #b7a9c8,
-        #e3bf9e,
-        #efd79e
-    );
-
-    transition:
-    width 1.2s ease;
-}
-
-/* =========================================================
-   GRAFICA
-========================================================= */
-
-.grafica{
-    height:150px;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-around;
-
-    gap:7px;
-
-    padding:18px 4px 5px;
-}
-
-.barra-columna{
-    height:100%;
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:flex-end;
-
-    gap:7px;
-}
-
-.barra{
-    width:23px;
-
-    min-height:5px;
-
-    border-radius:
-    10px 10px 5px 5px;
-
-    background:
-    linear-gradient(
-        180deg,
-        #d5c6df,
-        #a8b9c2
-    );
-
-    transition:
-    height .8s ease;
-}
-
-.barra-dia{
-    font-size:9px;
-    color:var(--texto-suave);
-}
-
-/* =========================================================
-   HISTORIAL
-========================================================= */
-
-.registro{
-    display:flex;
-    align-items:center;
-    gap:11px;
-
-    background:
-    rgba(255,255,255,.8);
-
-    border-radius:17px;
-
-    padding:13px;
-
-    margin-bottom:8px;
-
-    border:
-    1px solid #e7e8e6;
-}
-
-.registro-emoji{
-    font-size:23px;
-}
-
-.registro-info{
-    flex:1;
-}
-
-.registro-info strong{
-    display:block;
-    font-size:12px;
-}
-
-.registro-info span{
-    display:block;
-    margin-top:3px;
-    font-size:9px;
-    color:var(--texto-suave);
-}
-
-.eliminar{
-    border:0;
-
-    width:31px;
-    height:31px;
-
-    border-radius:10px;
-
-    background:#f0efed;
-}
-
-/* =========================================================
-   RESPIRACIÓN
-========================================================= */
-
-.respiracion{
-    text-align:center;
-    padding:5px 0 15px;
-}
-
-.circulo-respiracion{
-    width:180px;
-    height:180px;
-
-    margin:28px auto;
-
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        #ffffff,
-        #e5ddeb 50%,
-        #c7b9d4
-    );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:15px;
-    font-weight:850;
-
-    color:#655774;
-
-    box-shadow:
-    0 20px 45px rgba(90,75,105,.15);
-
-    transition:
-    transform 4s ease-in-out;
-}
-
-.circulo-respiracion.inhalar{
-    transform:scale(1.2);
-}
-
-.circulo-respiracion.exhalar{
-    transform:scale(.84);
-}
-
-/* =========================================================
-   DIARIO
-========================================================= */
-
-textarea{
-    width:100%;
-
-    min-height:180px;
-
-    border:
-    1px solid #e1e5e3;
-
-    border-radius:20px;
-
-    background:#fafaf8;
-
-    padding:17px;
-
-    color:var(--texto);
-
-    font-size:13px;
-
-    line-height:1.65;
-
-    resize:none;
-
-    outline:none;
-}
-
-textarea:focus{
-    border-color:#b5c3c8;
-}
-
-/* =========================================================
-   AJUSTES
-========================================================= */
-
-.opcion{
-    width:100%;
-
-    border:0;
-
-    background:transparent;
-
-    border-bottom:
-    1px solid #ececea;
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:17px 3px;
-
-    text-align:left;
-}
-
-.opcion:last-child{
-    border-bottom:0;
-}
-
-.opcion-icono{
-    width:38px;
-    height:38px;
-
-    border-radius:12px;
-
-    background:#f0ece8;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.opcion-texto{
-    flex:1;
-}
-
-.opcion-texto strong{
-    display:block;
-    font-size:12px;
-}
-
-.opcion-texto span{
-    display:block;
-    color:var(--texto-suave);
-    font-size:10px;
-    margin-top:3px;
-}
-
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
-
-.navegacion{
-    position:fixed;
-
-    left:50%;
-    bottom:12px;
-
-    transform:translateX(-50%);
-
-    width:
-    calc(100% - 28px);
-
-    max-width:510px;
-
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-
-    padding:7px;
-
-    background:
-    rgba(255,255,255,.88);
-
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-
-    border:
-    1px solid rgba(225,227,225,.9);
-
-    border-radius:25px;
-
-    box-shadow:
-    0 15px 40px rgba(60,70,75,.13);
-
-    z-index:100;
-}
-
-.nav-btn{
-    border:0;
-
-    background:transparent;
-
-    border-radius:18px;
-
-    padding:9px 3px;
-
-    color:#899298;
-
-    transition:.25s;
-}
-
-.nav-btn .nav-icon{
-    display:block;
-    font-size:18px;
-    margin-bottom:4px;
-}
-
-.nav-btn span:last-child{
-    font-size:9px;
-    font-weight:700;
-}
-
-.nav-btn.activo{
-    background:#f0ece8;
-    color:#5c6b73;
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    position:fixed;
-
-    inset:0;
-
-    display:none;
-
-    align-items:flex-end;
-    justify-content:center;
-
-    background:
-    rgba(45,55,60,.35);
-
-    backdrop-filter:blur(7px);
-
-    z-index:200;
-}
-
-.modal.visible{
-    display:flex;
-}
-
-.modal-contenido{
-    width:100%;
-    max-width:540px;
-
-    max-height:90vh;
-
-    overflow-y:auto;
-
-    padding:22px;
-
-    border-radius:
-    29px 29px 0 0;
-
-    background:
-    #fffdfb;
-
-    animation:
-    subir .35s ease;
-}
-
-@keyframes subir{
-
-    from{
-        transform:translateY(100%);
-    }
-
-    to{
-        transform:translateY(0);
-    }
-
-}
-
-.modal-arriba{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:18px;
-}
-
-.cerrar{
-    width:35px;
-    height:35px;
-
-    border:0;
-
-    border-radius:12px;
-
-    background:#f0eeeb;
-}
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast{
-    position:fixed;
-
-    left:50%;
-    top:20px;
-
-    transform:
-    translateX(-50%)
-    translateY(-20px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    padding:12px 17px;
-
-    border-radius:15px;
-
-    background:#536a78;
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:750;
-
-    z-index:300;
-
-    transition:.3s;
-}
-
-.toast.visible{
-    opacity:1;
-
-    transform:
-    translateX(-50%)
-    translateY(0);
-}
-
-/* =========================================================
-   CLIMAS
-========================================================= */
-
-body.clima-lluvia{
-    --clima-1:#d8dfe3;
-    --clima-2:#e8e9e8;
-    --clima-3:#f0eeeb;
-
-    --acento-clima:#9aabb4;
-    --boton-clima:#718894;
-}
-
-body.clima-nublado{
-    --clima-1:#e5e4e1;
-    --clima-2:#efeeeb;
-    --clima-3:#f7f4f0;
-
-    --acento-clima:#b4afb8;
-    --boton-clima:#7f858f;
-}
-
-body.clima-parcial{
-    --clima-1:#eaf0ef;
-    --clima-2:#f5eee6;
-    --clima-3:#fffaf1;
-
-    --acento-clima:#d7bfa8;
-    --boton-clima:#8a837b;
-}
-
-body.clima-sol{
-    --clima-1:#fff4d7;
-    --clima-2:#f8eee0;
-    --clima-3:#fffaf3;
-
-    --acento-clima:#efd69b;
-    --boton-clima:#b28b54;
-}
-
-/* =========================================================
-   ESCRITORIO
-========================================================= */
+/* =========================
+   DESKTOP
+========================= */
 
 @media(min-width:700px){
 
-    body{
-        padding:25px 0;
-    }
-
     .app{
-        min-height:
-        calc(100vh - 50px);
-
-        background:
-        rgba(247,246,243,.7);
-
-        border-radius:35px;
-
-        box-shadow:
-        0 20px 65px rgba(50,60,65,.1);
-
-        overflow:hidden;
+        padding-top:40px;
     }
 
-    .navegacion{
-        bottom:25px;
+    .hero h1{
+        font-size:42px;
     }
 
 }
@@ -1461,3092 +591,837 @@ body.clima-sol{
 </style>
 </head>
 
-<body class="clima-nublado">
 
-<!-- =====================================================
-     AMBIENTE
-===================================================== -->
+<body class="tranquilo">
 
-<div class="cielo">
+<div class="sky">
 
-    <div class="sol"></div>
+    <div class="sun"></div>
 
-    <div class="nube nube-1"></div>
-    <div class="nube nube-2"></div>
-    <div class="nube nube-3"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
 
-    <div class="lluvia" id="lluvia"></div>
-
-    <div class="particulas">
-
-        <div class="particula" style="left:15%;top:35%;"></div>
-        <div class="particula" style="left:30%;top:65%;animation-delay:1s;"></div>
-        <div class="particula" style="left:55%;top:30%;animation-delay:2s;"></div>
-        <div class="particula" style="left:78%;top:55%;animation-delay:3s;"></div>
-        <div class="particula" style="left:88%;top:25%;animation-delay:1.5s;"></div>
-
-    </div>
+    <div class="rain" id="rain"></div>
 
 </div>
 
 
 <div class="app">
 
-<!-- =====================================================
-     INICIO
-===================================================== -->
+<header>
 
-<section
-id="inicio"
-class="pagina activa">
-
-<header class="encabezado">
-
-    <div class="marca">
-
-        <div class="logo">
-            🧠
-        </div>
-
-        <div>
-
-            <h1>MENTE</h1>
-
-            <span>
-                Un espacio para ti
-            </span>
-
-        </div>
-
+    <div>
+        <div class="logo">MENTE</div>
+        <div class="subtitle">Un espacio para volver a ti</div>
     </div>
 
     <button
-    class="icono-header"
-    onclick="mostrarPagina('ajustes')">
-
-        ⚙️
-
+        class="sound-btn"
+        id="soundButton"
+        onclick="toggleSound()"
+        aria-label="Activar sonido">
+        🔇
     </button>
 
 </header>
 
 
-<div class="saludo">
+<section class="hero">
 
-    <div class="pequeno">
-        Tómate un momento
-    </div>
+    <h1>¿Cómo te sientes hoy?</h1>
 
-    <h2>
-        ¿Cómo está tu
-        <span>mundo interior?</span>
-    </h2>
+    <p>
+        No necesitas tener las palabras perfectas.
+        Solo elige lo que más se acerque.
+    </p>
 
-</div>
+</section>
 
 
-<!-- TARJETA DINÁMICA -->
+<section class="card">
 
-<div class="tarjeta-principal">
+    <h2>Tu estado emocional</h2>
 
-    <div class="contenido-principal">
+    <p class="card-description">
+        Elige cómo te sientes en este momento.
+    </p>
 
-        <div
-        class="etiqueta"
-        id="etiquetaClima">
-
-            ☁️ PARA ESTE MOMENTO
-
-        </div>
-
-        <h3 id="tituloMomento">
-
-            A veces solo necesitas
-            detenerte.
-
-        </h3>
-
-        <p id="textoMomento">
-
-            No tienes que resolver
-            todo ahora. Primero,
-            respira.
-
-        </p>
+    <div class="emotions">
 
         <button
-        class="boton-principal"
-        onclick="abrirRespiracion()">
+            class="emotion"
+            onclick="selectEmotion('triste')">
 
-            Respirar conmigo →
+            <span>😔</span>
+            <small>Triste</small>
+
+        </button>
+
+
+        <button
+            class="emotion"
+            onclick="selectEmotion('ansioso')">
+
+            <span>😰</span>
+            <small>Ansioso</small>
+
+        </button>
+
+
+        <button
+            class="emotion"
+            onclick="selectEmotion('enojado')">
+
+            <span>😡</span>
+            <small>Enojado</small>
+
+        </button>
+
+
+        <button
+            class="emotion"
+            onclick="selectEmotion('cansado')">
+
+            <span>😴</span>
+            <small>Cansado</small>
+
+        </button>
+
+
+        <button
+            class="emotion"
+            onclick="selectEmotion('tranquilo')">
+
+            <span>😌</span>
+            <small>Tranquilo</small>
+
+        </button>
+
+
+        <button
+            class="emotion"
+            onclick="selectEmotion('feliz')">
+
+            <span>😊</span>
+            <small>Feliz</small>
 
         </button>
 
     </div>
 
-</div>
-
-
-<!-- EMOCIONES -->
-
-<div class="titulo-seccion">
-
-    <h3>
-        ¿Cómo te sientes?
-    </h3>
-
-    <span>
-        ELIGE UNA
-    </span>
-
-</div>
-
-
-<div class="emociones">
-
-<button
-class="emocion"
-data-estado="Muy bien"
-onclick="seleccionarEmocion('Muy bien',this)">
-
-    <span class="emoji">😊</span>
-    <span>Muy bien</span>
-
-</button>
-
-
-<button
-class="emocion"
-data-estado="Bien"
-onclick="seleccionarEmocion('Bien',this)">
-
-    <span class="emoji">🙂</span>
-    <span>Bien</span>
-
-</button>
-
-
-<button
-class="emocion"
-data-estado="Regular"
-onclick="seleccionarEmocion('Regular',this)">
-
-    <span class="emoji">😐</span>
-    <span>Regular</span>
-
-</button>
-
-
-<button
-class="emocion"
-data-estado="Mal"
-onclick="seleccionarEmocion('Mal',this)">
-
-    <span class="emoji">😔</span>
-    <span>Mal</span>
-
-</button>
-
-
-<button
-class="emocion"
-data-estado="Muy mal"
-onclick="seleccionarEmocion('Muy mal',this)">
-
-    <span class="emoji">😣</span>
-    <span>Muy mal</span>
-
-</button>
-
-</div>
-
-
-<!-- MENSAJE -->
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            💭
-        </div>
-
-        Para este momento
-
-    </div>
-
-    <div class="contenido-momento">
-
-        <p id="mensajeAleatorio">
-
-            A veces avanzar significa
-            simplemente seguir aquí.
-
-        </p>
-
-        <div class="botones-momento">
-
-            <button
-            class="mini-btn"
-            onclick="nuevaFrase()">
-
-                Otra reflexión
-
-            </button>
-
-            <button
-            class="mini-btn"
-            onclick="nuevoVersiculo()">
-
-                📖 Otro versículo
-
-            </button>
-
-            <button
-            class="mini-btn"
-            onclick="abrirDiario()">
-
-                ✍️ Escribir
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- VERSÍCULO -->
-
-<div class="titulo-seccion">
-
-    <h3>
-        Para tu corazón
-    </h3>
-
-    <span>
-        VERSÍCULO
-    </span>
-
-</div>
-
-
-<div
-class="versiculo-card"
-id="versiculoCard">
-
-    <div class="tag">
-        📖 PALABRA PARA HOY
-    </div>
-
-    <p id="versiculoTexto">
-
-        “Cercano está el Señor a los
-        quebrantados de corazón.”
-
-    </p>
-
-    <small id="versiculoReferencia">
-
-        Salmos 34:18
-
-    </small>
-
-</div>
-
-
-<!-- HERRAMIENTAS -->
-
-<div class="titulo-seccion">
-
-    <h3>
-        Herramientas para ti
-    </h3>
-
-</div>
-
-
-<div class="herramientas">
-
-    <div
-    class="herramienta"
-    onclick="abrirRespiracion()">
-
-        <div class="herramienta-icono">
-            🌬️
-        </div>
-
-        <h4>
-            Respirar
-        </h4>
-
-        <p>
-            Baja el ritmo durante
-            un minuto.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarPagina('mente')">
-
-        <div class="herramienta-icono">
-            🧠
-        </div>
-
-        <h4>
-            Calmar mi mente
-        </h4>
-
-        <p>
-            Encuentra una herramienta
-            para este momento.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="abrirDiario()">
-
-        <div class="herramienta-icono">
-            ✍️
-        </div>
-
-        <h4>
-            Escribir
-        </h4>
-
-        <p>
-            Pon en palabras aquello
-            que estás sintiendo.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarPagina('progreso')">
-
-        <div class="herramienta-icono">
-            📊
-        </div>
-
-        <h4>
-            Mi progreso
-        </h4>
-
-        <p>
-            Mira cómo has estado
-            estos últimos días.
-        </p>
-
-    </div>
-
-</div>
-
 </section>
 
 
-<!-- =====================================================
-     MENTE
-===================================================== -->
+<section class="card message fade" id="messageCard">
 
-<section
-id="mente"
-class="pagina">
+    <div class="message">
 
-<header class="encabezado">
-
-    <div class="marca">
-
-        <div class="logo">
-            🧠
-        </div>
-
-        <div>
-
-            <h1>MENTE</h1>
-
-            <span>
-                Herramientas
-            </span>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<div class="saludo">
-
-    <div class="pequeno">
-        Elige lo que necesitas
-    </div>
-
-    <h2>
-        Estoy aquí
-        <span>contigo.</span>
-    </h2>
-
-</div>
-
-
-<div class="herramientas">
-
-    <div
-    class="herramienta"
-    onclick="abrirRespiracion()">
-
-        <div class="herramienta-icono">
-            🌬️
-        </div>
-
-        <h4>
-            Respiración
-        </h4>
-
-        <p>
-            Ejercicio guiado para
-            bajar el ritmo.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarConsejo('ansiedad')">
-
-        <div class="herramienta-icono">
+        <div class="message-icon" id="messageIcon">
             🌿
         </div>
 
-        <h4>
-            Ansiedad
-        </h4>
+        <h2 id="messageTitle">
+            Estás aquí
+        </h2>
 
-        <p>
-            Vuelve lentamente
-            al momento presente.
+        <p id="messageText">
+            Y eso ya es un comienzo.
+            Tómate este momento para respirar.
         </p>
 
     </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarConsejo('pensamientos')">
-
-        <div class="herramienta-icono">
-            💭
-        </div>
-
-        <h4>
-            Pensamientos
-        </h4>
-
-        <p>
-            Ordena lo que tienes
-            dando vueltas.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarConsejo('tdah')">
-
-        <div class="herramienta-icono">
-            🎯
-        </div>
-
-        <h4>
-            Concentración
-        </h4>
-
-        <p>
-            Divide lo grande
-            en pasos pequeños.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="abrirDiario()">
-
-        <div class="herramienta-icono">
-            ✍️
-        </div>
-
-        <h4>
-            Diario
-        </h4>
-
-        <p>
-            Escribe sin preocuparte
-            por hacerlo perfecto.
-        </p>
-
-    </div>
-
-
-    <div
-    class="herramienta"
-    onclick="mostrarConsejo('descanso')">
-
-        <div class="herramienta-icono">
-            🌙
-        </div>
-
-        <h4>
-            Descansar
-        </h4>
-
-        <p>
-            Date permiso para
-            hacer una pausa.
-        </p>
-
-    </div>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            📖
-        </div>
-
-        Una palabra para ti
-
-    </div>
-
-    <div class="contenido-momento">
-
-        <p id="versiculoMente">
-
-            “No temas, porque yo estoy contigo.”
-
-        </p>
-
-        <div class="botones-momento">
-
-            <button
-            class="mini-btn"
-            onclick="nuevoVersiculoMente()">
-
-                Otro versículo
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            💚
-        </div>
-
-        Recuerda
-
-    </div>
-
-    <p
-    class="descripcion"
-    style="margin-top:12px;">
-
-        MENTE es una herramienta de
-        acompañamiento. No diagnostica
-        ni sustituye la atención de un
-        profesional de salud.
-
-    </p>
-
-</div>
 
 </section>
 
 
-<!-- =====================================================
-     PROGRESO
-===================================================== -->
+<section class="card verse fade">
 
-<section
-id="progreso"
-class="pagina">
+    <div class="verse-label">
+        Para este momento
+    </div>
 
-<header class="encabezado">
+    <div
+        class="verse-text"
+        id="verseText">
 
-    <div class="marca">
+        "Echa sobre Jehová tu carga,
+        y él te sustentará."
 
-        <div class="logo">
-            📊
-        </div>
+    </div>
 
-        <div>
+    <div
+        class="verse-reference"
+        id="verseReference">
 
-            <h1>Mi progreso</h1>
+        Salmos 55:22
+
+    </div>
+
+</section>
+
+
+<section class="card breathing">
+
+    <h2>Respiremos juntos</h2>
+
+    <p class="card-description">
+        Durante un minuto, deja que MENTE marque el ritmo.
+    </p>
+
+    <div
+        class="breath-circle"
+        id="breathCircle">
+
+        <span
+            class="breath-text"
+            id="breathText">
+
+            Preparado
+
+        </span>
+
+    </div>
+
+    <button
+        class="primary-btn"
+        onclick="startBreathing()">
+
+        Comenzar respiración
+
+    </button>
+
+</section>
+
+
+<section class="card">
+
+    <div class="progress-section">
+
+        <div class="progress-top">
 
             <span>
-                Conócete un poco más
+                Tu camino de hoy
+            </span>
+
+            <span id="progressText">
+                20%
             </span>
 
         </div>
 
-    </div>
-
-</header>
-
-
-<div class="estadisticas">
-
-    <div class="estadistica">
-        <strong id="diasRegistro">0</strong>
-        <span>registros</span>
-    </div>
-
-    <div class="estadistica">
-        <strong id="ejercicios">0</strong>
-        <span>ejercicios</span>
-    </div>
-
-    <div class="estadistica">
-        <strong id="ultimoEstado">—</strong>
-        <span>último estado</span>
-    </div>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            🌤️
-        </div>
-
-        Tu evolución
-
-    </div>
-
-    <p
-    class="descripcion"
-    style="margin-top:10px;">
-
-        Cada pequeña acción que haces
-        por ti también cuenta.
-
-    </p>
-
-    <div class="progreso-dia">
-
-        <div class="progreso-linea">
+        <div class="progress">
 
             <div
-            class="progreso-fill"
-            id="progresoFill">
-
+                class="progress-bar"
+                id="progressBar">
             </div>
 
         </div>
 
     </div>
 
-</div>
+</section>
 
 
-<div class="momento">
+<section class="card">
 
-    <div class="momento-titulo">
+    <h2>Escribe lo que llevas dentro</h2>
 
-        <div class="momento-icono">
-            📈
-        </div>
+    <p class="card-description">
+        Este espacio es solo para ti.
+    </p>
 
-        Últimos 7 días
+    <textarea
+        id="note"
+        placeholder="¿Qué estás pensando ahora mismo?"></textarea>
 
-    </div>
+    <button
+        class="primary-btn save-note"
+        onclick="saveNote()">
 
-    <div
-    class="grafica"
-    id="graficaSemanal">
+        Guardar momento
 
-    </div>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            🗓️
-        </div>
-
-        Resumen emocional
-
-    </div>
-
-    <div
-    id="resumenSemanal"
-    style="margin-top:10px;">
-
-    </div>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            📝
-        </div>
-
-        Historial
-
-    </div>
-
-    <div
-    id="historial"
-    style="margin-top:12px;">
-
-    </div>
-
-</div>
-
-
-<div
-class="momento"
-style="background:#f0ece8;">
-
-    🔒 Tus registros se guardan
-    localmente en este dispositivo.
-
-</div>
+    </button>
 
 </section>
 
 
-<!-- =====================================================
-     AJUSTES
-===================================================== -->
+<footer>
 
-<section
-id="ajustes"
-class="pagina">
+    MENTE · Un espacio para ti
 
-<header class="encabezado">
+    <br><br>
 
-    <div class="marca">
+    Esta herramienta busca acompañarte,
+    no sustituye la ayuda profesional.
 
-        <div class="logo">
-            ⚙️
-        </div>
-
-        <div>
-
-            <h1>Ajustes</h1>
-
-            <span>
-                Personaliza MENTE
-            </span>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<div class="momento">
-
-<button
-class="opcion"
-onclick="alternarVersiculos()">
-
-    <div class="opcion-icono">
-        📖
-    </div>
-
-    <div class="opcion-texto">
-
-        <strong>
-            Versículos
-        </strong>
-
-        <span>
-            Recibir contenido espiritual
-            con mayor frecuencia
-        </span>
-
-    </div>
-
-    <strong id="estadoVersiculos">
-        ✓
-    </strong>
-
-</button>
-
-
-<button
-class="opcion"
-onclick="alternarFrases()">
-
-    <div class="opcion-icono">
-        ✨
-    </div>
-
-    <div class="opcion-texto">
-
-        <strong>
-            Reflexiones
-        </strong>
-
-        <span>
-            Mostrar frases y pensamientos
-        </span>
-
-    </div>
-
-    <strong id="estadoFrases">
-        ✓
-    </strong>
-
-</button>
-
-
-<button
-class="opcion"
-onclick="borrarDatos()">
-
-    <div class="opcion-icono">
-        🗑️
-    </div>
-
-    <div class="opcion-texto">
-
-        <strong>
-            Borrar mis datos
-        </strong>
-
-        <span>
-            Elimina registros y notas
-        </span>
-
-    </div>
-
-    <span>
-        ›
-    </span>
-
-</button>
-
-</div>
-
-
-<div class="momento">
-
-    <div class="momento-titulo">
-
-        <div class="momento-icono">
-            🌱
-        </div>
-
-        Sobre MENTE
-
-    </div>
-
-    <p
-    class="descripcion"
-    style="margin-top:12px;">
-
-        MENTE nace como un proyecto para
-        acompañar a las personas en esos
-        pequeños momentos en los que
-        necesitan detenerse, respirar,
-        reflexionar y continuar.
-
-    </p>
-
-</div>
-
-
-<div
-class="momento"
-style="background:#f2eee9;">
-
-    <strong>
-        Importante
-    </strong>
-
-    <p
-    class="descripcion"
-    style="margin-top:10px;">
-
-        MENTE no diagnostica ni trata
-        enfermedades mentales y no
-        sustituye a un profesional de salud.
-
-        <br><br>
-
-        Si alguien se encuentra en peligro
-        inmediato o considera hacerse daño,
-        debe buscar ayuda profesional
-        o servicios de emergencia locales.
-
-    </p>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     NAVEGACIÓN
-===================================================== -->
-
-<nav class="navegacion">
-
-<button
-class="nav-btn activo"
-data-pagina="inicio"
-onclick="mostrarPagina('inicio')">
-
-    <span class="nav-icon">🏠</span>
-    <span>Inicio</span>
-
-</button>
-
-
-<button
-class="nav-btn"
-data-pagina="mente"
-onclick="mostrarPagina('mente')">
-
-    <span class="nav-icon">🧠</span>
-    <span>Mente</span>
-
-</button>
-
-
-<button
-class="nav-btn"
-data-pagina="progreso"
-onclick="mostrarPagina('progreso')">
-
-    <span class="nav-icon">📊</span>
-    <span>Progreso</span>
-
-</button>
-
-
-<button
-class="nav-btn"
-data-pagina="ajustes"
-onclick="mostrarPagina('ajustes')">
-
-    <span class="nav-icon">⚙️</span>
-    <span>Ajustes</span>
-
-</button>
-
-</nav>
-
-</div>
-
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-id="modal"
-class="modal"
-onclick="cerrarModal(event)">
-
-<div
-class="modal-contenido"
-onclick="event.stopPropagation()">
-
-    <div class="modal-arriba">
-
-        <h3 id="modalTitulo">
-            MENTE
-        </h3>
-
-        <button
-        class="cerrar"
-        onclick="cerrarModal()">
-
-            ✕
-
-        </button>
-
-    </div>
-
-    <div id="modalContenido"></div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-id="toast"
-class="toast">
-
-    Guardado 💚
+</footer>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   DATOS
-========================================================= */
+/* =====================================
+   VARIABLES
+===================================== */
 
-const frases = [
+let soundEnabled = false;
 
-    "No necesitas tener todo resuelto para dar el siguiente paso.",
+let currentEmotion = "tranquilo";
 
-    "A veces descansar también es avanzar.",
+let progress = 20;
 
-    "Hoy también cuenta.",
-
-    "Puedes ir despacio. No estás compitiendo con nadie.",
-
-    "Lo que sientes importa.",
-
-    "No tienes que ser fuerte todo el tiempo.",
-
-    "Permítete comenzar de nuevo.",
-
-    "Un pequeño paso sigue siendo un paso.",
-
-    "Respira. Este momento también pasará.",
-
-    "Tu valor no depende de qué tan productivo seas.",
-
-    "Está bien pedir ayuda.",
-
-    "No todo tiene que solucionarse hoy."
-
-];
+let audioContext = null;
 
 
-const versiculos = [
+/* =====================================
+   MENSAJES
+===================================== */
 
-    {
-        texto:"Cercano está el Señor a los quebrantados de corazón.",
-        referencia:"Salmos 34:18"
+const emotionalData = {
+
+    triste:{
+
+        icon:"🌧️",
+
+        title:"Puedes sentirte así",
+
+        message:
+        "No tienes que fingir que todo está bien. Permítete sentirlo. Quédate aquí un momento y respira.",
+
+        verse:
+        '"Cercano está Jehová a los quebrantados de corazón."',
+
+        reference:
+        "Salmos 34:18"
+
     },
 
-    {
-        texto:"No temas, porque yo estoy contigo.",
-        referencia:"Isaías 41:10"
+
+    ansioso:{
+
+        icon:"🌬️",
+
+        title:"Vamos despacio",
+
+        message:
+        "No necesitas resolverlo todo ahora. Concéntrate solamente en este momento.",
+
+        verse:
+        '"Por nada estéis afanosos; sino sean conocidas vuestras peticiones delante de Dios."',
+
+        reference:
+        "Filipenses 4:6"
+
     },
 
-    {
-        texto:"Echa sobre el Señor tu carga, y él te sustentará.",
-        referencia:"Salmos 55:22"
+
+    enojado:{
+
+        icon:"🔥",
+
+        title:"Haz una pausa",
+
+        message:
+        "Tu emoción es válida. Antes de reaccionar, date unos segundos para respirar.",
+
+        verse:
+        '"La blanda respuesta quita la ira."',
+
+        reference:
+        "Proverbios 15:1"
+
     },
 
-    {
-        texto:"Venid a mí todos los que estáis trabajados y cargados.",
-        referencia:"Mateo 11:28"
+
+    cansado:{
+
+        icon:"🌙",
+
+        title:"Puedes descansar",
+
+        message:
+        "No todo tiene que hacerse hoy. A veces descansar también es avanzar.",
+
+        verse:
+        '"En paz me acostaré, y asimismo dormiré."',
+
+        reference:
+        "Salmos 4:8"
+
     },
 
-    {
-        texto:"Estad quietos, y conoced que yo soy Dios.",
-        referencia:"Salmos 46:10"
+
+    tranquilo:{
+
+        icon:"🌿",
+
+        title:"Quédate aquí",
+
+        message:
+        "Disfruta este momento. No necesitas apresurarlo.",
+
+        verse:
+        '"Estad quietos, y conoced que yo soy Dios."',
+
+        reference:
+        "Salmos 46:10"
+
     },
 
-    {
-        texto:"Todo lo puedo en Cristo que me fortalece.",
-        referencia:"Filipenses 4:13"
-    },
 
-    {
-        texto:"El Señor es mi pastor; nada me faltará.",
-        referencia:"Salmos 23:1"
-    },
+    feliz:{
 
-    {
-        texto:"Porque yo sé los pensamientos que tengo acerca de vosotros, pensamientos de paz.",
-        referencia:"Jeremías 29:11"
-    },
+        icon:"☀️",
 
-    {
-        texto:"Encomienda al Señor tu camino, y confía en él.",
-        referencia:"Salmos 37:5"
-    },
+        title:"Disfruta este momento",
 
-    {
-        texto:"La paz de Dios guardará vuestros corazones y vuestros pensamientos.",
-        referencia:"Filipenses 4:7"
+        message:
+        "Guarda este instante. También mereces reconocer los días buenos.",
+
+        verse:
+        '"Este es el día que hizo Jehová; nos gozaremos y alegraremos en él."',
+
+        reference:
+        "Salmos 118:24"
+
     }
-
-];
-
-
-const estadosEmoji = {
-
-    "Muy bien":"😊",
-    "Bien":"🙂",
-    "Regular":"😐",
-    "Mal":"😔",
-    "Muy mal":"😣"
 
 };
 
 
-const climaPorEstado = {
+/* =====================================
+   SELECCIONAR EMOCIÓN
+===================================== */
 
-    "Muy mal":"lluvia",
-    "Mal":"nublado",
-    "Regular":"parcial",
-    "Bien":"parcial",
-    "Muy bien":"sol"
+function selectEmotion(emotion){
 
-};
+    currentEmotion = emotion;
 
+    document.body.className = emotion;
 
-/* =========================================================
-   LLUVIA
-========================================================= */
+    const data = emotionalData[emotion];
 
-function crearLluvia(){
+    document.getElementById("messageIcon").textContent =
+        data.icon;
 
-    const lluvia =
-        document.getElementById("lluvia");
+    document.getElementById("messageTitle").textContent =
+        data.title;
 
-    for(
-        let i=0;
-        i<65;
-        i++
-    ){
+    document.getElementById("messageText").textContent =
+        data.message;
 
-        const gota =
-            document.createElement("span");
+    document.getElementById("verseText").textContent =
+        data.verse;
 
-        gota.className="gota";
-
-        gota.style.left =
-            Math.random()*100+"%";
-
-        gota.style.animationDuration =
-            (0.7 + Math.random()*1.3)+"s";
-
-        gota.style.animationDelay =
-            (-Math.random()*3)+"s";
-
-        gota.style.opacity =
-            .15 + Math.random()*.45;
-
-        lluvia.appendChild(gota);
-
-    }
-
-}
-
-
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
-
-function mostrarPagina(nombre){
-
-    document
-    .querySelectorAll(".pagina")
-    .forEach(
-        pagina =>
-        pagina.classList.remove("activa")
-    );
-
-
-    const pagina =
-        document.getElementById(nombre);
-
-
-    if(pagina){
-
-        pagina.classList.add("activa");
-
-    }
-
-
-    document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-
-        btn.classList.remove("activo");
-
-        if(
-            btn.dataset.pagina===nombre
-        ){
-
-            btn.classList.add("activo");
-
-        }
-
-    });
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-
-    if(nombre==="progreso"){
-
-        actualizarProgreso();
-
-    }
-
-}
-
-
-/* =========================================================
-   CAMBIO DE CLIMA
-========================================================= */
-
-function cambiarClima(clima){
-
-    document.body.classList.remove(
-        "clima-lluvia",
-        "clima-nublado",
-        "clima-parcial",
-        "clima-sol"
-    );
-
-
-    document.body.classList.add(
-        "clima-"+clima
-    );
-
-
-    const etiqueta =
-        document.getElementById(
-            "etiquetaClima"
-        );
-
-
-    const etiquetas = {
-
-        lluvia:"🌧️ VAMOS PASO A PASO",
-
-        nublado:"☁️ TÓMATE TU TIEMPO",
-
-        parcial:"🌤️ POCO A POCO",
-
-        sol:"☀️ DISFRUTA ESTE MOMENTO"
-
-    };
-
-
-    if(etiqueta){
-
-        etiqueta.textContent =
-            etiquetas[clima];
-
-    }
-
-}
-
-
-/* =========================================================
-   EMOCIONES
-========================================================= */
-
-function seleccionarEmocion(
-    estado,
-    boton
-){
-
-    document
-    .querySelectorAll(".emocion")
-    .forEach(
-        b =>
-        b.classList.remove(
-            "seleccionada"
-        )
-    );
-
-
-    boton.classList.add(
-        "seleccionada"
-    );
-
-
-    cambiarClima(
-        climaPorEstado[estado]
-    );
-
-
-    const informacion = {
-
-        "Muy mal":{
-
-            titulo:"Estoy aquí contigo.",
-
-            texto:
-            "No tienes que solucionar todo ahora. Empecemos por algo pequeño: respirar, quedarte aquí y dar el siguiente paso.",
-
-            emoji:"🌧️"
-
-        },
-
-        "Mal":{
-
-            titulo:"No tienes que fingir que todo está bien.",
-
-            texto:
-            "Reconocer cómo te sientes también es una forma de cuidarte. Vamos lentamente.",
-
-            emoji:"☁️"
-
-        },
-
-        "Regular":{
-
-            titulo:"Quizás necesitas un pequeño descanso.",
-
-            texto:
-            "No tienes que decidir cómo será todo el día. Solo pregúntate qué necesitas en este momento.",
-
-            emoji:"🌤️"
-
-        },
-
-        "Bien":{
-
-            titulo:"Qué bueno saber que estás bien.",
-
-            texto:
-            "Guarda este momento. También es importante reconocer los días tranquilos.",
-
-            emoji:"🌤️"
-
-        },
-
-        "Muy bien":{
-
-            titulo:"Qué bonito encontrarte así.",
-
-            texto:
-            "Disfruta este momento. La alegría también merece nuestra atención.",
-
-            emoji:"☀️"
-
-        }
-
-    };
-
-
-    document.getElementById(
-        "tituloMomento"
-    ).textContent =
-        informacion[estado].titulo;
-
-
-    document.getElementById(
-        "textoMomento"
-    ).textContent =
-        informacion[estado].texto;
-
-
-    /* Guardar */
-
-    const ahora = new Date();
-
-
-    const registro = {
-
-        estado:estado,
-
-        fecha:ahora.toISOString(),
-
-        fechaTexto:
-        ahora.toLocaleDateString(
-            "es-HN"
-        ),
-
-        hora:
-        ahora.toLocaleTimeString(
-            "es-HN",
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        )
-
-    };
-
-
-    let historial =
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
-
-
-    historial.push(registro);
-
-
-    localStorage.setItem(
-        "mente_historial",
-        JSON.stringify(historial)
-    );
-
-
-    localStorage.setItem(
-        "mente_ultimo_estado",
-        estado
-    );
-
-
-    /* Mensaje contextual */
-
-    document.getElementById(
-        "mensajeAleatorio"
-    ).textContent =
-        obtenerMensajeEstado(
-            estado
-        );
-
-
-    /* Versículo contextual */
-
-    mostrarVersiculoEstado(
-        estado
-    );
+    document.getElementById("verseReference").textContent =
+        data.reference;
 
 
     /* Animación */
 
-    const tarjeta =
-        document.querySelector(
-            ".tarjeta-principal"
-        );
+    document
+        .getElementById("messageCard")
+        .classList.remove("fade");
 
+    void document
+        .getElementById("messageCard")
+        .offsetWidth;
 
-    tarjeta.style.transform =
-        "scale(.985)";
+    document
+        .getElementById("messageCard")
+        .classList.add("fade");
 
 
-    setTimeout(
-        ()=>{
-            tarjeta.style.transform =
-                "scale(1)";
-        },
-        220
-    );
+    /* Aumentamos progreso */
 
+    increaseProgress(10);
 
-    actualizarProgreso();
 
+    /* Sonido */
 
-    mostrarToast(
-        informacion[estado].emoji+
-        " Registrado"
-    );
+    if(soundEnabled){
 
-}
-
-
-/* =========================================================
-   MENSAJES SEGÚN EMOCIÓN
-========================================================= */
-
-function obtenerMensajeEstado(
-    estado
-){
-
-    const mensajes = {
-
-        "Muy mal":
-        "No tienes que resolver todo hoy. Vamos solamente con este momento.",
-
-        "Mal":
-        "Puedes permitirte sentir lo que sientes sin exigirte estar bien inmediatamente.",
-
-        "Regular":
-        "Tal vez este sea un buen momento para bajar un poco el ritmo.",
-
-        "Bien":
-        "Quédate unos segundos con esta sensación. Reconoce que hoy también hay cosas buenas.",
-
-        "Muy bien":
-        "Disfruta este momento. Guarda esta sensación para los días difíciles."
-
-    };
-
-
-    return mensajes[estado];
-
-}
-
-
-/* =========================================================
-   VERSÍCULOS
-========================================================= */
-
-function nuevoVersiculo(){
-
-    const indice =
-        Math.floor(
-            Math.random()
-            *versiculos.length
-        );
-
-
-    mostrarVersiculo(
-        indice
-    );
-
-}
-
-
-function mostrarVersiculo(
-    indice
-){
-
-    const versiculo =
-        versiculos[indice];
-
-
-    const texto =
-        document.getElementById(
-            "versiculoTexto"
-        );
-
-
-    const referencia =
-        document.getElementById(
-            "versiculoReferencia"
-        );
-
-
-    const card =
-        document.getElementById(
-            "versiculoCard"
-        );
-
-
-    card.style.transform =
-        "translateY(5px)";
-
-
-    setTimeout(
-        ()=>{
-
-            texto.textContent =
-                "“"+versiculo.texto+"”";
-
-            referencia.textContent =
-                versiculo.referencia;
-
-            card.style.transform =
-                "translateY(0)";
-
-        },
-        180
-    );
-
-}
-
-
-function mostrarVersiculoEstado(
-    estado
-){
-
-    const recomendaciones = {
-
-        "Muy mal":[0,1,2,3],
-
-        "Mal":[0,1,2,3],
-
-        "Regular":[1,4,8],
-
-        "Bien":[6,8,9],
-
-        "Muy bien":[5,6,8]
-
-    };
-
-
-    const lista =
-        recomendaciones[estado];
-
-
-    const indice =
-        lista[
-            Math.floor(
-                Math.random()
-                *lista.length
-            )
-        ];
-
-
-    mostrarVersiculo(
-        indice
-    );
-
-}
-
-
-function nuevoVersiculoMente(){
-
-    const indice =
-        Math.floor(
-            Math.random()
-            *versiculos.length
-        );
-
-
-    document.getElementById(
-        "versiculoMente"
-    ).textContent =
-        "“"+
-        versiculos[indice].texto+
-        "” — "+
-        versiculos[indice].referencia;
-
-}
-
-
-/* =========================================================
-   FRASES
-========================================================= */
-
-function nuevaFrase(){
-
-    const indice =
-        Math.floor(
-            Math.random()
-            *frases.length
-        );
-
-
-    document.getElementById(
-        "mensajeAleatorio"
-    ).textContent =
-        frases[indice];
-
-}
-
-
-/* =========================================================
-   RESPIRACIÓN
-========================================================= */
-
-let respiracionIntervalo=null;
-
-let respiracionActiva=false;
-
-
-function abrirRespiracion(){
-
-    document.getElementById(
-        "modalTitulo"
-    ).textContent =
-        "Respiremos juntos 🌿";
-
-
-    document.getElementById(
-        "modalContenido"
-    ).innerHTML = `
-
-        <div class="respiracion">
-
-            <p class="descripcion">
-
-                Durante un minuto,
-                simplemente sigue el círculo.
-
-                <br><br>
-
-                Inhala cuando crezca.
-                Exhala cuando disminuya.
-
-            </p>
-
-            <div
-            id="circuloRespiracion"
-            class="circulo-respiracion">
-
-                Prepárate
-
-            </div>
-
-            <div
-            id="contadorRespiracion"
-            class="descripcion">
-
-                60 segundos
-
-            </div>
-
-            <button
-            class="boton-principal"
-            onclick="iniciarRespiracion()">
-
-                Comenzar
-
-            </button>
-
-        </div>
-
-    `;
-
-
-    abrirModal();
-
-}
-
-
-function iniciarRespiracion(){
-
-    if(respiracionActiva){
-
-        return;
-
-    }
-
-
-    respiracionActiva=true;
-
-
-    const circulo =
-        document.getElementById(
-            "circuloRespiracion"
-        );
-
-
-    let tiempo=60;
-
-    let fase=0;
-
-
-    function ciclo(){
-
-        if(fase===0){
-
-            circulo.textContent=
-                "Inhala";
-
-            circulo.classList.remove(
-                "exhalar"
-            );
-
-            circulo.classList.add(
-                "inhalar"
-            );
-
-            fase=1;
-
-        }else{
-
-            circulo.textContent=
-                "Exhala";
-
-            circulo.classList.remove(
-                "inhalar"
-            );
-
-            circulo.classList.add(
-                "exhalar"
-            );
-
-            fase=0;
-
-        }
-
-    }
-
-
-    ciclo();
-
-
-    respiracionIntervalo=
-        setInterval(
-            ciclo,
-            4000
-        );
-
-
-    const cuenta=
-        setInterval(
-            ()=>{
-
-                tiempo--;
-
-                const contador =
-                    document.getElementById(
-                        "contadorRespiracion"
-                    );
-
-
-                if(contador){
-
-                    contador.textContent=
-                        tiempo+
-                        " segundos";
-
-                }
-
-
-                if(tiempo<=0){
-
-                    clearInterval(cuenta);
-
-                    finalizarRespiracion();
-
-                }
-
-            },
-            1000
-        );
-
-}
-
-
-function finalizarRespiracion(){
-
-    respiracionActiva=false;
-
-
-    clearInterval(
-        respiracionIntervalo
-    );
-
-
-    let ejercicios=
-        parseInt(
-            localStorage.getItem(
-                "mente_ejercicios"
-            ) || "0"
-        );
-
-
-    ejercicios++;
-
-
-    localStorage.setItem(
-        "mente_ejercicios",
-        ejercicios
-    );
-
-
-    const circulo=
-        document.getElementById(
-            "circuloRespiracion"
-        );
-
-
-    if(circulo){
-
-        circulo.classList.remove(
-            "inhalar",
-            "exhalar"
-        );
-
-        circulo.textContent=
-            "Muy bien 🌿";
-
-    }
-
-
-    const contador=
-        document.getElementById(
-            "contadorRespiracion"
-        );
-
-
-    if(contador){
-
-        contador.textContent=
-            "Terminaste tu ejercicio.";
-
-    }
-
-
-    /* Mejorar visualmente el clima */
-
-    const climaActual =
-        document.body.className;
-
-
-    if(
-        climaActual.includes(
-            "clima-lluvia"
-        )
-    ){
-
-        cambiarClima(
-            "nublado"
-        );
-
-    }else if(
-        climaActual.includes(
-            "clima-nublado"
-        )
-    ){
-
-        cambiarClima(
-            "parcial"
-        );
-
-    }
-
-
-    mostrarToast(
-        "Un minuto para ti 💚"
-    );
-
-
-    actualizarProgreso();
-
-}
-
-
-/* =========================================================
-   DIARIO
-========================================================= */
-
-function abrirDiario(){
-
-    const nota=
-        localStorage.getItem(
-            "mente_diario"
-        ) || "";
-
-
-    document.getElementById(
-        "modalTitulo"
-    ).textContent=
-        "Mi espacio para escribir ✍️";
-
-
-    document.getElementById(
-        "modalContenido"
-    ).innerHTML=`
-
-        <p class="descripcion"
-        style="margin-bottom:12px;">
-
-            No necesitas escribir bonito.
-            Solo escribe lo que necesites
-            sacar de tu cabeza.
-
-        </p>
-
-        <textarea
-        id="textoDiario"
-        placeholder="¿Qué tienes en mente?"
-        >${escaparHTML(nota)}</textarea>
-
-        <button
-        class="boton-principal"
-        onclick="guardarDiario()">
-
-            Guardar nota
-
-        </button>
-
-    `;
-
-
-    abrirModal();
-
-}
-
-
-function guardarDiario(){
-
-    const texto=
-        document.getElementById(
-            "textoDiario"
-        ).value;
-
-
-    localStorage.setItem(
-        "mente_diario",
-        texto
-    );
-
-
-    mostrarToast(
-        "Nota guardada 💚"
-    );
-
-}
-
-
-/* =========================================================
-   CONSEJOS
-========================================================= */
-
-function mostrarConsejo(
-    tipo
-){
-
-    let titulo="";
-    let contenido="";
-
-
-    if(tipo==="ansiedad"){
-
-        titulo=
-            "Volvamos al presente 🌿";
-
-        contenido=`
-
-            <p class="descripcion">
-
-                Cuando tu mente esté
-                adelantándose demasiado,
-                intenta volver a lo que
-                existe ahora mismo.
-
-            </p>
-
-            <br>
-
-            <strong>
-                Mira 5 cosas.
-            </strong>
-
-            <br><br>
-
-            Identifica cinco objetos
-            que puedas ver.
-
-            <br><br>
-
-            <strong>
-                Toca 4 cosas.
-            </strong>
-
-            <br><br>
-
-            Nota cuatro sensaciones
-            físicas.
-
-            <br><br>
-
-            <strong>
-                Escucha 3 sonidos.
-            </strong>
-
-            <br><br>
-
-            Después respira lentamente.
-
-        `;
-
-    }
-
-
-    if(tipo==="pensamientos"){
-
-        titulo=
-            "Ordenemos la mente 💭";
-
-        contenido=`
-
-            <p class="descripcion">
-
-                Escribe el pensamiento
-                que más te está preocupando.
-
-            </p>
-
-            <br>
-
-            Pregúntate:
-
-            <br><br>
-
-            <strong>
-                ¿Puedo hacer algo respecto
-                a esto ahora?
-            </strong>
-
-            <br><br>
-
-            Si sí, escribe el pequeño
-            siguiente paso.
-
-            <br><br>
-
-            Si no, intenta dejarlo fuera
-            de tus acciones inmediatas.
-
-        `;
-
-    }
-
-
-    if(tipo==="tdah"){
-
-        titulo=
-            "Un paso a la vez 🎯";
-
-        contenido=`
-
-            <p class="descripcion">
-
-                Cuando una tarea parece
-                demasiado grande,
-                reduce su tamaño.
-
-            </p>
-
-            <br>
-
-            En lugar de:
-
-            <br>
-
-            <strong>
-                "Tengo que limpiar todo."
-            </strong>
-
-            <br><br>
-
-            prueba:
-
-            <br>
-
-            <strong>
-                "Voy a recoger cinco cosas."
-            </strong>
-
-            <br><br>
-
-            Cuando termines,
-            decide cuál será el siguiente
-            pequeño paso.
-
-        `;
-
-    }
-
-
-    if(tipo==="descanso"){
-
-        titulo=
-            "Puedes hacer una pausa 🌙";
-
-        contenido=`
-
-            <p class="descripcion">
-
-                Baja los hombros.
-
-                <br><br>
-
-                Suelta la mandíbula.
-
-                <br><br>
-
-                Respira lentamente.
-
-                <br><br>
-
-                Durante unos minutos
-                no necesitas producir,
-                solucionar ni demostrar nada.
-
-                <br><br>
-
-                Simplemente descansa.
-
-            </p>
-
-        `;
-
-    }
-
-
-    document.getElementById(
-        "modalTitulo"
-    ).textContent=
-        titulo;
-
-
-    document.getElementById(
-        "modalContenido"
-    ).innerHTML=
-        contenido;
-
-
-    abrirModal();
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function abrirModal(){
-
-    document.getElementById(
-        "modal"
-    ).classList.add(
-        "visible"
-    );
-
-}
-
-
-function cerrarModal(event){
-
-    if(
-        event &&
-        event.target.id!=="modal"
-    ){
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "modal"
-    ).classList.remove(
-        "visible"
-    );
-
-
-    if(respiracionActiva){
-
-        respiracionActiva=false;
-
-        clearInterval(
-            respiracionIntervalo
-        );
+        playEmotionSound(emotion);
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================
    PROGRESO
-========================================================= */
+===================================== */
 
-function actualizarProgreso(){
+function increaseProgress(amount){
 
-    const historial=
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
+    progress += amount;
 
+    if(progress > 100){
 
-    const ejercicios=
-        localStorage.getItem(
-            "mente_ejercicios"
-        ) || "0";
+        progress = 100;
 
+    }
 
-    const ultimo=
-        localStorage.getItem(
-            "mente_ultimo_estado"
-        ) || "—";
+    document.getElementById("progressBar")
+        .style.width = progress + "%";
+
+    document.getElementById("progressText")
+        .textContent = progress + "%";
+
+}
 
 
-    document.getElementById(
-        "diasRegistro"
-    ).textContent=
-        historial.length;
+/* =====================================
+   LLUVIA
+===================================== */
 
+function createRain(){
 
-    document.getElementById(
-        "ejercicios"
-    ).textContent=
-        ejercicios;
+    const rain =
+        document.getElementById("rain");
 
+    rain.innerHTML = "";
 
-    document.getElementById(
-        "ultimoEstado"
-    ).textContent=
-        ultimo;
+    for(let i=0;i<120;i++){
 
+        const drop =
+            document.createElement("div");
 
-    generarResumen();
+        drop.className = "drop";
 
-    generarGrafica();
+        drop.style.left =
+            Math.random()*100 + "%";
 
-    generarHistorial();
+        drop.style.animationDelay =
+            Math.random()*2 + "s";
 
+        drop.style.opacity =
+            Math.random();
 
-    const fill=
-        document.getElementById(
-            "progresoFill"
-        );
-
-
-    if(fill){
-
-        const puntos=
-            Math.min(
-                100,
-                historial.length*10
-            );
-
-
-        fill.style.width=
-            puntos+"%";
+        rain.appendChild(drop);
 
     }
 
 }
 
-
-function generarResumen(){
-
-    const historial=
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
+createRain();
 
 
-    const estados={
+/* =====================================
+   RESPIRACIÓN
+===================================== */
 
-        "Muy bien":0,
-        "Bien":0,
-        "Regular":0,
-        "Mal":0,
-        "Muy mal":0
+let breathingRunning = false;
 
-    };
+function startBreathing(){
 
+    if(breathingRunning) return;
 
-    const ahora=new Date();
+    breathingRunning = true;
 
-    const limite=new Date();
+    const circle =
+        document.getElementById("breathCircle");
 
-    limite.setDate(
-        ahora.getDate()-7
-    );
+    const text =
+        document.getElementById("breathText");
 
 
-    historial.forEach(
-        registro=>{
+    let cycles = 0;
 
-            if(
-                new Date(
-                    registro.fecha
-                )>=limite
-            ){
+    function inhale(){
 
-                if(
-                    estados[
-                        registro.estado
-                    ]!==undefined
-                ){
+        if(cycles >= 5){
 
-                    estados[
-                        registro.estado
-                    ]++;
+            finishBreathing();
 
-                }
-
-            }
+            return;
 
         }
-    );
 
+        text.textContent =
+            "Inhala";
 
-    const contenedor=
-        document.getElementById(
-            "resumenSemanal"
-        );
+        circle.className =
+            "breath-circle inhale";
 
 
-    contenedor.innerHTML=`
-
-        <div class="resumen-linea"
-        style="display:flex;justify-content:space-between;padding:10px 3px;">
-            <span>😊 Muy bien</span>
-            <strong>${estados["Muy bien"]}</strong>
-        </div>
-
-        <div class="resumen-linea"
-        style="display:flex;justify-content:space-between;padding:10px 3px;">
-            <span>🙂 Bien</span>
-            <strong>${estados["Bien"]}</strong>
-        </div>
-
-        <div class="resumen-linea"
-        style="display:flex;justify-content:space-between;padding:10px 3px;">
-            <span>😐 Regular</span>
-            <strong>${estados["Regular"]}</strong>
-        </div>
-
-        <div class="resumen-linea"
-        style="display:flex;justify-content:space-between;padding:10px 3px;">
-            <span>😔 Mal</span>
-            <strong>${estados["Mal"]}</strong>
-        </div>
-
-        <div class="resumen-linea"
-        style="display:flex;justify-content:space-between;padding:10px 3px;">
-            <span>😣 Muy mal</span>
-            <strong>${estados["Muy mal"]}</strong>
-        </div>
-
-    `;
-
-}
-
-
-function generarGrafica(){
-
-    const contenedor=
-        document.getElementById(
-            "graficaSemanal"
-        );
-
-
-    const historial=
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
-
-
-    const valores={
-
-        "Muy bien":5,
-        "Bien":4,
-        "Regular":3,
-        "Mal":2,
-        "Muy mal":1
-
-    };
-
-
-    const hoy=new Date();
-
-
-    contenedor.innerHTML="";
-
-
-    for(
-        let i=6;
-        i>=0;
-        i--
-    ){
-
-        const dia=
-            new Date(hoy);
-
-
-        dia.setDate(
-            hoy.getDate()-i
-        );
-
-
-        let valor=0;
-
-
-        historial.forEach(
-            registro=>{
-
-                const fecha=
-                    new Date(
-                        registro.fecha
-                    );
-
-
-                if(
-                    fecha.getFullYear()
-                    ===dia.getFullYear()
-
-                    &&
-
-                    fecha.getMonth()
-                    ===dia.getMonth()
-
-                    &&
-
-                    fecha.getDate()
-                    ===dia.getDate()
-                ){
-
-                    valor=
-                        valores[
-                            registro.estado
-                        ]||valor;
-
-                }
-
-            }
-        );
-
-
-        const columna=
-            document.createElement(
-                "div"
-            );
-
-
-        columna.className=
-            "barra-columna";
-
-
-        const barra=
-            document.createElement(
-                "div"
-            );
-
-
-        barra.className=
-            "barra";
-
-
-        barra.style.height=
-            Math.max(
-                5,
-                valor*20
-            )+"px";
-
-
-        const nombre=
-            document.createElement(
-                "span"
-            );
-
-
-        nombre.className=
-            "barra-dia";
-
-
-        nombre.textContent=
-            dia.toLocaleDateString(
-                "es-HN",
-                {
-                    weekday:"short"
-                }
-            ).replace(".","");
-
-
-        columna.appendChild(
-            barra
-        );
-
-
-        columna.appendChild(
-            nombre
-        );
-
-
-        contenedor.appendChild(
-            columna
-        );
+        setTimeout(exhale,4000);
 
     }
 
+
+    function exhale(){
+
+        text.textContent =
+            "Exhala";
+
+        circle.className =
+            "breath-circle exhale";
+
+
+        setTimeout(()=>{
+
+            cycles++;
+
+            inhale();
+
+        },6000);
+
+    }
+
+
+    inhale();
+
 }
 
 
-function generarHistorial(){
+/* =====================================
+   FINALIZAR RESPIRACIÓN
+===================================== */
 
-    const contenedor=
-        document.getElementById(
-            "historial"
-        );
+function finishBreathing(){
+
+    const circle =
+        document.getElementById("breathCircle");
+
+    const text =
+        document.getElementById("breathText");
+
+    circle.className =
+        "breath-circle";
+
+    text.textContent =
+        "Muy bien";
+
+    increaseProgress(20);
+
+    breathingRunning = false;
+
+}
 
 
-    const historial=
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
+/* =====================================
+   NOTAS
+===================================== */
 
+function saveNote(){
 
-    if(historial.length===0){
+    const note =
+        document.getElementById("note").value;
 
-        contenedor.innerHTML=`
+    if(!note.trim()){
 
-            <div
-            style="
-            padding:20px;
-            text-align:center;
-            color:#77838a;
-            font-size:11px;
-            ">
-
-                Todavía no hay registros.
-
-                <br><br>
-
-                Cuando registres cómo te
-                sientes aparecerán aquí. 🌿
-
-            </div>
-
-        `;
+        alert("Escribe algo antes de guardar.");
 
         return;
 
     }
 
-
-    contenedor.innerHTML="";
-
-
-    historial
-    .slice()
-    .reverse()
-    .slice(0,20)
-    .forEach(
-        registro=>{
-
-            const indice=
-                historial.indexOf(
-                    registro
-                );
-
-
-            const div=
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className=
-                "registro";
-
-
-            div.innerHTML=`
-
-                <div class="registro-emoji">
-                    ${
-                        estadosEmoji[
-                            registro.estado
-                        ]||"🙂"
-                    }
-                </div>
-
-                <div class="registro-info">
-
-                    <strong>
-                        ${registro.estado}
-                    </strong>
-
-                    <span>
-                        ${registro.fechaTexto}
-                        ·
-                        ${registro.hora}
-                    </span>
-
-                </div>
-
-                <button
-                class="eliminar"
-                onclick="eliminarRegistro(${indice})">
-
-                    🗑️
-
-                </button>
-
-            `;
-
-
-            contenedor.appendChild(
-                div
-            );
-
-        }
-    );
-
-}
-
-
-function eliminarRegistro(
-    indice
-){
-
-    let historial=
-        JSON.parse(
-            localStorage.getItem(
-                "mente_historial"
-            ) || "[]"
-        );
-
-
-    historial.splice(
-        indice,
-        1
-    );
-
-
     localStorage.setItem(
-        "mente_historial",
-        JSON.stringify(historial)
+        "mente_note",
+        note
     );
 
+    increaseProgress(10);
 
-    actualizarProgreso();
-
-    mostrarToast(
-        "Registro eliminado"
-    );
-
-}
-
-
-/* =========================================================
-   AJUSTES
-========================================================= */
-
-function alternarFrases(){
-
-    let activo=
-        localStorage.getItem(
-            "mente_frases"
-        );
-
-
-    activo=
-        activo!=="false";
-
-
-    activo=!activo;
-
-
-    localStorage.setItem(
-        "mente_frases",
-        activo
-    );
-
-
-    document.getElementById(
-        "estadoFrases"
-    ).textContent=
-        activo?"✓":"—";
-
-
-    mostrarToast(
-        activo
-        ?"Reflexiones activadas"
-        :"Reflexiones desactivadas"
+    alert(
+        "Tu momento quedó guardado en este dispositivo 💙"
     );
 
 }
 
 
-function alternarVersiculos(){
+/* =====================================
+   RECUPERAR NOTA
+===================================== */
 
-    let activo=
-        localStorage.getItem(
-            "mente_versiculos"
-        );
+const savedNote =
+    localStorage.getItem("mente_note");
 
+if(savedNote){
 
-    activo=
-        activo!=="false";
-
-
-    activo=!activo;
-
-
-    localStorage.setItem(
-        "mente_versiculos",
-        activo
-    );
-
-
-    document.getElementById(
-        "estadoVersiculos"
-    ).textContent=
-        activo?"✓":"—";
-
-
-    mostrarToast(
-        activo
-        ?"Versículos activados 📖"
-        :"Versículos desactivados"
-    );
+    document.getElementById("note")
+        .value = savedNote;
 
 }
 
 
-function borrarDatos(){
+/* =====================================
+   SONIDO
+===================================== */
 
-    const confirmar=
-        confirm(
-            "¿Seguro que quieres borrar todos tus datos de MENTE?"
-        );
+function toggleSound(){
 
+    soundEnabled = !soundEnabled;
 
-    if(!confirmar){
+    const button =
+        document.getElementById("soundButton");
 
-        return;
+    if(soundEnabled){
 
-    }
+        button.textContent = "🔊";
 
+        startAudio();
 
-    localStorage.removeItem(
-        "mente_historial"
-    );
+    }else{
 
-    localStorage.removeItem(
-        "mente_ejercicios"
-    );
-
-    localStorage.removeItem(
-        "mente_ultimo_estado"
-    );
-
-    localStorage.removeItem(
-        "mente_diario"
-    );
-
-
-    actualizarProgreso();
-
-
-    mostrarToast(
-        "Datos eliminados"
-    );
-
-}
-
-
-/* =========================================================
-   UTILIDADES
-========================================================= */
-
-function mostrarToast(
-    texto
-){
-
-    const toast=
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent=
-        texto;
-
-
-    toast.classList.add(
-        "visible"
-    );
-
-
-    setTimeout(
-        ()=>{
-            toast.classList.remove(
-                "visible"
-            );
-        },
-        2200
-    );
-
-}
-
-
-function escaparHTML(
-    texto
-){
-
-    return texto
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
-   INICIO
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
-
-        crearLluvia();
-
-        actualizarProgreso();
-
-        nuevoVersiculo();
-
-        cargarEstado();
-
-    }
-);
-
-
-function cargarEstado(){
-
-    const ultimo=
-        localStorage.getItem(
-            "mente_ultimo_estado"
-        );
-
-
-    if(ultimo){
-
-        const boton=
-            document.querySelector(
-                `.emocion[data-estado="${ultimo}"]`
-            );
-
-
-        if(boton){
-
-            boton.classList.add(
-                "seleccionada"
-            );
-
-        }
-
-
-        cambiarClima(
-            climaPorEstado[ultimo]
-        );
-
-
-        mostrarMensajeSegunEstadoInicial(
-            ultimo
-        );
-
-    }
-
-
-    const frases=
-        localStorage.getItem(
-            "mente_frases"
-        );
-
-
-    const versiculosActivos=
-        localStorage.getItem(
-            "mente_versiculos"
-        );
-
-
-    if(frases==="false"){
-
-        document.getElementById(
-            "estadoFrases"
-        ).textContent="—";
-
-    }
-
-
-    if(versiculosActivos==="false"){
-
-        document.getElementById(
-            "estadoVersiculos"
-        ).textContent="—";
+        button.textContent = "🔇";
 
     }
 
 }
 
 
-function mostrarMensajeSegunEstadoInicial(
-    estado
-){
+/* =====================================
+   AUDIO
+===================================== */
 
-    const info={
+function startAudio(){
 
-        "Muy mal":{
-            titulo:"Estoy aquí contigo.",
-            texto:"No tienes que resolver todo ahora. Empecemos por algo pequeño: respirar."
-        },
+    try{
 
-        "Mal":{
-            titulo:"No tienes que fingir que todo está bien.",
-            texto:"Reconocer cómo te sientes también es una forma de cuidarte."
-        },
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
 
-        "Regular":{
-            titulo:"Quizás necesitas un pequeño descanso.",
-            texto:"Pregúntate qué necesitas en este momento."
-        },
+        playSoftTone();
 
-        "Bien":{
-            titulo:"Qué bueno saber que estás bien.",
-            texto:"Guarda este momento. También es importante reconocer los días tranquilos."
-        },
+    }catch(error){
 
-        "Muy bien":{
-            titulo:"Qué bonito encontrarte así.",
-            texto:"Disfruta este momento. La alegría también merece nuestra atención."
-        }
+        console.log(
+            "Audio no disponible"
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   SONIDO SUAVE
+===================================== */
+
+function playSoftTone(){
+
+    if(!audioContext) return;
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+    oscillator.frequency.value =
+        220;
+
+    oscillator.type =
+        "sine";
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.04,
+        audioContext.currentTime + 1
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + 3
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + 3
+    );
+
+}
+
+
+/* =====================================
+   SONIDOS SEGÚN EMOCIÓN
+===================================== */
+
+function playEmotionSound(emotion){
+
+    if(!audioContext) return;
+
+
+    const frequencies = {
+
+        triste:180,
+
+        ansioso:260,
+
+        enojado:140,
+
+        cansado:120,
+
+        tranquilo:330,
+
+        feliz:440
 
     };
 
 
-    if(
-        info[estado]
-    ){
+    const oscillator =
+        audioContext.createOscillator();
 
-        document.getElementById(
-            "tituloMomento"
-        ).textContent=
-            info[estado].titulo;
+    const gain =
+        audioContext.createGain();
 
 
-        document.getElementById(
-            "textoMomento"
-        ).textContent=
-            info[estado].texto;
+    oscillator.type =
+        "sine";
 
-    }
+    oscillator.frequency.value =
+        frequencies[emotion];
+
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.06,
+        audioContext.currentTime + .5
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + 2
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + 2
+    );
 
 }
-
 
 </script>
 
