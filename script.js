@@ -1340,15 +1340,23 @@ function openUnderstandingExperience() {
         }
     };
 
-    const content =
-        feelingMessages[selectedFeeling] ||
-        feelingMessages.Ansioso;
+    if (understandingMode === "self") {
+        understandingIntroTitle.textContent =
+            "Vamos a conocerte un poco mejor.";
 
-    understandingIntroTitle.textContent =
-        content.title;
+        understandingIntroMessage.textContent =
+            "No se trata de descubrir una etiqueta para ti. Vamos a explorar tus pensamientos, emociones, hábitos y necesidades con curiosidad.";
+    } else {
+        const content =
+            feelingMessages[selectedFeeling] ||
+            feelingMessages.Ansioso;
 
-    understandingIntroMessage.textContent =
-        content.message;
+        understandingIntroTitle.textContent =
+            content.title;
+
+        understandingIntroMessage.textContent =
+            content.message;
+    }
 
     window.scrollTo({
         top: 0,
