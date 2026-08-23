@@ -1,178 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f7f4ff">
-  <title>MENTE — Un espacio para ti</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MIND</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-mood="neutral">
-  <div class="ambient" aria-hidden="true">
-    <div class="sun"></div><div class="moon"></div>
-    <div class="cloud cloud-a"></div><div class="cloud cloud-b"></div>
-    <div id="rain"></div><div id="stars"></div>
-  </div>
 
-  <header class="topbar">
-    <button class="icon-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
-    <div class="brand">
-      <img src="assets/mente-logo.png" alt="MENTE">
-      <div><strong>MENTE</strong><span>Un espacio para ti</span></div>
-    </div>
-    <button class="icon-btn" id="helpBtn" aria-label="Ayuda">♡</button>
-  </header>
+<body>
 
-  <main>
-    <section class="screen active" id="homeScreen">
-      <div class="hero">
-        <span class="eyebrow">HOY</span>
-        <h1>¿Cómo estás<br><em>realmente?</em></h1>
-        <p>No tienes que sentirte de una manera determinada. Solo cuéntame cómo estás.</p>
-      </div>
+    <main class="welcome">
 
-      <div class="mood-grid" aria-label="Selecciona tu emoción">
-        <button class="mood-card mood-great" data-mood="great"><span>😊</span><b>Muy bien</b><small>Ligero</small></button>
-        <button class="mood-card mood-good" data-mood="good"><span>🙂</span><b>Bien</b><small>Tranquilo</small></button>
-        <button class="mood-card mood-okay" data-mood="okay"><span>😐</span><b>Regular</b><small>Neutro</small></button>
-        <button class="mood-card mood-sad" data-mood="sad"><span>😔</span><b>Mal</b><small>Pesado</small></button>
-        <button class="mood-card mood-very-sad" data-mood="very-sad"><span>😣</span><b>Muy mal</b><small>Difícil</small></button>
-      </div>
+        <div class="brand">
 
-      <div class="quiet-card">
-        <span class="quiet-icon">✦</span>
-        <div><b>Sin presión.</b><p>Este momento es solo tuyo.</p></div>
-      </div>
-    </section>
+            <img 
+                src="conocimiento.png" 
+                alt="Logo de MIND" 
+                class="logo"
+            >
 
-    <section class="screen centered" id="supportScreen">
-      <div class="mood-orb" id="selectedMood">😊</div>
-      <span class="eyebrow" id="supportEyebrow">PARA ESTE MOMENTO</span>
-      <h2 id="supportTitle">Qué bonito saber que estás bien.</h2>
-      <p class="lead" id="supportText">Disfruta este momento sin sentir que tienes que aprovecharlo al máximo.</p>
+            <h1>MIND</h1>
 
-      <article class="verse-card">
-        <span id="wisdomType">UNA PALABRA PARA TI</span>
-        <blockquote id="wisdomText">La alegría también merece un espacio.</blockquote>
-        <small>Un pequeño momento para recordar.</small>
-      </article>
+            <p>Un espacio para ti.</p>
 
-      <button class="primary-btn" data-go="needsScreen">Te ayudaré a sentirte mejor <span>→</span></button>
-      <button class="text-btn" data-go="homeScreen">← Cambiar emoción</button>
-    </section>
+        </div>
 
-    <section class="screen" id="needsScreen">
-      <div class="section-head">
-        <span class="eyebrow">UN PASO A LA VEZ</span>
-        <h2>¿Qué necesitas ahora?</h2>
-        <p>No tienes que elegir la opción perfecta. Elige la que más se parezca a lo que necesitas.</p>
-      </div>
-      <div class="needs-grid" id="needsGrid"></div>
-      <button class="text-btn" data-go="supportScreen">← Volver</button>
-    </section>
 
-    <section class="screen" id="toolsScreen">
-      <div class="section-head">
-        <span class="eyebrow">PARA TI</span>
-        <h2 id="recommendTitle">Empecemos por aquí.</h2>
-        <p id="recommendText">No tienes que hacer muchas cosas. Solo una.</p>
-      </div>
-      <article class="recommend-card" id="recommendCard"></article>
-      <div class="alternate" id="alternateTools"></div>
-      <button class="text-btn" data-go="needsScreen">← Elegir otra cosa</button>
-    </section>
+        <section class="feeling-section">
 
-    <section class="screen centered" id="activityScreen">
-      <span class="eyebrow" id="activityLabel">PAUSA</span>
-      <div class="activity-icon" id="activityIcon">🌬️</div>
-      <h2 id="activityTitle">Respirar conmigo</h2>
-      <p class="lead" id="activityDescription">Inhala cuando la esfera crezca. Exhala cuando vuelva a hacerse pequeña.</p>
-      <div class="breathing-wrap">
-        <div class="breathing-orb" id="breathingOrb"><span id="breathingWord">Respira</span></div>
-      </div>
-      <strong class="breathing-count" id="breathingCount"></strong>
-      <p class="activity-message" id="activityMessage"></p>
-      <button class="primary-btn" id="activityStart">Comenzar <span>→</span></button>
-      <button class="text-btn" id="activityDone">Terminar</button>
-    </section>
+            <h2>¿Cómo te sientes hoy?</h2>
 
-    <section class="screen" id="journalScreen">
-      <div class="section-head">
-        <span class="eyebrow">SACAR LO QUE SIENTES</span>
-        <h2>¿Qué está ocupando espacio en tu cabeza?</h2>
-        <p>No necesitas escribir bonito. Solo deja salir lo que puedas.</p>
-      </div>
-      <textarea id="journalText" class="journal" placeholder="Escribe aquí, sin juzgarte..."></textarea>
-      <div class="row-actions"><button class="primary-btn" id="saveJournal">Guardar</button><button class="soft-btn" data-go="afterScreen">Listo</button></div>
-      <p class="saved-note" id="savedNote">🔒 Se guarda solo en este dispositivo.</p>
-    </section>
+            <p class="subtitle">
+                Tómate un momento para reconocer cómo estás.
+            </p>
 
-    <section class="screen centered" id="gameScreen">
-      <span class="eyebrow">DISTRAERTE</span>
-      <h2>Encuentra las pequeñas luces</h2>
-      <p class="lead">Toca una luciérnaga cada vez que aparezca. Sin prisa.</p>
-      <div class="game-field" id="fireflyField"></div>
-      <div class="score" id="gameScore">0 luces encontradas</div>
-      <button class="soft-btn" id="newFirefly">Otra luz</button>
-      <button class="text-btn" data-go="afterScreen">Terminar</button>
-    </section>
 
-    <section class="screen centered" id="connectScreen">
-      <div class="activity-icon">🫶</div>
-      <span class="eyebrow">NO TIENES QUE HACERLO SOLO</span>
-      <h2>Busca una persona segura</h2>
-      <p class="lead">Puedes escribirle a alguien de confianza, pedir compañía o simplemente decir: “Hoy no me siento muy bien, ¿puedes estar conmigo un rato?”</p>
-      <div class="info-card">💬 A veces pedir compañía ya es una forma de cuidarte.</div>
-      <button class="primary-btn" data-go="afterScreen">Ya lo tengo <span>→</span></button>
-    </section>
+            <div class="feelings">
 
-    <section class="screen centered" id="helpScreen">
-      <div class="activity-icon">🤍</div>
-      <span class="eyebrow">AYUDA</span>
-      <h2>Tu seguridad importa</h2>
-      <p class="lead">Si sientes que podrías hacerte daño o que estás en peligro, busca ayuda humana inmediata y quédate acompañado.</p>
-      <div class="info-card">🫶 Contacta a una persona de confianza o a los servicios de emergencia de tu localidad.</div>
-      <button class="primary-btn" data-go="homeScreen">Volver a MENTE</button>
-    </section>
+                <button class="feeling" data-feeling="Ansioso">
+                    <span class="emoji">😰</span>
+                    <span>Ansioso</span>
+                </button>
 
-    <section class="screen centered" id="afterScreen">
-      <div class="mood-orb" id="afterEmoji">🌤️</div>
-      <span class="eyebrow">DESPUÉS</span>
-      <h2>¿Cómo te sientes ahora?</h2>
-      <p class="lead" id="afterResponse">No hay una respuesta correcta. Solo cuéntame qué cambió.</p>
-      <div class="after-grid">
-        <button data-after="better">😊 Un poco mejor</button>
-        <button data-after="same">😐 Igual</button>
-        <button data-after="worse">😔 Más difícil</button>
-      </div>
-      <button class="primary-btn" data-go="homeScreen">Volver al inicio <span>→</span></button>
-    </section>
+                <button class="feeling" data-feeling="Triste">
+                    <span class="emoji">😔</span>
+                    <span>Triste</span>
+                </button>
 
-    <section class="screen" id="allToolsScreen">
-      <div class="section-head">
-        <span class="eyebrow">MENTE</span>
-        <h2>Tu espacio</h2>
-        <p>Explora cuando quieras. Lo importante es que esto siga siendo sencillo.</p>
-      </div>
-      <div class="category-grid">
-        <button class="category-card" data-action="breathing">🌬️<b>Respirar</b><small>Bajar el ritmo</small></button>
-        <button class="category-card" data-action="thoughts">💭<b>Escribir</b><small>Sacar lo que sientes</small></button>
-        <button class="category-card" data-action="game">✨<b>Jugar</b><small>Distraerte un momento</small></button>
-        <button class="category-card" data-action="connect">🫶<b>Conectar</b><small>Buscar compañía</small></button>
-        <button class="category-card" data-action="activate">🌱<b>Activarme</b><small>Un pequeño paso</small></button>
-        <button class="category-card" data-action="help">🤍<b>Ayuda</b><small>Cuando lo necesites</small></button>
-      </div>
-    </section>
-  </main>
+                <button class="feeling" data-feeling="Abrumado">
+                    <span class="emoji">😵</span>
+                    <span>Abrumado</span>
+                </button>
 
-  <nav class="bottom-nav">
-    <button class="nav-item active" data-go="homeScreen">⌂<small>Inicio</small></button>
-    <button class="nav-item" data-go="allToolsScreen">✦<small>Explorar</small></button>
-    <button class="nav-item" data-go="journalScreen">♡<small>Mi espacio</small></button>
-    <button class="nav-item" data-go="helpScreen">?</button>
-  </nav>
+                <button class="feeling" data-feeling="Normal">
+                    <span class="emoji">😐</span>
+                    <span>Normal</span>
+                </button>
 
-  <div class="toast" id="toast"></div>
-  <script src="js/script.js"></script>
+                <button class="feeling" data-feeling="Bien">
+                    <span class="emoji">😊</span>
+                    <span>Bien</span>
+                </button>
+
+            </div>
+
+
+            <button class="continue-button" id="continueButton">
+                Continuar
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
 </body>
 </html>
