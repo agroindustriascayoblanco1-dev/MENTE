@@ -11,13 +11,15 @@
 
 <body>
 
-    <main class="welcome">
+    <!-- PANTALLA DE BIENVENIDA -->
+
+    <main class="screen welcome-screen" id="welcomeScreen">
 
         <div class="brand">
 
-            <img 
-                src="conocimiento.png" 
-                alt="Logo de MIND" 
+            <img
+                src="conocimiento.png"
+                alt="Logo de MIND"
                 class="logo"
             >
 
@@ -67,11 +69,150 @@
             </div>
 
 
-            <button class="continue-button" id="continueButton">
+            <button
+                class="continue-button"
+                id="continueButton"
+                disabled
+            >
                 Continuar
             </button>
 
         </section>
+
+    </main>
+
+
+
+    <!-- SEGUNDA PANTALLA -->
+
+    <main class="screen support-screen hidden" id="supportScreen">
+
+        <button class="back-button" id="backButton">
+            ← Volver
+        </button>
+
+
+        <div class="support-container">
+
+            <div class="support-icon" id="supportIcon">
+                😰
+            </div>
+
+
+            <p class="support-label">
+                ESTAMOS AQUÍ CONTIGO
+            </p>
+
+
+            <h2 id="supportTitle">
+                Gracias por contarnos cómo estás.
+            </h2>
+
+
+            <p class="support-message" id="supportMessage">
+                Hoy parece que estás sintiendo ansiedad.
+                No tienes que resolverlo todo ahora.
+                Podemos ir paso a paso.
+            </p>
+
+
+            <div class="support-question">
+
+                <h3>
+                    ¿Qué necesitas en este momento?
+                </h3>
+
+                <p>
+                    Elige lo que más se parezca a lo que necesitas ahora.
+                </p>
+
+            </div>
+
+
+            <div class="support-options">
+
+                <button class="support-option">
+
+                    <span class="option-icon">
+                        🌬️
+                    </span>
+
+                    <span>
+                        <strong>Quiero calmarme</strong>
+                        <small>
+                            Una herramienta para bajar la tensión.
+                        </small>
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button class="support-option">
+
+                    <span class="option-icon">
+                        🧠
+                    </span>
+
+                    <span>
+                        <strong>Quiero entender lo que siento</strong>
+                        <small>
+                            Explora lo que está pasando dentro de ti.
+                        </small>
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button class="support-option">
+
+                    <span class="option-icon">
+                        🌿
+                    </span>
+
+                    <span>
+                        <strong>Quiero despejar mi mente</strong>
+                        <small>
+                            Haz una pausa y cambia el foco de atención.
+                        </small>
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button class="support-option">
+
+                    <span class="option-icon">
+                        💬
+                    </span>
+
+                    <span>
+                        <strong>Solo quiero expresarme</strong>
+                        <small>
+                            Escribe lo que estás pensando o sintiendo.
+                        </small>
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
 
     </main>
 
