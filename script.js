@@ -591,25 +591,7 @@ let currentRound = 1;
 // BOTÓN CALMAR MI CUERPO
 // ============================================
 
-const calmOption =
-    document.querySelector(
-        ".option-calm"
-    );
 
-
-if (calmOption) {
-
-
-    calmOption.addEventListener(
-        "click",
-        function () {
-
-            openBreathingExperience();
-
-        }
-    );
-
-}
 
 
 
@@ -1165,6 +1147,42 @@ const understandingIntroTitle =
 const understandingIntroMessage =
     document.getElementById("understandingIntroMessage");
 
+// ============================================
+// ACCIONES DE LAS OPCIONES DE APOYO
+// ============================================
+// Las clases visuales son fijas; el contenido cambia según la emoción.
+// Por eso usamos el texto actual del botón para decidir qué experiencia abrir.
+
+supportOptions.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const titleElement = button.querySelector("strong");
+        const title = titleElement
+            ? titleElement.textContent.trim()
+            : "";
+
+        if (title === "Calmar mi cuerpo") {
+            openBreathingExperience();
+            return;
+        }
+
+        if (title === "Conocerme mejor") {
+            openUnderstandingExperience("self");
+            return;
+        }
+
+        if (title.indexOf("Entender mi") === 0) {
+            openUnderstandingExperience("anxiety");
+            return;
+        }
+
+        // Las demás opciones todavía no tienen una experiencia
+        // específica; no se redirigen accidentalmente a respiración.
+    });
+});
+
 let understandingAnswers = {
     first: null,
     second: null,
@@ -1172,6 +1190,44 @@ let understandingAnswers = {
 };
 
 let currentUnderstandingQuestion = 0;
+
+let understandingMode = "anxiety";
+
+const selfUnderstandingQuestions = [
+    {
+        title: "¿Qué parte de ti te gustaría conocer mejor?",
+        description: "No hay una respuesta correcta. Elige aquello que más curiosidad te despierte.",
+        options: [
+            { icon: "🧠", title: "Mis pensamientos", description: "Quiero entender cómo funciona mi mente." },
+            { icon: "💗", title: "Mis emociones", description: "Quiero reconocer mejor lo que siento." },
+            { icon: "🔄", title: "Mis hábitos", description: "Quiero descubrir patrones en mi día a día." },
+            { icon: "✨", title: "Lo que quiero", description: "Quiero entender mejor mis deseos y metas." },
+            { icon: "🪞", title: "Quién soy", description: "Quiero explorar mi identidad y lo que me hace ser yo." }
+        ]
+    },
+    {
+        title: "¿Qué suele influir más en cómo te sientes?",
+        description: "Piensa en lo que más cambia tu estado de ánimo durante un día normal.",
+        options: [
+            { icon: "👥", title: "Las personas", description: "Lo que ocurre con quienes me rodean." },
+            { icon: "🏠", title: "Mi entorno", description: "El lugar y las situaciones que vivo." },
+            { icon: "📋", title: "Mis responsabilidades", description: "Todo lo que tengo que hacer o resolver." },
+            { icon: "🌙", title: "Mi descanso", description: "Cómo duermo, descanso y recupero energía." },
+            { icon: "💭", title: "Lo que pienso", description: "La forma en que interpreto lo que ocurre." }
+        ]
+    },
+    {
+        title: "¿Qué te gustaría fortalecer en ti?",
+        description: "Elige algo que te gustaría cultivar poco a poco.",
+        options: [
+            { icon: "🌿", title: "Tranquilidad", description: "Quiero sentir más calma en mi día." },
+            { icon: "🛡️", title: "Confianza", description: "Quiero confiar más en mí y en mis decisiones." },
+            { icon: "💬", title: "Expresión", description: "Quiero comunicar mejor lo que siento y pienso." },
+            { icon: "🧭", title: "Dirección", description: "Quiero tener más claridad sobre hacia dónde voy." },
+            { icon: "💛", title: "Bienestar", description: "Quiero aprender a cuidarme mejor." }
+        ]
+    }
+];
 
 const understandingQuestions = [
     {
@@ -1282,19 +1338,14 @@ const understandingQuestions = [
     }
 ];
 
-const understandOption =
-    document.querySelector(".option-clear");
 
-if (understandOption) {
-    understandOption.addEventListener("click", function () {
-        openUnderstandingExperience();
-    });
-}
 
-function openUnderstandingExperience() {
+function openUnderstandingExperience(mode = "anxiety") {
     if (!understandingScreen) {
         return;
     }
+
+    understandingMode = mode;
 
     supportScreen.classList.add("hidden");
     breathingScreen.classList.add("hidden");
@@ -1345,7 +1396,7 @@ function openUnderstandingExperience() {
             "Vamos a conocerte un poco mejor.";
 
         understandingIntroMessage.textContent =
-            "No se trata de descubrir una etiqueta para ti. Vamos a explorar tus pensamientos, emociones, hábitos y necesidades con curiosidad.";
+            "No se trata de ponerte una etiqueta. Vamos a explorar tus pensamientos, emociones, hábitos y necesidades con curiosidad.";
     } else {
         const content =
             feelingMessages[selectedFeeling] ||
@@ -1374,8 +1425,12 @@ if (understandingStart) {
 }
 
 function showUnderstandingQuestion() {
+    const questionSet = understandingMode === "self"
+        ? selfUnderstandingQuestions
+        : understandingQuestions;
+
     const question =
-        understandingQuestions[currentUnderstandingQuestion];
+        questionSet[currentUnderstandingQuestion];
 
     if (!question) {
         showUnderstandingResult();
@@ -1441,7 +1496,9 @@ function selectUnderstandingAnswer(answer) {
 
         if (
             currentUnderstandingQuestion >=
-            understandingQuestions.length
+            (understandingMode === "self"
+                ? selfUnderstandingQuestions.length
+                : understandingQuestions.length)
         ) {
             showUnderstandingResult();
         } else {
@@ -1465,7 +1522,13 @@ function showUnderstandingResult() {
 
     let result = "";
 
-    if (
+    if (understandingMode === "self") {
+        result =
+            `Hoy descubriste algo importante sobre ti: quieres conocer mejor ${first ? first.toLowerCase() : "tu mundo interior"}. También notas que ${second ? second.toLowerCase() : "hay cosas que influyen en cómo te sientes"} y te gustaría fortalecer ${third ? third.toLowerCase() : "tu bienestar"}.`;
+
+        result +=
+            " No necesitas cambiar todo de una vez. Conocerte mejor también significa aprender a observarte con curiosidad y sin juzgarte.";
+    } else if (
         second === "Preocupación" ||
         second === "Miedo"
     ) {
