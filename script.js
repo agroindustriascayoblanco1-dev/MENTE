@@ -1534,7 +1534,6 @@ let selfKnowledgeAnswers = {
 
 const selfKnowledgeFlows = {
     "Mis pensamientos": {
-        intro: "Quieres comprender cómo funciona tu mente y qué ocurre dentro de ella.",
         second: [
             ["🔁", "Le doy muchas vueltas", "Una idea vuelve una y otra vez aunque quiera dejarla atrás."],
             ["🌪️", "Tengo muchas ideas a la vez", "Me cuesta ordenar todo lo que aparece en mi mente."],
@@ -1543,34 +1542,32 @@ const selfKnowledgeFlows = {
         ],
         third: {
             "Le doy muchas vueltas": [
-                ["📝", "Ordenar lo que pienso", "Quiero separar lo importante de lo que puedo soltar."],
-                ["🌿", "Aprender a parar", "Quiero encontrar una forma de darle descanso a mi mente."],
-                ["🔎", "Entender por qué me pasa", "Quiero descubrir qué activa esos pensamientos."],
-                ["🕊️", "Dejar ir algunas ideas", "Quiero aprender a no seguir cada pensamiento."]
+                ["📝", "Busco entenderla", "Quiero saber qué hay detrás de ese pensamiento."],
+                ["🌿", "Intento distraerme", "Prefiero ocuparme de otra cosa para dejar de pensar."],
+                ["💬", "Necesito hablarlo", "Cuando lo expreso, siento que puedo ordenarlo."],
+                ["🔎", "La reviso muchas veces", "Intento encontrar una respuesta que me deje tranquilo."]
             ],
             "Tengo muchas ideas a la vez": [
-                ["📋", "Organizarme", "Quiero poner mis ideas en un orden que pueda manejar."],
-                ["🎯", "Concentrarme", "Quiero poder quedarme con una cosa a la vez."],
-                ["🧹", "Reducir el ruido", "Quiero distinguir lo que necesito atender de lo demás."],
-                ["⚖️", "Encontrar equilibrio", "Quiero pensar sin sentir que todo es urgente."]
+                ["📋", "Intento organizarlas", "Busco poner cada idea en su lugar."],
+                ["🎯", "Me concentro en una", "Intento escoger qué merece mi atención."],
+                ["🌪️", "Paso de una a otra", "Me cuesta mantenerme en una sola idea."],
+                ["⏸️", "Dejo todo para después", "A veces necesito escapar de tanta información."]
             ],
             "Me adelanto a lo que podría pasar": [
-                ["🧭", "Volver al presente", "Quiero distinguir lo que ocurre ahora de lo que imagino."],
-                ["🔎", "Diferenciar hechos y posibilidades", "Quiero pensar con más claridad."],
-                ["🌱", "Tolerar la incertidumbre", "Quiero sentirme más tranquilo cuando no sé qué pasará."],
-                ["🛡️", "Sentirme preparado sin preocuparme de más", "Quiero planificar sin vivir en escenarios futuros."]
+                ["🔮", "Imagino lo peor", "Mi mente se prepara para lo que podría salir mal."],
+                ["🛡️", "Intento estar preparado", "Pienso en soluciones antes de que ocurra algo."],
+                ["🌱", "Intento no pensarlo", "Prefiero no imaginar lo que podría pasar."],
+                ["🧭", "Busco certeza", "Quiero saber qué ocurrirá para sentirme tranquilo."]
             ],
             "Me quedo atrapado en una idea": [
-                ["🔄", "Cambiar de perspectiva", "Quiero poder mirar una situación desde otro ángulo."],
-                ["🧩", "Entender qué la mantiene", "Quiero descubrir por qué esa idea sigue regresando."],
-                ["🌿", "Tomar distancia", "Quiero observar lo que pienso sin quedar atrapado."],
-                ["💬", "Hablarlo", "Quiero poder poner en palabras lo que me pasa."]
+                ["🔄", "La repaso", "Vuelvo mentalmente a lo mismo buscando una respuesta."],
+                ["🙈", "Intento evitarla", "Hago algo para no tener que pensar en ella."],
+                ["💬", "La comparto", "Hablar de ella me ayuda a verla de otra manera."],
+                ["🧩", "Intento resolverla", "Busco una solución para poder soltarla."]
             ]
         }
     },
-
     "Mis emociones": {
-        intro: "Quieres comprender mejor lo que sientes y la manera en que respondes a tus emociones.",
         second: [
             ["🤐", "Me las guardo", "Me cuesta mostrar lo que siento aunque esté pasando por dentro."],
             ["🌊", "Me llegan con mucha intensidad", "Cuando aparecen, pueden ocupar gran parte de mi atención."],
@@ -1579,34 +1576,32 @@ const selfKnowledgeFlows = {
         ],
         third: {
             "Me las guardo": [
-                ["🗣️", "Encontrar palabras", "Quiero poder explicar lo que siento sin bloquearme."],
-                ["🛡️", "Sentirme seguro al expresarme", "Quiero dejar de sentir que mostrarme me hace vulnerable."],
-                ["🤍", "Aceptar lo que siento", "Quiero dejar de juzgar mis propias emociones."],
-                ["🫂", "Aprender a pedir apoyo", "Quiero poder acercarme a alguien cuando lo necesito."]
+                ["🗣️", "Encuentro palabras después", "Primero necesito tiempo para entender lo que siento."],
+                ["🛡️", "Me preocupa cómo reaccionarán", "A veces temo ser juzgado o incomprendido."],
+                ["🤍", "No quiero preocupar a otros", "Prefiero manejarlo por mi cuenta."],
+                ["🫂", "Me gustaría poder hablarlo", "Hay momentos en que sí quisiera sentir apoyo."]
             ],
             "Me llegan con mucha intensidad": [
-                ["🌿", "Regular la intensidad", "Quiero aprender a atravesar una emoción sin sentir que me domina."],
-                ["🔎", "Entender qué la activa", "Quiero reconocer qué hay detrás de mis reacciones."],
-                ["⏸️", "Dar espacio antes de reaccionar", "Quiero tener un momento para elegir cómo responder."],
-                ["❤️", "Tratarme con más paciencia", "Quiero dejar de exigirme controlar todo inmediatamente."]
+                ["🌊", "Reacciono rápidamente", "La emoción puede influir en lo que hago en ese momento."],
+                ["⏸️", "Me aparto un momento", "Necesito espacio para recuperar la calma."],
+                ["💬", "Busco hablar", "Expresar lo que siento me ayuda a atravesarlo."],
+                ["🌿", "Intento controlarla", "Quiero que la emoción baje antes de actuar."]
             ],
             "Me cuesta saber qué siento": [
-                ["🏷️", "Ponerle nombre", "Quiero distinguir mejor entre las emociones que aparecen."],
-                ["🧠", "Entender qué necesito", "Quiero descubrir qué me está intentando comunicar una emoción."],
-                ["📖", "Reconocer mis patrones", "Quiero observar cuándo suelen aparecer determinadas emociones."],
-                ["🤝", "Aprender a hablar de ello", "Quiero encontrar una manera sencilla de explicarlo."]
+                ["🌫️", "Solo sé que algo no está bien", "La sensación aparece antes que las palabras."],
+                ["🧠", "Lo pienso mucho", "Intento entender racionalmente lo que me pasa."],
+                ["📖", "Escribo o recuerdo lo ocurrido", "Busco pistas en lo que sucedió."],
+                ["🤝", "Pregunto a alguien de confianza", "Otra persona a veces me ayuda a identificarlo."]
             ],
             "Necesito expresarlas": [
-                ["💬", "Comunicar sin lastimar", "Quiero expresar lo que siento cuidando también al otro."],
-                ["🎯", "Decir lo que necesito", "Quiero que mis emociones puedan ayudarme a explicar mis necesidades."],
-                ["⏸️", "Elegir el momento", "Quiero saber cuándo es mejor hablar y cuándo esperar."],
-                ["🤍", "Sentirme escuchado", "Quiero aprender a buscar espacios donde pueda expresarme con confianza."]
+                ["💬", "Hablo inmediatamente", "Necesito sacar lo que estoy sintiendo."],
+                ["📝", "Prefiero escribir", "Puedo expresarme mejor por escrito."],
+                ["🫂", "Busco compañía", "Me ayuda no atravesarlo solo."],
+                ["🎨", "Lo expreso de otra manera", "A veces necesito crear, dibujar o hacer algo con ello."]
             ]
         }
     },
-
     "Mi forma de ser": {
-        intro: "Quieres descubrir qué partes de tu personalidad, valores y necesidades forman la manera en que eres.",
         second: [
             ["🏠", "Soy más yo cuando estoy solo", "A solas siento que puedo actuar sin pensar demasiado en los demás."],
             ["🫂", "Soy más yo con personas de confianza", "Necesito sentir seguridad para mostrarme realmente."],
@@ -1615,34 +1610,32 @@ const selfKnowledgeFlows = {
         ],
         third: {
             "Soy más yo cuando estoy solo": [
-                ["🪞", "Entender qué necesito de los demás", "Quiero llevar esa autenticidad también a mis relaciones."],
-                ["🗣️", "Expresarme con más libertad", "Quiero mostrar más de mí sin sentir tanta presión."],
-                ["🤝", "Construir confianza", "Quiero encontrar personas con las que pueda sentirme seguro."],
-                ["🌱", "Aceptar mi manera de ser", "Quiero dejar de comparar mi forma de ser con la de otros."]
+                ["🪞", "Pienso mucho en quién soy", "A solas tengo más espacio para observarme."],
+                ["🕊️", "Me siento libre", "Puedo decidir cómo actuar sin preocuparme tanto."],
+                ["🤍", "Me protejo", "A veces estar solo me resulta más cómodo y seguro."],
+                ["🌱", "Quiero compartir más de mí", "Me gustaría llevar esa libertad a mis relaciones."]
             ],
             "Soy más yo con personas de confianza": [
-                ["🛡️", "Entender qué me hace sentir seguro", "Quiero reconocer qué necesito para abrirme."],
-                ["🌿", "Llevar esa seguridad a otros espacios", "Quiero sentirme más cómodo fuera de mi círculo cercano."],
-                ["💬", "Expresar mis límites", "Quiero cuidar esa confianza sin dejar de decir lo que necesito."],
-                ["🪞", "Reconocer quién soy cuando me siento libre", "Quiero identificar qué partes de mí aparecen en esos momentos."]
+                ["🫂", "Me siento aceptado", "Puedo mostrar partes de mí sin tanta preocupación."],
+                ["💬", "Hablo con libertad", "Me resulta más fácil decir lo que pienso."],
+                ["🛡️", "Bajo la guardia", "La confianza me permite relajarme."],
+                ["🌱", "Quiero lograrlo en más espacios", "Me gustaría sentir esa seguridad fuera de mi círculo."]
             ],
             "Soy más yo haciendo lo que me gusta": [
-                ["🎯", "Reconocer mis intereses", "Quiero entender qué dicen mis gustos sobre mí."],
-                ["⏳", "Darles más espacio", "Quiero proteger tiempo para las cosas que disfruto."],
-                ["🌱", "Convertir intereses en crecimiento", "Quiero usar lo que me gusta para seguir desarrollándome."],
-                ["🪞", "Conocer mis valores", "Quiero descubrir qué hay detrás de las cosas que me importan."]
+                ["🎨", "Me siento creativo", "Hacer lo que disfruto despierta una parte importante de mí."],
+                ["🎯", "Me siento capaz", "Mis intereses me recuerdan que puedo aprender y avanzar."],
+                ["🌿", "Me siento tranquilo", "Es un espacio donde puedo estar presente."],
+                ["🪞", "Me ayuda a conocer mis valores", "Lo que disfruto parece decir algo sobre lo que me importa."]
             ],
             "Estoy descubriéndome todavía": [
-                ["🧭", "Entender mis valores", "Quiero saber qué cosas son realmente importantes para mí."],
-                ["❤️", "Reconocer mis necesidades", "Quiero saber qué necesito para sentirme bien conmigo."],
-                ["🪞", "Aceptar mis cambios", "Quiero entender que cambiar también forma parte de mí."],
-                ["🎯", "Tomar decisiones más propias", "Quiero distinguir lo que quiero de lo que otros esperan de mí."]
+                ["🧭", "Estoy cambiando prioridades", "Hay cosas que antes quería y ahora veo diferente."],
+                ["🪞", "Estoy descubriendo mis valores", "Quiero entender qué es realmente importante para mí."],
+                ["❤️", "Estoy entendiendo mis necesidades", "Quiero reconocer qué necesito para sentirme bien."],
+                ["🌱", "Estoy probando nuevas versiones de mí", "Quiero permitirme aprender sin tener una identidad definitiva."]
             ]
         }
     },
-
     "Mis relaciones": {
-        intro: "Quieres comprender qué necesitas de tus vínculos y cómo puedes construir relaciones más auténticas.",
         second: [
             ["🤝", "Busco sentirme comprendido", "Para mí es importante poder ser escuchado y entendido."],
             ["🛡️", "Busco sentirme seguro", "Necesito confianza para poder abrirme de verdad."],
@@ -1651,34 +1644,32 @@ const selfKnowledgeFlows = {
         ],
         third: {
             "Busco sentirme comprendido": [
-                ["🗣️", "Explicar mejor lo que necesito", "Quiero ayudar a los demás a entenderme."],
-                ["👂", "Escuchar sin miedo a ser juzgado", "Quiero sentir que puedo hablar de lo que realmente me pasa."],
-                ["🤍", "Aceptarme aunque no me entiendan", "Quiero que mi bienestar no dependa completamente de ser comprendido."],
-                ["🫂", "Encontrar vínculos donde pueda ser yo", "Quiero rodearme de relaciones donde exista autenticidad."]
+                ["🗣️", "Explico lo que me pasa", "Intento que la otra persona entienda mi experiencia."],
+                ["🤐", "Me callo cuando no me entienden", "A veces prefiero evitar seguir explicándome."],
+                ["💬", "Busco otra forma de decirlo", "Intento encontrar palabras que expresen mejor lo que necesito."],
+                ["🫂", "Busco a alguien que sí me comprenda", "Necesito sentir que mi experiencia tiene un espacio."]
             ],
             "Busco sentirme seguro": [
-                ["🛡️", "Reconocer mis límites", "Quiero saber qué necesito para sentirme respetado."],
-                ["🤝", "Construir confianza poco a poco", "Quiero aprender a abrirme sin apresurarme."],
-                ["🔎", "Distinguir seguridad de costumbre", "Quiero observar qué vínculos realmente me hacen bien."],
-                ["💬", "Decir cuando algo me incomoda", "Quiero poder cuidar mi bienestar dentro de una relación."]
+                ["🛡️", "Observo antes de abrirme", "Necesito tiempo para confiar."],
+                ["🤝", "Me acerco poco a poco", "Prefiero construir la confianza con experiencias."],
+                ["💬", "Pregunto y hablo", "La comunicación me ayuda a sentir seguridad."],
+                ["🚪", "Me alejo si algo me incomoda", "Necesito protegerme cuando no me siento respetado."]
             ],
             "Necesito poder hablar": [
-                ["💬", "Decir lo que siento", "Quiero expresar mis emociones con claridad."],
-                ["🎯", "Decir lo que necesito", "Quiero que mis conversaciones también incluyan mis necesidades."],
-                ["⏸️", "Aprender a conversar en momentos difíciles", "Quiero evitar reaccionar impulsivamente."],
-                ["👂", "Aprender a escuchar", "Quiero que la comunicación sea de ida y vuelta."]
+                ["💬", "Digo lo que pienso", "Siento que hablar evita que las cosas se acumulen."],
+                ["❤️", "Digo lo que siento", "Necesito poder expresar mi parte emocional."],
+                ["🎯", "Digo lo que necesito", "Quiero que mis conversaciones también incluyan mis necesidades."],
+                ["⏸️", "Espero a estar tranquilo", "Prefiero hablar cuando puedo ordenar lo que quiero decir."]
             ],
             "Busco sentir cercanía": [
-                ["❤️", "Mostrar afecto", "Quiero expresar mejor lo que siento por las personas importantes."],
-                ["🫂", "Compartir más de mí", "Quiero permitir que otros conozcan partes más profundas de mí."],
-                ["⚖️", "Equilibrar cercanía y espacio", "Quiero cuidar el vínculo sin perder mi individualidad."],
-                ["🌱", "Crear vínculos auténticos", "Quiero relaciones donde pueda sentirme yo mismo."]
+                ["❤️", "Comparto mucho de mí", "La intimidad emocional me hace sentir conectado."],
+                ["🫂", "Busco pasar tiempo juntos", "La presencia y las experiencias compartidas son importantes."],
+                ["💬", "Me gusta hablar profundamente", "Las conversaciones me hacen sentir cerca."],
+                ["⚖️", "A veces temo perder mi espacio", "Quiero cercanía sin dejar de tener independencia."]
             ]
         }
     },
-
     "Lo que quiero para mi vida": {
-        intro: "Quieres explorar qué dirección, necesidades o prioridades pueden ayudarte a construir una vida más acorde contigo.",
         second: [
             ["🧭", "Me falta una dirección", "Tengo dudas sobre hacia dónde quiero ir."],
             ["🎯", "Tengo ideas pero me cuesta enfocarme", "Sé algunas cosas que quiero, pero no logro ordenarlas."],
@@ -1687,32 +1678,32 @@ const selfKnowledgeFlows = {
         ],
         third: {
             "Me falta una dirección": [
-                ["🧭", "Descubrir qué me importa", "Quiero empezar por mis valores y prioridades."],
-                ["🔎", "Conocer mis opciones", "Quiero explorar caminos sin sentir que debo decidir inmediatamente."],
-                ["🎯", "Elegir un primer paso", "Quiero comenzar aunque todavía no tenga todo claro."],
-                ["🤍", "Dejar de compararme", "Quiero construir una dirección que tenga sentido para mí."]
+                ["🔎", "Estoy buscando qué me importa", "Quiero descubrir qué valores quiero que guíen mis decisiones."],
+                ["🧭", "Tengo varias posibilidades", "Hay caminos que me interesan y no sé cuál escoger."],
+                ["🤍", "Me preocupa equivocarme", "La idea de tomar una decisión incorrecta me frena."],
+                ["🌱", "Quiero empezar de a poco", "No necesito tener todo claro para dar un primer paso."]
             ],
             "Tengo ideas pero me cuesta enfocarme": [
-                ["📋", "Ordenar mis prioridades", "Quiero saber qué merece mi atención primero."],
-                ["⏳", "Ser constante", "Quiero avanzar sin abandonar cuando pierdo motivación."],
-                ["🎯", "Convertir una idea en acción", "Quiero pasar de pensar a hacer."],
-                ["🌿", "Bajar la presión", "Quiero avanzar sin sentir que todo tiene que ocurrir rápido."]
+                ["📋", "Tengo demasiadas prioridades", "Varias cosas parecen importantes al mismo tiempo."],
+                ["⏳", "Me cuesta mantener la constancia", "Empiezo con entusiasmo pero después me cuesta continuar."],
+                ["🎯", "Me distraigo fácilmente", "Otras cosas terminan alejándome de lo que quería hacer."],
+                ["🌿", "Me presiono demasiado", "Siento que debería avanzar más rápido."]
             ],
             "Estoy descubriendo qué quiero": [
-                ["🧪", "Probar cosas nuevas", "Quiero aprender sobre mí a través de experiencias."],
-                ["🪞", "Reconocer lo que me importa", "Quiero descubrir qué actividades y valores realmente conectan conmigo."],
-                ["🗣️", "Escuchar mi propia voz", "Quiero distinguir mis deseos de las expectativas externas."],
-                ["🌱", "Dar tiempo al proceso", "Quiero permitirme descubrirme sin tener todas las respuestas."]
+                ["🧪", "Quiero probar cosas nuevas", "Creo que experimentar puede ayudarme a descubrirme."],
+                ["🪞", "Quiero escuchar mis propios deseos", "Me cuesta distinguirlos de lo que otros esperan."],
+                ["🧭", "Quiero conocer mis valores", "Quiero entender qué quiero priorizar en mi vida."],
+                ["🌱", "Quiero permitirme tiempo", "No quiero obligarme a tener todas las respuestas ahora."]
             ],
             "Quiero equilibrar mi vida": [
-                ["⚖️", "Repartir mejor mi energía", "Quiero cuidar mis responsabilidades sin olvidarme de mí."],
-                ["🌿", "Cuidar mi bienestar", "Quiero que mi salud emocional tenga un lugar en mi vida."],
-                ["🤝", "Cuidar mis relaciones", "Quiero reservar espacio para las personas importantes."],
-                ["🎨", "Recuperar lo que disfruto", "Quiero que mi vida también tenga espacio para cosas que me hacen bien."]
+                ["⚖️", "Tengo demasiadas responsabilidades", "A veces siento que no queda espacio para mí."],
+                ["🌿", "He dejado de lado mi bienestar", "Quiero volver a cuidar de mí."],
+                ["🤝", "Necesito cuidar mis relaciones", "Quiero tener tiempo y energía para quienes son importantes."],
+                ["🎨", "Me falta espacio para disfrutar", "Quiero recuperar actividades que me hacen bien."]
             ]
         }
     }
-};;
+};;;
 
 function openSelfKnowledgeExperience() {
     if (!selfKnowledgeScreen) return;
@@ -1726,18 +1717,20 @@ function openSelfKnowledgeExperience() {
     selfKnowledgeQuestion.classList.add("hidden");
     selfKnowledgeResult.classList.add("hidden");
 
-    selfKnowledgeAnswers = { area: null, pattern: null, need: null };
+    selfKnowledgeAnswers = { area: null, pattern: null, detail: null, goal: null };
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function renderSelfKnowledgeQuestion(step) {
-    const selectedArea = selfKnowledgeAnswers.area;
+    const area = selfKnowledgeAnswers.area;
+    const pattern = selfKnowledgeAnswers.pattern;
+    const detail = selfKnowledgeAnswers.detail;
     let data;
 
     if (step === 1) {
         data = {
             title: "¿Qué parte de ti quieres conocer mejor?",
-            description: "Elige una sola. Las siguientes preguntas se construirán a partir de esta elección.",
+            description: "Elige una sola. Las siguientes tres preguntas seguirán el hilo de esta elección.",
             options: [
                 ["🧠", "Mis pensamientos", "Quiero comprender mejor cómo funciona mi mente."],
                 ["❤️", "Mis emociones", "Quiero comprender mejor lo que siento."],
@@ -1746,25 +1739,158 @@ function renderSelfKnowledgeQuestion(step) {
                 ["🎯", "Lo que quiero para mi vida", "Quiero aclarar hacia dónde quiero avanzar."]
             ]
         };
+    } else if (step === 2) {
+        const flow = selfKnowledgeFlows[area];
+        data = {
+            title: `Cuando piensas en ${area.toLowerCase()}, ¿qué se parece más a ti?`,
+            description: "Tu respuesta define el camino de las siguientes preguntas.",
+            options: flow.second
+        };
+    } else if (step === 3) {
+        const flow = selfKnowledgeFlows[area];
+        data = {
+            title: "¿Qué suele pasar contigo en esa situación?",
+            description: `Elegiste “${pattern}”. Ahora vamos un paso más profundo.`,
+            options: flow.third[pattern]
+        };
     } else {
-        const flow = selfKnowledgeFlows[selectedArea];
-        if (!flow) return;
-
-        if (step === 2) {
-            data = {
-                title: `Ya elegiste explorar ${selectedArea.toLowerCase()}. ¿Qué sucede más contigo?`,
-                description: flow.intro,
-                options: flow.second
-            };
-        } else {
-            data = {
-                title: flow.third[selfKnowledgeAnswers.pattern]?.[0]
-                    ? "Ahora profundicemos un poco más. ¿Qué te gustaría trabajar?"
-                    : "¿Qué te gustaría trabajar de esto?",
-                description: `Tu respuesta anterior fue: “${selfKnowledgeAnswers.pattern}”. Esta pregunta nace directamente de ella.`,
-                options: flow.third[selfKnowledgeAnswers.pattern] || []
-            };
-        }
+        const fourth = {
+            "Mis pensamientos": {
+                "Le doy muchas vueltas": [
+                    ["🌿", "Quiero sentir más calma", "Necesito aprender a soltar cuando ya no puedo cambiar algo."],
+                    ["🔎", "Quiero comprender mis preocupaciones", "Necesito descubrir qué hay detrás de lo que repito mentalmente."],
+                    ["🕊️", "Quiero confiar más", "Necesito tolerar que no siempre tendré una respuesta inmediata."],
+                    ["📝", "Quiero ordenar mi mente", "Necesito convertir el ruido mental en algo que pueda observar."]
+                ],
+                "Tengo muchas ideas a la vez": [
+                    ["🎯", "Quiero priorizar", "Necesito saber qué merece mi atención primero."],
+                    ["📋", "Quiero organizarme", "Necesito una estructura que me ayude a avanzar."],
+                    ["⏸️", "Quiero descansar mi mente", "Necesito dejar de sentir que todo requiere atención."],
+                    ["🌱", "Quiero avanzar sin perfección", "Necesito permitirme hacer una cosa a la vez."]
+                ],
+                "Me adelanto a lo que podría pasar": [
+                    ["🧭", "Quiero volver al presente", "Necesito distinguir lo que ocurre de lo que imagino."],
+                    ["🌱", "Quiero tolerar la incertidumbre", "Necesito aceptar que no puedo conocer todo de antemano."],
+                    ["🛡️", "Quiero prepararme sin preocuparme de más", "Necesito planificar sin vivir en escenarios futuros."],
+                    ["🤍", "Quiero confiar en mi capacidad de responder", "Necesito recordar que podré afrontar lo que llegue."]
+                ],
+                "Me quedo atrapado en una idea": [
+                    ["🔄", "Quiero verla desde otra perspectiva", "Necesito abrir espacio para otras interpretaciones."],
+                    ["🌿", "Quiero tomar distancia", "Necesito observar el pensamiento sin seguirlo automáticamente."],
+                    ["💬", "Quiero expresarlo", "Necesito ponerlo fuera de mi cabeza para entenderlo."],
+                    ["🧩", "Quiero encontrar una acción", "Necesito saber qué puedo hacer y qué debo soltar."]
+                ]
+            },
+            "Mis emociones": {
+                "Me las guardo": [
+                    ["🗣️", "Quiero poder expresarme", "Necesito encontrar palabras para decir lo que siento."],
+                    ["🛡️", "Quiero sentirme seguro", "Necesito confiar en que puedo mostrarme sin ser juzgado."],
+                    ["🫂", "Quiero pedir apoyo", "Necesito permitirme no cargar todo solo."],
+                    ["🤍", "Quiero aceptar mis emociones", "Necesito dejar de pensar que sentir algo está mal."]
+                ],
+                "Me llegan con mucha intensidad": [
+                    ["🌿", "Quiero regularme", "Necesito aprender a atravesar la emoción antes de actuar."],
+                    ["⏸️", "Quiero darme tiempo", "Necesito crear un espacio entre sentir y responder."],
+                    ["🔎", "Quiero entender mis detonantes", "Necesito reconocer qué suele activar estas emociones."],
+                    ["❤️", "Quiero tratarme con paciencia", "Necesito dejar de exigirme controlar todo inmediatamente."]
+                ],
+                "Me cuesta saber qué siento": [
+                    ["🏷️", "Quiero ponerle nombre", "Necesito distinguir mejor lo que ocurre dentro de mí."],
+                    ["🧠", "Quiero entender mi necesidad", "Necesito escuchar qué puede estar señalando la emoción."],
+                    ["📖", "Quiero reconocer patrones", "Necesito observar cuándo y cómo aparecen."],
+                    ["🤝", "Quiero aprender a hablarlo", "Necesito apoyo para encontrar palabras."]
+                ],
+                "Necesito expresarlas": [
+                    ["💬", "Quiero comunicarme mejor", "Necesito expresar lo que siento sin herir ni callarme."],
+                    ["🎯", "Quiero decir lo que necesito", "Necesito que mis emociones también me ayuden a comunicar necesidades."],
+                    ["⏸️", "Quiero elegir el momento", "Necesito saber cuándo hablar para hacerlo con calma."],
+                    ["🤍", "Quiero sentirme escuchado", "Necesito espacios donde pueda ser sincero y respetado."]
+                ]
+            },
+            "Mi forma de ser": {
+                "Soy más yo cuando estoy solo": [
+                    ["🫂", "Quiero llevar esa libertad a mis relaciones", "Necesito sentir que puedo ser auténtico con otros."],
+                    ["🪞", "Quiero entender quién soy cuando nadie mira", "Necesito reconocer qué partes de mí son realmente mías."],
+                    ["🌱", "Quiero aceptar mi manera de ser", "Necesito dejar de compararme con otros."],
+                    ["💬", "Quiero expresarme con más libertad", "Necesito mostrar poco a poco lo que normalmente escondo."]
+                ],
+                "Soy más yo con personas de confianza": [
+                    ["🛡️", "Quiero entender qué me hace sentir seguro", "Necesito reconocer qué condiciones me permiten abrirme."],
+                    ["🌎", "Quiero sentirme así en más espacios", "Necesito llevar esa seguridad fuera de mi círculo cercano."],
+                    ["💬", "Quiero expresar mis límites", "Necesito cuidar mis relaciones sin dejar de ser yo."],
+                    ["🪞", "Quiero reconocer mi versión más auténtica", "Necesito observar quién soy cuando me siento libre."]
+                ],
+                "Soy más yo haciendo lo que me gusta": [
+                    ["🎯", "Quiero conocer mis valores", "Necesito descubrir qué hay detrás de lo que disfruto."],
+                    ["⏳", "Quiero darle más espacio a lo que amo", "Necesito proteger tiempo para mí."],
+                    ["🌱", "Quiero crecer a través de mis intereses", "Necesito convertir lo que me gusta en una fuente de aprendizaje."],
+                    ["🪞", "Quiero entender qué dice esto de mí", "Necesito reconocer las partes de mi identidad que aparecen allí."]
+                ],
+                "Estoy descubriéndome todavía": [
+                    ["🧭", "Quiero saber qué es importante para mí", "Necesito reconocer mis valores."],
+                    ["❤️", "Quiero entender mis necesidades", "Necesito saber qué me ayuda a sentirme bien conmigo."],
+                    ["🪞", "Quiero aceptar mis cambios", "Necesito permitirme evolucionar sin perder mi valor."],
+                    ["🎯", "Quiero tomar decisiones propias", "Necesito distinguir mis deseos de las expectativas externas."]
+                ]
+            },
+            "Mis relaciones": {
+                "Busco sentirme comprendido": [
+                    ["🗣️", "Quiero explicar mejor lo que necesito", "Necesito comunicar mi experiencia con claridad."],
+                    ["🤍", "Quiero aceptarme aunque no me entiendan", "Necesito que mi bienestar no dependa totalmente de la aprobación."],
+                    ["🫂", "Quiero encontrar vínculos auténticos", "Necesito relaciones donde pueda ser yo."],
+                    ["👂", "Quiero sentirme escuchado", "Necesito espacios donde pueda hablar sin miedo."]
+                ],
+                "Busco sentirme seguro": [
+                    ["🛡️", "Quiero reconocer mis límites", "Necesito saber qué necesito para sentirme respetado."],
+                    ["🤝", "Quiero construir confianza", "Necesito aprender a abrirme poco a poco."],
+                    ["💬", "Quiero decir cuando algo me incomoda", "Necesito poder cuidar mi bienestar dentro de una relación."],
+                    ["🔎", "Quiero reconocer qué vínculos me hacen bien", "Necesito observar cómo me siento después de compartir con alguien."]
+                ],
+                "Necesito poder hablar": [
+                    ["❤️", "Quiero decir lo que siento", "Necesito expresar mi mundo emocional."],
+                    ["🎯", "Quiero decir lo que necesito", "Necesito que mis conversaciones también incluyan mis necesidades."],
+                    ["⏸️", "Quiero hablar sin reaccionar impulsivamente", "Necesito aprender a elegir el momento."],
+                    ["👂", "Quiero escuchar mejor", "Necesito que la comunicación sea de ida y vuelta."]
+                ],
+                "Busco sentir cercanía": [
+                    ["❤️", "Quiero mostrar afecto", "Necesito expresar mejor lo que siento por quienes quiero."],
+                    ["🫂", "Quiero compartir más de mí", "Necesito permitir que otros me conozcan profundamente."],
+                    ["⚖️", "Quiero cuidar mi espacio", "Necesito cercanía sin perder mi individualidad."],
+                    ["🌱", "Quiero construir vínculos auténticos", "Necesito relaciones donde pueda ser yo mismo."]
+                ]
+            },
+            "Lo que quiero para mi vida": {
+                "Me falta una dirección": [
+                    ["🧭", "Quiero descubrir qué me importa", "Necesito reconocer mis valores antes de decidir."],
+                    ["🔎", "Quiero explorar opciones", "Necesito conocer caminos sin obligarme a elegir hoy."],
+                    ["🤍", "Quiero perder el miedo a equivocarme", "Necesito aceptar que decidir también implica aprender."],
+                    ["🌱", "Quiero dar un primer paso", "Necesito comenzar aunque todavía no vea todo el camino."]
+                ],
+                "Tengo ideas pero me cuesta enfocarme": [
+                    ["📋", "Quiero ordenar prioridades", "Necesito saber qué merece mi atención primero."],
+                    ["⏳", "Quiero ser constante", "Necesito aprender a avanzar incluso cuando baja la motivación."],
+                    ["🎯", "Quiero convertir ideas en acciones", "Necesito pasar de pensar a comenzar."],
+                    ["🌿", "Quiero bajar la presión", "Necesito avanzar sin sentir que todo debe suceder rápido."]
+                ],
+                "Estoy descubriendo qué quiero": [
+                    ["🧪", "Quiero experimentar", "Necesito aprender sobre mí a través de nuevas experiencias."],
+                    ["🪞", "Quiero escuchar mis deseos", "Necesito distinguirlos de lo que otros esperan."],
+                    ["🧭", "Quiero conocer mis valores", "Necesito saber qué quiero priorizar."],
+                    ["🌱", "Quiero darme tiempo", "Necesito permitirme descubrirme sin apresurarme."]
+                ],
+                "Quiero equilibrar mi vida": [
+                    ["⚖️", "Quiero repartir mejor mi energía", "Necesito cuidar responsabilidades y bienestar."],
+                    ["🌿", "Quiero cuidar mi bienestar", "Necesito volver a darme espacio."],
+                    ["🤝", "Quiero cuidar mis relaciones", "Necesito reservar energía para quienes importan."],
+                    ["🎨", "Quiero recuperar lo que disfruto", "Necesito que mi vida tenga espacio para mí."]
+                ]
+            }
+        };
+        data = {
+            title: "¿Qué te gustaría fortalecer a partir de todo esto?",
+            description: `Ya vimos qué quieres conocer, qué suele pasarte y cómo respondes. Ahora elige hacia dónde quieres llevar ese aprendizaje.`,
+            options: fourth[area]?.[pattern] || []
+        };
     }
 
     selfKnowledgeStep.textContent = step;
@@ -1785,26 +1911,26 @@ function renderSelfKnowledgeQuestion(step) {
             </div>
             <span class="question-option-arrow">→</span>
         `;
-
         button.addEventListener("click", () => {
             if (step === 1) {
                 selfKnowledgeAnswers.area = title;
                 selfKnowledgeAnswers.pattern = null;
-                selfKnowledgeAnswers.need = null;
+                selfKnowledgeAnswers.detail = null;
+                selfKnowledgeAnswers.goal = null;
             } else if (step === 2) {
                 selfKnowledgeAnswers.pattern = title;
-                selfKnowledgeAnswers.need = null;
+                selfKnowledgeAnswers.detail = null;
+                selfKnowledgeAnswers.goal = null;
+            } else if (step === 3) {
+                selfKnowledgeAnswers.detail = title;
+                selfKnowledgeAnswers.goal = null;
             } else {
-                selfKnowledgeAnswers.need = title;
+                selfKnowledgeAnswers.goal = title;
             }
 
-            if (step < 3) {
-                renderSelfKnowledgeQuestion(step + 1);
-            } else {
-                renderSelfKnowledgeResult();
-            }
+            if (step < 4) renderSelfKnowledgeQuestion(step + 1);
+            else renderSelfKnowledgeResult();
         });
-
         selfKnowledgeOptions.appendChild(button);
     });
 }
@@ -1813,48 +1939,189 @@ function renderSelfKnowledgeResult() {
     selfKnowledgeQuestion.classList.add("hidden");
     selfKnowledgeResult.classList.remove("hidden");
 
-    const area = selfKnowledgeAnswers.area;
-    const pattern = selfKnowledgeAnswers.pattern;
-    const need = selfKnowledgeAnswers.need;
+    const { area, pattern, detail, goal } = selfKnowledgeAnswers;
 
-    const adviceByArea = {
-        "Mis pensamientos": "Durante esta semana, prueba a escribir un pensamiento que se repita y separa lo que sabes que ocurrió de lo que tu mente está anticipando.",
-        "Mis emociones": "Cuando aparezca una emoción intensa, primero intenta nombrarla: “Estoy sintiendo ___ porque ___”. No necesitas resolverla inmediatamente.",
-        "Mi forma de ser": "Anota una cualidad que reconoces en ti, un límite que quieres cuidar y algo que te gustaría aprender. Conocerte también es aceptar que estás en proceso.",
-        "Mis relaciones": "Elige una relación importante y practica expresar una necesidad pequeña de forma clara y respetuosa.",
-        "Lo que quiero para mi vida": "Escoge una acción pequeña relacionada con lo que quieres. La claridad muchas veces aparece mientras avanzas."
+    // El resultado se construye con las 4 respuestas, no con una sola categoría.
+    const pathText = `${area} → ${pattern} → ${detail} → ${goal}`;
+
+    const guidanceByArea = {
+        "Mis pensamientos": {
+            advice: "Haz una pausa de cinco minutos y separa en una hoja tres cosas: lo que sabes, lo que estás suponiendo y lo que sí puedes hacer hoy.",
+            reflection: "¿Qué pensamiento necesitas comprender y cuál quizá necesitas aprender a soltar?",
+            verse: "Proverbios 3:5-6",
+            info: "Tus respuestas apuntan a la relación entre lo que aparece en tu mente, la forma en que reaccionas y tu deseo de encontrar más claridad. Pensar mucho no significa que debas resolverlo todo inmediatamente."
+        },
+        "Mis emociones": {
+            advice: "Cuando aparezca una emoción fuerte, ponle un nombre, identifica qué la pudo activar y pregúntate qué necesitas antes de decidir qué hacer.",
+            reflection: "¿Qué podría cambiar si escuchases lo que sientes sin permitir que la emoción decida por ti?",
+            verse: "Salmo 34:18",
+            info: "Tus respuestas muestran un recorrido entre reconocer una emoción, entender cómo la vives y descubrir una forma más consciente de responder a ella."
+        },
+        "Mi forma de ser": {
+            advice: "Elige una situación esta semana donde puedas actuar de una manera que represente lo que descubriste sobre ti, sin compararte con nadie.",
+            reflection: "¿Qué parte de ti estás empezando a aceptar y qué parte todavía estás aprendiendo a conocer?",
+            verse: "Salmo 139:14",
+            info: "Conocerte no significa encontrar una etiqueta definitiva. Tu identidad también se construye a través de experiencias, valores, límites y decisiones."
+        },
+        "Mis relaciones": {
+            advice: "Elige un vínculo importante y practica una acción concreta relacionada con tu recorrido: expresar algo, escuchar, pedir apoyo, acercarte o poner un límite.",
+            reflection: "¿Qué tipo de relación quieres construir y qué pequeño cambio puede comenzar contigo?",
+            verse: "Eclesiastés 4:9-10",
+            info: "Tus respuestas hablan de lo que necesitas en tus vínculos y de la forma en que intentas conseguirlo. Las relaciones saludables necesitan comunicación, respeto, límites y reciprocidad."
+        },
+        "Lo que quiero para mi vida": {
+            advice: "Convierte tu última respuesta en un paso pequeño, concreto y posible. No necesitas resolver tu futuro completo para comenzar a construirlo.",
+            reflection: "Si no tuvieras que tener todo claro hoy, ¿cuál sería el siguiente paso que sí puedes dar?",
+            verse: "Proverbios 16:9",
+            info: "Tus respuestas conectan lo que hoy estás viviendo con lo que quieres construir. La dirección puede aparecer mientras avanzas, no necesariamente antes de empezar."
+        }
     };
 
-    const infoByArea = {
-        "Mis pensamientos": "Los pensamientos son interpretaciones de nuestra experiencia, no siempre hechos. Observarlos con curiosidad puede ayudarte a tomar distancia.",
-        "Mis emociones": "Las emociones pueden aportar información sobre necesidades y experiencias, pero no definen por sí solas quién eres ni determinan cómo debes actuar.",
-        "Mi forma de ser": "Tu personalidad no es una etiqueta inmóvil. Puedes descubrir nuevas partes de ti y desarrollar habilidades sin dejar de ser quien eres.",
-        "Mis relaciones": "Conocerte también implica reconocer qué necesitas, qué límites tienes y qué tipo de vínculos te ayudan a sentirte respetado.",
-        "Lo que quiero para mi vida": "No tener todo claro no significa estar perdido. A veces una dirección se construye con pequeñas decisiones y experiencias."
+    const areaGuide = guidanceByArea[area] || guidanceByArea["Mis pensamientos"];
+
+    // Personalización adicional: las palabras elegidas modifican el consejo, reflexión y explicación.
+    const text = `${pattern} ${detail} ${goal}`.toLowerCase();
+    let adviceExtra = "";
+    let reflectionExtra = "";
+
+    if (/(calma|tranquil|regular|bajar|descans)/.test(text)) {
+        adviceExtra = " Prioriza primero regularte y después analizar: una mente más tranquila suele permitir decisiones más claras.";
+        reflectionExtra = " ¿Qué necesitas permitirte antes de intentar solucionar lo demás?";
+    } else if (/(hablar|expresar|compart|escuchar|apoyo)/.test(text)) {
+        adviceExtra = " Considera compartir una parte de este recorrido con alguien de confianza; ponerlo en palabras también puede ayudarte a ordenar lo que sientes.";
+        reflectionExtra = " ¿Con quién podrías sentirte seguro siendo completamente sincero?";
+    } else if (/(organ|orden|prior|acción|paso|constan)/.test(text)) {
+        adviceExtra = " Convierte lo que descubriste en una sola acción pequeña. Lo concreto suele ser más útil que intentar cambiarlo todo de una vez.";
+        reflectionExtra = " ¿Cuál es la única cosa que merece tu atención primero?";
+    } else if (/(acept|descubr|conoc|ident|valores|deseos)/.test(text)) {
+        adviceExtra = " Date permiso de observarte sin exigirte una respuesta definitiva; descubrirte también es un proceso.";
+        reflectionExtra = " ¿Qué estás empezando a comprender sobre ti que antes no podías nombrar?";
+    } else if (/(confi|incertid|miedo|preocup|futuro)/.test(text)) {
+        adviceExtra = " Cuando aparezca la incertidumbre, vuelve a distinguir entre lo que puedes controlar y lo que tendrás que dejar abierto por ahora.";
+        reflectionExtra = " ¿Qué podrías dejar de controlar por un momento para recuperar espacio mental?";
+    }
+
+    const advice = areaGuide.advice + adviceExtra;
+    const reflection = areaGuide.reflection + reflectionExtra;
+
+    // Versículo coherente con el área y con la última intención elegida.
+    const verseByIntent = {
+        "Quiero sentir más calma": "Salmo 46:10",
+        "Quiero comprender mis preocupaciones": "Salmo 139:23-24",
+        "Quiero confiar más": "Proverbios 3:5-6",
+        "Quiero ordenar mi mente": "1 Corintios 14:33",
+        "Quiero expresarme": "Gálatas 6:2",
+        "Quiero sentirme seguro": "Salmo 4:8",
+        "Quiero pedir apoyo": "Eclesiastés 4:9-10",
+        "Quiero aceptar mis emociones": "Salmo 34:18",
+        "Quiero regularme": "Proverbios 16:32",
+        "Quiero comunicarme mejor": "Proverbios 15:1",
+        "Quiero conocer mis valores": "Salmo 139:23-24",
+        "Quiero aceptar mis cambios": "Isaías 43:19",
+        "Quiero tomar decisiones propias": "Gálatas 6:5",
+        "Quiero construir vínculos auténticos": "Proverbios 17:17",
+        "Quiero descubrir qué me importa": "Proverbios 16:9",
+        "Quiero dar un primer paso": "Salmo 37:23",
+        "Quiero perder el miedo a equivocarme": "Josué 1:9",
+        "Quiero ordenar prioridades": "Proverbios 21:5",
+        "Quiero ser constante": "Gálatas 6:9",
+        "Quiero escuchar mis deseos": "Salmo 37:4",
+        "Quiero darme tiempo": "Eclesiastés 3:1",
+        "Quiero cuidar mi bienestar": "3 Juan 1:2",
+        "Quiero recuperar lo que disfruto": "Eclesiastés 3:13"
     };
+    const verse = verseByIntent[goal] || areaGuide.verse;
+
+    const completed = JSON.parse(localStorage.getItem("mindSelfKnowledgeAreas") || "[]");
+    if (!completed.includes(area)) completed.push(area);
+    localStorage.setItem("mindSelfKnowledgeAreas", JSON.stringify(completed));
+
+    const areaLabels = [
+        ["🧠", "Mis pensamientos"],
+        ["❤️", "Mis emociones"],
+        ["🪞", "Mi forma de ser"],
+        ["🤝", "Mis relaciones"],
+        ["🎯", "Lo que quiero para mi vida"]
+    ];
 
     selfKnowledgeResultText.innerHTML = `
-        <span class="result-section-label">🔗 Cómo se conectan tus respuestas</span>
-        <span class="result-section-text">
-            Primero elegiste explorar <strong>${area.toLowerCase()}</strong>.
-            Después identificaste que <strong>${pattern.toLowerCase()}</strong>.
-            Finalmente señalaste que quieres <strong>${need.toLowerCase()}</strong>.
-            <br><br>
-            Esto forma un pequeño hilo: <strong>lo que quieres conocer → lo que estás viviendo → lo que necesitas desarrollar</strong>.
-            No es una etiqueta ni un diagnóstico; es una pista para observarte con más atención.
-        </span>
+        <div class="result-block result-discovery">
+            <span class="result-section-label">🔎 Lo que descubriste</span>
+            <p class="result-section-text">
+                Tu recorrido comenzó en <strong>${area}</strong>. Después reconociste que <strong>${pattern.toLowerCase()}</strong>, identificaste que <strong>${detail.toLowerCase()}</strong> y finalmente elegiste <strong>${goal.toLowerCase()}</strong> como algo que quieres fortalecer.
+            </p>
+            <div class="path-visual">
+                <span>${area}</span><b>→</b><span>${pattern}</span><b>→</b><span>${detail}</span><b>→</b><span>${goal}</span>
+            </div>
+        </div>
 
-        <span class="result-section-label">💡 Un pequeño consejo</span>
-        <span class="result-section-text">${adviceByArea[area] || "Reserva unos minutos para observar esta parte de ti sin juzgarla."}</span>
+        <div class="result-block">
+            <span class="result-section-label">🌱 Lo que puedes trabajar</span>
+            <p class="result-section-text">${areaGuide.info}</p>
+        </div>
 
-        <span class="result-section-label">🪞 Para reflexionar</span>
-        <span class="result-quote">
-            “Si ya sabes qué quieres comprender y qué necesitas desarrollar, ¿qué pequeño paso podrías dar para conocerte un poco más?”
-        </span>
+        <div class="result-block result-action">
+            <span class="result-section-label">💡 Tu pequeño paso</span>
+            <p class="result-section-text">${advice}</p>
+        </div>
 
-        <span class="result-section-label">ℹ️ Información importante</span>
-        <span class="result-section-text">${infoByArea[area] || "Conocerte mejor es un proceso continuo. Esta experiencia sirve para reflexionar y no sustituye una evaluación profesional."}</span>
+        <div class="result-block">
+            <span class="result-section-label">📖 Una palabra para este momento</span>
+            <div class="verse-card">
+                <strong>${verse}</strong>
+                <span>Una referencia elegida teniendo en cuenta el sentido de tu recorrido y lo que quieres fortalecer.</span>
+            </div>
+        </div>
+
+        <div class="result-block">
+            <span class="result-section-label">🪞 Para llevar contigo</span>
+            <div class="result-quote">“${reflection}”</div>
+        </div>
+
+        <div class="result-block">
+            <span class="result-section-label">🗺️ Mi mapa MIND</span>
+            <div class="mind-map">
+                ${areaLabels.map(([icon, label]) => `<div class="mind-map-item ${completed.includes(label) ? "completed" : ""}"><span>${icon}</span><small>${label}</small><b>${completed.includes(label) ? "✓ Explorado" : "Pendiente"}</b></div>`).join("")}
+            </div>
+        </div>
+
+        <div class="result-block reflection-box">
+            <span class="result-section-label">📝 Mi reflexión</span>
+            <textarea id="mindReflection" maxlength="700" placeholder="Hoy me di cuenta de que..."></textarea>
+            <button type="button" class="save-reflection" id="saveMindReflection">Guardar mi reflexión</button>
+            <small class="save-status" id="mindReflectionStatus"></small>
+        </div>
+
+        <div class="result-disclaimer">
+            MIND es una herramienta de reflexión y orientación. No realiza diagnósticos ni sustituye la atención de un profesional de salud mental.
+        </div>
+
+        <div class="result-actions">
+            <button type="button" class="understanding-finish" id="exploreAnotherMindArea">Explorar otra parte de mí →</button>
+        </div>
     `;
+
+    const saved = localStorage.getItem("mindLastReflection");
+    const reflectionBox = document.getElementById("mindReflection");
+    if (saved && reflectionBox) reflectionBox.value = saved;
+
+    document.getElementById("saveMindReflection")?.addEventListener("click", () => {
+        const value = document.getElementById("mindReflection")?.value.trim();
+        const status = document.getElementById("mindReflectionStatus");
+        if (!value) {
+            if (status) status.textContent = "Escribe algo primero para guardarlo.";
+            return;
+        }
+        localStorage.setItem("mindLastReflection", value);
+        localStorage.setItem("mindLastSelfKnowledge", JSON.stringify({ area, pattern, detail, goal, pathText, savedAt: new Date().toISOString() }));
+        if (status) status.textContent = "✓ Tu reflexión quedó guardada en este dispositivo.";
+    });
+
+    document.getElementById("exploreAnotherMindArea")?.addEventListener("click", () => {
+        selfKnowledgeResult.classList.add("hidden");
+        selfKnowledgeIntro.classList.remove("hidden");
+        selfKnowledgeAnswers = { area: null, pattern: null, detail: null, goal: null };
+    });
 }
 
 if (selfKnowledgeStart) {
