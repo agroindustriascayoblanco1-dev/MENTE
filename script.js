@@ -1172,238 +1172,115 @@ let understandingAnswers = {
 };
 
 let currentUnderstandingQuestion = 0;
-let understandingMode = "anxiety";
-let selfKnowledgeArea = null;
-let selfKnowledgeSecond = null;
-let selfKnowledgeThird = null;
 
 const understandingQuestions = [
     {
-        title: "¿Qué parte de ti quieres conocer mejor?",
+        title: "¿Qué es lo que más está ocupando tu mente?",
         description:
-            "Elige el área que más te gustaría comprender en este momento.",
+            "No lo pienses demasiado. Elige lo primero que se acerque a lo que estás viviendo.",
         options: [
             {
-                icon: "🧠",
-                title: "Mis pensamientos",
-                description: "Quiero entender cómo pienso y qué pasa por mi mente."
+                icon: "🔄",
+                title: "Algo que pasó",
+                description: "Algo del pasado sigue dando vueltas."
             },
             {
-                icon: "❤️",
-                title: "Mis emociones",
-                description: "Quiero comprender mejor lo que siento."
+                icon: "🔮",
+                title: "Algo que podría pasar",
+                description: "Estoy pensando mucho en el futuro."
+            },
+            {
+                icon: "👤",
+                title: "Una persona",
+                description: "Hay alguien que está ocupando mi mente."
+            },
+            {
+                icon: "📋",
+                title: "Algo que tengo que hacer",
+                description: "Tengo algo pendiente que me preocupa."
+            },
+            {
+                icon: "🌫️",
+                title: "No estoy seguro",
+                description: "Sé que algo pasa, pero no sé exactamente qué."
+            }
+        ]
+    },
+    {
+        title: "¿Cómo se siente eso dentro de ti?",
+        description:
+            "Puedes elegir la emoción que más se acerque, aunque no sea exactamente la palabra que usarías.",
+        options: [
+            {
+                icon: "😟",
+                title: "Preocupación",
+                description: "Mi mente no deja de pensar en ello."
+            },
+            {
+                icon: "😨",
+                title: "Miedo",
+                description: "Siento que algo malo puede ocurrir."
+            },
+            {
+                icon: "😣",
+                title: "Culpa",
+                description: "Siento que hice algo mal o pude hacerlo mejor."
+            },
+            {
+                icon: "😠",
+                title: "Enojo",
+                description: "Hay algo que me molesta mucho."
+            },
+            {
+                icon: "😔",
+                title: "Tristeza",
+                description: "Esto me está haciendo sentir decaído."
+            },
+            {
+                icon: "🌫️",
+                title: "Confusión",
+                description: "No logro entender exactamente qué siento."
+            }
+        ]
+    },
+    {
+        title: "¿Qué crees que necesitas ahora?",
+        description:
+            "No tienes que elegir lo que deberías necesitar. Elige lo que realmente sientes que te ayudaría.",
+        options: [
+            {
+                icon: "🛡️",
+                title: "Sentirme seguro",
+                description: "Necesito sentir que estoy a salvo."
+            },
+            {
+                icon: "🌙",
+                title: "Descansar",
+                description: "Mi mente y mi cuerpo necesitan una pausa."
+            },
+            {
+                icon: "🧩",
+                title: "Resolver algo",
+                description: "Hay algo concreto que quiero solucionar."
+            },
+            {
+                icon: "🫂",
+                title: "Hablar con alguien",
+                description: "No quiero cargar esto completamente solo."
             },
             {
                 icon: "🪞",
-                title: "Mi forma de ser",
-                description: "Quiero descubrir más sobre quién soy."
+                title: "Entenderme",
+                description: "Quiero conocer mejor lo que me está pasando."
             },
             {
-                icon: "🤝",
-                title: "Mis relaciones",
-                description: "Quiero entender cómo me relaciono con los demás."
-            },
-            {
-                icon: "🎯",
-                title: "Lo que quiero para mi vida",
-                description: "Quiero tener más claridad sobre lo que busco."
+                icon: "💬",
+                title: "Dejarlo salir",
+                description: "Necesito expresar todo lo que tengo dentro."
             }
         ]
     }
 ];
-
-const selfKnowledgeBranches = {
-    "Mis pensamientos": {
-        question: "¿Qué suele pasar con tus pensamientos cuando tienes un momento difícil?",
-        description:
-            "No hay una respuesta correcta. Elige lo que más se parezca a ti.",
-        options: [
-            {
-                icon: "🔁",
-                title: "Pienso demasiado las cosas",
-                description: "Le doy muchas vueltas antes de poder soltarlo."
-            },
-            {
-                icon: "🌪️",
-                title: "Mi mente se llena de cosas",
-                description: "Me cuesta concentrarme en una sola idea."
-            },
-            {
-                icon: "🔮",
-                title: "Me adelanto a lo que podría pasar",
-                description: "Suelo imaginar distintos escenarios."
-            },
-            {
-                icon: "🌙",
-                title: "Intento desconectarme",
-                description: "Prefiero dejar de pensar en el tema."
-            }
-        ],
-        third: {
-            title: "¿Qué te gustaría aprender a hacer mejor con tus pensamientos?",
-            options: [
-                ["🧩", "Ordenarlos", "Quiero poder distinguir lo importante de lo que no."],
-                ["🌿", "Darles una pausa", "Quiero aprender a bajar el ruido mental."],
-                ["🔎", "Entenderlos", "Quiero saber de dónde vienen algunas ideas."],
-                ["🕊️", "Soltarlos", "Quiero aprender a no quedarme atrapado en ellos."]
-            ]
-        }
-    },
-
-    "Mis emociones": {
-        question: "¿Qué suele pasar cuando una emoción se vuelve intensa?",
-        description:
-            "Piensa en lo que normalmente haces cuando sientes algo con mucha fuerza.",
-        options: [
-            {
-                icon: "🤐",
-                title: "Me la guardo",
-                description: "Prefiero no mostrar lo que estoy sintiendo."
-            },
-            {
-                icon: "🙈",
-                title: "Intento ignorarla",
-                description: "Hago otras cosas para no pensar en ella."
-            },
-            {
-                icon: "💬",
-                title: "La expreso",
-                description: "Necesito decir o mostrar lo que siento."
-            },
-            {
-                icon: "🫂",
-                title: "Busco a alguien",
-                description: "Me ayuda hablar con una persona de confianza."
-            },
-            {
-                icon: "🌫️",
-                title: "No sé qué hacer con ella",
-                description: "La siento, pero me cuesta entenderla."
-            }
-        ],
-        third: {
-            title: "¿Qué te gustaría aprender a hacer mejor con lo que sientes?",
-            options: [
-                ["🔎", "Entenderlo", "Quiero reconocer qué hay detrás de una emoción."],
-                ["💬", "Expresarlo", "Quiero comunicar lo que siento de una forma sana."],
-                ["🌿", "Regularlo", "Quiero responder sin sentir que la emoción me controla."],
-                ["🫂", "Pedir ayuda", "Quiero sentirme más cómodo buscando apoyo."],
-                ["🤍", "Aceptarlo", "Quiero dejar de juzgarme por sentir ciertas cosas."]
-            ]
-        }
-    },
-
-    "Mi forma de ser": {
-        question: "¿En qué situaciones sientes que puedes ser más tú mismo?",
-        description:
-            "Piensa en los momentos en los que no necesitas aparentar ni esconder partes de ti.",
-        options: [
-            {
-                icon: "🏠",
-                title: "Cuando estoy solo",
-                description: "Me siento más libre cuando estoy conmigo."
-            },
-            {
-                icon: "🫂",
-                title: "Con personas de confianza",
-                description: "Me muestro más cuando me siento seguro."
-            },
-            {
-                icon: "🎨",
-                title: "Cuando hago lo que me gusta",
-                description: "Mis intereses me permiten expresarme."
-            },
-            {
-                icon: "🌎",
-                title: "En lugares nuevos",
-                description: "A veces me siento más libre fuera de mi entorno habitual."
-            }
-        ],
-        third: {
-            title: "¿Qué te gustaría conocer mejor de ti?",
-            options: [
-                ["🪞", "Mis fortalezas", "Quiero reconocer lo que hago bien."],
-                ["🧭", "Mis límites", "Quiero entender qué necesito y qué no quiero aceptar."],
-                ["❤️", "Lo que necesito", "Quiero reconocer mejor mis necesidades."],
-                ["🌱", "Lo que puedo mejorar", "Quiero crecer sin exigirme ser perfecto."]
-            ]
-        }
-    },
-
-    "Mis relaciones": {
-        question: "¿Qué suele ser más importante para ti en una relación?",
-        description:
-            "Puede ser una amistad, una relación familiar o cualquier vínculo importante.",
-        options: [
-            {
-                icon: "🤝",
-                title: "Sentirme comprendido",
-                description: "Necesito sentir que puedo ser yo mismo."
-            },
-            {
-                icon: "🛡️",
-                title: "Sentirme seguro",
-                description: "Valoro la confianza y la tranquilidad."
-            },
-            {
-                icon: "💬",
-                title: "Poder hablar",
-                description: "Para mí es importante comunicar lo que pienso."
-            },
-            {
-                icon: "❤️",
-                title: "Sentir cercanía",
-                description: "Valoro compartir y sentir conexión."
-            }
-        ],
-        third: {
-            title: "¿Qué te gustaría fortalecer en tus relaciones?",
-            options: [
-                ["💬", "Comunicarme", "Quiero expresar mejor lo que necesito."],
-                ["🧭", "Poner límites", "Quiero aprender a cuidar mi espacio."],
-                ["🤍", "Confiar", "Quiero sentir más seguridad al abrirme."],
-                ["🫂", "Conectar", "Quiero construir vínculos más auténticos."]
-            ]
-        }
-    },
-
-    "Lo que quiero para mi vida": {
-        question: "¿Qué sientes que te hace falta para tener más claridad?",
-        description:
-            "No tienes que tener la respuesta. Elige lo que más se acerque a tu momento actual.",
-        options: [
-            {
-                icon: "🧭",
-                title: "Una dirección",
-                description: "Quiero saber hacia dónde quiero ir."
-            },
-            {
-                icon: "🎯",
-                title: "Una meta",
-                description: "Sé lo que quiero, pero necesito enfocarme."
-            },
-            {
-                icon: "🌱",
-                title: "Conocerme más",
-                description: "Siento que todavía estoy descubriendo quién soy."
-            },
-            {
-                icon: "⚖️",
-                title: "Equilibrio",
-                description: "Quiero ordenar mejor las distintas partes de mi vida."
-            }
-        ],
-        third: {
-            title: "¿Qué te gustaría fortalecer para acercarte a esa vida?",
-            options: [
-                ["🧭", "Dirección", "Quiero tomar decisiones con más claridad."],
-                ["💪", "Confianza", "Quiero creer más en mis capacidades."],
-                ["⏳", "Constancia", "Quiero avanzar aunque sea poco a poco."],
-                ["🌿", "Bienestar", "Quiero cuidar mejor de mí mientras avanzo."]
-            ]
-        }
-    }
-};
 
 const understandOption =
     document.querySelector(".option-clear");
@@ -1434,17 +1311,6 @@ function openUnderstandingExperience() {
     };
 
     currentUnderstandingQuestion = 0;
-    selfKnowledgeArea = null;
-    selfKnowledgeSecond = null;
-    selfKnowledgeThird = null;
-
-    const selectedOptionText =
-        understandOption?.querySelector("strong")?.textContent.trim() || "";
-
-    understandingMode =
-        selectedOptionText === "Conocerme mejor"
-            ? "self"
-            : "anxiety";
 
     const feelingMessages = {
         Ansioso: {
@@ -1495,12 +1361,7 @@ if (understandingStart) {
         understandingIntro.classList.add("hidden");
         understandingQuestion.classList.remove("hidden");
         currentUnderstandingQuestion = 0;
-
-        if (understandingMode === "self") {
-            showSelfKnowledgeQuestion();
-        } else {
-            showUnderstandingQuestion();
-        }
+        showUnderstandingQuestion();
     });
 }
 
@@ -1558,167 +1419,6 @@ function showUnderstandingQuestion() {
     });
 }
 
-
-function showSelfKnowledgeQuestion() {
-    let question;
-
-    if (currentUnderstandingQuestion === 0) {
-        question = understandingQuestions[0];
-    } else {
-        const branch =
-            selfKnowledgeBranches[selfKnowledgeArea];
-
-        if (currentUnderstandingQuestion === 1) {
-            question = {
-                title: branch.question,
-                description: branch.description,
-                options: branch.options
-            };
-        } else {
-            question = {
-                title: branch.third.title,
-                description:
-                    "No busques la respuesta perfecta. Elige lo que más te gustaría desarrollar.",
-                options: branch.third.options.map(function (item) {
-                    return {
-                        icon: item[0],
-                        title: item[1],
-                        description: item[2]
-                    };
-                })
-            };
-        }
-    }
-
-    understandingStep.textContent =
-        currentUnderstandingQuestion + 1;
-
-    questionNumber.textContent =
-        "PREGUNTA " + (currentUnderstandingQuestion + 1);
-
-    questionTitle.textContent =
-        question.title;
-
-    questionDescription.textContent =
-        question.description;
-
-    questionOptions.innerHTML = "";
-
-    question.options.forEach(function (option) {
-        const button =
-            document.createElement("button");
-
-        button.type = "button";
-        button.className = "question-option";
-
-        button.innerHTML = `
-            <div class="question-option-icon">
-                ${option.icon}
-            </div>
-
-            <div class="question-option-text">
-                <strong>${option.title}</strong>
-                <small>${option.description}</small>
-            </div>
-
-            <span class="question-option-arrow">→</span>
-        `;
-
-        button.addEventListener("click", function () {
-            selectSelfKnowledgeAnswer(option.title);
-        });
-
-        questionOptions.appendChild(button);
-    });
-}
-
-function selectSelfKnowledgeAnswer(answer) {
-    if (currentUnderstandingQuestion === 0) {
-        selfKnowledgeArea = answer;
-    } else if (currentUnderstandingQuestion === 1) {
-        selfKnowledgeSecond = answer;
-    } else {
-        selfKnowledgeThird = answer;
-    }
-
-    setTimeout(function () {
-        currentUnderstandingQuestion++;
-
-        if (currentUnderstandingQuestion >= 3) {
-            showSelfKnowledgeResult();
-        } else {
-            showSelfKnowledgeQuestion();
-        }
-    }, 280);
-}
-
-function showSelfKnowledgeResult() {
-    understandingQuestion.classList.add("hidden");
-    understandingResult.classList.remove("hidden");
-
-    const area = selfKnowledgeArea;
-    const second = selfKnowledgeSecond;
-    const third = selfKnowledgeThird;
-
-    const profiles = {
-        "Mis pensamientos":
-            "Tu forma de pensar parece ser un punto importante en cómo procesas lo que vives.",
-        "Mis emociones":
-            "Parece que estás prestando especial atención a tu mundo emocional y a cómo expresas lo que sientes.",
-        "Mi forma de ser":
-            "Parece que estás en un proceso de descubrir y aceptar distintas partes de quién eres.",
-        "Mis relaciones":
-            "Parece que tus vínculos tienen un papel importante en tu bienestar y en la manera en que te conoces.",
-        "Lo que quiero para mi vida":
-            "Parece que estás buscando más claridad sobre el rumbo que quieres darle a tu vida."
-    };
-
-    const reflections = {
-        "Mis pensamientos":
-            "Observar tus pensamientos sin creer automáticamente todo lo que dicen puede ayudarte a distinguir entre una preocupación y un hecho.",
-        "Mis emociones":
-            "Una emoción es una señal, no una orden. Puedes reconocerla, escucharla y decidir cómo responder.",
-        "Mi forma de ser":
-            "Conocerte no significa encontrar una definición definitiva de ti. Las personas cambian, aprenden y descubren nuevas partes de sí mismas.",
-        "Mis relaciones":
-            "Una relación saludable permite cercanía, pero también espacio para expresar necesidades y límites.",
-        "Lo que quiero para mi vida":
-            "No siempre necesitas tener todo el camino claro. A veces una dirección pequeña y realista es suficiente para comenzar."
-    };
-
-    const advice = {
-        "Mis pensamientos":
-            "Cuando notes que tu mente se acelera, escribe durante unos minutos qué estás pensando y separa los hechos de las suposiciones.",
-        "Mis emociones":
-            "La próxima vez que sientas algo intenso, prueba decir: “Estoy sintiendo ___ porque ___”. Ponerle nombre puede ayudarte a observarlo.",
-        "Mi forma de ser":
-            "Anota una fortaleza, un límite y una cosa que quieras aprender de ti. No necesitas cambiar para merecer valor.",
-        "Mis relaciones":
-            "Practica expresar una necesidad pequeña con claridad, sin disculparte por tenerla.",
-        "Lo que quiero para mi vida":
-            "Elige una acción pequeña que puedas realizar esta semana y que te acerque a lo que quieres."
-    };
-
-    const text =
-        `${profiles[area] || "Estás prestando atención a algo importante de ti."} ` +
-        `Cuando dices que ${second ? second.toLowerCase() : "vives ciertas situaciones de esta manera"}, ` +
-        `y que te gustaría ${third ? third.toLowerCase() : "seguir conociéndote"}, aparece una pista sobre lo que hoy puede ser importante para ti.`;
-
-    understandingResultText.innerHTML = `
-        <span class="result-section-label">🔎 Lo que podrías estar descubriendo</span>
-        <span class="result-section-text">${text}</span>
-
-        <span class="result-section-label">💡 Un pequeño consejo</span>
-        <span class="result-section-text">${advice[area] || "Date un momento para observarte sin juzgarte."}</span>
-
-        <span class="result-section-label">🪞 Para reflexionar</span>
-        <span class="result-quote">“¿Qué cambiaría si pudieras conocerte sin exigirte ser diferente?”</span>
-
-        <span class="result-section-label">ℹ️ Algo importante</span>
-        <span class="result-section-text">${reflections[area] || "Conocerte mejor es un proceso, no una prueba que tengas que aprobar."}</span>
-    `;
-}
-
 function selectUnderstandingAnswer(answer) {
     if (currentUnderstandingQuestion === 0) {
         understandingAnswers.first = answer;
@@ -1743,11 +1443,6 @@ function selectUnderstandingAnswer(answer) {
 }
 
 function showUnderstandingResult() {
-    if (understandingMode === "self") {
-        showSelfKnowledgeResult();
-        return;
-    }
-
     understandingQuestion.classList.add("hidden");
     understandingResult.classList.remove("hidden");
 
@@ -1810,4 +1505,231 @@ if (understandingFinish) {
         });
     });
 }
+
+
+
+// ============================================
+// CONOCERME MEJOR — EXPERIENCIA INDEPENDIENTE
+// ============================================
+
+const selfKnowledgeScreen = document.getElementById("selfKnowledgeScreen");
+const selfKnowledgeIntro = document.getElementById("selfKnowledgeIntro");
+const selfKnowledgeQuestion = document.getElementById("selfKnowledgeQuestion");
+const selfKnowledgeResult = document.getElementById("selfKnowledgeResult");
+const selfKnowledgeStart = document.getElementById("selfKnowledgeStart");
+const selfKnowledgeBack = document.getElementById("selfKnowledgeBack");
+const selfKnowledgeFinish = document.getElementById("selfKnowledgeFinish");
+const selfKnowledgeStep = document.getElementById("selfKnowledgeStep");
+const selfKnowledgeNumber = document.getElementById("selfKnowledgeNumber");
+const selfKnowledgeTitle = document.getElementById("selfKnowledgeTitle");
+const selfKnowledgeDescription = document.getElementById("selfKnowledgeDescription");
+const selfKnowledgeOptions = document.getElementById("selfKnowledgeOptions");
+const selfKnowledgeResultText = document.getElementById("selfKnowledgeResultText");
+
+let selfKnowledgeAnswers = {
+    area: null,
+    pattern: null,
+    need: null
+};
+
+const selfKnowledgeFlows = {
+    "Normal": {
+        area: "Mi forma de ser",
+        second: {
+            title: "¿En qué momentos sientes que puedes ser más tú mismo?",
+            options: [
+                ["🏠", "Cuando estoy solo", "Me siento libre para pensar y actuar a mi manera."],
+                ["🫂", "Con personas de confianza", "Puedo mostrar partes de mí sin tanta preocupación."],
+                ["🎨", "Cuando hago lo que me gusta", "Mis intereses me ayudan a expresarme."],
+                ["🌎", "En lugares nuevos", "A veces un entorno diferente me permite soltarme."]
+            ]
+        },
+        third: {
+            title: "¿Qué te gustaría conocer mejor de ti?",
+            options: [
+                ["🪞", "Mis fortalezas", "Quiero reconocer lo que hago bien."],
+                ["🧭", "Mis límites", "Quiero entender qué necesito y qué no quiero aceptar."],
+                ["❤️", "Mis necesidades", "Quiero reconocer mejor lo que necesito."],
+                ["🌱", "Lo que puedo mejorar", "Quiero crecer sin exigirme ser perfecto."]
+            ]
+        }
+    },
+
+    "Bien": {
+        area: "Mi bienestar",
+        second: {
+            title: "¿Qué crees que está ayudando a que hoy te sientas bien?",
+            options: [
+                ["🌿", "Mi tranquilidad", "He encontrado un poco de calma."],
+                ["🫂", "Mis relaciones", "Sentirme acompañado influye positivamente en mí."],
+                ["🎯", "Mis logros", "Estoy viendo avances que me hacen sentir bien."],
+                ["☀️", "Las pequeñas cosas", "Hay detalles sencillos que estoy disfrutando."]
+            ]
+        },
+        third: {
+            title: "¿Qué te gustaría cuidar más de este momento?",
+            options: [
+                ["🌱", "Mi bienestar", "Quiero mantener hábitos que me hagan bien."],
+                ["❤️", "Mis relaciones", "Quiero cuidar los vínculos importantes."],
+                ["🧠", "Mi equilibrio", "Quiero aprender a cuidar también mi mente."],
+                ["🎨", "Mi autenticidad", "Quiero seguir siendo yo mismo."]
+            ]
+        }
+    }
+};
+
+function openSelfKnowledgeExperience() {
+    if (!selfKnowledgeScreen) return;
+
+    supportScreen.classList.add("hidden");
+    breathingScreen.classList.add("hidden");
+    understandingScreen.classList.add("hidden");
+    selfKnowledgeScreen.classList.remove("hidden");
+
+    selfKnowledgeIntro.classList.remove("hidden");
+    selfKnowledgeQuestion.classList.add("hidden");
+    selfKnowledgeResult.classList.add("hidden");
+
+    selfKnowledgeAnswers = { area: null, pattern: null, need: null };
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderSelfKnowledgeQuestion(step) {
+    const flow = selfKnowledgeFlows[selectedFeeling] || selfKnowledgeFlows["Normal"];
+    let data;
+
+    if (step === 1) {
+        data = {
+            title: "¿Qué parte de ti quieres conocer mejor?",
+            description: "Elige lo que más te gustaría comprender en este momento.",
+            options: [
+                ["🧠", "Mis pensamientos", "Quiero entender cómo funciona mi mente."],
+                ["❤️", "Mis emociones", "Quiero comprender mejor lo que siento."],
+                ["🪞", flow.area, "Quiero descubrir más sobre quién soy."],
+                ["🤝", "Mis relaciones", "Quiero entender cómo me relaciono."],
+                ["🎯", "Lo que quiero para mi vida", "Quiero tener más claridad."]
+            ]
+        };
+    } else if (step === 2) {
+        data = flow.second;
+    } else {
+        data = flow.third;
+    }
+
+    selfKnowledgeStep.textContent = step;
+    selfKnowledgeNumber.textContent = `PREGUNTA ${step}`;
+    selfKnowledgeTitle.textContent = data.title;
+    selfKnowledgeDescription.textContent = data.description;
+    selfKnowledgeOptions.innerHTML = "";
+
+    data.options.forEach(([icon, title, description]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "question-option";
+        button.innerHTML = `
+            <div class="question-option-icon">${icon}</div>
+            <div class="question-option-text">
+                <strong>${title}</strong>
+                <small>${description}</small>
+            </div>
+            <span class="question-option-arrow">→</span>
+        `;
+
+        button.addEventListener("click", () => {
+            if (step === 1) selfKnowledgeAnswers.area = title;
+            if (step === 2) selfKnowledgeAnswers.pattern = title;
+            if (step === 3) selfKnowledgeAnswers.need = title;
+
+            if (step < 3) {
+                renderSelfKnowledgeQuestion(step + 1);
+            } else {
+                renderSelfKnowledgeResult();
+            }
+        });
+
+        selfKnowledgeOptions.appendChild(button);
+    });
+}
+
+function renderSelfKnowledgeResult() {
+    selfKnowledgeQuestion.classList.add("hidden");
+    selfKnowledgeResult.classList.remove("hidden");
+
+    const a = selfKnowledgeAnswers;
+    const area = a.area || "una parte de ti";
+    const pattern = a.pattern || "cómo vives algunas situaciones";
+    const need = a.need || "seguir conociéndote";
+
+    let advice = "Date unos minutos esta semana para observarte sin juzgarte.";
+    let information = "Conocerte mejor no significa encontrar una etiqueta definitiva. Tus necesidades y formas de reaccionar pueden cambiar.";
+
+    if (a.area === "Mis emociones") {
+        advice = "Cuando aparezca una emoción intensa, intenta nombrarla antes de intentar cambiarla: “Estoy sintiendo ___ porque ___”.";
+        information = "Las emociones pueden darte información sobre necesidades, límites y experiencias, pero una emoción por sí sola no define quién eres.";
+    } else if (a.area === "Mis pensamientos") {
+        advice = "Escribe un pensamiento que se repita y sepáralo en dos partes: lo que sabes que ocurrió y lo que tu mente está suponiendo.";
+        information = "Un pensamiento puede sentirse muy convincente sin ser necesariamente un hecho. Observarlo con curiosidad puede ayudarte a tomar distancia.";
+    } else if (a.area === "Mis relaciones") {
+        advice = "Prueba expresar una necesidad pequeña con claridad, sin sentir que tienes que justificarla demasiado.";
+        information = "Conocerte también incluye reconocer qué necesitas de los demás y qué límites ayudan a cuidar tus relaciones.";
+    } else if (a.area === "Lo que quiero para mi vida") {
+        advice = "Elige una acción pequeña para esta semana que te acerque a lo que quieres, en lugar de intentar resolver todo de una vez.";
+        information = "Tener dudas sobre el futuro es normal. La claridad muchas veces aparece mientras avanzas, no antes.";
+    }
+
+    selfKnowledgeResultText.innerHTML = `
+        <span class="result-section-label">🔎 Lo que podrías estar descubriendo</span>
+        <span class="result-section-text">
+            Elegiste explorar <strong>${area.toLowerCase()}</strong>.
+            También identificaste que <strong>${pattern.toLowerCase()}</strong>
+            y que te gustaría <strong>${need.toLowerCase()}</strong>.
+            Juntas, estas respuestas sugieren un área de ti que merece más atención y curiosidad.
+        </span>
+
+        <span class="result-section-label">💡 Un pequeño consejo</span>
+        <span class="result-section-text">${advice}</span>
+
+        <span class="result-section-label">🪞 Para reflexionar</span>
+        <span class="result-quote">
+            “¿Qué podrías descubrir de ti si, en lugar de juzgarte, empezaras a escucharte?”
+        </span>
+
+        <span class="result-section-label">ℹ️ Algo importante</span>
+        <span class="result-section-text">${information}</span>
+    `;
+}
+
+if (selfKnowledgeStart) {
+    selfKnowledgeStart.addEventListener("click", () => {
+        selfKnowledgeIntro.classList.add("hidden");
+        selfKnowledgeQuestion.classList.remove("hidden");
+        renderSelfKnowledgeQuestion(1);
+    });
+}
+
+if (selfKnowledgeBack) {
+    selfKnowledgeBack.addEventListener("click", () => {
+        selfKnowledgeScreen.classList.add("hidden");
+        supportScreen.classList.remove("hidden");
+    });
+}
+
+if (selfKnowledgeFinish) {
+    selfKnowledgeFinish.addEventListener("click", () => {
+        selfKnowledgeScreen.classList.add("hidden");
+        supportScreen.classList.remove("hidden");
+    });
+}
+
+// Conecta el botón por su texto visible, no por la posición de la tarjeta.
+document.querySelectorAll(".support-option").forEach((button) => {
+    button.addEventListener("click", function (event) {
+        const title = this.querySelector("strong")?.textContent.trim() || "";
+
+        if (title === "Conocerme mejor") {
+            event.stopImmediatePropagation();
+            openSelfKnowledgeExperience();
+        }
+    }, true);
+});
 
