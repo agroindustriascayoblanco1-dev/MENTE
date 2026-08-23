@@ -1,3 +1,4 @@
+```javascript
 const feelings = document.querySelectorAll(".feeling");
 
 const continueButton =
@@ -26,7 +27,7 @@ let selectedFeeling = null;
 
 
 /* =========================
-   INFORMACIÓN DE CADA ESTADO
+   INFORMACIÓN DE LOS ESTADOS
 ========================= */
 
 const feelingData = {
@@ -70,7 +71,7 @@ const feelingData = {
 
 
 /* =========================
-   SELECCIONAR EMOCIÓN
+   SELECCIÓN DE EMOCIÓN
 ========================= */
 
 feelings.forEach((feeling) => {
@@ -97,7 +98,7 @@ feelings.forEach((feeling) => {
 
 
 /* =========================
-   CONTINUAR
+   CAMBIAR A SEGUNDA PANTALLA
 ========================= */
 
 continueButton.addEventListener("click", () => {
@@ -114,19 +115,66 @@ continueButton.addEventListener("click", () => {
     supportIcon.textContent =
         data.icon;
 
-
     supportTitle.textContent =
         data.title;
-
 
     supportMessage.textContent =
         data.message;
 
 
+    /*
+       Quitamos la pantalla inicial.
+    */
+
     welcomeScreen.classList.add("hidden");
 
 
+    /*
+       Mostramos la segunda pantalla.
+    */
+
     supportScreen.classList.remove("hidden");
+
+
+    /*
+       Reiniciamos la animación.
+    */
+
+    supportScreen.classList.remove("entering");
+
+    void supportScreen.offsetWidth;
+
+    supportScreen.classList.add("entering");
+
+
+    /*
+       Volvemos arriba de la página.
+    */
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+
+/* =========================
+   VOLVER A LA PRIMERA PANTALLA
+========================= */
+
+backButton.addEventListener("click", () => {
+
+    supportScreen.classList.add("hidden");
+
+    welcomeScreen.classList.remove("hidden");
+
+
+    welcomeScreen.classList.remove("entering");
+
+    void welcomeScreen.offsetWidth;
+
+    welcomeScreen.classList.add("entering");
 
 
     window.scrollTo({
@@ -138,13 +186,27 @@ continueButton.addEventListener("click", () => {
 
 
 /* =========================
-   VOLVER
+   MICROINTERACCIÓN
 ========================= */
 
-backButton.addEventListener("click", () => {
+const supportOptions =
+    document.querySelectorAll(".support-option");
 
-    supportScreen.classList.add("hidden");
 
-    welcomeScreen.classList.remove("hidden");
+supportOptions.forEach((option) => {
+
+    option.addEventListener("click", () => {
+
+        option.style.transform =
+            "scale(0.98)";
+
+        setTimeout(() => {
+
+            option.style.transform = "";
+
+        }, 120);
+
+    });
 
 });
+```
