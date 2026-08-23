@@ -1114,3 +1114,395 @@ function resetBreathingVisuals() {
     );
 
 }
+
+
+// ============================================
+// EXPERIENCIA: ENTENDER LO QUE SIENTO
+// ============================================
+
+const understandingScreen =
+    document.getElementById("understandingScreen");
+
+const understandingIntro =
+    document.getElementById("understandingIntro");
+
+const understandingQuestion =
+    document.getElementById("understandingQuestion");
+
+const understandingResult =
+    document.getElementById("understandingResult");
+
+const understandingStart =
+    document.getElementById("understandingStart");
+
+const understandingBack =
+    document.getElementById("understandingBack");
+
+const understandingFinish =
+    document.getElementById("understandingFinish");
+
+const understandingStep =
+    document.getElementById("understandingStep");
+
+const questionNumber =
+    document.getElementById("questionNumber");
+
+const questionTitle =
+    document.getElementById("questionTitle");
+
+const questionDescription =
+    document.getElementById("questionDescription");
+
+const questionOptions =
+    document.getElementById("questionOptions");
+
+const understandingResultText =
+    document.getElementById("understandingResultText");
+
+const understandingIntroTitle =
+    document.getElementById("understandingIntroTitle");
+
+const understandingIntroMessage =
+    document.getElementById("understandingIntroMessage");
+
+let understandingAnswers = {
+    first: null,
+    second: null,
+    third: null
+};
+
+let currentUnderstandingQuestion = 0;
+
+const understandingQuestions = [
+    {
+        title: "¿Qué es lo que más está ocupando tu mente?",
+        description:
+            "No lo pienses demasiado. Elige lo primero que se acerque a lo que estás viviendo.",
+        options: [
+            {
+                icon: "🔄",
+                title: "Algo que pasó",
+                description: "Algo del pasado sigue dando vueltas."
+            },
+            {
+                icon: "🔮",
+                title: "Algo que podría pasar",
+                description: "Estoy pensando mucho en el futuro."
+            },
+            {
+                icon: "👤",
+                title: "Una persona",
+                description: "Hay alguien que está ocupando mi mente."
+            },
+            {
+                icon: "📋",
+                title: "Algo que tengo que hacer",
+                description: "Tengo algo pendiente que me preocupa."
+            },
+            {
+                icon: "🌫️",
+                title: "No estoy seguro",
+                description: "Sé que algo pasa, pero no sé exactamente qué."
+            }
+        ]
+    },
+    {
+        title: "¿Cómo se siente eso dentro de ti?",
+        description:
+            "Puedes elegir la emoción que más se acerque, aunque no sea exactamente la palabra que usarías.",
+        options: [
+            {
+                icon: "😟",
+                title: "Preocupación",
+                description: "Mi mente no deja de pensar en ello."
+            },
+            {
+                icon: "😨",
+                title: "Miedo",
+                description: "Siento que algo malo puede ocurrir."
+            },
+            {
+                icon: "😣",
+                title: "Culpa",
+                description: "Siento que hice algo mal o pude hacerlo mejor."
+            },
+            {
+                icon: "😠",
+                title: "Enojo",
+                description: "Hay algo que me molesta mucho."
+            },
+            {
+                icon: "😔",
+                title: "Tristeza",
+                description: "Esto me está haciendo sentir decaído."
+            },
+            {
+                icon: "🌫️",
+                title: "Confusión",
+                description: "No logro entender exactamente qué siento."
+            }
+        ]
+    },
+    {
+        title: "¿Qué crees que necesitas ahora?",
+        description:
+            "No tienes que elegir lo que deberías necesitar. Elige lo que realmente sientes que te ayudaría.",
+        options: [
+            {
+                icon: "🛡️",
+                title: "Sentirme seguro",
+                description: "Necesito sentir que estoy a salvo."
+            },
+            {
+                icon: "🌙",
+                title: "Descansar",
+                description: "Mi mente y mi cuerpo necesitan una pausa."
+            },
+            {
+                icon: "🧩",
+                title: "Resolver algo",
+                description: "Hay algo concreto que quiero solucionar."
+            },
+            {
+                icon: "🫂",
+                title: "Hablar con alguien",
+                description: "No quiero cargar esto completamente solo."
+            },
+            {
+                icon: "🪞",
+                title: "Entenderme",
+                description: "Quiero conocer mejor lo que me está pasando."
+            },
+            {
+                icon: "💬",
+                title: "Dejarlo salir",
+                description: "Necesito expresar todo lo que tengo dentro."
+            }
+        ]
+    }
+];
+
+const understandOption =
+    document.querySelector(".option-clear");
+
+if (understandOption) {
+    understandOption.addEventListener("click", function () {
+        openUnderstandingExperience();
+    });
+}
+
+function openUnderstandingExperience() {
+    if (!understandingScreen) {
+        return;
+    }
+
+    supportScreen.classList.add("hidden");
+    breathingScreen.classList.add("hidden");
+    understandingScreen.classList.remove("hidden");
+
+    understandingIntro.classList.remove("hidden");
+    understandingQuestion.classList.add("hidden");
+    understandingResult.classList.add("hidden");
+
+    understandingAnswers = {
+        first: null,
+        second: null,
+        third: null
+    };
+
+    currentUnderstandingQuestion = 0;
+
+    const feelingMessages = {
+        Ansioso: {
+            title: "Vamos a entender un poco mejor lo que está pasando.",
+            message:
+                "No tienes que encontrar una explicación perfecta. Solo vamos a observar qué está alimentando lo que sientes."
+        },
+        Triste: {
+            title: "Vamos a darle un poco de espacio a lo que sientes.",
+            message:
+                "No tienes que dejar de sentirte triste ahora. Podemos intentar entender qué hay detrás de esa emoción."
+        },
+        Abrumado: {
+            title: "Vamos a ordenar un poco todo lo que tienes encima.",
+            message:
+                "No vamos a resolverlo todo de una vez. Primero vamos a descubrir qué está ocupando más espacio."
+        },
+        Normal: {
+            title: "Vamos a conocerte un poco mejor.",
+            message:
+                "No necesitas estar pasando por un mal momento para detenerte y entender tus pensamientos y necesidades."
+        },
+        Bien: {
+            title: "También podemos aprender de los momentos buenos.",
+            message:
+                "Vamos a mirar qué estás sintiendo y qué necesitas para cuidar este momento."
+        }
+    };
+
+    const content =
+        feelingMessages[selectedFeeling] ||
+        feelingMessages.Ansioso;
+
+    understandingIntroTitle.textContent =
+        content.title;
+
+    understandingIntroMessage.textContent =
+        content.message;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+if (understandingStart) {
+    understandingStart.addEventListener("click", function () {
+        understandingIntro.classList.add("hidden");
+        understandingQuestion.classList.remove("hidden");
+        currentUnderstandingQuestion = 0;
+        showUnderstandingQuestion();
+    });
+}
+
+function showUnderstandingQuestion() {
+    const question =
+        understandingQuestions[currentUnderstandingQuestion];
+
+    if (!question) {
+        showUnderstandingResult();
+        return;
+    }
+
+    const questionIndex =
+        currentUnderstandingQuestion + 1;
+
+    understandingStep.textContent =
+        questionIndex;
+
+    questionNumber.textContent =
+        "PREGUNTA " + questionIndex;
+
+    questionTitle.textContent =
+        question.title;
+
+    questionDescription.textContent =
+        question.description;
+
+    questionOptions.innerHTML = "";
+
+    question.options.forEach(function (option) {
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+        button.className = "question-option";
+
+        button.innerHTML = `
+            <div class="question-option-icon">
+                ${option.icon}
+            </div>
+
+            <div class="question-option-text">
+                <strong>${option.title}</strong>
+                <small>${option.description}</small>
+            </div>
+
+            <span class="question-option-arrow">→</span>
+        `;
+
+        button.addEventListener("click", function () {
+            selectUnderstandingAnswer(option.title);
+        });
+
+        questionOptions.appendChild(button);
+    });
+}
+
+function selectUnderstandingAnswer(answer) {
+    if (currentUnderstandingQuestion === 0) {
+        understandingAnswers.first = answer;
+    } else if (currentUnderstandingQuestion === 1) {
+        understandingAnswers.second = answer;
+    } else if (currentUnderstandingQuestion === 2) {
+        understandingAnswers.third = answer;
+    }
+
+    setTimeout(function () {
+        currentUnderstandingQuestion++;
+
+        if (
+            currentUnderstandingQuestion >=
+            understandingQuestions.length
+        ) {
+            showUnderstandingResult();
+        } else {
+            showUnderstandingQuestion();
+        }
+    }, 280);
+}
+
+function showUnderstandingResult() {
+    understandingQuestion.classList.add("hidden");
+    understandingResult.classList.remove("hidden");
+
+    const first =
+        understandingAnswers.first;
+
+    const second =
+        understandingAnswers.second;
+
+    const third =
+        understandingAnswers.third;
+
+    let result = "";
+
+    if (
+        second === "Preocupación" ||
+        second === "Miedo"
+    ) {
+        result =
+            `Parece que ${first ? first.toLowerCase() : "algo"} está ocupando bastante espacio en tu mente y está despertando ${second.toLowerCase()}. Cuando algo nos importa, nuestra mente puede intentar anticiparse a todo lo que podría ocurrir.`;
+    } else if (second === "Tristeza") {
+        result =
+            `Parece que ${first ? first.toLowerCase() : "algo"} está conectado con una sensación de tristeza. No tienes que obligarte a dejar de sentirla inmediatamente. Reconocerla puede ser una forma de empezar a cuidarte.`;
+    } else if (second === "Enojo") {
+        result =
+            `Parece que hay algo que te está generando bastante enojo. Esa emoción también puede estar señalando que algo importante para ti se sintió afectado o que algún límite fue cruzado.`;
+    } else if (second === "Culpa") {
+        result =
+            `Parece que hay algo que estás cargando con cierta culpa. Mirar una situación con honestidad no significa que tengas que castigarte por ella.`;
+    } else {
+        result =
+            `Parece que hay algo que necesita un poco más de atención dentro de ti. No tienes que entenderlo completamente hoy. Lo importante es que te permitiste detenerte y observarlo.`;
+    }
+
+    result +=
+        ` Ahora mismo sientes que necesitas ${third ? third.toLowerCase() : "un momento para ti"}.`;
+
+    understandingResultText.textContent =
+        result;
+}
+
+if (understandingBack) {
+    understandingBack.addEventListener("click", function () {
+        understandingScreen.classList.add("hidden");
+        supportScreen.classList.remove("hidden");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
+if (understandingFinish) {
+    understandingFinish.addEventListener("click", function () {
+        understandingScreen.classList.add("hidden");
+        supportScreen.classList.remove("hidden");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
