@@ -1,3 +1,4 @@
+```css
 * {
     margin: 0;
     padding: 0;
@@ -5,13 +6,47 @@
 }
 
 
+:root {
+    --text: #263238;
+    --muted: #718096;
+    --white: #ffffff;
+
+    --purple: #8b7cf6;
+    --blue: #6aa9e9;
+    --green: #6fcf97;
+    --peach: #f4a261;
+
+    --background: #f7f9fc;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+
     min-height: 100vh;
 
-    background: #f5f7f8;
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139, 124, 246, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(111, 207, 151, 0.12),
+            transparent 30%
+        ),
+        var(--background);
 
-    color: #20252b;
+    color: var(--text);
+
+    overflow-x: hidden;
 }
 
 
@@ -21,30 +56,210 @@ button {
 
 
 /* =========================
-   PANTALLAS
+   FONDOS ANIMADOS
 ========================= */
 
-.screen {
-    min-height: 100vh;
-    width: 100%;
+.background-orb {
+    position: fixed;
 
-    transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    opacity: 0.35;
+
+    animation: floatingOrb 10s ease-in-out infinite alternate;
 }
 
 
-.hidden {
-    display: none;
+.orb-one {
+    top: -120px;
+    left: -100px;
+
+    background: rgba(139, 124, 246, 0.25);
+}
+
+
+.orb-two {
+    right: -100px;
+    bottom: -120px;
+
+    background: rgba(111, 207, 151, 0.22);
+
+    animation-delay: 2s;
+}
+
+
+@keyframes floatingOrb {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(30px, 25px);
+    }
 }
 
 
 /* =========================
-   PANTALLA DE BIENVENIDA
+   PANTALLAS
+========================= */
+
+.screen {
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 100vh;
+    width: 100%;
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease;
+}
+
+
+/*
+   IMPORTANTE:
+   !important evita que las reglas de
+   .support-screen vuelvan a mostrar
+   una pantalla que debe estar oculta.
+*/
+
+.hidden {
+    display: none !important;
+}
+
+
+.screen.entering {
+    animation: screenEnter 0.5s ease both;
+}
+
+
+@keyframes screenEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================
+   MARCA
+========================= */
+
+.brand {
+    text-align: center;
+
+    margin-bottom: 52px;
+
+    animation: brandEnter 0.8s ease both;
+}
+
+
+@keyframes brandEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.logo-wrapper {
+    width: 94px;
+    height: 94px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    backdrop-filter: blur(12px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 15px 40px rgba(50, 60, 80, 0.08);
+
+    animation: logoFloat 5s ease-in-out infinite;
+}
+
+
+.logo {
+    width: 76px;
+    height: 76px;
+
+    object-fit: contain;
+}
+
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+.brand-name {
+    font-size: 38px;
+
+    font-weight: 800;
+
+    letter-spacing: 9px;
+
+    margin-left: 8px;
+
+    color: #28313a;
+}
+
+
+.brand p {
+    margin-top: 8px;
+
+    font-size: 15px;
+
+    color: var(--muted);
+}
+
+
+/* =========================
+   PANTALLA INICIAL
 ========================= */
 
 .welcome-screen {
-
     display: flex;
 
     flex-direction: column;
@@ -53,109 +268,89 @@ button {
 
     justify-content: center;
 
-    padding: 40px 20px;
+    padding: 50px 25px;
 }
 
 
-/* LOGO */
-
-.brand {
+.feeling-section {
+    width: 100%;
+    max-width: 900px;
 
     text-align: center;
-
-    margin-bottom: 50px;
 }
 
 
-.logo {
+.section-intro {
+    max-width: 650px;
 
-    width: 95px;
-
-    height: 95px;
-
-    object-fit: contain;
-
-    display: block;
-
-    margin: 0 auto 18px;
+    margin: 0 auto 38px;
 }
 
 
-.brand h1 {
+.eyebrow {
+    display: inline-block;
 
-    font-size: 42px;
+    font-size: 11px;
 
-    font-weight: 700;
+    font-weight: 800;
 
-    letter-spacing: 8px;
+    letter-spacing: 2px;
 
-    margin-bottom: 10px;
+    color: #8b7cf6;
+
+    margin-bottom: 13px;
 }
 
 
-.brand p {
+.section-intro h1 {
+    font-size: clamp(30px, 4vw, 42px);
 
-    font-size: 17px;
+    line-height: 1.15;
 
-    color: #747b83;
+    margin-bottom: 13px;
+}
+
+
+.section-intro p {
+    max-width: 570px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.6;
 }
 
 
 /* =========================
-   EMOCIONES
+   TARJETAS EMOCIONALES
 ========================= */
 
-.feeling-section {
+.feelings {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 14px;
 
     width: 100%;
-
-    max-width: 850px;
-
-    text-align: center;
-}
-
-
-.feeling-section h2 {
-
-    font-size: 30px;
-
-    margin-bottom: 12px;
-}
-
-
-.subtitle {
-
-    color: #777f87;
-
-    font-size: 16px;
-
-    margin-bottom: 40px;
-}
-
-
-.feelings {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    flex-wrap: wrap;
 }
 
 
 .feeling {
+    position: relative;
 
-    width: 135px;
+    min-height: 155px;
 
-    height: 125px;
+    border: 1px solid rgba(220, 225, 232, 0.9);
 
-    border: 1px solid #e1e5e8;
+    border-radius: 24px;
 
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.72);
 
-    background: white;
+    backdrop-filter: blur(12px);
 
     cursor: pointer;
 
@@ -167,37 +362,134 @@ button {
 
     justify-content: center;
 
-    gap: 12px;
+    gap: 8px;
 
-    color: #363c42;
+    color: var(--text);
 
-    font-size: 15px;
+    overflow: hidden;
 
-    transition: all 0.2s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.feeling::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
 }
 
 
 .feeling:hover {
+    transform: translateY(-7px);
 
-    transform: translateY(-4px);
+    box-shadow:
+        0 18px 35px rgba(55, 65, 81, 0.10);
 
-    border-color: #b9c1c8;
+    border-color: transparent;
+}
+
+
+.feeling:hover::before {
+    opacity: 1;
+}
+
+
+.feeling-anxious::before {
+    background: linear-gradient(
+        145deg,
+        rgba(244, 162, 97, 0.15),
+        transparent
+    );
+}
+
+
+.feeling-sad::before {
+    background: linear-gradient(
+        145deg,
+        rgba(106, 169, 233, 0.15),
+        transparent
+    );
+}
+
+
+.feeling-overwhelmed::before {
+    background: linear-gradient(
+        145deg,
+        rgba(139, 124, 246, 0.15),
+        transparent
+    );
+}
+
+
+.feeling-normal::before {
+    background: linear-gradient(
+        145deg,
+        rgba(130, 150, 160, 0.14),
+        transparent
+    );
+}
+
+
+.feeling-good::before {
+    background: linear-gradient(
+        145deg,
+        rgba(111, 207, 151, 0.18),
+        transparent
+    );
 }
 
 
 .feeling.selected {
+    transform: translateY(-7px) scale(1.025);
 
-    border: 2px solid #20252b;
+    border: 2px solid var(--purple);
 
-    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.95);
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 18px 40px rgba(139, 124, 246, 0.16);
 }
 
 
 .emoji {
+    position: relative;
 
-    font-size: 34px;
+    font-size: 39px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.feeling:hover .emoji {
+    transform: scale(1.12);
+}
+
+
+.feeling-name {
+    position: relative;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.feeling-description {
+    position: relative;
+
+    font-size: 11px;
+
+    color: #8a949e;
 }
 
 
@@ -206,40 +498,75 @@ button {
 ========================= */
 
 .continue-button {
+    margin-top: 35px;
 
-    margin-top: 45px;
+    min-width: 170px;
 
-    padding: 15px 45px;
+    padding: 15px 22px;
 
     border: none;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    background: #20252b;
+    background: #29323a;
 
     color: white;
 
-    font-size: 16px;
+    font-size: 15px;
+
+    font-weight: 600;
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    box-shadow:
+        0 10px 25px rgba(41, 50, 58, 0.15);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
 }
 
 
 .continue-button:hover:not(:disabled) {
+    transform: translateY(-3px);
 
-    transform: translateY(-2px);
+    box-shadow:
+        0 15px 30px rgba(41, 50, 58, 0.20);
+}
 
-    opacity: 0.9;
+
+.continue-button:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
 }
 
 
 .continue-button:disabled {
-
     opacity: 0.35;
 
     cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+.button-arrow {
+    font-size: 18px;
+
+    transition: transform 0.2s ease;
+}
+
+
+.continue-button:hover:not(:disabled) .button-arrow {
+    transform: translateX(4px);
 }
 
 
@@ -248,76 +575,75 @@ button {
 ========================= */
 
 .support-screen {
-
-    position: relative;
-
-    padding: 45px 25px 70px;
-
     display: flex;
 
     justify-content: center;
+
+    padding: 55px 25px 80px;
 }
 
 
 .support-container {
-
     width: 100%;
 
     max-width: 720px;
 
     text-align: center;
 
-    padding-top: 35px;
+    padding-top: 30px;
+
+    animation: screenEnter 0.55s ease both;
 }
 
 
-/* BOTÓN VOLVER */
-
 .back-button {
-
     position: absolute;
 
-    top: 30px;
-
-    left: 35px;
+    top: 28px;
+    left: 30px;
 
     border: none;
 
-    background: transparent;
+    background: rgba(255, 255, 255, 0.7);
+
+    backdrop-filter: blur(10px);
 
     color: #68717a;
 
-    font-size: 15px;
+    font-size: 14px;
 
     cursor: pointer;
 
-    padding: 10px 14px;
+    padding: 10px 15px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    transition: all 0.2s ease;
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
 }
 
 
 .back-button:hover {
+    transform: translateX(-3px);
 
-    background: #e9edef;
-
-    color: #20252b;
+    background: white;
 }
 
 
-/* ICONO */
-
 .support-icon {
-
-    width: 75px;
-
-    height: 75px;
+    width: 86px;
+    height: 86px;
 
     margin: 0 auto 22px;
 
-    border-radius: 50%;
+    border-radius: 28px;
 
     background: white;
 
@@ -327,77 +653,69 @@ button {
 
     justify-content: center;
 
-    font-size: 38px;
+    font-size: 42px;
 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 18px 45px rgba(55, 65, 81, 0.10);
+
+    animation: iconAppear 0.6s ease both;
 }
 
 
-/* ETIQUETA */
+@keyframes iconAppear {
 
-.support-label {
+    from {
+        opacity: 0;
+        transform: scale(0.75) rotate(-8deg);
+    }
 
-    font-size: 12px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-    color: #899199;
-
-    margin-bottom: 16px;
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
 }
 
 
-/* TÍTULO */
+.support-container h1 {
+    max-width: 650px;
 
-.support-container h2 {
+    margin: 0 auto 16px;
 
-    font-size: 32px;
+    font-size: clamp(28px, 4vw, 38px);
 
-    line-height: 1.25;
-
-    margin-bottom: 18px;
+    line-height: 1.2;
 }
 
-
-/* MENSAJE */
 
 .support-message {
+    max-width: 600px;
 
-    max-width: 590px;
+    margin: auto;
 
-    margin: 0 auto;
+    color: var(--muted);
 
-    color: #68717a;
-
-    font-size: 17px;
+    font-size: 16px;
 
     line-height: 1.7;
 }
 
 
-/* PREGUNTA */
-
 .support-question {
+    margin-top: 48px;
 
-    margin-top: 55px;
-
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 
-.support-question h3 {
-
+.support-question h2 {
     font-size: 21px;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
 
 .support-question p {
-
-    color: #858d94;
+    color: #87919b;
 
     font-size: 14px;
 }
@@ -408,7 +726,6 @@ button {
 ========================= */
 
 .support-options {
-
     display: flex;
 
     flex-direction: column;
@@ -420,20 +737,23 @@ button {
 
 
 .support-option {
+    position: relative;
 
     width: 100%;
 
-    min-height: 82px;
+    min-height: 90px;
 
-    border: 1px solid #e1e5e8;
+    padding: 16px 18px;
 
-    border-radius: 18px;
+    border: 1px solid rgba(220, 225, 232, 0.9);
 
-    background: white;
+    border-radius: 21px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    backdrop-filter: blur(12px);
 
     cursor: pointer;
-
-    padding: 16px 20px;
 
     display: flex;
 
@@ -441,35 +761,92 @@ button {
 
     gap: 16px;
 
-    color: #20252b;
-
     text-align: left;
 
-    transition: all 0.2s ease;
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.support-option::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
 }
 
 
 .support-option:hover {
+    transform: translateX(6px);
 
-    transform: translateY(-2px);
+    border-color: transparent;
 
-    border-color: #c2c9ce;
+    box-shadow:
+        0 14px 30px rgba(55, 65, 81, 0.10);
+}
 
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+
+.support-option:hover::before {
+    opacity: 1;
+}
+
+
+.option-calm::before {
+    background: linear-gradient(
+        100deg,
+        rgba(106, 169, 233, 0.12),
+        transparent
+    );
+}
+
+
+.option-understand::before {
+    background: linear-gradient(
+        100deg,
+        rgba(139, 124, 246, 0.12),
+        transparent
+    );
+}
+
+
+.option-clear::before {
+    background: linear-gradient(
+        100deg,
+        rgba(111, 207, 151, 0.13),
+        transparent
+    );
+}
+
+
+.option-express::before {
+    background: linear-gradient(
+        100deg,
+        rgba(244, 162, 97, 0.13),
+        transparent
+    );
 }
 
 
 .option-icon {
+    position: relative;
 
-    width: 45px;
-
-    height: 45px;
+    width: 49px;
+    height: 49px;
 
     flex-shrink: 0;
 
-    border-radius: 13px;
+    border-radius: 15px;
 
-    background: #f3f5f6;
+    background: #f3f5f7;
 
     display: flex;
 
@@ -477,12 +854,26 @@ button {
 
     justify-content: center;
 
-    font-size: 23px;
+    font-size: 24px;
+
+    transition:
+        transform 0.25s ease;
 }
 
 
-.support-option strong {
+.support-option:hover .option-icon {
+    transform: scale(1.08);
+}
 
+
+.option-content {
+    position: relative;
+
+    flex: 1;
+}
+
+
+.option-content strong {
     display: block;
 
     font-size: 15px;
@@ -491,11 +882,10 @@ button {
 }
 
 
-.support-option small {
-
+.option-content small {
     display: block;
 
-    color: #858d94;
+    color: #858e97;
 
     font-size: 13px;
 
@@ -504,137 +894,180 @@ button {
 
 
 .arrow {
-
-    margin-left: auto;
+    position: relative;
 
     font-size: 21px;
 
-    color: #9aa1a7;
+    color: #9aa3ab;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.support-option:hover .arrow {
+    transform: translateX(5px);
+
+    color: #59636c;
 }
 
 
 /* =========================
-   CELULAR
+   RESPONSIVE
 ========================= */
+
+@media (max-width: 800px) {
+
+    .feelings {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
 
 @media (max-width: 600px) {
 
     .welcome-screen {
-
-        padding: 30px 15px;
+        padding: 35px 16px 50px;
     }
 
 
     .brand {
+        margin-bottom: 35px;
+    }
 
-        margin-bottom: 40px;
+
+    .logo-wrapper {
+        width: 82px;
+        height: 82px;
     }
 
 
     .logo {
-
-        width: 80px;
-
-        height: 80px;
+        width: 66px;
+        height: 66px;
     }
 
 
-    .brand h1 {
-
-        font-size: 36px;
+    .brand-name {
+        font-size: 33px;
     }
 
 
-    .feeling-section h2 {
+    .section-intro {
+        margin-bottom: 28px;
+    }
 
-        font-size: 25px;
+
+    .section-intro h1 {
+        font-size: 29px;
+    }
+
+
+    .section-intro p {
+        font-size: 14px;
     }
 
 
     .feelings {
+        grid-template-columns: repeat(2, 1fr);
 
         gap: 10px;
     }
 
 
     .feeling {
+        min-height: 135px;
 
-        width: 105px;
-
-        height: 110px;
+        border-radius: 20px;
     }
 
 
     .emoji {
+        font-size: 34px;
+    }
 
-        font-size: 29px;
+
+    .feeling-description {
+        font-size: 10px;
+    }
+
+
+    .continue-button {
+        margin-top: 25px;
     }
 
 
     .support-screen {
-
-        padding: 35px 18px 50px;
+        padding: 45px 16px 55px;
     }
 
 
     .back-button {
-
         top: 18px;
-
         left: 15px;
     }
 
 
     .support-container {
-
-        padding-top: 50px;
+        padding-top: 35px;
     }
 
 
-    .support-container h2 {
+    .support-icon {
+        width: 75px;
+        height: 75px;
 
-        font-size: 26px;
+        border-radius: 23px;
+
+        font-size: 36px;
+    }
+
+
+    .support-container h1 {
+        font-size: 27px;
     }
 
 
     .support-message {
-
-        font-size: 15px;
-    }
-
-
-    .support-question {
-
-        margin-top: 40px;
-    }
-
-
-    .support-option {
-
-        padding: 14px;
-
-        min-height: 76px;
-    }
-
-
-    .option-icon {
-
-        width: 40px;
-
-        height: 40px;
-
-        font-size: 20px;
-    }
-
-
-    .support-option strong {
-
         font-size: 14px;
     }
 
 
-    .support-option small {
-
-        font-size: 12px;
+    .support-question {
+        margin-top: 38px;
     }
+
+
+    .support-question h2 {
+        font-size: 19px;
+    }
+
+
+    .support-option {
+        min-height: 82px;
+
+        padding: 14px;
+    }
+
+
+    .option-icon {
+        width: 43px;
+        height: 43px;
+
+        font-size: 21px;
+    }
+
+
+    .option-content strong {
+        font-size: 14px;
+    }
+
+
+    .option-content small {
+        font-size: 11px;
+    }
+
 }
+```
