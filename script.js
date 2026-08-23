@@ -1,68 +1,74 @@
-```javascript
+// ================================
+// ELEMENTOS DE LA PÁGINA
+// ================================
+
 const feelings = document.querySelectorAll(".feeling");
+const continueButton = document.getElementById("continueButton");
 
-const continueButton =
-    document.getElementById("continueButton");
+const welcomeScreen = document.getElementById("welcomeScreen");
+const supportScreen = document.getElementById("supportScreen");
 
-const welcomeScreen =
-    document.getElementById("welcomeScreen");
+const backButton = document.getElementById("backButton");
 
-const supportScreen =
-    document.getElementById("supportScreen");
+const supportIcon = document.getElementById("supportIcon");
+const supportTitle = document.getElementById("supportTitle");
+const supportMessage = document.getElementById("supportMessage");
 
-const backButton =
-    document.getElementById("backButton");
 
-const supportIcon =
-    document.getElementById("supportIcon");
-
-const supportTitle =
-    document.getElementById("supportTitle");
-
-const supportMessage =
-    document.getElementById("supportMessage");
-
+// ================================
+// ESTADO SELECCIONADO
+// ================================
 
 let selectedFeeling = null;
 
 
-/* =========================
-   INFORMACIÓN DE LOS ESTADOS
-========================= */
+// ================================
+// INFORMACIÓN DE CADA EMOCIÓN
+// ================================
 
 const feelingData = {
 
     Ansioso: {
         icon: "😰",
+
         title: "Gracias por contarnos cómo estás.",
+
         message:
             "Hoy parece que estás sintiendo ansiedad. No tienes que resolverlo todo ahora. Podemos ir paso a paso."
     },
 
     Triste: {
         icon: "😔",
+
         title: "Gracias por compartirlo con nosotros.",
+
         message:
             "Parece que hoy estás pasando por un momento triste. No tienes que esconder lo que sientes. Podemos quedarnos aquí un momento."
     },
 
     Abrumado: {
         icon: "😵",
+
         title: "Parece que tienes mucho sobre ti.",
+
         message:
             "Cuando todo parece demasiado, no tenemos que resolverlo todo de una vez. Podemos empezar por una sola cosa."
     },
 
     Normal: {
         icon: "😐",
+
         title: "Gracias por contarnos cómo estás.",
+
         message:
             "Hoy parece ser un día tranquilo. También puedes utilizar MIND para conocerte mejor, reflexionar o simplemente hacer una pausa."
     },
 
     Bien: {
         icon: "😊",
+
         title: "Nos alegra saber que estás bien.",
+
         message:
             "Puedes aprovechar este momento para cuidar de ti, conocerte mejor o simplemente disfrutar de cómo te sientes hoy."
     }
@@ -70,26 +76,34 @@ const feelingData = {
 };
 
 
-/* =========================
-   SELECCIÓN DE EMOCIÓN
-========================= */
+// ================================
+// SELECCIONAR UNA EMOCIÓN
+// ================================
 
-feelings.forEach((feeling) => {
+feelings.forEach(function (feeling) {
 
-    feeling.addEventListener("click", () => {
+    feeling.addEventListener("click", function () {
 
-        feelings.forEach((item) => {
+        console.log("Emoción seleccionada:", feeling.dataset.feeling);
+
+
+        // Quitamos la selección anterior
+        feelings.forEach(function (item) {
+
             item.classList.remove("selected");
+
         });
 
 
+        // Seleccionamos la nueva emoción
         feeling.classList.add("selected");
 
 
-        selectedFeeling =
-            feeling.dataset.feeling;
+        // Guardamos la emoción
+        selectedFeeling = feeling.dataset.feeling;
 
 
+        // Activamos el botón Continuar
         continueButton.disabled = false;
 
     });
@@ -97,49 +111,44 @@ feelings.forEach((feeling) => {
 });
 
 
-/* =========================
-   CAMBIAR A SEGUNDA PANTALLA
-========================= */
+// ================================
+// BOTÓN CONTINUAR
+// ================================
 
-continueButton.addEventListener("click", () => {
+continueButton.addEventListener("click", function () {
 
+    console.log("Continuar presionado");
+
+
+    // Si no hay emoción seleccionada, no hacemos nada
     if (!selectedFeeling) {
+
         return;
+
     }
 
 
-    const data =
-        feelingData[selectedFeeling];
+    // Obtenemos la información
+    const data = feelingData[selectedFeeling];
 
 
-    supportIcon.textContent =
-        data.icon;
+    // Actualizamos la segunda pantalla
+    supportIcon.textContent = data.icon;
 
-    supportTitle.textContent =
-        data.title;
+    supportTitle.textContent = data.title;
 
-    supportMessage.textContent =
-        data.message;
+    supportMessage.textContent = data.message;
 
 
-    /*
-       Quitamos la pantalla inicial.
-    */
-
+    // Ocultamos la primera pantalla
     welcomeScreen.classList.add("hidden");
 
 
-    /*
-       Mostramos la segunda pantalla.
-    */
-
+    // Mostramos la segunda pantalla
     supportScreen.classList.remove("hidden");
 
 
-    /*
-       Reiniciamos la animación.
-    */
-
+    // Animación
     supportScreen.classList.remove("entering");
 
     void supportScreen.offsetWidth;
@@ -147,10 +156,7 @@ continueButton.addEventListener("click", () => {
     supportScreen.classList.add("entering");
 
 
-    /*
-       Volvemos arriba de la página.
-    */
-
+    // Volvemos arriba
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -159,17 +165,21 @@ continueButton.addEventListener("click", () => {
 });
 
 
-/* =========================
-   VOLVER A LA PRIMERA PANTALLA
-========================= */
+// ================================
+// BOTÓN VOLVER
+// ================================
 
-backButton.addEventListener("click", () => {
+backButton.addEventListener("click", function () {
 
+    // Ocultar segunda pantalla
     supportScreen.classList.add("hidden");
 
+
+    // Mostrar primera pantalla
     welcomeScreen.classList.remove("hidden");
 
 
+    // Animación
     welcomeScreen.classList.remove("entering");
 
     void welcomeScreen.offsetWidth;
@@ -177,36 +187,10 @@ backButton.addEventListener("click", () => {
     welcomeScreen.classList.add("entering");
 
 
+    // Volver arriba
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
 });
-
-
-/* =========================
-   MICROINTERACCIÓN
-========================= */
-
-const supportOptions =
-    document.querySelectorAll(".support-option");
-
-
-supportOptions.forEach((option) => {
-
-    option.addEventListener("click", () => {
-
-        option.style.transform =
-            "scale(0.98)";
-
-        setTimeout(() => {
-
-            option.style.transform = "";
-
-        }, 120);
-
-    });
-
-});
-```
