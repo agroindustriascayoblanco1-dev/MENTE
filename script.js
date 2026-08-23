@@ -1,93 +1,301 @@
-// ================================
-// ELEMENTOS DE LA PÁGINA
-// ================================
+// ============================================
+// MIND — SISTEMA DE EMOCIONES
+// ============================================
+
+
+// ELEMENTOS PRINCIPALES
 
 const feelings = document.querySelectorAll(".feeling");
-const continueButton = document.getElementById("continueButton");
 
-const welcomeScreen = document.getElementById("welcomeScreen");
-const supportScreen = document.getElementById("supportScreen");
+const continueButton =
+    document.getElementById("continueButton");
 
-const backButton = document.getElementById("backButton");
+const welcomeScreen =
+    document.getElementById("welcomeScreen");
 
-const supportIcon = document.getElementById("supportIcon");
-const supportTitle = document.getElementById("supportTitle");
-const supportMessage = document.getElementById("supportMessage");
+const supportScreen =
+    document.getElementById("supportScreen");
+
+const backButton =
+    document.getElementById("backButton");
+
+const supportIcon =
+    document.getElementById("supportIcon");
+
+const supportTitle =
+    document.getElementById("supportTitle");
+
+const supportMessage =
+    document.getElementById("supportMessage");
 
 
-// ================================
-// ESTADO SELECCIONADO
-// ================================
+// EMOCIÓN SELECCIONADA
 
 let selectedFeeling = null;
 
 
-// ================================
-// INFORMACIÓN DE CADA EMOCIÓN
-// ================================
+// ============================================
+// CONTENIDO DE CADA EMOCIÓN
+// ============================================
 
 const feelingData = {
 
     Ansioso: {
+
         icon: "😰",
 
-        title: "Gracias por contarnos cómo estás.",
+        title: "Vamos a bajar un poco el ritmo.",
 
         message:
-            "Hoy parece que estás sintiendo ansiedad. No tienes que resolverlo todo ahora. Podemos ir paso a paso."
+            "No tienes que resolver todo ahora. Podemos concentrarnos solamente en este momento.",
+
+        question:
+            "¿Qué necesitas ahora?",
+
+        options: [
+
+            {
+                icon: "🌬️",
+                title: "Calmar mi cuerpo",
+                description:
+                    "Haz una pausa y acompaña tu respiración."
+            },
+
+            {
+                icon: "🎯",
+                title: "Volver al presente",
+                description:
+                    "Un ejercicio para alejarte un momento de los pensamientos."
+            },
+
+            {
+                icon: "🧠",
+                title: "Entender mi ansiedad",
+                description:
+                    "Explora qué puede estar provocando lo que sientes."
+            },
+
+            {
+                icon: "💬",
+                title: "Sacarlo de mi cabeza",
+                description:
+                    "Escribe aquello que está dando vueltas en tu mente."
+            }
+
+        ]
+
     },
+
 
     Triste: {
+
         icon: "😔",
 
-        title: "Gracias por compartirlo con nosotros.",
+        title: "No tienes que fingir que estás bien.",
 
         message:
-            "Parece que hoy estás pasando por un momento triste. No tienes que esconder lo que sientes. Podemos quedarnos aquí un momento."
+            "Puedes darte permiso para sentir lo que estás sintiendo. Vamos a ir despacio.",
+
+        question:
+            "¿Qué te haría bien en este momento?",
+
+        options: [
+
+            {
+                icon: "💙",
+                title: "Acompañar lo que siento",
+                description:
+                    "Quédate un momento con tus emociones sin juzgarte."
+            },
+
+            {
+                icon: "💭",
+                title: "Entender mi tristeza",
+                description:
+                    "Explora qué puede estar detrás de cómo te sientes."
+            },
+
+            {
+                icon: "🌤️",
+                title: "Hacer algo pequeño",
+                description:
+                    "Encuentra una pequeña acción para cuidar de ti."
+            },
+
+            {
+                icon: "💬",
+                title: "Quiero expresarlo",
+                description:
+                    "Pon en palabras aquello que llevas dentro."
+            }
+
+        ]
+
     },
+
 
     Abrumado: {
+
         icon: "😵",
 
-        title: "Parece que tienes mucho sobre ti.",
+        title: "Vamos a quitar un poco de peso de tu cabeza.",
 
         message:
-            "Cuando todo parece demasiado, no tenemos que resolverlo todo de una vez. Podemos empezar por una sola cosa."
+            "No necesitamos resolverlo todo. Vamos a ordenar una cosa a la vez.",
+
+        question:
+            "¿Por dónde quieres empezar?",
+
+        options: [
+
+            {
+                icon: "🧩",
+                title: "Ordenar mis pensamientos",
+                description:
+                    "Saca todo lo que tienes en la cabeza y ponlo en orden."
+            },
+
+            {
+                icon: "🌬️",
+                title: "Bajar la tensión",
+                description:
+                    "Haz una pausa para darle descanso a tu mente."
+            },
+
+            {
+                icon: "📋",
+                title: "Organizar lo urgente",
+                description:
+                    "Distingue qué necesita tu atención primero."
+            },
+
+            {
+                icon: "💬",
+                title: "Necesito sacar todo",
+                description:
+                    "Escribe libremente todo aquello que te está saturando."
+            }
+
+        ]
+
     },
+
 
     Normal: {
+
         icon: "😐",
 
-        title: "Gracias por contarnos cómo estás.",
+        title: "También podemos conocerte mejor cuando estás tranquilo.",
 
         message:
-            "Hoy parece ser un día tranquilo. También puedes utilizar MIND para conocerte mejor, reflexionar o simplemente hacer una pausa."
+            "No necesitas sentirte mal para cuidar tu mente. Este puede ser un buen momento para detenerte y conocerte.",
+
+        question:
+            "¿Qué te gustaría explorar?",
+
+        options: [
+
+            {
+                icon: "🪞",
+                title: "Conocerme mejor",
+                description:
+                    "Descubre más sobre tus pensamientos, emociones y hábitos."
+            },
+
+            {
+                icon: "🧠",
+                title: "Reflexionar",
+                description:
+                    "Hazte algunas preguntas y mira hacia dentro."
+            },
+
+            {
+                icon: "🌱",
+                title: "Trabajar en mí",
+                description:
+                    "Explora pequeños cambios que podrían ayudarte."
+            },
+
+            {
+                icon: "✍️",
+                title: "Escribir cómo estoy",
+                description:
+                    "Haz una pausa y escribe cómo ha sido tu día."
+            }
+
+        ]
+
     },
 
+
     Bien: {
+
         icon: "😊",
 
-        title: "Nos alegra saber que estás bien.",
+        title: "Qué bueno que hoy te sientes bien.",
 
         message:
-            "Puedes aprovechar este momento para cuidar de ti, conocerte mejor o simplemente disfrutar de cómo te sientes hoy."
+            "Podemos aprovechar este momento para fortalecer aquello que te hace sentir así.",
+
+        question:
+            "¿Qué quieres hacer con este momento?",
+
+        options: [
+
+            {
+                icon: "✨",
+                title: "Potenciar mi bienestar",
+                description:
+                    "Descubre pequeñas cosas que pueden ayudarte a mantenerte bien."
+            },
+
+            {
+                icon: "🎯",
+                title: "Pensar en mis metas",
+                description:
+                    "Convierte esta energía en algo que quieras construir."
+            },
+
+            {
+                icon: "🧠",
+                title: "Conocerme mejor",
+                description:
+                    "Explora quién eres, cómo piensas y qué necesitas."
+            },
+
+            {
+                icon: "📖",
+                title: "Crear un hábito",
+                description:
+                    "Empieza algo pequeño que pueda ayudarte a largo plazo."
+            }
+
+        ]
+
     }
 
 };
 
 
-// ================================
-// SELECCIONAR UNA EMOCIÓN
-// ================================
+// ============================================
+// REFERENCIAS A LAS OPCIONES
+// ============================================
+
+const optionButtons =
+    document.querySelectorAll(".support-option");
+
+
+// ============================================
+// SELECCIONAR EMOCIÓN
+// ============================================
 
 feelings.forEach(function (feeling) {
 
     feeling.addEventListener("click", function () {
 
-        console.log("Emoción seleccionada:", feeling.dataset.feeling);
 
+        // Quitar selección anterior
 
-        // Quitamos la selección anterior
         feelings.forEach(function (item) {
 
             item.classList.remove("selected");
@@ -95,102 +303,205 @@ feelings.forEach(function (feeling) {
         });
 
 
-        // Seleccionamos la nueva emoción
+        // Seleccionar esta emoción
+
         feeling.classList.add("selected");
 
 
-        // Guardamos la emoción
-        selectedFeeling = feeling.dataset.feeling;
+        // Guardar emoción
+
+        selectedFeeling =
+            feeling.dataset.feeling;
 
 
-        // Activamos el botón Continuar
+        // Activar botón
+
         continueButton.disabled = false;
+
 
     });
 
 });
 
 
-// ================================
-// BOTÓN CONTINUAR
-// ================================
+// ============================================
+// MOSTRAR OPCIONES SEGÚN EMOCIÓN
+// ============================================
 
-continueButton.addEventListener("click", function () {
-
-    console.log("Continuar presionado");
+function updateSupportScreen() {
 
 
-    // Si no hay emoción seleccionada, no hacemos nada
-    if (!selectedFeeling) {
+    const data =
+        feelingData[selectedFeeling];
 
+
+    if (!data) {
         return;
+    }
+
+
+    // ICONO
+
+    supportIcon.textContent =
+        data.icon;
+
+
+    // TÍTULO
+
+    supportTitle.textContent =
+        data.title;
+
+
+    // MENSAJE
+
+    supportMessage.textContent =
+        data.message;
+
+
+    // PREGUNTA
+
+    const question =
+        document.querySelector(".support-question h2");
+
+
+    if (question) {
+
+        question.textContent =
+            data.question;
 
     }
 
 
-    // Obtenemos la información
-    const data = feelingData[selectedFeeling];
+    // OPCIONES
+
+    optionButtons.forEach(function (button, index) {
 
 
-    // Actualizamos la segunda pantalla
-    supportIcon.textContent = data.icon;
-
-    supportTitle.textContent = data.title;
-
-    supportMessage.textContent = data.message;
+        const option =
+            data.options[index];
 
 
-    // Ocultamos la primera pantalla
+        if (!option) {
+            return;
+        }
+
+
+        const icon =
+            button.querySelector(".option-icon");
+
+        const title =
+            button.querySelector("strong");
+
+        const description =
+            button.querySelector("small");
+
+
+        icon.textContent =
+            option.icon;
+
+
+        title.textContent =
+            option.title;
+
+
+        description.textContent =
+            option.description;
+
+
+    });
+
+}
+
+
+// ============================================
+// BOTÓN CONTINUAR
+// ============================================
+
+continueButton.addEventListener("click", function () {
+
+
+    if (!selectedFeeling) {
+        return;
+    }
+
+
+    // Actualizar contenido
+
+    updateSupportScreen();
+
+
+    // Ocultar inicio
+
     welcomeScreen.classList.add("hidden");
 
 
-    // Mostramos la segunda pantalla
+    // Mostrar segunda pantalla
+
     supportScreen.classList.remove("hidden");
 
 
-    // Animación
+    // Reiniciar animación
+
     supportScreen.classList.remove("entering");
 
+
     void supportScreen.offsetWidth;
+
 
     supportScreen.classList.add("entering");
 
 
-    // Volvemos arriba
+    // Subir al inicio
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
+
 
 });
 
 
-// ================================
+// ============================================
 // BOTÓN VOLVER
-// ================================
+// ============================================
 
 backButton.addEventListener("click", function () {
 
+
     // Ocultar segunda pantalla
+
     supportScreen.classList.add("hidden");
 
 
-    // Mostrar primera pantalla
+    // Mostrar inicio
+
     welcomeScreen.classList.remove("hidden");
 
 
     // Animación
+
     welcomeScreen.classList.remove("entering");
 
+
     void welcomeScreen.offsetWidth;
+
 
     welcomeScreen.classList.add("entering");
 
 
     // Volver arriba
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
+
 
 });
