@@ -2132,44 +2132,32 @@ button {
 
 }
 
-/* =========================================
-   RESULTADO PERSONALIZADO - CONOCERME MEJOR
-========================================= */
-
+/* Resultado de Conocerme mejor */
 .result-section-label {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 6px;
-    font-size: 12px;
-    font-weight: 800;
-    color: #6f63c9;
-    letter-spacing: .2px;
+    display:block;
+    margin:20px 0 7px;
+    font-size:12px;
+    font-weight:800;
+    color:#6f63c9;
 }
-
-.result-section-label:first-child {
-    margin-top: 0;
-}
-
 .result-section-text {
-    display: block;
-    color: #75818a;
-    font-size: 14px;
-    line-height: 1.7;
+    display:block;
+    color:#75818a;
+    font-size:14px;
+    line-height:1.7;
 }
-
 .result-quote {
-    display: block;
-    padding: 14px 16px;
-    margin-top: 4px;
-    border-left: 3px solid #8b7cf6;
-    border-radius: 0 12px 12px 0;
-    background: rgba(139,124,246,.06);
-    color: #4f5961;
-    font-size: 14px;
-    line-height: 1.65;
-    font-style: italic;
+    display:block;
+    margin-top:4px;
+    padding:14px 16px;
+    border-left:3px solid #8b7cf6;
+    border-radius:0 12px 12px 0;
+    background:rgba(139,124,246,.06);
+    color:#4f5961;
+    font-size:14px;
+    line-height:1.65;
+    font-style:italic;
 }
-
-.understanding-result > p#understandingResultText {
-    text-align: left;
+#selfKnowledgeResultText {
+    text-align:left;
 }
