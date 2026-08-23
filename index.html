@@ -1,134 +1,288 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>MIND</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
+
 </head>
+
 
 <body>
 
+
+    <!-- FONDOS DECORATIVOS -->
+
     <div class="background-orb orb-one"></div>
+
     <div class="background-orb orb-two"></div>
 
-    <!-- =========================
-         PANTALLA DE BIENVENIDA
-    ========================== -->
 
-    <main class="screen welcome-screen" id="welcomeScreen">
+
+    <!-- =====================================
+         PANTALLA PRINCIPAL
+    ====================================== -->
+
+    <main
+        class="screen welcome-screen"
+        id="welcomeScreen"
+    >
+
+
+        <!-- MARCA -->
 
         <div class="brand">
 
+
             <div class="logo-wrapper">
+
                 <img
-                    src="conocimiento.png"
+                    src="./conocimiento.png"
                     alt="Logo de MIND"
                     class="logo"
                 >
+
             </div>
 
-            <div class="brand-name">MIND</div>
 
-            <p>Un espacio para entenderte mejor.</p>
+            <div class="brand-name">
+                MIND
+            </div>
+
+
+            <p>
+                Un espacio para entenderte mejor.
+            </p>
+
 
         </div>
 
 
+
+        <!-- SECCIÓN DE EMOCIONES -->
+
         <section class="feeling-section">
 
+
             <div class="section-intro">
+
 
                 <span class="eyebrow">
                     UN MOMENTO PARA TI
                 </span>
 
+
                 <h1>
                     ¿Cómo te sientes hoy?
                 </h1>
+
 
                 <p>
                     No hay una respuesta correcta.
                     Simplemente elige lo que más se parezca a cómo estás.
                 </p>
 
+
             </div>
 
+
+
+            <!-- EMOCIONES -->
 
             <div class="feelings">
 
-                <button class="feeling feeling-anxious" data-feeling="Ansioso">
-                    <span class="emoji">😰</span>
-                    <span class="feeling-name">Ansioso</span>
-                    <span class="feeling-description">Necesito calma</span>
+
+                <button
+                    type="button"
+                    class="feeling feeling-anxious"
+                    data-feeling="Ansioso"
+                >
+
+                    <span class="emoji">
+                        😰
+                    </span>
+
+                    <span class="feeling-name">
+                        Ansioso
+                    </span>
+
+                    <span class="feeling-description">
+                        Necesito calma
+                    </span>
+
                 </button>
 
 
-                <button class="feeling feeling-sad" data-feeling="Triste">
-                    <span class="emoji">😔</span>
-                    <span class="feeling-name">Triste</span>
-                    <span class="feeling-description">Necesito compañía</span>
+
+                <button
+                    type="button"
+                    class="feeling feeling-sad"
+                    data-feeling="Triste"
+                >
+
+                    <span class="emoji">
+                        😔
+                    </span>
+
+                    <span class="feeling-name">
+                        Triste
+                    </span>
+
+                    <span class="feeling-description">
+                        Necesito compañía
+                    </span>
+
                 </button>
 
 
-                <button class="feeling feeling-overwhelmed" data-feeling="Abrumado">
-                    <span class="emoji">😵</span>
-                    <span class="feeling-name">Abrumado</span>
-                    <span class="feeling-description">Tengo demasiado encima</span>
+
+                <button
+                    type="button"
+                    class="feeling feeling-overwhelmed"
+                    data-feeling="Abrumado"
+                >
+
+                    <span class="emoji">
+                        😵
+                    </span>
+
+                    <span class="feeling-name">
+                        Abrumado
+                    </span>
+
+                    <span class="feeling-description">
+                        Tengo demasiado encima
+                    </span>
+
                 </button>
 
 
-                <button class="feeling feeling-normal" data-feeling="Normal">
-                    <span class="emoji">😐</span>
-                    <span class="feeling-name">Normal</span>
-                    <span class="feeling-description">Estoy tranquilo</span>
+
+                <button
+                    type="button"
+                    class="feeling feeling-normal"
+                    data-feeling="Normal"
+                >
+
+                    <span class="emoji">
+                        😐
+                    </span>
+
+                    <span class="feeling-name">
+                        Normal
+                    </span>
+
+                    <span class="feeling-description">
+                        Estoy tranquilo
+                    </span>
+
                 </button>
 
 
-                <button class="feeling feeling-good" data-feeling="Bien">
-                    <span class="emoji">😊</span>
-                    <span class="feeling-name">Bien</span>
-                    <span class="feeling-description">Me siento bien</span>
+
+                <button
+                    type="button"
+                    class="feeling feeling-good"
+                    data-feeling="Bien"
+                >
+
+                    <span class="emoji">
+                        😊
+                    </span>
+
+                    <span class="feeling-name">
+                        Bien
+                    </span>
+
+                    <span class="feeling-description">
+                        Me siento bien
+                    </span>
+
                 </button>
+
 
             </div>
 
 
+
+            <!-- CONTINUAR -->
+
             <button
+                type="button"
                 class="continue-button"
                 id="continueButton"
                 disabled
             >
-                <span>Continuar</span>
-                <span class="button-arrow">→</span>
+
+                <span>
+                    Continuar
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
             </button>
 
+
         </section>
+
 
     </main>
 
 
 
-    <!-- =========================
+    <!-- =====================================
          SEGUNDA PANTALLA
-    ========================== -->
+    ====================================== -->
 
-    <main class="screen support-screen hidden" id="supportScreen">
+    <main
+        class="screen support-screen hidden"
+        id="supportScreen"
+    >
 
-        <button class="back-button" id="backButton">
-            <span>←</span>
-            <span>Volver</span>
+
+        <!-- VOLVER -->
+
+        <button
+            type="button"
+            class="back-button"
+            id="backButton"
+        >
+
+            <span>
+                ←
+            </span>
+
+            <span>
+                Volver
+            </span>
+
         </button>
+
 
 
         <div class="support-container">
 
-            <div class="support-icon" id="supportIcon">
+
+            <!-- ICONO -->
+
+            <div
+                class="support-icon"
+                id="supportIcon"
+            >
                 😰
             </div>
+
 
 
             <span class="eyebrow">
@@ -136,117 +290,200 @@
             </span>
 
 
+
+            <!-- TÍTULO -->
+
             <h1 id="supportTitle">
                 Gracias por contarnos cómo estás.
             </h1>
 
 
-            <p class="support-message" id="supportMessage">
+
+            <!-- MENSAJE -->
+
+            <p
+                class="support-message"
+                id="supportMessage"
+            >
                 Hoy parece que estás sintiendo ansiedad.
                 No tienes que resolverlo todo ahora.
                 Podemos ir paso a paso.
             </p>
 
 
+
+            <!-- PREGUNTA -->
+
             <div class="support-question">
+
 
                 <h2>
                     ¿Qué necesitas en este momento?
                 </h2>
 
+
                 <p>
                     Elige el camino que más se parezca a lo que necesitas.
                 </p>
 
+
             </div>
 
 
+
+            <!-- OPCIONES -->
+
             <div class="support-options">
 
-                <button class="support-option option-calm">
+
+                <!-- CALMARME -->
+
+                <button
+                    type="button"
+                    class="support-option option-calm"
+                >
 
                     <div class="option-icon">
                         🌬️
                     </div>
 
+
                     <div class="option-content">
-                        <strong>Quiero calmarme</strong>
+
+                        <strong>
+                            Quiero calmarme
+                        </strong>
 
                         <small>
                             Una pausa guiada para bajar la tensión.
                         </small>
+
                     </div>
 
-                    <span class="arrow">→</span>
+
+                    <span class="arrow">
+                        →
+                    </span>
 
                 </button>
 
 
-                <button class="support-option option-understand">
+
+                <!-- ENTENDER -->
+
+                <button
+                    type="button"
+                    class="support-option option-understand"
+                >
 
                     <div class="option-icon">
                         🧠
                     </div>
 
+
                     <div class="option-content">
-                        <strong>Quiero entender lo que siento</strong>
+
+                        <strong>
+                            Quiero entender lo que siento
+                        </strong>
 
                         <small>
                             Explora tus pensamientos y emociones.
                         </small>
+
                     </div>
 
-                    <span class="arrow">→</span>
+
+                    <span class="arrow">
+                        →
+                    </span>
 
                 </button>
 
 
-                <button class="support-option option-clear">
+
+                <!-- DESPEJAR -->
+
+                <button
+                    type="button"
+                    class="support-option option-clear"
+                >
 
                     <div class="option-icon">
                         🌿
                     </div>
 
+
                     <div class="option-content">
-                        <strong>Quiero despejar mi mente</strong>
+
+                        <strong>
+                            Quiero despejar mi mente
+                        </strong>
 
                         <small>
                             Haz una pausa y cambia el foco de atención.
                         </small>
+
                     </div>
 
-                    <span class="arrow">→</span>
+
+                    <span class="arrow">
+                        →
+                    </span>
 
                 </button>
 
 
-                <button class="support-option option-express">
+
+                <!-- EXPRESARME -->
+
+                <button
+                    type="button"
+                    class="support-option option-express"
+                >
 
                     <div class="option-icon">
                         💬
                     </div>
 
+
                     <div class="option-content">
-                        <strong>Solo quiero expresarme</strong>
+
+                        <strong>
+                            Solo quiero expresarme
+                        </strong>
 
                         <small>
                             Pon en palabras aquello que llevas dentro.
                         </small>
+
                     </div>
 
-                    <span class="arrow">→</span>
+
+                    <span class="arrow">
+                        →
+                    </span>
 
                 </button>
 
+
             </div>
 
+
         </div>
+
 
     </main>
 
 
-    <script src="script.js"></script>
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script src="./script.js?v=3"></script>
+
 
 </body>
+
 </html>
-```
