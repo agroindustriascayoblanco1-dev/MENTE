@@ -2161,3 +2161,10 @@ button {
 #selfKnowledgeResultText {
     text-align:left;
 }
+
+
+.self-branch-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8a9298;
+}
