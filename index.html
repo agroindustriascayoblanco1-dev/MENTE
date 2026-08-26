@@ -1,955 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
     <meta
         name="description"
-        content="MIND — Un espacio para entenderte mejor."
+        content="Mente — un espacio para pensar, entender y seguir adelante."
     >
 
-    <title>MIND</title>
+    <meta name="theme-color" content="#f4f6f3">
 
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
+    <title>Mente</title>
 
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-    <!-- =========================================
-         FONDO DECORATIVO
-    ========================================== -->
-
-    <div class="background-orb orb-one"></div>
-
-    <div class="background-orb orb-two"></div>
-
-
-
-    <!-- =========================================
-         PANTALLA PRINCIPAL
-    ========================================== -->
-
-    <main
-        class="screen welcome-screen"
-        id="welcomeScreen"
-    >
-
-
-        <!-- MARCA -->
-
-        <div class="brand">
-
-            <div class="logo-wrapper">
-
-                <img
-                    src="./conocimiento.png"
-                    alt="Logo de MIND"
-                    class="logo"
-                >
-
-            </div>
-
-
-            <div class="brand-name">
-                MIND
-            </div>
-
-
-            <p>
-                Un espacio para entenderte mejor.
-            </p>
-
-        </div>
-
-
-
-        <!-- =====================================
-             EMOCIONES
-        ====================================== -->
-
-        <section class="feeling-section">
-
-
-            <div class="section-intro">
-
-                <span class="eyebrow">
-                    UN MOMENTO PARA TI
-                </span>
-
-
-                <h1>
-                    ¿Cómo te sientes hoy?
-                </h1>
-
-
-                <p>
-                    No hay una respuesta correcta.
-                    Simplemente elige lo que más se parezca
-                    a cómo estás.
-                </p>
-
-            </div>
-
-
-
-            <div class="feelings">
-
-
-                <!-- ANSIOSO -->
-
-                <button
-                    type="button"
-                    class="feeling feeling-anxious"
-                    data-feeling="Ansioso"
-                >
-
-                    <span class="emoji">
-                        😰
-                    </span>
-
-                    <span class="feeling-name">
-                        Ansioso
-                    </span>
-
-                    <span class="feeling-description">
-                        Necesito calma
-                    </span>
-
-                </button>
-
-
-
-                <!-- TRISTE -->
-
-                <button
-                    type="button"
-                    class="feeling feeling-sad"
-                    data-feeling="Triste"
-                >
-
-                    <span class="emoji">
-                        😔
-                    </span>
-
-                    <span class="feeling-name">
-                        Triste
-                    </span>
-
-                    <span class="feeling-description">
-                        Necesito compañía
-                    </span>
-
-                </button>
-
-
-
-                <!-- ABRUMADO -->
-
-                <button
-                    type="button"
-                    class="feeling feeling-overwhelmed"
-                    data-feeling="Abrumado"
-                >
-
-                    <span class="emoji">
-                        😵
-                    </span>
-
-                    <span class="feeling-name">
-                        Abrumado
-                    </span>
-
-                    <span class="feeling-description">
-                        Tengo demasiado encima
-                    </span>
-
-                </button>
-
-
-
-                <!-- NORMAL -->
-
-                <button
-                    type="button"
-                    class="feeling feeling-normal"
-                    data-feeling="Normal"
-                >
-
-                    <span class="emoji">
-                        😐
-                    </span>
-
-                    <span class="feeling-name">
-                        Normal
-                    </span>
-
-                    <span class="feeling-description">
-                        Estoy tranquilo
-                    </span>
-
-                </button>
-
-
-
-                <!-- BIEN -->
-
-                <button
-                    type="button"
-                    class="feeling feeling-good"
-                    data-feeling="Bien"
-                >
-
-                    <span class="emoji">
-                        😊
-                    </span>
-
-                    <span class="feeling-name">
-                        Bien
-                    </span>
-
-                    <span class="feeling-description">
-                        Me siento bien
-                    </span>
-
-                </button>
-
-
-            </div>
-
-
-
-            <!-- CONTINUAR -->
+    <div class="app">
+
+        <!-- ENCABEZADO -->
+        <header class="header">
+            <a href="index.html" class="logo">MENTE</a>
 
             <button
+                class="menu-button"
+                aria-label="Abrir menú"
                 type="button"
-                class="continue-button"
-                id="continueButton"
-                disabled
             >
-
-                <span>
-                    Continuar
-                </span>
-
-                <span class="button-arrow">
-                    →
-                </span>
-
+                <span></span>
+                <span></span>
             </button>
+        </header>
 
 
-        </section>
+        <!-- CONTENIDO PRINCIPAL -->
+        <main>
 
+            <!-- BIENVENIDA -->
+            <section class="welcome">
 
-    </main>
+                <p class="eyebrow">Un momento para ti</p>
 
-
-
-    <!-- =========================================
-         PANTALLA DE APOYO
-    ========================================== -->
-
-    <main
-        class="screen support-screen hidden"
-        id="supportScreen"
-    >
-
-
-        <button
-            type="button"
-            class="back-button"
-            id="backButton"
-        >
-
-            <span>
-                ←
-            </span>
-
-            <span>
-                Volver
-            </span>
-
-        </button>
-
-
-
-        <div class="support-container">
-
-
-            <div
-                class="support-icon"
-                id="supportIcon"
-            >
-                😰
-            </div>
-
-
-
-            <span class="eyebrow">
-                ESTAMOS AQUÍ CONTIGO
-            </span>
-
-
-
-            <h1 id="supportTitle">
-                Vamos a bajar un poco el ritmo.
-            </h1>
-
-
-
-            <p
-                class="support-message"
-                id="supportMessage"
-            >
-                No tienes que resolver todo ahora.
-                Podemos concentrarnos solamente
-                en este momento.
-            </p>
-
-
-
-            <div class="support-question">
-
-                <h2>
-                    ¿Qué necesitas ahora?
-                </h2>
-
-                <p>
-                    Elige el camino que más se parezca
-                    a lo que necesitas.
-                </p>
-
-            </div>
-
-
-
-            <div class="support-options">
-
-
-                <!-- OPCIÓN 1 -->
-
-                <button
-                    type="button"
-                    class="support-option option-calm"
-                >
-
-                    <div class="option-icon">
-                        🌬️
-                    </div>
-
-
-                    <div class="option-content">
-
-                        <strong>
-                            Calmar mi cuerpo
-                        </strong>
-
-                        <small>
-                            Haz una pausa y acompaña tu respiración.
-                        </small>
-
-                    </div>
-
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-
-                <!-- OPCIÓN 2 -->
-
-                <button
-                    type="button"
-                    class="support-option option-understand"
-                >
-
-                    <div class="option-icon">
-                        🎯
-                    </div>
-
-
-                    <div class="option-content">
-
-                        <strong>
-                            Volver al presente
-                        </strong>
-
-                        <small>
-                            Regresa tu atención a este momento.
-                        </small>
-
-                    </div>
-
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-
-                <!-- OPCIÓN 3 -->
-
-                <button
-                    type="button"
-                    class="support-option option-clear"
-                >
-
-                    <div class="option-icon">
-                        🧠
-                    </div>
-
-
-                    <div class="option-content">
-
-                        <strong>
-                            Entender mi ansiedad
-                        </strong>
-
-                        <small>
-                            Explora qué puede estar provocando lo que sientes.
-                        </small>
-
-                    </div>
-
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-
-                <!-- OPCIÓN 4 -->
-
-                <button
-                    type="button"
-                    class="support-option option-express"
-                >
-
-                    <div class="option-icon">
-                        💬
-                    </div>
-
-
-                    <div class="option-content">
-
-                        <strong>
-                            Sacarlo de mi cabeza
-                        </strong>
-
-                        <small>
-                            Escribe aquello que está dando vueltas.
-                        </small>
-
-                    </div>
-
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
-    </main>
-
-
-
-
-    <!-- =========================================
-         EXPERIENCIA: ENTENDER LO QUE SIENTO
-    ========================================== -->
-
-    <main
-        class="understanding-screen hidden"
-        id="understandingScreen"
-    >
-
-        <button
-            type="button"
-            class="understanding-back"
-            id="understandingBack"
-        >
-            ← Volver
-        </button>
-
-        <div class="understanding-container">
-
-            <div
-                class="understanding-intro"
-                id="understandingIntro"
-            >
-
-                <div class="understanding-icon">
-                    🧠
-                </div>
-
-                <span class="eyebrow">
-                    UN MOMENTO PARA ENTENDERTE
-                </span>
-
-                <h1 id="understandingIntroTitle">
-                    Vamos a ponerle un poco
-                    de orden a lo que sientes.
+                <h1>
+                    Tómate un momento.
                 </h1>
 
-                <p id="understandingIntroMessage">
-                    No buscamos una respuesta perfecta.
-                    Solo queremos ayudarte a entender
-                    qué puede estar pasando dentro de ti.
+                <p class="welcome-text">
+                    No tienes que tener todo resuelto.
+                    Puedes empezar por contar lo que está pasando.
                 </p>
 
-                <button
-                    type="button"
-                    class="understanding-start"
-                    id="understandingStart"
-                >
-                    <span>Empezar</span>
+                <button class="main-action" type="button">
+                    Cuéntame qué pasa
                     <span>→</span>
                 </button>
 
-            </div>
-
-            <div
-                class="understanding-question hidden"
-                id="understandingQuestion"
-            >
-
-                <div class="question-progress">
-                    <span id="understandingStep">1</span>
-                    <span>/ 3</span>
-                </div>
-
-                <div class="question-content">
-
-                    <span
-                        class="question-number"
-                        id="questionNumber"
-                    >
-                        PREGUNTA 1
-                    </span>
-
-                    <h2 id="questionTitle">
-                        ¿Qué es lo que más está ocupando tu mente?
-                    </h2>
-
-                    <p id="questionDescription">
-                        No lo pienses demasiado. Elige lo primero
-                        que se acerque a lo que estás viviendo.
-                    </p>
-
-                </div>
-
-                <div
-                    class="question-options"
-                    id="questionOptions"
-                ></div>
-
-            </div>
-
-            <div
-                class="understanding-result hidden"
-                id="understandingResult"
-            >
-
-                <div class="result-symbol">
-                    ✦
-                </div>
-
-                <span class="eyebrow">
-                    UN POCO MÁS DE CLARIDAD
-                </span>
-
-                <h1>
-                    Gracias por detenerte
-                    a mirar hacia dentro.
-                </h1>
-
-                <p id="understandingResultText"></p>
-
-                <div class="result-note">
-
-                    <span>🌱</span>
-
-                    <p>
-                        Entender lo que sientes no significa
-                        tener que solucionarlo inmediatamente.
-                        A veces, reconocerlo ya es un primer paso.
-                    </p>
-
-                </div>
-
-                <button
-                    type="button"
-                    class="understanding-finish"
-                    id="understandingFinish"
-                >
-                    Volver a MIND
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <!-- =========================================
-         EXPERIENCIA: CONOCERME MEJOR
-    ========================================== -->
-
-    <main class="understanding-screen hidden" id="selfKnowledgeScreen">
-        <button type="button" class="understanding-back" id="selfKnowledgeBack">← Volver</button>
-
-        <div class="understanding-container">
-            <section class="understanding-intro" id="selfKnowledgeIntro">
-                <div class="understanding-icon">🪞</div>
-                <span class="eyebrow">UN MOMENTO PARA CONOCERTE</span>
-                <h1>Vamos a descubrir un poco más de ti.</h1>
-                <p>
-                    No hay respuestas buenas o malas. Solo queremos encontrar
-                    algunas pistas sobre cómo piensas, sientes y qué necesitas.
-                </p>
-                <button type="button" class="understanding-start" id="selfKnowledgeStart">
-                    <span>Empezar</span><span>→</span>
-                </button>
             </section>
 
-            <section class="understanding-question hidden" id="selfKnowledgeQuestion">
-                <div class="question-progress">
-                    <span id="selfKnowledgeStep">1</span><span>/ 4</span>
-                </div>
-                <div class="question-content">
-                    <span class="question-number" id="selfKnowledgeNumber">PREGUNTA 1</span>
-                    <h2 id="selfKnowledgeTitle"></h2>
-                    <p id="selfKnowledgeDescription"></p>
-                </div>
-                <div class="question-options" id="selfKnowledgeOptions"></div>
-            </section>
 
-            <section class="understanding-result hidden" id="selfKnowledgeResult">
-                <div class="result-symbol">✦</div>
-                <span class="eyebrow">LO QUE DESCUBRISTE</span>
-                <h1>Una pequeña mirada hacia ti.</h1>
-                <p class="result-lead">Tus respuestas forman un recorrido. MIND las conecta para que puedas llevarte algo concreto de este momento.</p>
-                <div id="selfKnowledgeResultText"></div>
-                <button type="button" class="understanding-finish" id="selfKnowledgeFinish">
-                    Volver a MIND
-                </button>
-            </section>
-        </div>
-    </main>
+            <!-- NECESIDADES -->
+            <section class="needs">
 
-    <!-- =========================================
-         EXPERIENCIA DE RESPIRACIÓN
-    ========================================== -->
-
-    <main
-        class="breathing-screen hidden"
-        id="breathingScreen"
-    >
-
-
-        <button
-            type="button"
-            class="breathing-back"
-            id="breathingBack"
-        >
-            ← Salir
-        </button>
-
-
-
-        <div class="breathing-container">
-
-
-            <!-- PARTE SUPERIOR -->
-
-            <div class="breathing-top">
-
-                <span class="breathing-label">
-                    MIND · PAUSA
-                </span>
-
-
-                <div class="breathing-progress">
-
-                    <span id="breathingRound">
-                        1
-                    </span>
-
-                    <span>
-                        / 5
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- INTRODUCCIÓN -->
-
-            <div
-                class="breathing-intro"
-                id="breathingIntro"
-            >
-
-                <span class="breathing-small">
-                    TÓMATE UN MOMENTO
-                </span>
-
-
-                <h1>
-                    Vamos a bajar<br>
-                    un poco el ritmo.
-                </h1>
-
-
-                <p>
-                    No tienes que hacer nada perfecto.
-                    Solo acompaña el movimiento.
-                </p>
-
-
-                <button
-                    type="button"
-                    class="start-breathing"
-                    id="startBreathing"
-                >
-
-                    <span>
-                        Comenzar
-                    </span>
-
-                    <span>
-                        →
-                    </span>
-
-                </button>
-
-            </div>
-
-
-
-            <!-- EJERCICIO -->
-
-            <div
-                class="breathing-exercise hidden"
-                id="breathingExercise"
-            >
-
-
-                <div class="breathing-orbit">
-
-
-                    <div
-                        class="breathing-circle"
-                        id="breathingCircle"
-                    >
-
-                        <div class="breathing-circle-inner">
-
-                            <span id="breathingPhase">
-                                Prepárate
-                            </span>
-
-                            <strong id="breathingCounter">
-                                4
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <p
-                    class="breathing-instruction"
-                    id="breathingInstruction"
-                >
-                    Sigue el círculo.
-                </p>
-
-
-
-                <div class="breathing-dots">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
-
-
-                <button
-                    type="button"
-                    class="stop-breathing"
-                    id="stopBreathing"
-                >
-                    Terminar
-                </button>
-
-
-            </div>
-
-
-
-            <!-- FINAL -->
-
-            <div
-                class="breathing-finish hidden"
-                id="breathingFinish"
-            >
-
-
-                <div class="finish-symbol">
-                    ✦
-                </div>
-
-
-                <span class="breathing-small">
-                    UN MOMENTO PARA TI
-                </span>
-
-
-                <h1>
-                    Lo hiciste.
-                </h1>
-
-
-                <p>
-                    Te diste un momento para detenerte
-                    y prestar atención a tu cuerpo.
-                </p>
-
-
-
-                <div class="after-question">
+                <div class="section-heading">
+                    <p class="eyebrow">Mente puede ayudarte</p>
 
                     <h2>
-                        ¿Cómo te sientes ahora?
+                        ¿Qué necesitas ahora?
                     </h2>
-
-
-
-                    <div class="after-options">
-
-
-                        <button
-                            type="button"
-                            data-after="Mucho mejor"
-                        >
-
-                            <span class="after-emoji">
-                                😌
-                            </span>
-
-                            <span>
-                                Mucho mejor
-                            </span>
-
-                        </button>
-
-
-
-                        <button
-                            type="button"
-                            data-after="Un poco mejor"
-                        >
-
-                            <span class="after-emoji">
-                                🙂
-                            </span>
-
-                            <span>
-                                Un poco mejor
-                            </span>
-
-                        </button>
-
-
-
-                        <button
-                            type="button"
-                            data-after="Igual"
-                        >
-
-                            <span class="after-emoji">
-                                😐
-                            </span>
-
-                            <span>
-                                Igual
-                            </span>
-
-                        </button>
-
-
-                    </div>
-
-
                 </div>
 
 
+                <div class="needs-grid">
 
-                <button
-                    type="button"
-                    class="finish-button"
-                    id="finishBreathing"
-                >
-                    Volver a MIND
-                </button>
+                    <button class="need-card" type="button">
+                        <span class="need-icon">◌</span>
 
+                        <span class="need-title">
+                            Entender
+                        </span>
 
-            </div>
-
-
-        </div>
-
-
-    </main>
+                        <span class="need-description">
+                            Quiero entender lo que me pasa.
+                        </span>
+                    </button>
 
 
+                    <button class="need-card" type="button">
+                        <span class="need-icon">◇</span>
 
-    <!-- =========================================
-         JAVASCRIPT
-    ========================================== -->
+                        <span class="need-title">
+                            Decidir
+                        </span>
 
-    <script src="./script.js?v=4"></script>
+                        <span class="need-description">
+                            Tengo algo importante que decidir.
+                        </span>
+                    </button>
 
+
+                    <button class="need-card" type="button">
+                        <span class="need-icon">〰</span>
+
+                        <span class="need-title">
+                            Calmarme
+                        </span>
+
+                        <span class="need-description">
+                            Necesito bajar un poco lo que siento.
+                        </span>
+                    </button>
+
+
+                    <button class="need-card" type="button">
+                        <span class="need-icon">○</span>
+
+                        <span class="need-title">
+                            Hablar
+                        </span>
+
+                        <span class="need-description">
+                            Hay algo que necesito contar.
+                        </span>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- MENSAJE -->
+            <section class="closing-message">
+
+                <div class="closing-line"></div>
+
+                <p>
+                    Puedes empezar por donde quieras.
+                </p>
+
+                <span>
+                    MENTE
+                </span>
+
+            </section>
+
+        </main>
+
+
+        <!-- NAVEGACIÓN INFERIOR -->
+        <nav class="bottom-navigation" aria-label="Navegación principal">
+
+            <a href="index.html" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                <span>Inicio</span>
+            </a>
+
+            <button class="nav-item" type="button">
+                <span class="nav-icon">◉</span>
+                <span>Explorar</span>
+            </button>
+
+            <button class="nav-item center-action" type="button">
+                <span class="chat-button">+</span>
+                <span>Hablar</span>
+            </button>
+
+            <button class="nav-item" type="button">
+                <span class="nav-icon">♡</span>
+                <span>Mi Mente</span>
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <script src="script.js"></script>
 
 </body>
-
 </html>
