@@ -144,24 +144,13 @@
   }
 
   function showScreen(name) {
-    const map = { home: homeScreen, explore: exploreScreen, journal: journalScreen, relax: relaxScreen, article: articleScreen, chat: chatScreen };
-    const target = map[name] || homeScreen;
-
-    allScreens().forEach(screen => {
-      const active = screen === target;
-      screen.hidden = !active;
-      screen.classList.toggle("active", active);
+    if (window.menteShowScreen) return window.menteShowScreen(name);
+    const screens = ["home","explore","journal","relax","chat","article"];
+    screens.forEach(key => {
+      const el = document.getElementById(key + "Screen");
+      if (el) el.hidden = key !== name;
     });
-
-    if (bottomNavigation) {
-      bottomNavigation.hidden = name === "chat" || name === "article";
-      bottomNavigation.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.toggle("active", item.dataset.screen === name);
-      });
-    }
-
-    document.body.classList.toggle("chat-open", name === "chat");
-    window.scrollTo({ top: 0, behavior: "auto" });
+    window.scrollTo({top:0, behavior:"smooth"});
   }
 
   function openChat(initialMessage = null) {
@@ -467,3 +456,100 @@
   renderJournal();
   showScreen("home");
 })();
+
+
+/* =========================================================
+   NAVEGACIÓN ROBUSTA — MENTE
+   Se usa delegación de eventos para que ningún botón quede
+   sin funcionar aunque su contenido se renderice después.
+   ========================================================= */
+(function initRobustNavigation(){
+  const screenNames = [
+    "home","explore","journal","relax","chat","article"
+  ];
+
+  function getScreen(name){
+    return document.getElementById(name + "Screen");
+  }
+
+  function hideAllScreens(){
+    screenNames.forEach(name => {
+      const el = getScreen(name);
+      if (el) el.hidden = true;
+    });
+  }
+
+  window.menteShowScreen = function(name){
+    if (!screenNames.includes(name)) name = "home";
+    hideAllScreens();
+    const target = getScreen(name);
+    if (target) target.hidden = false;
+
+    document.querySelectorAll("[data-screen]").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.screen === name);
+    });
+
+    window.scrollTo({top:0, behavior:"smooth"});
+  };
+
+  // Intercepta todos los elementos con data-screen.
+  document.addEventListener("click", function(e){
+    const button = e.target.closest("[data-screen]");
+    if (!button) return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.menteShowScreen(button.dataset.screen);
+  }, true);
+
+  // Botones que abren temas/artículos.
+  document.addEventListener("click", function(e){
+    const topic = e.target.closest("[data-topic]");
+    if (!topic) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.openTopic === "function") {
+      window.openTopic(topic.dataset.topic);
+    } else if (typeof openTopic === "function") {
+      openTopic(topic.dataset.topic);
+    }
+  }, true);
+
+  // Ejercicios.
+  document.addEventListener("click", function(e){
+    const exercise = e.target.closest("[data-exercise]");
+    if (!exercise) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.openExercise === "function") {
+      window.openExercise(exercise.dataset.exercise);
+    } else if (typeof openExercise === "function") {
+      openExercise(exercise.dataset.exercise);
+    }
+  }, true);
+
+  // Botón de volver.
+  document.addEventListener("click", function(e){
+    const back = e.target.closest("[data-back]");
+    if (!back) return;
+    if (back.id === "articleBackButton" && window.menteArticleOrigin) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.menteShowScreen(window.menteArticleOrigin);
+    }
+  }, true);
+
+  // Arranque seguro.
+  document.addEventListener("DOMContentLoaded", function(){
+    const visible = screenNames.find(name => {
+      const el = getScreen(name);
+      return el && !el.hidden;
+    });
+    window.menteShowScreen(visible || "home");
+  });
+})();
+
+/* Exponer funciones principales para los botones */
+try {
+  window.openTopic = typeof openTopic === "function" ? openTopic : window.openTopic;
+  window.openExercise = typeof openExercise === "function" ? openExercise : window.openExercise;
+} catch(e) {}
