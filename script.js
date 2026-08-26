@@ -29,68 +29,81 @@
   const mente = {
     messages: [],
     safetyMode: false,
-    sessionStarted: false
+    sessionStarted: false,
+    articleOrigin: "explore"
   };
 
   const topicData = {
     ansiedad: {
       category: "BIENESTAR",
       title: "Ansiedad",
-      intro: "La ansiedad puede aparecer cuando tu mente interpreta una situación como amenazante o difícil de manejar.",
+      intro: "La ansiedad es una respuesta de alerta de nuestro cuerpo y nuestra mente. Puede aparecer cuando percibimos una amenaza, incertidumbre o una situación que sentimos difícil de controlar. En cierta medida es normal: nos prepara para actuar. El problema aparece cuando la alarma es demasiado intensa, frecuente o empieza a limitar nuestra vida.",
       sections: [
-        ["¿Cómo puede sentirse?", "Puede aparecer como preocupación intensa, tensión, inquietud, dificultad para concentrarte o síntomas físicos como palpitaciones o respiración rápida."],
-        ["¿Qué puedes probar?", "Haz una pausa, respira lentamente, identifica qué está bajo tu control y divide el problema en un paso pequeño. Si los síntomas son frecuentes o interfieren con tu vida, hablar con un profesional puede ser útil."],
-        ["Una idea para hoy", "No necesitas resolver todo de una vez. Pregúntate: ¿qué es lo más pequeño que puedo hacer ahora mismo?"]
+        ["¿Qué ocurre cuando sentimos ansiedad?", "El sistema de alerta del cuerpo puede activarse aunque no exista un peligro inmediato. El corazón puede acelerarse, los músculos tensarse, la respiración cambiar y la mente comenzar a anticipar escenarios negativos. Muchas personas también sienten inquietud, dificultad para concentrarse, sensación de pérdida de control o necesidad de evitar determinadas situaciones."],
+        ["¿Por qué puede mantenerse?", "La evitación puede dar alivio durante unos minutos, pero a veces enseña al cerebro que la situación era realmente peligrosa. La preocupación constante también puede convertirse en un hábito mental. Comprender este ciclo ayuda a trabajar sobre él: notar la alarma, comprobar qué está ocurriendo realmente y recuperar poco a poco actividades que se han ido evitando."],
+        ["¿Qué puedo hacer en el momento?", "Primero intenta bajar el ritmo en lugar de luchar contra la sensación. Apoya los pies en el suelo, mira a tu alrededor y respira de manera cómoda y lenta. Después pregúntate: ¿hay un peligro real ahora?, ¿qué parte de esto sí puedo controlar?, ¿cuál es el siguiente paso pequeño? No necesitas resolver toda la situación mientras estás muy activado."],
+        ["Hábitos que pueden ayudar", "Dormir de forma regular, moverte durante el día, hacer pausas, reducir el exceso de cafeína si notas que aumenta tus síntomas, mantener contacto con personas de confianza y aprender técnicas de relajación pueden ser útiles. No existe una herramienta que funcione igual para todos; lo importante es observar qué te ayuda."],
+        ["¿Cuándo buscar ayuda?", "Si la ansiedad es frecuente, muy intensa, aparece sin una causa clara, afecta tu sueño, trabajo, estudios, relaciones o hace que evites actividades importantes, merece la pena hablar con un profesional de salud mental. Pedir ayuda no significa que estés fallando: significa que estás atendiendo algo que te está afectando."]
       ]
     },
     tdah: {
       category: "APRENDER",
       title: "TDAH",
-      intro: "El TDAH puede afectar la atención, la organización, la gestión del tiempo y el control de impulsos. No es simplemente falta de voluntad.",
+      intro: "El trastorno por déficit de atención e hiperactividad (TDAH) es una condición del neurodesarrollo que puede influir en la atención, la organización, la gestión del tiempo, el control de impulsos y la regulación de la actividad. No es simplemente falta de voluntad, pereza o desinterés.",
       sections: [
-        ["Estrategias prácticas", "Divide una tarea grande en acciones pequeñas, utiliza recordatorios visibles, reduce distracciones y trabaja durante periodos cortos con descansos."],
-        ["Organización", "Elige una sola lista principal para tus pendientes y define cuál es el siguiente paso, en vez de intentar organizar todo al mismo tiempo."],
-        ["Importante", "Solo un profesional puede evaluar y diagnosticar TDAH. Si crees que puede estar afectándote, considera hablar con un profesional de salud."]
+        ["¿Cómo puede manifestarse?", "Algunas personas tienen dificultad para mantener la atención en tareas poco estimulantes, recordar cosas, comenzar actividades, calcular cuánto tiempo necesitan o terminar lo que empezaron. Otras pueden experimentar inquietud o impulsividad. La forma en que se presenta es diferente de una persona a otra."],
+        ["Organización sin complicarte", "En lugar de depender únicamente de la memoria, utiliza apoyos externos: una lista visible, alarmas, calendarios, objetos siempre en el mismo lugar y recordatorios concretos. Conviene escribir el siguiente paso de una tarea, no solamente el objetivo general."],
+        ["Cuando no puedes empezar", "Haz que la primera acción sea muy pequeña. En vez de 'ordenar la casa', prueba 'recoger cinco objetos'. En vez de 'estudiar', abre el material y trabaja durante cinco minutos. Empezar reduce la barrera mental y muchas veces facilita continuar."],
+        ["Concentración", "Reduce las distracciones que puedas controlar, trabaja en bloques cortos y alterna esfuerzo con descansos. Algunas personas se benefician de estudiar o trabajar junto a otra persona, de utilizar temporizadores o de convertir una tarea en pasos visuales."],
+        ["Evaluación profesional", "Tener algunos de estos rasgos no significa automáticamente tener TDAH. Un diagnóstico requiere una evaluación profesional y considerar la historia de la persona, el contexto y otras posibles explicaciones."]
       ]
     },
     estres: {
       category: "BIENESTAR",
       title: "Estrés",
-      intro: "El estrés es una respuesta del cuerpo y la mente ante demandas o situaciones que percibimos como difíciles.",
+      intro: "El estrés es una respuesta física y mental ante demandas que percibimos como difíciles, excesivas o importantes. Puede ser útil durante un periodo corto porque nos prepara para actuar, pero mantenernos en alerta durante demasiado tiempo puede desgastarnos.",
       sections: [
-        ["Señales", "Puede aparecer como irritabilidad, tensión muscular, cansancio, problemas para dormir o dificultad para desconectar."],
-        ["Una pausa útil", "Aléjate unos minutos de la fuente de tensión si puedes, respira con calma y decide qué tarea realmente necesita tu atención ahora."],
-        ["Si persiste", "Si el estrés es intenso, prolongado o está afectando significativamente tu vida, buscar apoyo profesional puede ayudarte."]
+        ["Señales que conviene reconocer", "Puedes notar tensión muscular, dolor de cabeza, cansancio, irritabilidad, dificultad para dormir, cambios en el apetito, problemas para concentrarte o sensación de estar siempre corriendo. A veces el cuerpo detecta el exceso antes de que nosotros lo reconozcamos."],
+        ["El ciclo del estrés", "Cuando las demandas aumentan y el descanso disminuye, podemos funcionar en modo supervivencia: hacemos más, descansamos menos y acumulamos tensión. Por eso no siempre basta con 'aguantar'. También necesitamos recuperación."],
+        ["Qué hacer cuando estás saturado", "Detente unos minutos, identifica qué es urgente y qué puede esperar, divide la tarea en una sola acción y elimina compromisos que no sean necesarios si tienes margen para hacerlo. Una pausa no es perder tiempo: puede ayudarte a recuperar claridad."],
+        ["Hábitos protectores", "Dormir, comer regularmente, moverte, conversar con alguien, tomar descansos y establecer límites son formas de recuperación. Si todo depende de ti, pedir apoyo también es una estrategia."],
+        ["Cuándo pedir ayuda", "Si el estrés es persistente, muy intenso o está afectando seriamente tu salud, sueño, relaciones o funcionamiento diario, hablar con un profesional puede ayudarte a identificar qué está ocurriendo y qué cambios necesitas."]
       ]
     },
     emociones: {
       category: "EMOCIONES",
       title: "Emociones",
-      intro: "Las emociones son señales que pueden darte información sobre lo que estás viviendo, necesitando o valorando.",
+      intro: "Las emociones son respuestas que aparecen ante lo que vivimos, pensamos, recordamos o interpretamos. No son enemigas que debamos eliminar. Pueden aportar información, aunque una emoción intensa no siempre significa que la interpretación que la acompaña sea correcta.",
       sections: [
-        ["Primero, nómbrala", "En lugar de quedarte solo con 'me siento mal', prueba: estoy triste, preocupado, enojado, frustrado, asustado o confundido."],
-        ["Después, pregunta", "¿Qué ocurrió? ¿Qué necesito? ¿Hay algo que pueda hacer ahora? Poner nombre a una emoción no la elimina, pero puede hacerla más comprensible."],
-        ["Recuerda", "Sentir una emoción no significa que tengas que actuar inmediatamente según ella."]
+        ["Primero, ponle nombre", "En lugar de quedarte en 'me siento mal', intenta precisar: tristeza, miedo, enojo, culpa, frustración, vergüenza, soledad, alivio o confusión. Nombrar lo que ocurre puede ayudarte a entenderlo mejor."],
+        ["Observa el cuerpo", "Pregunta dónde sientes la emoción: pecho, garganta, estómago, mandíbula, hombros. Notar estas señales permite reconocer antes cuándo estás empezando a sobrecargarte."],
+        ["Pregunta qué necesitas", "Una emoción puede señalar una necesidad: descanso, seguridad, conexión, espacio, límites, comprensión o resolución de un problema. No siempre podrás satisfacer esa necesidad inmediatamente, pero reconocerla es un comienzo."],
+        ["No tienes que actuar de inmediato", "Sentir enojo no obliga a discutir. Sentir miedo no significa que debas evitar todo. Puedes reconocer la emoción, esperar a que baje su intensidad y decidir qué acción coincide con tus valores."],
+        ["Hablar ayuda", "Compartir lo que sientes con alguien de confianza puede disminuir el aislamiento. Si las emociones son persistentes, abrumadoras o difíciles de manejar, un profesional puede ayudarte a comprenderlas y desarrollar herramientas."]
       ]
     },
     autoestima: {
       category: "AUTOCUIDADO",
       title: "Autoestima",
-      intro: "La autoestima tiene relación con la manera en que valoras y tratas a la persona que eres.",
+      intro: "La autoestima se relaciona con la valoración que hacemos de nosotros mismos. No significa pensar que somos perfectos; implica poder reconocer fortalezas y dificultades sin convertir un error en una condena sobre nuestro valor como persona.",
       sections: [
-        ["Habla contigo como hablarías con alguien querido", "Observa si utilizas contigo palabras que nunca usarías con otra persona. Cambiar ese tono no significa ignorar tus errores; significa tratarlos con respeto."],
-        ["Pequeñas acciones", "Cumplir pequeñas promesas contigo mismo puede fortalecer la sensación de confianza: descansar, terminar una tarea o pedir ayuda cuando la necesitas."],
-        ["Sin perfección", "Tu valor no depende de hacerlo todo bien."]
+        ["La forma en que te hablas importa", "Observa frases como 'soy un fracaso', 'nunca hago nada bien' o 'todos son mejores que yo'. Intenta convertirlas en descripciones concretas: 'esta vez me salió mal', 'esta habilidad todavía me cuesta' o 'necesito aprender otra manera'."],
+        ["Construye confianza con acciones", "La autoestima también crece cuando experimentamos que podemos cuidarnos y cumplir pequeños compromisos. Elige acciones alcanzables: terminar una tarea, descansar cuando lo necesitas, pedir ayuda o mantener un límite saludable."],
+        ["Compararte puede distorsionar la realidad", "Normalmente vemos la vida completa de nosotros mismos y solo una parte de la vida de otras personas. Las comparaciones constantes pueden hacerte olvidar tus propios avances."],
+        ["Aprende de los errores", "Un error puede ser información. Pregúntate qué ocurrió, qué aprendiste y qué puedes probar la próxima vez. Responsabilidad y autocompasión pueden existir al mismo tiempo."],
+        ["Cuándo buscar apoyo", "Si la valoración negativa de ti mismo es muy intensa, se mantiene durante mucho tiempo o está relacionada con tristeza profunda, aislamiento o pensamientos de hacerte daño, busca apoyo profesional y humano."]
       ]
     },
     sueno: {
       category: "DESCANSO",
       title: "Sueño",
-      intro: "Dormir bien ayuda a la recuperación física y mental. El descanso también puede verse afectado por estrés, hábitos y horarios.",
+      intro: "Dormir es una parte esencial de la recuperación. Durante el sueño el cuerpo y el cerebro realizan procesos importantes relacionados con energía, memoria, regulación emocional y funcionamiento diario.",
       sections: [
-        ["Rutina", "Intenta mantener horarios relativamente constantes y crea una transición tranquila antes de dormir."],
-        ["Menos estímulos", "Si puedes, reduce pantallas, cafeína y actividades muy estimulantes cerca de la hora de dormir."],
-        ["Si continúa", "Los problemas persistentes de sueño merecen una evaluación profesional, especialmente si afectan tu funcionamiento durante el día."]
+        ["Una rutina ayuda", "Intenta mantener horarios relativamente estables y crea una rutina tranquila antes de acostarte. El objetivo no es hacerlo perfecto, sino darle al cuerpo señales repetidas de que se acerca el descanso."],
+        ["Prepara el ambiente", "Un lugar oscuro, silencioso y cómodo puede facilitar el sueño. Si puedes, reserva la cama principalmente para dormir y evita convertirla en el lugar habitual para trabajar o pasar largos periodos despierto."],
+        ["Qué hacer con las preocupaciones", "Si tu mente se activa al acostarte, anota pendientes o preocupaciones antes de ir a la cama. Escribirlos puede ayudarte a recordar que no necesitas resolverlos en ese momento."],
+        ["Hábitos durante el día", "La actividad física, la luz natural y horarios regulares pueden favorecer un ritmo de sueño más estable. Observa también si la cafeína o ciertos hábitos nocturnos están interfiriendo."],
+        ["Si no mejora", "Si los problemas de sueño son frecuentes, duran mucho tiempo, te dejan exhausto durante el día o se acompañan de otros síntomas, conviene consultar con un profesional."]
       ]
     }
   };
@@ -117,9 +130,13 @@
   }
 
   function safeHTML(text) {
-    const wrapper = document.createElement("div");
-    wrapper.textContent = String(text ?? "");
-    return wrapper.innerHTML.replace(/\n/g, "<br>");
+    let html = escapeHTML(String(text ?? ""));
+    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/(^|\n)\* (.+)/g, "$1<span class="chat-bullet">• $2</span>");
+    html = html.replace(/(^|\n)- (.+)/g, "$1<span class="chat-bullet">• $2</span>");
+    html = html.replace(/\n\n/g, "<div class="chat-gap"></div>");
+    html = html.replace(/\n/g, "<br>");
+    return html;
   }
 
   function allScreens() {
@@ -283,6 +300,7 @@
   function openArticle(key) {
     const data = articleData[key];
     if (!data) return;
+    mente.articleOrigin = "home";
     $("articleCategory").textContent = data[0];
     $("articleTitle").textContent = data[1];
     $("articleContent").innerHTML = data[2];
@@ -292,6 +310,7 @@
   function openTopic(key) {
     const data = topicData[key];
     if (!data) return;
+    mente.articleOrigin = document.getElementById("exploreScreen").hidden ? "home" : "explore";
     $("articleCategory").textContent = data.category;
     $("articleTitle").textContent = data.title;
     $("articleContent").innerHTML = `
@@ -302,8 +321,9 @@
   }
 
   function openExercise(key) {
+    mente.articleOrigin = "relax";
     const exercises = {
-      respiracion: ["Respiración consciente", "Durante un minuto, respira de manera natural y presta atención a la sensación del aire al entrar y salir. No necesitas forzar respiraciones profundas."],
+      respiracion: ["Respiración consciente", "Durante uno o dos minutos, permite que la respiración sea cómoda. La burbuja te mostrará el ritmo: crece lentamente al inhalar y vuelve a hacerse pequeña al exhalar. No necesitas llenar completamente los pulmones ni aguantar el aire."],
       grounding: ["Volver al presente", "Mira a tu alrededor y nombra cinco cosas que ves, cuatro que puedes tocar, tres que escuchas, dos que hueles y una que saboreas o imaginas saborear."],
       pausa: ["Un minuto para ti", "Apoya los pies en el suelo, relaja los hombros y observa durante un minuto lo que ocurre a tu alrededor sin intentar cambiarlo."]
     };
@@ -311,9 +331,18 @@
     if (!item) return;
     $("articleCategory").textContent = "EJERCICIO";
     $("articleTitle").textContent = item[0];
-    $("articleContent").innerHTML = `<p class="article-lead">${escapeHTML(item[1])}</p><button class="primary-button" type="button" id="exerciseDone">Terminé</button>`;
+    $("articleContent").innerHTML = `
+      <div class="breathing-visual" aria-hidden="true"><div class="breathing-bubble"><span>Respira</span></div></div>
+      <p class="article-lead">${escapeHTML(item[1])}</p>
+      <div class="exercise-steps">
+        <div><b>1</b><span>Busca una postura cómoda.</span></div>
+        <div><b>2</b><span>Deja que tu respiración sea natural, sin forzarla.</span></div>
+        <div><b>3</b><span>Observa cómo la burbuja crece al inhalar y disminuye al exhalar.</span></div>
+        <div><b>4</b><span>Quédate aquí durante uno o dos minutos.</span></div>
+      </div>
+      <button class="primary-button" type="button" id="exerciseDone">Terminé</button>`;
     showScreen("article");
-    $("exerciseDone").addEventListener("click", () => showScreen("relax"));
+    $("exerciseDone").addEventListener("click", () => showScreen(mente.articleOrigin || "relax"));
   }
 
   function saveJournal() {
@@ -399,7 +428,10 @@
   });
 
   document.querySelectorAll("[data-back]").forEach(button => {
-    button.addEventListener("click", () => showScreen(button.dataset.back || "home"));
+    button.addEventListener("click", () => {
+      const destination = button.closest("#articleScreen") ? (mente.articleOrigin || "explore") : (button.dataset.back || "home");
+      showScreen(destination);
+    });
   });
 
   $("journalButton").addEventListener("click", () => { renderJournal(); showScreen("journal"); });
