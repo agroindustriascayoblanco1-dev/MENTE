@@ -9,11 +9,14 @@
     >
 
     <meta
+        name="theme-color"
+        content="#f5f6f4"
+    >
+
+    <meta
         name="description"
         content="Mente — un espacio para pensar, entender y seguir adelante."
     >
-
-    <meta name="theme-color" content="#f4f6f3">
 
     <title>Mente</title>
 
@@ -24,109 +27,262 @@
 
     <div class="app">
 
-        <!-- ENCABEZADO -->
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
         <header class="header">
-            <a href="index.html" class="logo">MENTE</a>
+
+            <a href="#" class="logo">
+                MENTE
+            </a>
 
             <button
                 class="menu-button"
-                aria-label="Abrir menú"
+                id="menuButton"
                 type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false"
             >
                 <span></span>
                 <span></span>
+                <span></span>
             </button>
+
         </header>
 
 
-        <!-- CONTENIDO PRINCIPAL -->
+        <!-- =========================================
+             CONTENIDO
+        ========================================== -->
+
         <main>
 
-            <!-- BIENVENIDA -->
-            <section class="welcome">
 
-                <p class="eyebrow">Un momento para ti</p>
+            <!-- =====================================
+                 HERO
+            ====================================== -->
+
+            <section class="hero">
+
+                <div class="mascot-area">
+
+                    <div class="mascot">
+
+                        <div class="mascot-glow"></div>
+
+                        <div class="mascot-body">
+
+                            <div class="mascot-face">
+
+                                <span class="eye left-eye"></span>
+                                <span class="eye right-eye"></span>
+
+                                <span class="mouth"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <p class="eyebrow">
+                    Un momento para ti
+                </p>
+
 
                 <h1>
                     Tómate un momento.
                 </h1>
 
-                <p class="welcome-text">
+
+                <p class="hero-text">
                     No tienes que tener todo resuelto.
                     Puedes empezar por contar lo que está pasando.
                 </p>
 
-                <button class="main-action" type="button">
-                    Cuéntame qué pasa
-                    <span>→</span>
+
+                <button
+                    class="main-action"
+                    id="mainAction"
+                    type="button"
+                >
+
+                    <span class="action-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.4-4A7.5 7.5 0 1 1 20 11.5Z"
+                            />
+                        </svg>
+                    </span>
+
+                    <span class="action-text">
+                        <strong>Cuéntame qué pasa</strong>
+                        <small>Estoy aquí para escucharte.</small>
+                    </span>
+
+                    <span class="action-arrow">
+                        →
+                    </span>
+
                 </button>
 
             </section>
 
 
-            <!-- NECESIDADES -->
+
+            <!-- =====================================
+                 NECESIDADES
+            ====================================== -->
+
             <section class="needs">
 
                 <div class="section-heading">
-                    <p class="eyebrow">Mente puede ayudarte</p>
+
+                    <p class="eyebrow">
+                        Tú eliges el camino
+                    </p>
 
                     <h2>
                         ¿Qué necesitas ahora?
                     </h2>
+
                 </div>
 
 
                 <div class="needs-grid">
 
-                    <button class="need-card" type="button">
-                        <span class="need-icon">◌</span>
 
-                        <span class="need-title">
-                            Entender
+                    <!-- ENTENDER -->
+
+                    <button
+                        class="need-card card-purple"
+                        data-action="Entender"
+                        type="button"
+                    >
+
+                        <span class="card-symbol">
+                            ◌
                         </span>
 
-                        <span class="need-description">
-                            Quiero entender lo que me pasa.
+                        <span class="need-content">
+
+                            <strong>
+                                Entender
+                            </strong>
+
+                            <small>
+                                Quiero entender lo que me pasa.
+                            </small>
+
                         </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
                     </button>
 
 
-                    <button class="need-card" type="button">
-                        <span class="need-icon">◇</span>
 
-                        <span class="need-title">
-                            Decidir
+                    <!-- DECIDIR -->
+
+                    <button
+                        class="need-card card-yellow"
+                        data-action="Decidir"
+                        type="button"
+                    >
+
+                        <span class="card-symbol">
+                            ◇
                         </span>
 
-                        <span class="need-description">
-                            Tengo algo importante que decidir.
+                        <span class="need-content">
+
+                            <strong>
+                                Decidir
+                            </strong>
+
+                            <small>
+                                Tengo algo importante que decidir.
+                            </small>
+
                         </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
                     </button>
 
 
-                    <button class="need-card" type="button">
-                        <span class="need-icon">〰</span>
 
-                        <span class="need-title">
-                            Calmarme
+                    <!-- CALMARME -->
+
+                    <button
+                        class="need-card card-green"
+                        data-action="Calmarme"
+                        type="button"
+                    >
+
+                        <span class="card-symbol">
+                            〰
                         </span>
 
-                        <span class="need-description">
-                            Necesito bajar un poco lo que siento.
+                        <span class="need-content">
+
+                            <strong>
+                                Calmarme
+                            </strong>
+
+                            <small>
+                                Necesito bajar un poco el ritmo.
+                            </small>
+
                         </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
                     </button>
 
 
-                    <button class="need-card" type="button">
-                        <span class="need-icon">○</span>
 
-                        <span class="need-title">
-                            Hablar
+                    <!-- HABLAR -->
+
+                    <button
+                        class="need-card card-pink"
+                        data-action="Hablar"
+                        type="button"
+                    >
+
+                        <span class="card-symbol">
+                            ○
                         </span>
 
-                        <span class="need-description">
-                            Hay algo que necesito contar.
+                        <span class="need-content">
+
+                            <strong>
+                                Hablar
+                            </strong>
+
+                            <small>
+                                Hay algo que necesito contar.
+                            </small>
+
                         </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
                     </button>
 
                 </div>
@@ -134,48 +290,191 @@
             </section>
 
 
-            <!-- MENSAJE -->
-            <section class="closing-message">
 
-                <div class="closing-line"></div>
+            <!-- =====================================
+                 MENSAJE FINAL
+            ====================================== -->
+
+            <section class="closing">
+
+                <div class="closing-mascot">
+                    <div class="mini-mascot">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
 
                 <p>
-                    Puedes empezar por donde quieras.
+                    No tienes que resolverlo todo hoy.
                 </p>
 
-                <span>
-                    MENTE
-                </span>
+                <small>
+                    Puedes empezar por una cosa.
+                </small>
 
             </section>
 
         </main>
 
 
-        <!-- NAVEGACIÓN INFERIOR -->
-        <nav class="bottom-navigation" aria-label="Navegación principal">
 
-            <a href="index.html" class="nav-item active">
-                <span class="nav-icon">⌂</span>
-                <span>Inicio</span>
-            </a>
+        <!-- =========================================
+             MENÚ LATERAL
+        ========================================== -->
 
-            <button class="nav-item" type="button">
-                <span class="nav-icon">◉</span>
-                <span>Explorar</span>
-            </button>
+        <div
+            class="menu-overlay"
+            id="menuOverlay"
+        ></div>
 
-            <button class="nav-item center-action" type="button">
-                <span class="chat-button">+</span>
-                <span>Hablar</span>
-            </button>
 
-            <button class="nav-item" type="button">
-                <span class="nav-icon">♡</span>
-                <span>Mi Mente</span>
-            </button>
+        <aside
+            class="side-menu"
+            id="sideMenu"
+            aria-hidden="true"
+        >
 
-        </nav>
+            <div class="side-menu-header">
+
+                <span class="menu-title">
+                    MENTE
+                </span>
+
+                <button
+                    class="close-menu"
+                    id="closeMenu"
+                    type="button"
+                    aria-label="Cerrar menú"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <nav class="menu-navigation">
+
+                <button class="menu-link active" type="button">
+                    <span>⌂</span>
+                    Inicio
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>◌</span>
+                    Entender
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>◇</span>
+                    Decidir
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>〰</span>
+                    Manejar
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>○</span>
+                    Practicar
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>♡</span>
+                    Hablar
+                </button>
+
+                <div class="menu-separator"></div>
+
+                <button class="menu-link" type="button">
+                    <span>✦</span>
+                    Mi Mente
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>?</span>
+                    Ayuda
+                </button>
+
+                <button class="menu-link" type="button">
+                    <span>⌘</span>
+                    Privacidad
+                </button>
+
+            </nav>
+
+
+            <div class="menu-footer">
+
+                <div class="menu-footer-mascot">
+                    <div class="mini-mascot">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <p>
+                    Un espacio para pensar,
+                    entender y seguir adelante.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =========================================
+             MODAL / MENSAJE
+        ========================================== -->
+
+        <div
+            class="message-layer"
+            id="messageLayer"
+        >
+
+            <div class="message-box">
+
+                <button
+                    class="message-close"
+                    id="messageClose"
+                    type="button"
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+                <div class="message-mascot">
+                    <div class="mini-mascot">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <p class="eyebrow">
+                    MENTE
+                </p>
+
+                <h2 id="messageTitle">
+                    Estoy aquí.
+                </h2>
+
+                <p id="messageText">
+                    Puedes empezar por donde quieras.
+                </p>
+
+                <button
+                    class="message-action"
+                    id="messageAction"
+                    type="button"
+                >
+                    Continuar
+                </button>
+
+            </div>
+
+        </div>
+
 
     </div>
 
