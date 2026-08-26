@@ -131,10 +131,10 @@
 
   function safeHTML(text) {
     let html = escapeHTML(String(text ?? ""));
-    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-    html = html.replace(/(^|\n)\* (.+)/g, "$1<span class="chat-bullet">• $2</span>");
-    html = html.replace(/(^|\n)- (.+)/g, "$1<span class="chat-bullet">• $2</span>");
-    html = html.replace(/\n\n/g, "<div class="chat-gap"></div>");
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/(^|\n)\* (.+)/g, '$1<span class="chat-bullet">• $2</span>');
+    html = html.replace(/(^|\n)- (.+)/g, '$1<span class="chat-bullet">• $2</span>');
+    html = html.replace(/\n\n/g, '<div class="chat-gap"></div>');
     html = html.replace(/\n/g, "<br>");
     return html;
   }
