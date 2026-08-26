@@ -1,4 +1,4 @@
-/* =========================================================
+* =========================================================
    MENTE
    PRIMER CEREBRO DE CONVERSACIÃ“N
    ========================================================= */
@@ -1201,8 +1201,7 @@ function safeHTML(text) {
     wrapper.appendChild(result);
 
     return wrapper.innerHTML
-        .replace(/
-/g, "<br>");
+        .replace(/\n/g, "<br>");
 }
 
 
