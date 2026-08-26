@@ -1,6 +1,1304 @@
-/* =====================================================
-   PANTALLA DE CONVERSACIÓN
-===================================================== */
+/* =========================================================
+   MENTE
+   Estilos principales
+   ========================================================= */
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+
+    --background: #f5f7f5;
+
+    --surface: #ffffff;
+
+    --surface-soft: #eef3ef;
+
+    --text: #26332e;
+
+    --text-soft: #56645e;
+
+    --text-muted: #89958f;
+
+    --border: rgba(38, 51, 46, 0.09);
+
+    --green: #8fb8a5;
+
+    --green-dark: #547766;
+
+    --purple: #b8aed1;
+
+    --yellow: #e7cf91;
+
+    --pink: #d8aebc;
+
+    --shadow:
+        0 12px 35px rgba(38, 51, 46, 0.07);
+
+    --shadow-soft:
+        0 5px 20px rgba(38, 51, 46, 0.05);
+
+    --radius-large: 28px;
+
+    --radius-medium: 20px;
+
+    --radius-small: 14px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+
+}
+
+
+button,
+textarea {
+
+    font: inherit;
+
+}
+
+
+button {
+
+    border: none;
+
+}
+
+
+button:focus-visible,
+textarea:focus-visible {
+
+    outline:
+        2px solid
+        var(--green-dark);
+
+    outline-offset: 3px;
+
+}
+
+
+.app {
+
+    min-height: 100vh;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    width: 100%;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 22px;
+
+    background:
+        rgba(245, 247, 245, 0.78);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+}
+
+
+.brand-button {
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    cursor: pointer;
+
+    padding: 8px 0;
+
+}
+
+
+.menu-button {
+
+    width: 43px;
+
+    height: 43px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 5px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 4px 15px rgba(38, 51, 46, 0.05);
+
+    cursor: pointer;
+
+}
+
+
+.menu-button span {
+
+    width: 18px;
+
+    height: 1.5px;
+
+    border-radius: 10px;
+
+    background: var(--text);
+
+    transition:
+        transform .2s ease;
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home-screen {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding:
+        20px
+        20px
+        70px;
+
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding:
+        25px
+        0
+        40px;
+
+}
+
+
+.mascot-area {
+
+    width: 150px;
+
+    height: 150px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================================
+   MASCOTA PRINCIPAL
+   ========================================================= */
+
+.mascot {
+
+    position: relative;
+
+    width: 120px;
+
+    height: 120px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.mascot-glow {
+
+    position: absolute;
+
+    width: 118px;
+
+    height: 118px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(143, 184, 165, .28) 0%,
+            rgba(143, 184, 165, .08) 55%,
+            transparent 72%
+        );
+
+    filter: blur(2px);
+
+}
+
+
+.mascot-body {
+
+    position: relative;
+
+    width: 88px;
+
+    height: 88px;
+
+    border-radius:
+        45% 55% 52% 48%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d7e6dd,
+            #b9d1c4
+        );
+
+    box-shadow:
+        0 12px 28px
+        rgba(84, 119, 102, .13);
+
+    animation:
+        mascotFloat
+        5s
+        ease-in-out
+        infinite;
+
+}
+
+
+.mascot-body::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+
+    height: 16px;
+
+    top: 12px;
+
+    left: 18px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.48);
+
+    transform: rotate(-20deg);
+
+}
+
+
+.mascot-face {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.eye {
+
+    position: absolute;
+
+    top: 39px;
+
+    width: 6px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        var(--text);
+
+}
+
+
+.left-eye {
+
+    left: 30px;
+
+}
+
+
+.right-eye {
+
+    right: 30px;
+
+}
+
+
+.mouth {
+
+    position: absolute;
+
+    top: 51px;
+
+    width: 13px;
+
+    height: 7px;
+
+    border-bottom:
+        1.5px solid
+        var(--text);
+
+    border-radius: 0 0 50% 50%;
+
+}
+
+
+@keyframes mascotFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(1deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.eyebrow {
+
+    margin-bottom: 10px;
+
+    color: var(--green-dark);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+
+}
+
+
+.hero h1 {
+
+    max-width: 620px;
+
+    color: var(--text);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(38px, 9vw, 64px);
+
+    font-weight: 400;
+
+    line-height: 1.04;
+
+    letter-spacing: -2px;
+
+}
+
+
+.hero-text {
+
+    max-width: 500px;
+
+    margin-top: 18px;
+
+    color: var(--text-soft);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+   ========================================================= */
+
+.main-action {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    min-height: 82px;
+
+    margin-top: 28px;
+
+    padding:
+        14px
+        16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    text-align: left;
+
+    border-radius:
+        var(--radius-medium);
+
+    background:
+        var(--surface);
+
+    color: var(--text);
+
+    box-shadow:
+        var(--shadow);
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.main-action:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 16px 38px
+        rgba(38, 51, 46, .10);
+
+}
+
+
+.main-action:active {
+
+    transform:
+        scale(.98);
+
+}
+
+
+.action-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    flex: 0 0 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        #e4eee8;
+
+}
+
+
+.action-icon svg {
+
+    width: 23px;
+
+    height: 23px;
+
+    fill: none;
+
+    stroke:
+        var(--green-dark);
+
+    stroke-width: 1.7;
+
+}
+
+
+.action-text {
+
+    flex: 1;
+
+}
+
+
+.action-text strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.action-text small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.action-arrow {
+
+    color: var(--green-dark);
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================================
+   SECCIÓN NECESIDADES
+   ========================================================= */
+
+.needs {
+
+    padding-top: 20px;
+
+}
+
+
+.section-heading {
+
+    margin-bottom: 18px;
+
+}
+
+
+.section-heading h2 {
+
+    color: var(--text);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(27px, 7vw, 40px);
+
+    font-weight: 400;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.needs-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+}
+
+
+.need-card {
+
+    min-height: 145px;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    justify-content: flex-start;
+
+    padding: 20px;
+
+    text-align: left;
+
+    border-radius:
+        var(--radius-medium);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform .2s ease;
+
+}
+
+
+.need-card:hover {
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+.need-card:active {
+
+    transform:
+        scale(.97);
+
+}
+
+
+.need-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+
+    height: 100px;
+
+    right: -30px;
+
+    bottom: -35px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.22);
+
+}
+
+
+.card-purple {
+
+    background:
+        #e4dfed;
+
+}
+
+
+.card-yellow {
+
+    background:
+        #f0e6c8;
+
+}
+
+
+.card-green {
+
+    background:
+        #dcebe3;
+
+}
+
+
+.card-pink {
+
+    background:
+        #eddcdf;
+
+}
+
+
+.card-symbol {
+
+    width: 33px;
+
+    height: 33px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.55);
+
+    color: var(--text);
+
+    font-size: 19px;
+
+}
+
+
+.need-content {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.need-content strong {
+
+    display: block;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+.need-content small {
+
+    display: block;
+
+    max-width: 190px;
+
+    margin-top: 6px;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+
+    line-height: 1.45;
+
+}
+
+
+.card-arrow {
+
+    position: absolute;
+
+    right: 17px;
+
+    bottom: 16px;
+
+    color: var(--text-soft);
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   CIERRE
+   ========================================================= */
+
+.closing {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding:
+        60px
+        10px
+        20px;
+
+}
+
+
+.closing-mascot {
+
+    width: 54px;
+
+    height: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(143,184,165,.13);
+
+}
+
+
+.mini-mascot {
+
+    position: relative;
+
+    width: 34px;
+
+    height: 30px;
+
+    border-radius:
+        45% 55% 50% 50%;
+
+    background:
+        #b9d1c4;
+
+}
+
+
+.mini-mascot span {
+
+    position: absolute;
+
+    top: 11px;
+
+    width: 4px;
+
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        var(--text);
+
+}
+
+
+.mini-mascot span:first-child {
+
+    left: 9px;
+
+}
+
+
+.mini-mascot span:nth-child(2) {
+
+    right: 9px;
+
+}
+
+
+.closing p {
+
+    color: var(--text);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 20px;
+
+}
+
+
+.closing small {
+
+    margin-top: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   MENÚ LATERAL
+   ========================================================= */
+
+.menu-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    background:
+        rgba(25, 35, 31, .18);
+
+    backdrop-filter:
+        blur(3px);
+
+    -webkit-backdrop-filter:
+        blur(3px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+
+}
+
+
+.menu-overlay.open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+.side-menu {
+
+    position: fixed;
+
+    top: 0;
+
+    right: 0;
+
+    z-index: 600;
+
+    width:
+        min(88vw, 350px);
+
+    height: 100vh;
+
+    height: 100dvh;
+
+    padding:
+        25px
+        20px
+        25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background:
+        #f8faf8;
+
+    box-shadow:
+        -15px 0 45px
+        rgba(38,51,46,.12);
+
+    transform:
+        translateX(105%);
+
+    transition:
+        transform .3s
+        cubic-bezier(.2,.8,.2,1);
+
+}
+
+
+.side-menu.open {
+
+    transform:
+        translateX(0);
+
+}
+
+
+.side-menu-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+}
+
+
+.menu-title {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+}
+
+
+.close-menu {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    background:
+        white;
+
+    color: var(--text);
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+}
+
+
+.menu-navigation {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.menu-link {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding:
+        0 13px;
+
+    border-radius: 13px;
+
+    background: transparent;
+
+    color: var(--text-soft);
+
+    text-align: left;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background .18s ease;
+
+}
+
+
+.menu-link span {
+
+    width: 22px;
+
+    text-align: center;
+
+    color: var(--green-dark);
+
+    font-size: 17px;
+
+}
+
+
+.menu-link:hover,
+.menu-link.active {
+
+    background:
+        #eaf1ec;
+
+    color: var(--text);
+
+}
+
+
+.menu-separator {
+
+    height: 1px;
+
+    margin:
+        14px
+        5px;
+
+    background:
+        var(--border);
+
+}
+
+
+.menu-footer {
+
+    margin-top: auto;
+
+    padding:
+        20px;
+
+    border-radius:
+        20px;
+
+    background:
+        #e9f1ec;
+
+    text-align: center;
+
+}
+
+
+.menu-footer-mascot {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+}
+
+
+.menu-footer p {
+
+    color: var(--text-soft);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   PANTALLA DE CHAT
+   ========================================================= */
 
 .chat-screen {
 
@@ -14,7 +1312,8 @@
 
     flex-direction: column;
 
-    background: var(--background);
+    background:
+        var(--background);
 
     opacity: 0;
 
@@ -22,15 +1321,14 @@
 
     pointer-events: none;
 
-    transform: translateX(20px);
+    transform:
+        translateX(20px);
 
     transition:
-
         opacity .25s ease,
-
         transform .3s ease,
-
         visibility .3s ease;
+
 }
 
 
@@ -42,13 +1340,15 @@
 
     pointer-events: auto;
 
-    transform: translateX(0);
+    transform:
+        translateX(0);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CHAT HEADER
-===================================================== */
+   ========================================================= */
 
 .chat-header {
 
@@ -59,7 +1359,6 @@
     margin: 0 auto;
 
     padding:
-
         calc(12px + env(safe-area-inset-top))
         16px
         12px;
@@ -71,17 +1370,18 @@
     justify-content: space-between;
 
     border-bottom:
-
         1px solid
         rgba(38,49,45,.06);
 
     background:
-
         rgba(245,246,244,.82);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 
-    -webkit-backdrop-filter: blur(18px);
+    -webkit-backdrop-filter:
+        blur(18px);
+
 }
 
 
@@ -94,21 +1394,23 @@
 
     flex: 0 0 42px;
 
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.7);
-
-    color: var(--text);
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.7);
+
+    color: var(--text);
+
     cursor: pointer;
 
     font-size: 23px;
+
 }
 
 
@@ -117,6 +1419,7 @@
     font-size: 20px;
 
     letter-spacing: 2px;
+
 }
 
 
@@ -127,6 +1430,7 @@
     align-items: center;
 
     gap: 10px;
+
 }
 
 
@@ -135,6 +1439,7 @@
     display: block;
 
     font-size: 14px;
+
 }
 
 
@@ -147,6 +1452,7 @@
     color: var(--text-muted);
 
     font-size: 11px;
+
 }
 
 
@@ -161,12 +1467,13 @@
     align-items: center;
 
     justify-content: center;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MENSAJES
-===================================================== */
+   ========================================================= */
 
 .chat-messages {
 
@@ -179,7 +1486,6 @@
     flex: 1;
 
     padding:
-
         25px
         18px
         30px;
@@ -187,6 +1493,7 @@
     overflow-y: auto;
 
     scroll-behavior: smooth;
+
 }
 
 
@@ -199,10 +1506,10 @@
     margin-bottom: 20px;
 
     animation:
-
         messageAppear
         .35s
         ease both;
+
 }
 
 
@@ -213,72 +1520,73 @@
     flex: 0 0 34px;
 
     padding-top: 4px;
+
 }
 
 
 .bubble {
 
-    max-width: min(82%, 470px);
+    max-width:
+        min(82%, 470px);
 
     padding:
-
         15px
         17px;
 
     border-radius:
-
         6px
         20px
         20px
         20px;
 
-    background: white;
+    background:
+        white;
 
     box-shadow:
-
-        0 5px 20px
-        rgba(38,49,45,.055);
+        var(--shadow-soft);
 
     color: var(--text);
 
     font-size: 15px;
 
     line-height: 1.6;
+
 }
 
 
 .bubble p + p {
 
     margin-top: 9px;
+
 }
 
-
-/* MENSAJE DEL USUARIO */
 
 .user-message {
 
     justify-content: flex-end;
+
 }
 
 
 .user-message .bubble {
 
     border-radius:
-
         20px
         6px
         20px
         20px;
 
-    background: var(--text);
+    background:
+        var(--text);
 
     color: white;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    OPCIONES RÁPIDAS
-===================================================== */
+   ========================================================= */
 
 .quick-options {
 
@@ -289,53 +1597,43 @@
     gap: 8px;
 
     margin:
-
         4px
         0
         25px
         43px;
+
 }
 
 
 .quick-options button {
 
     padding:
-
         10px
         13px;
 
-    border-radius: 100px;
+    border-radius:
+        100px;
 
-    background: white;
+    background:
+        white;
 
     border:
-
         1px solid
         var(--border);
 
-    color: var(--text-soft);
+    color:
+        var(--text-soft);
 
     font-size: 12px;
 
     cursor: pointer;
 
-    transition:
-
-        transform .18s ease,
-
-        background .18s ease;
 }
 
 
-.quick-options button:active {
-
-    transform: scale(.96);
-}
-
-
-/* =====================================================
-   TYPING
-===================================================== */
+/* =========================================================
+   INDICADOR DE ESCRITURA
+   ========================================================= */
 
 .typing-indicator {
 
@@ -344,22 +1642,16 @@
     height: 35px;
 
     margin:
-
         0
         0
         8px
-        max(18px, calc((100% - 700px) / 2));
+        max(
+            18px,
+            calc((100% - 700px) / 2)
+        );
 
-    padding: 0 13px;
-
-    border-radius: 20px;
-
-    background: white;
-
-    box-shadow:
-
-        0 5px 20px
-        rgba(38,49,45,.055);
+    padding:
+        0 13px;
 
     display: flex;
 
@@ -367,17 +1659,25 @@
 
     gap: 4px;
 
+    border-radius: 20px;
+
+    background:
+        white;
+
+    box-shadow:
+        var(--shadow-soft);
+
     opacity: 0;
 
-    transform: translateY(5px);
+    transform:
+        translateY(5px);
 
     pointer-events: none;
 
     transition:
-
         opacity .2s ease,
-
         transform .2s ease;
+
 }
 
 
@@ -385,7 +1685,9 @@
 
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
+
 }
 
 
@@ -397,25 +1699,29 @@
 
     border-radius: 50%;
 
-    background: var(--text-muted);
+    background:
+        var(--text-muted);
 
     animation:
-
         typingDot
         1.2s
-        infinite ease-in-out;
+        infinite
+        ease-in-out;
+
 }
 
 
 .typing-indicator span:nth-child(2) {
 
     animation-delay: .15s;
+
 }
 
 
 .typing-indicator span:nth-child(3) {
 
     animation-delay: .3s;
+
 }
 
 
@@ -425,23 +1731,28 @@
     60%,
     100% {
 
-        transform: translateY(0);
+        transform:
+            translateY(0);
 
         opacity: .4;
+
     }
 
     30% {
 
-        transform: translateY(-4px);
+        transform:
+            translateY(-4px);
 
         opacity: 1;
+
     }
+
 }
 
 
-/* =====================================================
+/* =========================================================
    INPUT
-===================================================== */
+   ========================================================= */
 
 .chat-input-area {
 
@@ -452,7 +1763,6 @@
     margin: 0 auto;
 
     padding:
-
         10px
         15px
         6px;
@@ -464,13 +1774,12 @@
     gap: 8px;
 
     background:
-
         rgba(245,246,244,.92);
 
     border-top:
-
         1px solid
-        rgba(38,49,45,.05);
+        rgba(38,51,45,.05);
+
 }
 
 
@@ -483,7 +1792,6 @@
     max-height: 130px;
 
     padding:
-
         14px
         16px;
 
@@ -492,32 +1800,36 @@
     outline: none;
 
     border:
-
         1px solid
-        rgba(38,49,45,.08);
+        rgba(38,51,45,.08);
 
     border-radius: 23px;
 
-    background: white;
+    background:
+        white;
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    font-family: inherit;
+    font-family:
+        inherit;
 
     font-size: 15px;
 
     line-height: 1.4;
 
     box-shadow:
-
         0 4px 18px
-        rgba(38,49,45,.04);
+        rgba(38,51,45,.04);
+
 }
 
 
 .chat-input-area textarea::placeholder {
 
-    color: var(--text-muted);
+    color:
+        var(--text-muted);
+
 }
 
 
@@ -529,47 +1841,42 @@
 
     flex: 0 0 48px;
 
-    border-radius: 50%;
-
-    background: var(--text);
-
-    color: white;
-
-    font-size: 22px;
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
+    border-radius: 50%;
+
+    background:
+        var(--text);
+
+    color:
+        white;
+
+    font-size: 22px;
+
     cursor: pointer;
 
     transition:
-
         transform .18s ease,
-
         opacity .18s ease;
+
 }
 
 
 .send-button:active {
 
-    transform: scale(.93);
+    transform:
+        scale(.93);
+
 }
 
 
-.send-button:disabled {
-
-    opacity: .35;
-
-    cursor: default;
-}
-
-
-/* =====================================================
-   AVISO
-===================================================== */
+/* =========================================================
+   AVISO CHAT
+   ========================================================= */
 
 .chat-disclaimer {
 
@@ -580,28 +1887,29 @@
     margin: 0 auto;
 
     padding:
-
         0
         20px
         calc(10px + env(safe-area-inset-bottom));
 
     background:
-
         rgba(245,246,244,.92);
 
-    color: var(--text-muted);
+    color:
+        var(--text-muted);
 
-    text-align: center;
+    text-align:
+        center;
 
     font-size: 9px;
 
     line-height: 1.4;
+
 }
 
 
-/* =====================================================
-   ANIMACIÓN
-===================================================== */
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
 
 @keyframes messageAppear {
 
@@ -611,6 +1919,7 @@
 
         transform:
             translateY(8px);
+
     }
 
     to {
@@ -619,27 +1928,276 @@
 
         transform:
             translateY(0);
+
     }
+
 }
 
 
-/* =====================================================
-   DESKTOP
-===================================================== */
+/* =========================================================
+   TABLET / DESKTOP
+   ========================================================= */
 
 @media (min-width: 700px) {
 
+    .header {
+
+        padding:
+            0 40px;
+
+    }
+
+
+    .home-screen {
+
+        padding-top:
+            35px;
+
+    }
+
+
+    .hero {
+
+        padding-top:
+            35px;
+
+    }
+
+
+    .needs-grid {
+
+        gap: 15px;
+
+    }
+
+
+    .need-card {
+
+        min-height:
+            165px;
+
+        padding:
+            24px;
+
+    }
+
+
     .chat-input-area {
 
-        padding-left: 20px;
+        padding-left:
+            20px;
 
-        padding-right: 20px;
+        padding-right:
+            20px;
+
     }
 
 
     .chat-disclaimer {
 
-        padding-bottom: 12px;
+        padding-bottom:
+            12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TELÉFONOS PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+    .header {
+
+        height: 62px;
+
+        padding:
+            0 17px;
+
+    }
+
+
+    .home-screen {
+
+        padding:
+            8px
+            16px
+            55px;
+
+    }
+
+
+    .hero {
+
+        padding-top:
+            15px;
+
+    }
+
+
+    .mascot-area {
+
+        width: 125px;
+
+        height: 125px;
+
+        margin-bottom:
+            18px;
+
+    }
+
+
+    .mascot {
+
+        transform:
+            scale(.9);
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            39px;
+
+    }
+
+
+    .hero-text {
+
+        margin-top:
+            14px;
+
+        font-size:
+            14px;
+
+        line-height:
+            1.6;
+
+    }
+
+
+    .main-action {
+
+        min-height:
+            76px;
+
+    }
+
+
+    .action-icon {
+
+        width:
+            44px;
+
+        height:
+            44px;
+
+        flex-basis:
+            44px;
+
+    }
+
+
+    .needs {
+
+        padding-top:
+            10px;
+
+    }
+
+
+    .needs-grid {
+
+        gap:
+            9px;
+
+    }
+
+
+    .need-card {
+
+        min-height:
+            137px;
+
+        padding:
+            16px;
+
+    }
+
+
+    .card-symbol {
+
+        width:
+            29px;
+
+        height:
+            29px;
+
+        margin-bottom:
+            13px;
+
+    }
+
+
+    .need-content strong {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .need-content small {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .section-heading h2 {
+
+        font-size:
+            29px;
+
+    }
+
+
+    .closing {
+
+        padding-top:
+            45px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCIR MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            .01ms !important;
+
     }
 
 }
