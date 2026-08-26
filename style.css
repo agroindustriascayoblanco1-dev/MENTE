@@ -12,3 +12,17 @@
 .chat-gap{height:8px}.chat-bullet{display:block;margin:2px 0}
 .mente-message .bubble strong{font-weight:750;color:#3f5951}
 .article-page p{margin:0 0 18px}.article-page section{padding-top:3px}
+
+/* =========================================================
+   AJUSTES DE INTERACCIÓN
+   ========================================================= */
+button, a, [role="button"], [data-screen], [data-topic], [data-exercise]{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+button:active{transform:translateY(1px)}
+.screen[hidden]{display:none !important}
+.screen{position:relative;z-index:1}
+.screen-header, .bottom-nav, .hero-card, .topic-grid, .explore-grid,
+.action-grid, .journal-card, .relax-grid{position:relative;z-index:2}
+.bottom-nav button{pointer-events:auto}
