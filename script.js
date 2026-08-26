@@ -1,8 +1,7 @@
 /* =========================================================
    MENTE
-   PRIMER CEREBRO DE CONVERSACIÓN
+   PRIMER CEREBRO DE CONVERSACIÃ“N
    ========================================================= */
-alert("ESTOY EJECUTANDO EL NUEVO SCRIPT DE MENTE");
 
 
 /* =========================================================
@@ -141,7 +140,7 @@ function closeChat() {
 
 
 /* =========================================================
-   BOTÓN PRINCIPAL
+   BOTÃ“N PRINCIPAL
    ========================================================= */
 
 mainAction.addEventListener(
@@ -216,10 +215,10 @@ needCards.forEach(
                 const messages = {
 
                     Entender:
-                        "Quiero entender lo que me está pasando.",
+                        "Quiero entender lo que me estÃ¡ pasando.",
 
                     Decidir:
-                        "Tengo una decisión que necesito tomar.",
+                        "Tengo una decisiÃ³n que necesito tomar.",
 
                     Calmarme:
                         "Me siento abrumado y necesito calmarme.",
@@ -242,7 +241,7 @@ needCards.forEach(
 
 
 /* =========================================================
-   OPCIONES RÁPIDAS
+   OPCIONES RÃPIDAS
    ========================================================= */
 
 quickOptions.addEventListener(
@@ -314,20 +313,13 @@ function sendUserMessage(message) {
         "user"
     );
 
-
     mente.messages.push({
-
         role: "user",
-
         content: message
-
     });
 
-
     chatInput.value = "";
-
     resizeInput();
-
 
     /*
        Primero comprobamos seguridad.
@@ -336,71 +328,124 @@ function sendUserMessage(message) {
     const safety =
         detectSafety(message);
 
-
     if (safety) {
 
         mente.safetyMode = true;
 
         showTyping();
 
-
         setTimeout(() => {
 
             hideTyping();
 
+            const response =
+                safetyResponse();
+
             addMessage(
-                safetyResponse(),
+                response,
                 "mente"
             );
 
+            mente.messages.push({
+                role: "mente",
+                content: response
+            });
+
         }, 900);
 
-
         return;
-
     }
 
-
     /*
-       Si no hay una señal de peligro,
-       analizamos la intención.
+       Guardamos la categorÃ­a localmente para que
+       la interfaz siga teniendo contexto.
     */
 
     mente.category =
         detectCategory(message);
 
+    /*
+       Enviar el mensaje al Worker de Mente AI.
+    */
 
     showTyping();
 
+    fetch(
+        "https://mente-ai.cristhianosorio503.workers.dev/",
+        {
+            method: "POST",
 
-    setTimeout(() => {
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: message
+            })
+        }
+    )
+    .then(async (response) => {
+
+        const data =
+            await response.json();
+
+        if (!response.ok || !data.ok) {
+
+            console.error(
+                "Mente AI error:",
+                data
+            );
+
+            throw new Error(
+                data?.error ||
+                "Mente AI no pudo responder."
+            );
+        }
+
+        return data;
+    })
+    .then((data) => {
 
         hideTyping();
 
-        const response =
-            generateResponse(
-                message,
-                mente.category
+        const reply =
+            data.reply;
+
+        if (!reply) {
+
+            addMessage(
+                "No pude obtener una respuesta en este momento. Intenta nuevamente.",
+                "mente"
             );
 
+            return;
+        }
 
         addMessage(
-            response,
+            reply,
             "mente"
         );
 
-
         mente.messages.push({
-
             role: "mente",
-
-            content: response
-
+            content: reply
         });
 
+    })
+    .catch((error) => {
 
-    }, 900);
+        console.error(
+            "Error conectando con Mente AI:",
+            error
+        );
 
+        hideTyping();
+
+        addMessage(
+            "No pude conectarme con Mente en este momento. Intenta nuevamente en unos segundos.",
+            "mente"
+        );
+    });
 }
 
 
@@ -415,12 +460,12 @@ function detectSafety(message) {
 
 
     /*
-       Estas frases NO significan automáticamente
+       Estas frases NO significan automÃ¡ticamente
        que exista una emergencia.
 
        Solamente activan una respuesta de seguridad
-       para no tratar una situación potencialmente
-       grave como una conversación normal.
+       para no tratar una situaciÃ³n potencialmente
+       grave como una conversaciÃ³n normal.
     */
 
     const directRisk = [
@@ -456,11 +501,11 @@ function detectSafety(message) {
 
     const immediateDanger = [
 
-        "me están golpeando",
+        "me estÃ¡n golpeando",
 
         "me esta golpeando",
 
-        "me están atacando",
+        "me estÃ¡n atacando",
 
         "me estan atacando",
 
@@ -474,7 +519,7 @@ function detectSafety(message) {
 
         "hay un arma",
 
-        "me están amenazando",
+        "me estÃ¡n amenazando",
 
         "me estan amenazando"
 
@@ -525,21 +570,21 @@ function safetyResponse() {
         </p>
 
         <p>
-        Si existe peligro inmediato, aléjate de
+        Si existe peligro inmediato, alÃ©jate de
         cualquier cosa con la que puedas hacerte
-        daño y busca a una persona de confianza
-        que pueda estar físicamente contigo ahora.
+        daÃ±o y busca a una persona de confianza
+        que pueda estar fÃ­sicamente contigo ahora.
         </p>
 
         <p>
-        También puedes contactar a los servicios
-        de emergencia de tu país o acudir al servicio
-        de urgencias más cercano.
+        TambiÃ©n puedes contactar a los servicios
+        de emergencia de tu paÃ­s o acudir al servicio
+        de urgencias mÃ¡s cercano.
         </p>
 
         <p>
         Si puedes, dime solamente esto:
-        <strong>¿estás en peligro inmediato ahora mismo?</strong>
+        <strong>Â¿estÃ¡s en peligro inmediato ahora mismo?</strong>
         </p>
     `;
 
@@ -547,7 +592,7 @@ function safetyResponse() {
 
 
 /* =========================================================
-   DETECTAR CATEGORÍA
+   DETECTAR CATEGORÃA
    ========================================================= */
 
 function detectCategory(message) {
@@ -564,19 +609,19 @@ function detectCategory(message) {
 
         "decidir",
 
-        "decisión",
+        "decisiÃ³n",
 
         "decision",
 
-        "no sé si",
+        "no sÃ© si",
 
         "no se si",
 
-        "debería",
+        "deberÃ­a",
 
         "deberia",
 
-        "qué hago",
+        "quÃ© hago",
 
         "que hago",
 
@@ -617,13 +662,13 @@ function detectCategory(message) {
 
         "ansiosa",
 
-        "ataque de pánico",
+        "ataque de pÃ¡nico",
 
         "ataque de panico",
 
         "panico",
 
-        "pánico",
+        "pÃ¡nico",
 
         "abrumado",
 
@@ -639,7 +684,7 @@ function detectCategory(message) {
 
         "no puedo dormir",
 
-        "demasiado estrés",
+        "demasiado estrÃ©s",
 
         "demasiado estres"
 
@@ -711,19 +756,19 @@ function detectCategory(message) {
 
         "mi ex",
 
-        "me engañó",
+        "me engaÃ±Ã³",
 
-        "me engaño",
+        "me engaÃ±o",
 
         "terminamos",
 
         "quiero terminar",
 
-        "me dejó",
+        "me dejÃ³",
 
         "me dejo",
 
-        "discutí con",
+        "discutÃ­ con",
 
         "discuti con"
 
@@ -764,7 +809,7 @@ function detectCategory(message) {
 
         "no tengo ganas",
 
-        "vacío",
+        "vacÃ­o",
 
         "vacio",
 
@@ -801,7 +846,7 @@ function detectCategory(message) {
 
         "me da rabia",
 
-        "me da cólera",
+        "me da cÃ³lera",
 
         "me da colera",
 
@@ -827,7 +872,7 @@ function detectCategory(message) {
 
 
     /*
-       SI NO SABEMOS TODAVÍA
+       SI NO SABEMOS TODAVÃA
     */
 
     return "general";
@@ -851,8 +896,8 @@ function generateResponse(
 
             return `
                 Podemos ordenar esto juntos.
-                No necesitas tomar una decisión
-                mientras estás completamente abrumado.
+                No necesitas tomar una decisiÃ³n
+                mientras estÃ¡s completamente abrumado.
 
                 <p>
                 Primero quiero entender las opciones.
@@ -860,8 +905,8 @@ function generateResponse(
 
                 <p>
                 <strong>
-                ¿Cuáles son las dos o tres opciones
-                que estás considerando?
+                Â¿CuÃ¡les son las dos o tres opciones
+                que estÃ¡s considerando?
                 </strong>
                 </p>
             `;
@@ -886,8 +931,8 @@ function generateResponse(
 
                 <p>
                 <strong>
-                ¿Qué estaba pasando justo antes de
-                que empezaras a sentirte así?
+                Â¿QuÃ© estaba pasando justo antes de
+                que empezaras a sentirte asÃ­?
                 </strong>
                 </p>
             `;
@@ -900,7 +945,7 @@ function generateResponse(
 
                 <p>
                 Sentirse solo no siempre significa
-                simplemente estar físicamente solo.
+                simplemente estar fÃ­sicamente solo.
                 A veces significa sentir que nadie
                 nos comprende o que no tenemos un
                 lugar donde decir lo que realmente
@@ -913,7 +958,7 @@ function generateResponse(
 
                 <p>
                 <strong>
-                ¿Desde cuándo te has estado sintiendo así?
+                Â¿Desde cuÃ¡ndo te has estado sintiendo asÃ­?
                 </strong>
                 </p>
             `;
@@ -923,16 +968,16 @@ function generateResponse(
 
             return `
                 Parece que hay algo importante
-                detrás de lo que estás contando.
+                detrÃ¡s de lo que estÃ¡s contando.
 
                 <p>
-                Antes de decirte qué deberías hacer,
-                prefiero entender qué ocurrió.
+                Antes de decirte quÃ© deberÃ­as hacer,
+                prefiero entender quÃ© ocurriÃ³.
                 </p>
 
                 <p>
                 <strong>
-                ¿Qué fue lo que pasó?
+                Â¿QuÃ© fue lo que pasÃ³?
                 </strong>
                 </p>
             `;
@@ -941,7 +986,7 @@ function generateResponse(
         case "sadness":
 
             return `
-                Está bien decir que no estás bien.
+                EstÃ¡ bien decir que no estÃ¡s bien.
 
                 <p>
                 No voy a intentar convertir esto
@@ -951,8 +996,8 @@ function generateResponse(
 
                 <p>
                 <strong>
-                ¿Qué ha sido lo más difícil de estos
-                últimos días?
+                Â¿QuÃ© ha sido lo mÃ¡s difÃ­cil de estos
+                Ãºltimos dÃ­as?
                 </strong>
                 </p>
             `;
@@ -965,19 +1010,19 @@ function generateResponse(
 
                 <p>
                 Cuando estamos muy enojados podemos
-                tomar decisiones que después tienen
-                consecuencias difíciles de deshacer.
+                tomar decisiones que despuÃ©s tienen
+                consecuencias difÃ­ciles de deshacer.
                 </p>
 
                 <p>
-                No significa que tu enojo no sea válido.
+                No significa que tu enojo no sea vÃ¡lido.
                 Significa que podemos darle espacio
                 antes de actuar.
                 </p>
 
                 <p>
                 <strong>
-                ¿Qué fue lo que pasó para que llegaras
+                Â¿QuÃ© fue lo que pasÃ³ para que llegaras
                 a sentir tanta rabia?
                 </strong>
                 </p>
@@ -987,17 +1032,17 @@ function generateResponse(
         default:
 
             return `
-                Gracias por contármelo.
+                Gracias por contÃ¡rmelo.
 
                 <p>
                 No tienes que encontrar las palabras
                 perfectas. Podemos ir descubriendo
-                qué está pasando poco a poco.
+                quÃ© estÃ¡ pasando poco a poco.
                 </p>
 
                 <p>
                 <strong>
-                ¿Qué es lo que más te preocupa
+                Â¿QuÃ© es lo que mÃ¡s te preocupa
                 en este momento?
                 </strong>
                 </p>
@@ -1085,16 +1130,79 @@ function addMessage(
 
 function safeHTML(text) {
 
-    /*
-       Las respuestas de Mente son creadas
-       internamente por nosotros.
+    const container =
+        document.createElement("div");
 
-       Los mensajes del usuario siempre
-       utilizan escapeHTML().
-    */
+    container.innerHTML =
+        String(text ?? "");
 
-    return text;
+    const allowedTags = new Set([
+        "P",
+        "STRONG",
+        "BR"
+    ]);
 
+    function cleanNode(node) {
+
+        if (node.nodeType === Node.TEXT_NODE) {
+            return document.createTextNode(node.nodeValue);
+        }
+
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+            return document.createTextNode("");
+        }
+
+        if (!allowedTags.has(node.tagName)) {
+
+            const fragment =
+                document.createDocumentFragment();
+
+            Array.from(node.childNodes).forEach(
+                child => {
+                    fragment.appendChild(
+                        cleanNode(child)
+                    );
+                }
+            );
+
+            return fragment;
+        }
+
+        const clean =
+            document.createElement(
+                node.tagName.toLowerCase()
+            );
+
+        Array.from(node.childNodes).forEach(
+            child => {
+                clean.appendChild(
+                    cleanNode(child)
+                );
+            }
+        );
+
+        return clean;
+    }
+
+    const result =
+        document.createDocumentFragment();
+
+    Array.from(container.childNodes).forEach(
+        child => {
+            result.appendChild(
+                cleanNode(child)
+            );
+        }
+    );
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.appendChild(result);
+
+    return wrapper.innerHTML
+        .replace(/
+/g, "<br>");
 }
 
 
@@ -1249,7 +1357,7 @@ chatInput.addEventListener(
 
 
 /* =========================================================
-   MENÚ
+   MENÃš
    ========================================================= */
 
 function openMenu() {
@@ -1315,7 +1423,7 @@ menuOverlay.addEventListener(
 
 
 /* =========================================================
-   MENÚ DE NAVEGACIÓN
+   MENÃš DE NAVEGACIÃ“N
    ========================================================= */
 
 menuLinks.forEach(
@@ -1375,7 +1483,7 @@ menuLinks.forEach(
 
 
                 alert(
-                    `${destination} será una sección que construiremos después.`
+                    `${destination} serÃ¡ una secciÃ³n que construiremos despuÃ©s.`
                 );
 
             }
