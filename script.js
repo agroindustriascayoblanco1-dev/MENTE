@@ -1,12 +1,12 @@
-/* =====================================================
+/* =========================================================
    MENTE
-   Sistema de navegación + conversación
-===================================================== */
+   PRIMER CEREBRO DE CONVERSACIÓN
+   ========================================================= */
 
 
-/* =====================================================
+/* =========================================================
    ELEMENTOS
-===================================================== */
+   ========================================================= */
 
 const homeScreen =
     document.getElementById("homeScreen");
@@ -38,9 +38,6 @@ const typingIndicator =
 const brandButton =
     document.getElementById("brandButton");
 
-
-/* MENÚ */
-
 const menuButton =
     document.getElementById("menuButton");
 
@@ -57,9 +54,26 @@ const menuLinks =
     document.querySelectorAll(".menu-link");
 
 
-/* =====================================================
-   ABRIR CONVERSACIÓN
-===================================================== */
+/* =========================================================
+   ESTADO DE MENTE
+   ========================================================= */
+
+const mente = {
+
+    category: null,
+
+    conversationStarted: false,
+
+    messages: [],
+
+    safetyMode: false
+
+};
+
+
+/* =========================================================
+   ABRIR CHAT
+   ========================================================= */
 
 function openChat(initialMessage = null) {
 
@@ -80,7 +94,7 @@ function openChat(initialMessage = null) {
 
         chatInput.focus();
 
-    }, 350);
+    }, 300);
 
 
     if (initialMessage) {
@@ -98,9 +112,9 @@ function openChat(initialMessage = null) {
 }
 
 
-/* =====================================================
-   CERRAR CONVERSACIÓN
-===================================================== */
+/* =========================================================
+   CERRAR CHAT
+   ========================================================= */
 
 function closeChat() {
 
@@ -114,6 +128,7 @@ function closeChat() {
     document.body.style.overflow =
         "";
 
+
     setTimeout(() => {
 
         homeScreen.style.display =
@@ -124,9 +139,9 @@ function closeChat() {
 }
 
 
-/* =====================================================
+/* =========================================================
    BOTÓN PRINCIPAL
-===================================================== */
+   ========================================================= */
 
 mainAction.addEventListener(
     "click",
@@ -138,9 +153,9 @@ mainAction.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    VOLVER
-===================================================== */
+   ========================================================= */
 
 backButton.addEventListener(
     "click",
@@ -148,9 +163,9 @@ backButton.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    LOGO
-===================================================== */
+   ========================================================= */
 
 brandButton.addEventListener(
     "click",
@@ -165,17 +180,20 @@ brandButton.addEventListener(
         }
 
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth"
+
         });
 
     }
 );
 
 
-/* =====================================================
-   TARJETAS
-===================================================== */
+/* =========================================================
+   TARJETAS DE INICIO
+   ========================================================= */
 
 const needCards =
     document.querySelectorAll(
@@ -222,9 +240,9 @@ needCards.forEach(
 );
 
 
-/* =====================================================
+/* =========================================================
    OPCIONES RÁPIDAS
-===================================================== */
+   ========================================================= */
 
 quickOptions.addEventListener(
     "click",
@@ -258,9 +276,9 @@ quickOptions.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    FORMULARIO
-===================================================== */
+   ========================================================= */
 
 chatForm.addEventListener(
     "submit",
@@ -284,9 +302,9 @@ chatForm.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    ENVIAR MENSAJE
-===================================================== */
+   ========================================================= */
 
 function sendUserMessage(message) {
 
@@ -296,41 +314,702 @@ function sendUserMessage(message) {
     );
 
 
+    mente.messages.push({
+
+        role: "user",
+
+        content: message
+
+    });
+
+
     chatInput.value = "";
 
     resizeInput();
 
 
-    showTyping();
-
-
     /*
-       TODAVÍA NO TENEMOS IA.
-
-       Por ahora simulamos una respuesta
-       para comprobar que toda la experiencia
-       funciona correctamente.
+       Primero comprobamos seguridad.
     */
 
-    setTimeout(
-        () => {
+    const safety =
+        detectSafety(message);
+
+
+    if (safety) {
+
+        mente.safetyMode = true;
+
+        showTyping();
+
+
+        setTimeout(() => {
 
             hideTyping();
 
-            generateTemporaryResponse(
-                message
+            addMessage(
+                safetyResponse(),
+                "mente"
             );
 
-        },
-        1100
-    );
+        }, 900);
+
+
+        return;
+
+    }
+
+
+    /*
+       Si no hay una señal de peligro,
+       analizamos la intención.
+    */
+
+    mente.category =
+        detectCategory(message);
+
+
+    showTyping();
+
+
+    setTimeout(() => {
+
+        hideTyping();
+
+        const response =
+            generateResponse(
+                message,
+                mente.category
+            );
+
+
+        addMessage(
+            response,
+            "mente"
+        );
+
+
+        mente.messages.push({
+
+            role: "mente",
+
+            content: response
+
+        });
+
+
+    }, 900);
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   DETECTAR SITUACIONES DE SEGURIDAD
+   ========================================================= */
+
+function detectSafety(message) {
+
+    const text =
+        normalize(message);
+
+
+    /*
+       Estas frases NO significan automáticamente
+       que exista una emergencia.
+
+       Solamente activan una respuesta de seguridad
+       para no tratar una situación potencialmente
+       grave como una conversación normal.
+    */
+
+    const directRisk = [
+
+        "quiero suicidarme",
+
+        "quiero matarme",
+
+        "me quiero matar",
+
+        "voy a suicidarme",
+
+        "voy a matarme",
+
+        "quiero acabar con mi vida",
+
+        "quiero quitarme la vida",
+
+        "me voy a quitar la vida",
+
+        "no quiero seguir viviendo",
+
+        "no quiero vivir",
+
+        "quiero morir",
+
+        "me quiero morir",
+
+        "voy a morir"
+
+    ];
+
+
+    const immediateDanger = [
+
+        "me están golpeando",
+
+        "me esta golpeando",
+
+        "me están atacando",
+
+        "me estan atacando",
+
+        "me quieren matar",
+
+        "estoy en peligro",
+
+        "estoy en peligro ahora",
+
+        "tengo un arma",
+
+        "hay un arma",
+
+        "me están amenazando",
+
+        "me estan amenazando"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            directRisk
+        )
+    ) {
+
+        return "self_harm";
+
+    }
+
+
+    if (
+        containsAny(
+            text,
+            immediateDanger
+        )
+    ) {
+
+        return "immediate_danger";
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   RESPUESTA DE SEGURIDAD
+   ========================================================= */
+
+function safetyResponse() {
+
+    return `
+        <strong>Quiero tomar esto en serio.</strong>
+
+        <p>
+        No tienes que enfrentar este momento
+        completamente solo.
+        </p>
+
+        <p>
+        Si existe peligro inmediato, aléjate de
+        cualquier cosa con la que puedas hacerte
+        daño y busca a una persona de confianza
+        que pueda estar físicamente contigo ahora.
+        </p>
+
+        <p>
+        También puedes contactar a los servicios
+        de emergencia de tu país o acudir al servicio
+        de urgencias más cercano.
+        </p>
+
+        <p>
+        Si puedes, dime solamente esto:
+        <strong>¿estás en peligro inmediato ahora mismo?</strong>
+        </p>
+    `;
+
+}
+
+
+/* =========================================================
+   DETECTAR CATEGORÍA
+   ========================================================= */
+
+function detectCategory(message) {
+
+    const text =
+        normalize(message);
+
+
+    /*
+       DECISIONES
+    */
+
+    const decisionWords = [
+
+        "decidir",
+
+        "decisión",
+
+        "decision",
+
+        "no sé si",
+
+        "no se si",
+
+        "debería",
+
+        "deberia",
+
+        "qué hago",
+
+        "que hago",
+
+        "elegir",
+
+        "escoger",
+
+        "terminar",
+
+        "aceptar",
+
+        "rechazar"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            decisionWords
+        )
+    ) {
+
+        return "decision";
+
+    }
+
+
+    /*
+       ANSIEDAD / ABRUMAMIENTO
+    */
+
+    const anxietyWords = [
+
+        "ansiedad",
+
+        "ansioso",
+
+        "ansiosa",
+
+        "ataque de pánico",
+
+        "ataque de panico",
+
+        "panico",
+
+        "pánico",
+
+        "abrumado",
+
+        "abrumada",
+
+        "me supera",
+
+        "no puedo respirar",
+
+        "nervioso",
+
+        "nerviosa",
+
+        "no puedo dormir",
+
+        "demasiado estrés",
+
+        "demasiado estres"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            anxietyWords
+        )
+    ) {
+
+        return "anxiety";
+
+    }
+
+
+    /*
+       SOLEDAD
+    */
+
+    const lonelinessWords = [
+
+        "estoy solo",
+
+        "estoy sola",
+
+        "me siento solo",
+
+        "me siento sola",
+
+        "soledad",
+
+        "nadie me entiende",
+
+        "nadie me escucha",
+
+        "no tengo amigos",
+
+        "no tengo a nadie"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            lonelinessWords
+        )
+    ) {
+
+        return "loneliness";
+
+    }
+
+
+    /*
+       RELACIONES
+    */
+
+    const relationshipWords = [
+
+        "mi novio",
+
+        "mi novia",
+
+        "mi pareja",
+
+        "mi ex",
+
+        "me engañó",
+
+        "me engaño",
+
+        "terminamos",
+
+        "quiero terminar",
+
+        "me dejó",
+
+        "me dejo",
+
+        "discutí con",
+
+        "discuti con"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            relationshipWords
+        )
+    ) {
+
+        return "relationship";
+
+    }
+
+
+    /*
+       TRISTEZA
+    */
+
+    const sadnessWords = [
+
+        "estoy triste",
+
+        "me siento triste",
+
+        "estoy deprimido",
+
+        "estoy deprimida",
+
+        "me siento mal",
+
+        "llorar",
+
+        "estoy llorando",
+
+        "no tengo ganas",
+
+        "vacío",
+
+        "vacio",
+
+        "sin ganas"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            sadnessWords
+        )
+    ) {
+
+        return "sadness";
+
+    }
+
+
+    /*
+       ENOJO
+    */
+
+    const angerWords = [
+
+        "estoy enojado",
+
+        "estoy enojada",
+
+        "estoy furioso",
+
+        "estoy furiosa",
+
+        "me da rabia",
+
+        "me da cólera",
+
+        "me da colera",
+
+        "quiero vengarme",
+
+        "quiero golpear",
+
+        "quiero pegar"
+
+    ];
+
+
+    if (
+        containsAny(
+            text,
+            angerWords
+        )
+    ) {
+
+        return "anger";
+
+    }
+
+
+    /*
+       SI NO SABEMOS TODAVÍA
+    */
+
+    return "general";
+
+}
+
+
+/* =========================================================
+   GENERAR RESPUESTA
+   ========================================================= */
+
+function generateResponse(
+    message,
+    category
+) {
+
+    switch (category) {
+
+
+        case "decision":
+
+            return `
+                Podemos ordenar esto juntos.
+                No necesitas tomar una decisión
+                mientras estás completamente abrumado.
+
+                <p>
+                Primero quiero entender las opciones.
+                </p>
+
+                <p>
+                <strong>
+                ¿Cuáles son las dos o tres opciones
+                que estás considerando?
+                </strong>
+                </p>
+            `;
+
+
+        case "anxiety":
+
+            return `
+                Vamos a bajar un poco el ritmo
+                antes de intentar resolver todo.
+
+                <p>
+                Pon ambos pies en el suelo y suelta
+                los hombros si puedes.
+                </p>
+
+                <p>
+                No necesitas hacer desaparecer lo
+                que sientes. Primero queremos darle
+                un poco menos de intensidad.
+                </p>
+
+                <p>
+                <strong>
+                ¿Qué estaba pasando justo antes de
+                que empezaras a sentirte así?
+                </strong>
+                </p>
+            `;
+
+
+        case "loneliness":
+
+            return `
+                Gracias por decirlo.
+
+                <p>
+                Sentirse solo no siempre significa
+                simplemente estar físicamente solo.
+                A veces significa sentir que nadie
+                nos comprende o que no tenemos un
+                lugar donde decir lo que realmente
+                pensamos.
+                </p>
+
+                <p>
+                No tienes que explicarlo perfectamente.
+                </p>
+
+                <p>
+                <strong>
+                ¿Desde cuándo te has estado sintiendo así?
+                </strong>
+                </p>
+            `;
+
+
+        case "relationship":
+
+            return `
+                Parece que hay algo importante
+                detrás de lo que estás contando.
+
+                <p>
+                Antes de decirte qué deberías hacer,
+                prefiero entender qué ocurrió.
+                </p>
+
+                <p>
+                <strong>
+                ¿Qué fue lo que pasó?
+                </strong>
+                </p>
+            `;
+
+
+        case "sadness":
+
+            return `
+                Está bien decir que no estás bien.
+
+                <p>
+                No voy a intentar convertir esto
+                inmediatamente en una frase positiva.
+                Primero podemos entenderlo.
+                </p>
+
+                <p>
+                <strong>
+                ¿Qué ha sido lo más difícil de estos
+                últimos días?
+                </strong>
+                </p>
+            `;
+
+
+        case "anger":
+
+            return `
+                Primero hagamos una pausa.
+
+                <p>
+                Cuando estamos muy enojados podemos
+                tomar decisiones que después tienen
+                consecuencias difíciles de deshacer.
+                </p>
+
+                <p>
+                No significa que tu enojo no sea válido.
+                Significa que podemos darle espacio
+                antes de actuar.
+                </p>
+
+                <p>
+                <strong>
+                ¿Qué fue lo que pasó para que llegaras
+                a sentir tanta rabia?
+                </strong>
+                </p>
+            `;
+
+
+        default:
+
+            return `
+                Gracias por contármelo.
+
+                <p>
+                No tienes que encontrar las palabras
+                perfectas. Podemos ir descubriendo
+                qué está pasando poco a poco.
+                </p>
+
+                <p>
+                <strong>
+                ¿Qué es lo que más te preocupa
+                en este momento?
+                </strong>
+                </p>
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
    AGREGAR MENSAJE
-===================================================== */
+   ========================================================= */
 
 function addMessage(
     text,
@@ -366,19 +1045,23 @@ function addMessage(
 
             <div class="bubble">
 
-                <p>${escapeHTML(text)}</p>
+                ${safeHTML(text)}
 
             </div>
 
         `;
 
-    } else {
+    }
+
+    else {
 
         row.innerHTML = `
 
             <div class="bubble">
 
-                <p>${escapeHTML(text)}</p>
+                <p>
+                    ${escapeHTML(text)}
+                </p>
 
             </div>
 
@@ -395,89 +1078,79 @@ function addMessage(
 }
 
 
-/* =====================================================
-   RESPUESTA TEMPORAL
-===================================================== */
+/* =========================================================
+   HTML CONTROLADO
+   ========================================================= */
 
-function generateTemporaryResponse(
-    userMessage
+function safeHTML(text) {
+
+    /*
+       Las respuestas de Mente son creadas
+       internamente por nosotros.
+
+       Los mensajes del usuario siempre
+       utilizan escapeHTML().
+    */
+
+    return text;
+
+}
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   NORMALIZAR TEXTO
+   ========================================================= */
+
+function normalize(text) {
+
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        );
+
+}
+
+
+/* =========================================================
+   BUSCAR PALABRAS
+   ========================================================= */
+
+function containsAny(
+    text,
+    words
 ) {
 
-    const lower =
-        userMessage.toLowerCase();
-
-
-    let response =
-        "Gracias por contármelo. Podemos ir poco a poco. ¿Qué parte de todo esto es la que más pesa en este momento?";
-
-
-    if (
-        lower.includes("decisión") ||
-        lower.includes("decidir")
-    ) {
-
-        response =
-            "Podemos ordenar esa decisión sin apresurarnos. Primero quiero entender qué opciones tienes y qué es lo que más te preocupa de cada una.";
-
-    }
-
-
-    else if (
-        lower.includes("abrum") ||
-        lower.includes("ansiedad") ||
-        lower.includes("ansioso")
-    ) {
-
-        response =
-            "No vamos a intentar solucionar todo de una vez. Primero podemos bajar un poco el ritmo y después mirar qué está provocando que te sientas así.";
-
-    }
-
-
-    else if (
-        lower.includes("solo") ||
-        lower.includes("soledad")
-    ) {
-
-        response =
-            "Gracias por decirlo. Sentirse solo puede ser muy pesado, especialmente cuando parece que no hay con quién hablar. Puedes quedarte aquí y contarme un poco más.";
-
-    }
-
-
-    else if (
-        lower.includes("no sé") ||
-        lower.includes("no se")
-    ) {
-
-        response =
-            "Está bien no saber exactamente qué te pasa. Podemos descubrirlo juntos empezando por lo más reciente: ¿qué ocurrió antes de que empezaras a sentirte así?";
-
-    }
-
-
-    else if (
-        lower.includes("contar") ||
-        lower.includes("decir")
-    ) {
-
-        response =
-            "Te escucho. Puedes decirlo directamente, aunque sea algo difícil, extraño o que nunca hayas contado antes.";
-
-    }
-
-
-    addMessage(
-        response,
-        "mente"
+    return words.some(
+        word =>
+            text.includes(
+                normalize(word)
+            )
     );
 
 }
 
 
-/* =====================================================
-   TYPING
-===================================================== */
+/* =========================================================
+   INDICADOR
+   ========================================================= */
 
 function showTyping() {
 
@@ -500,9 +1173,9 @@ function hideTyping() {
 }
 
 
-/* =====================================================
-   SCROLL
-===================================================== */
+/* =========================================================
+   SCROLL CHAT
+   ========================================================= */
 
 function scrollChatToBottom() {
 
@@ -526,9 +1199,9 @@ function scrollChatToBottom() {
 }
 
 
-/* =====================================================
-   TEXTAREA AUTOMÁTICO
-===================================================== */
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
 
 chatInput.addEventListener(
     "input",
@@ -551,9 +1224,9 @@ function resizeInput() {
 }
 
 
-/* =====================================================
+/* =========================================================
    ENTER
-===================================================== */
+   ========================================================= */
 
 chatInput.addEventListener(
     "keydown",
@@ -574,28 +1247,9 @@ chatInput.addEventListener(
 );
 
 
-/* =====================================================
-   SEGURIDAD BÁSICA DE TEXTO
-===================================================== */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =====================================================
+/* =========================================================
    MENÚ
-===================================================== */
+   ========================================================= */
 
 function openMenu() {
 
@@ -659,9 +1313,9 @@ menuOverlay.addEventListener(
 );
 
 
-/* =====================================================
-   OPCIONES DEL MENÚ
-===================================================== */
+/* =========================================================
+   MENÚ DE NAVEGACIÓN
+   ========================================================= */
 
 menuLinks.forEach(
     (link) => {
@@ -691,10 +1345,15 @@ menuLinks.forEach(
 
                     }
 
+
                     window.scrollTo({
+
                         top: 0,
+
                         behavior: "smooth"
+
                     });
+
 
                     return;
 
@@ -715,19 +1374,20 @@ menuLinks.forEach(
 
 
                 alert(
-                    `${destination} será una sección de Mente que construiremos próximamente.`
+                    `${destination} será una sección que construiremos después.`
                 );
 
             }
+
         );
 
     }
 );
 
 
-/* =====================================================
-   ESC
-===================================================== */
+/* =========================================================
+   ESCAPE
+   ========================================================= */
 
 document.addEventListener(
     "keydown",
@@ -738,6 +1398,7 @@ document.addEventListener(
         ) {
 
             closeSideMenu();
+
 
             if (
                 chatScreen.classList.contains(
