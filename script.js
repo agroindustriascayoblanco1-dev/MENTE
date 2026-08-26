@@ -3,7 +3,7 @@
    IMPORTANTE: la conexión con tu Worker se mantiene aislada.
    ========================================================= */
 
-const WORKER_URL = "https://mente-ai-worker.agroindustriascayoblanco1.workers.dev";
+const WORKER_URL = "https://mente-ai.cristhianosorio503.workers.dev";
 
 const $ = (id) => document.getElementById(id);
 
