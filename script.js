@@ -1,235 +1,315 @@
 /* =====================================================
    MENTE
-   Funcionalidad inicial
+   Funcionalidad principal
    ===================================================== */
 
 
-/* -----------------------------------------------------
+/* =====================================================
    ELEMENTOS
-   ----------------------------------------------------- */
+   ===================================================== */
 
-const mainAction = document.querySelector(".main-action");
+const menuButton = document.getElementById("menuButton");
+
+const closeMenu = document.getElementById("closeMenu");
+
+const sideMenu = document.getElementById("sideMenu");
+
+const menuOverlay = document.getElementById("menuOverlay");
+
+const mainAction = document.getElementById("mainAction");
+
 const needCards = document.querySelectorAll(".need-card");
-const chatButton = document.querySelector(".center-action");
-const menuButton = document.querySelector(".menu-button");
+
+const menuLinks = document.querySelectorAll(".menu-link");
+
+const messageLayer = document.getElementById("messageLayer");
+
+const messageClose = document.getElementById("messageClose");
+
+const messageAction = document.getElementById("messageAction");
+
+const messageTitle = document.getElementById("messageTitle");
+
+const messageText = document.getElementById("messageText");
 
 
-/* -----------------------------------------------------
-   MENSAJE PRINCIPAL
-   ----------------------------------------------------- */
-
-mainAction.addEventListener("click", () => {
-    showMessage(
-        "Cuéntame qué está pasando",
-        "No necesitas explicarlo perfectamente. Puedes empezar por lo primero que tengas en la cabeza."
-    );
-});
-
-
-/* -----------------------------------------------------
-   TARJETAS DE NECESIDADES
-   ----------------------------------------------------- */
-
-needCards.forEach((card) => {
-
-    card.addEventListener("click", () => {
-
-        const title = card.querySelector(".need-title").textContent.trim();
-
-        handleNeed(title);
-
-    });
-
-});
-
-
-/* -----------------------------------------------------
-   BOTÓN CENTRAL — HABLAR
-   ----------------------------------------------------- */
-
-chatButton.addEventListener("click", () => {
-
-    showMessage(
-        "Estoy aquí",
-        "Este será tu espacio para hablar. Pronto podremos conversar contigo de una forma más personal."
-    );
-
-});
-
-
-/* -----------------------------------------------------
+/* =====================================================
    MENÚ
-   ----------------------------------------------------- */
+   ===================================================== */
 
-menuButton.addEventListener("click", () => {
+function openMenu() {
 
-    showMessage(
-        "Mente",
-        "Aquí iremos incorporando tus opciones, privacidad, configuración y ayuda."
+    sideMenu.classList.add("open");
+
+    menuOverlay.classList.add("open");
+
+    sideMenu.setAttribute(
+        "aria-hidden",
+        "false"
     );
 
-});
+    menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+    );
 
-
-/* -----------------------------------------------------
-   ACCIONES SEGÚN NECESIDAD
-   ----------------------------------------------------- */
-
-function handleNeed(title) {
-
-    switch (title) {
-
-        case "Entender":
-
-            showMessage(
-                "Vamos a entenderlo",
-                "Cuéntame qué estás sintiendo o qué situación quieres comprender."
-            );
-
-            break;
-
-
-        case "Decidir":
-
-            showMessage(
-                "Vamos a pensarlo juntos",
-                "No voy a decidir por ti. Primero vamos a mirar la situación desde diferentes puntos de vista."
-            );
-
-            break;
-
-
-        case "Calmarme":
-
-            showMessage(
-                "Vamos a bajar un poco el ritmo",
-                "Antes de intentar resolverlo todo, podemos ocuparnos de cómo te sientes ahora."
-            );
-
-            break;
-
-
-        case "Hablar":
-
-            showMessage(
-                "Puedes empezar aquí",
-                "No necesitas encontrar las palabras perfectas. Cuéntame lo que quieras."
-            );
-
-            break;
-
-
-        default:
-
-            showMessage(
-                "Estoy aquí",
-                "Cuéntame qué está pasando."
-            );
-
-    }
-
+    document.body.style.overflow = "hidden";
 }
 
 
-/* -----------------------------------------------------
-   MENSAJE TEMPORAL
-   ----------------------------------------------------- */
+function closeSideMenu() {
 
-function showMessage(title, text) {
+    sideMenu.classList.remove("open");
 
-    const existingMessage =
-        document.querySelector(".temporary-message");
+    menuOverlay.classList.remove("open");
 
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+    sideMenu.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
-    const message = document.createElement("div");
-
-    message.className = "temporary-message";
-
-
-    message.innerHTML = `
-        <div class="temporary-message-content">
-
-            <button
-                class="temporary-close"
-                type="button"
-                aria-label="Cerrar"
-            >
-                ×
-            </button>
-
-            <p class="temporary-eyebrow">
-                MENTE
-            </p>
-
-            <h2>
-                ${title}
-            </h2>
-
-            <p>
-                ${text}
-            </p>
-
-            <button
-                class="temporary-action"
-                type="button"
-            >
-                Continuar
-            </button>
-
-        </div>
-    `;
+    document.body.style.overflow = "";
+}
 
 
-    document.body.appendChild(message);
+menuButton.addEventListener(
+    "click",
+    openMenu
+);
 
 
-    requestAnimationFrame(() => {
-        message.classList.add("visible");
-    });
+closeMenu.addEventListener(
+    "click",
+    closeSideMenu
+);
 
 
-    const closeButton =
-        message.querySelector(".temporary-close");
-
-    const continueButton =
-        message.querySelector(".temporary-action");
-
-
-    closeButton.addEventListener("click", () => {
-        closeMessage(message);
-    });
+menuOverlay.addEventListener(
+    "click",
+    closeSideMenu
+);
 
 
-    continueButton.addEventListener("click", () => {
-        closeMessage(message);
-    });
+/* =====================================================
+   ESC PARA CERRAR
+   ===================================================== */
 
+document.addEventListener(
+    "keydown",
+    (event) => {
 
-    message.addEventListener("click", (event) => {
+        if (event.key === "Escape") {
 
-        if (event.target === message) {
-            closeMessage(message);
+            closeSideMenu();
+
+            closeMessage();
+
         }
 
-    });
+    }
+);
+
+
+/* =====================================================
+   BOTÓN PRINCIPAL
+   ===================================================== */
+
+mainAction.addEventListener(
+    "click",
+    () => {
+
+        showMessage(
+            "Puedes empezar aquí.",
+            "No necesitas explicarlo perfectamente. Cuéntame qué está pasando y vamos a ordenarlo juntos."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TARJETAS
+   ===================================================== */
+
+needCards.forEach(
+    (card) => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const action =
+                    card.dataset.action;
+
+                handleAction(action);
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   ACCIONES
+   ===================================================== */
+
+function handleAction(action) {
+
+    const responses = {
+
+        Entender: {
+            title: "Vamos a entenderlo.",
+            text: "Cuéntame qué estás sintiendo o qué situación quieres comprender. No tienes que saber exactamente cómo llamarlo."
+        },
+
+        Decidir: {
+            title: "Vamos a pensarlo juntos.",
+            text: "No voy a decidir por ti. Primero vamos a mirar lo que está pasando, tus opciones y las posibles consecuencias."
+        },
+
+        Calmarme: {
+            title: "Vamos a bajar un poco el ritmo.",
+            text: "Antes de intentar solucionar todo, podemos ocuparnos de este momento y ayudarte a recuperar un poco de calma."
+        },
+
+        Hablar: {
+            title: "Puedes contarlo aquí.",
+            text: "No necesitas encontrar las palabras perfectas. Empieza por la parte que más te cuesta decir."
+        }
+
+    };
+
+
+    const response =
+        responses[action];
+
+
+    if (!response) {
+        return;
+    }
+
+
+    showMessage(
+        response.title,
+        response.text
+    );
 
 }
 
 
-/* -----------------------------------------------------
+/* =====================================================
+   MENÚ
+   ===================================================== */
+
+menuLinks.forEach(
+    (link) => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                const label =
+                    link.textContent.trim();
+
+
+                if (label === "Inicio") {
+
+                    closeSideMenu();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                    return;
+
+                }
+
+
+                closeSideMenu();
+
+
+                showMessage(
+                    label,
+                    "Esta sección la construiremos juntos. Queremos que cada parte de Mente tenga una utilidad real."
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   MENSAJE
+   ===================================================== */
+
+function showMessage(
+    title,
+    text
+) {
+
+    messageTitle.textContent =
+        title;
+
+    messageText.textContent =
+        text;
+
+    messageLayer.classList.add(
+        "open"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =====================================================
    CERRAR MENSAJE
-   ----------------------------------------------------- */
+   ===================================================== */
 
-function closeMessage(message) {
+function closeMessage() {
 
-    message.classList.remove("visible");
+    messageLayer.classList.remove(
+        "open"
+    );
 
-    setTimeout(() => {
-        message.remove();
-    }, 220);
-
+    document.body.style.overflow =
+        "";
 }
+
+
+messageClose.addEventListener(
+    "click",
+    closeMessage
+);
+
+
+messageAction.addEventListener(
+    "click",
+    closeMessage
+);
+
+
+messageLayer.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target === messageLayer
+        ) {
+
+            closeMessage();
+
+        }
+
+    }
+);
