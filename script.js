@@ -2,6 +2,7 @@
    MENTE
    PRIMER CEREBRO DE CONVERSACIÓN
    ========================================================= */
+alert("ESTOY EJECUTANDO EL NUEVO SCRIPT DE MENTE");
 
 
 /* =========================================================
