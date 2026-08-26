@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -21,66 +23,78 @@
     <title>Mente</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <div class="app">
-
-        <!-- =========================================
-             HEADER
-        ========================================== -->
-
-        <header class="header">
-
-            <a href="#" class="logo">
-                MENTE
-            </a>
-
-            <button
-                class="menu-button"
-                id="menuButton"
-                type="button"
-                aria-label="Abrir menú"
-                aria-expanded="false"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-        </header>
+<div class="app">
 
 
-        <!-- =========================================
-             CONTENIDO
-        ========================================== -->
+    <!-- =========================================
+         HEADER PRINCIPAL
+    ========================================== -->
 
-        <main>
+    <header class="header">
+
+        <button
+            class="brand-button"
+            id="brandButton"
+            type="button"
+        >
+            MENTE
+        </button>
 
 
-            <!-- =====================================
-                 HERO
-            ====================================== -->
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
 
-            <section class="hero">
+            <span></span>
+            <span></span>
+            <span></span>
 
-                <div class="mascot-area">
+        </button>
 
-                    <div class="mascot">
+    </header>
 
-                        <div class="mascot-glow"></div>
 
-                        <div class="mascot-body">
 
-                            <div class="mascot-face">
+    <!-- =========================================
+         PANTALLA PRINCIPAL
+    ========================================== -->
 
-                                <span class="eye left-eye"></span>
-                                <span class="eye right-eye"></span>
+    <main
+        class="home-screen"
+        id="homeScreen"
+    >
 
-                                <span class="mouth"></span>
 
-                            </div>
+        <!-- HERO -->
+
+        <section class="hero">
+
+
+            <div class="mascot-area">
+
+                <div class="mascot">
+
+                    <div class="mascot-glow"></div>
+
+                    <div class="mascot-body">
+
+                        <div class="mascot-face">
+
+                            <span class="eye left-eye"></span>
+
+                            <span class="eye right-eye"></span>
+
+                            <span class="mouth"></span>
 
                         </div>
 
@@ -88,398 +102,653 @@
 
                 </div>
 
+            </div>
+
+
+            <p class="eyebrow">
+                Un momento para ti
+            </p>
+
+
+            <h1>
+                Tómate un momento.
+            </h1>
+
+
+            <p class="hero-text">
+
+                No tienes que tener todo resuelto.
+                Puedes empezar por contar lo que está pasando.
+
+            </p>
+
+
+            <button
+                class="main-action"
+                id="mainAction"
+                type="button"
+            >
+
+                <span class="action-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <path
+                            d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.4-4A7.5 7.5 0 1 1 20 11.5Z"
+                        />
+
+                    </svg>
+
+                </span>
+
+
+                <span class="action-text">
+
+                    <strong>
+                        Cuéntame qué pasa
+                    </strong>
+
+                    <small>
+                        Puedes empezar por donde quieras.
+                    </small>
+
+                </span>
+
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </button>
+
+        </section>
+
+
+
+        <!-- NECESIDADES -->
+
+        <section class="needs">
+
+
+            <div class="section-heading">
 
                 <p class="eyebrow">
-                    Un momento para ti
+                    Tú eliges el camino
                 </p>
 
+                <h2>
+                    ¿Qué necesitas ahora?
+                </h2>
 
-                <h1>
-                    Tómate un momento.
-                </h1>
+            </div>
 
 
-                <p class="hero-text">
-                    No tienes que tener todo resuelto.
-                    Puedes empezar por contar lo que está pasando.
-                </p>
+            <div class="needs-grid">
 
 
                 <button
-                    class="main-action"
-                    id="mainAction"
+                    class="need-card card-purple"
+                    data-action="Entender"
                     type="button"
                 >
 
-                    <span class="action-icon">
-                        <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                        >
-                            <path
-                                d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2 1.4-4A7.5 7.5 0 1 1 20 11.5Z"
-                            />
-                        </svg>
+                    <span class="card-symbol">
+                        ◌
                     </span>
 
-                    <span class="action-text">
-                        <strong>Cuéntame qué pasa</strong>
-                        <small>Estoy aquí para escucharte.</small>
+                    <span class="need-content">
+
+                        <strong>
+                            Entender
+                        </strong>
+
+                        <small>
+                            Quiero entender lo que me pasa.
+                        </small>
+
                     </span>
 
-                    <span class="action-arrow">
+                    <span class="card-arrow">
                         →
                     </span>
 
                 </button>
 
-            </section>
 
-
-
-            <!-- =====================================
-                 NECESIDADES
-            ====================================== -->
-
-            <section class="needs">
-
-                <div class="section-heading">
-
-                    <p class="eyebrow">
-                        Tú eliges el camino
-                    </p>
-
-                    <h2>
-                        ¿Qué necesitas ahora?
-                    </h2>
-
-                </div>
-
-
-                <div class="needs-grid">
-
-
-                    <!-- ENTENDER -->
-
-                    <button
-                        class="need-card card-purple"
-                        data-action="Entender"
-                        type="button"
-                    >
-
-                        <span class="card-symbol">
-                            ◌
-                        </span>
-
-                        <span class="need-content">
-
-                            <strong>
-                                Entender
-                            </strong>
-
-                            <small>
-                                Quiero entender lo que me pasa.
-                            </small>
-
-                        </span>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </button>
-
-
-
-                    <!-- DECIDIR -->
-
-                    <button
-                        class="need-card card-yellow"
-                        data-action="Decidir"
-                        type="button"
-                    >
-
-                        <span class="card-symbol">
-                            ◇
-                        </span>
-
-                        <span class="need-content">
-
-                            <strong>
-                                Decidir
-                            </strong>
-
-                            <small>
-                                Tengo algo importante que decidir.
-                            </small>
-
-                        </span>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </button>
-
-
-
-                    <!-- CALMARME -->
-
-                    <button
-                        class="need-card card-green"
-                        data-action="Calmarme"
-                        type="button"
-                    >
-
-                        <span class="card-symbol">
-                            〰
-                        </span>
-
-                        <span class="need-content">
-
-                            <strong>
-                                Calmarme
-                            </strong>
-
-                            <small>
-                                Necesito bajar un poco el ritmo.
-                            </small>
-
-                        </span>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </button>
-
-
-
-                    <!-- HABLAR -->
-
-                    <button
-                        class="need-card card-pink"
-                        data-action="Hablar"
-                        type="button"
-                    >
-
-                        <span class="card-symbol">
-                            ○
-                        </span>
-
-                        <span class="need-content">
-
-                            <strong>
-                                Hablar
-                            </strong>
-
-                            <small>
-                                Hay algo que necesito contar.
-                            </small>
-
-                        </span>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =====================================
-                 MENSAJE FINAL
-            ====================================== -->
-
-            <section class="closing">
-
-                <div class="closing-mascot">
-                    <div class="mini-mascot">
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-
-                <p>
-                    No tienes que resolverlo todo hoy.
-                </p>
-
-                <small>
-                    Puedes empezar por una cosa.
-                </small>
-
-            </section>
-
-        </main>
-
-
-
-        <!-- =========================================
-             MENÚ LATERAL
-        ========================================== -->
-
-        <div
-            class="menu-overlay"
-            id="menuOverlay"
-        ></div>
-
-
-        <aside
-            class="side-menu"
-            id="sideMenu"
-            aria-hidden="true"
-        >
-
-            <div class="side-menu-header">
-
-                <span class="menu-title">
-                    MENTE
-                </span>
 
                 <button
-                    class="close-menu"
-                    id="closeMenu"
+                    class="need-card card-yellow"
+                    data-action="Decidir"
                     type="button"
-                    aria-label="Cerrar menú"
                 >
-                    ×
+
+                    <span class="card-symbol">
+                        ◇
+                    </span>
+
+                    <span class="need-content">
+
+                        <strong>
+                            Decidir
+                        </strong>
+
+                        <small>
+                            Tengo algo importante que decidir.
+                        </small>
+
+                    </span>
+
+                    <span class="card-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    class="need-card card-green"
+                    data-action="Calmarme"
+                    type="button"
+                >
+
+                    <span class="card-symbol">
+                        〰
+                    </span>
+
+                    <span class="need-content">
+
+                        <strong>
+                            Calmarme
+                        </strong>
+
+                        <small>
+                            Necesito bajar un poco el ritmo.
+                        </small>
+
+                    </span>
+
+                    <span class="card-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    class="need-card card-pink"
+                    data-action="Hablar"
+                    type="button"
+                >
+
+                    <span class="card-symbol">
+                        ○
+                    </span>
+
+                    <span class="need-content">
+
+                        <strong>
+                            Hablar
+                        </strong>
+
+                        <small>
+                            Hay algo que necesito contar.
+                        </small>
+
+                    </span>
+
+                    <span class="card-arrow">
+                        →
+                    </span>
+
                 </button>
 
             </div>
 
-
-            <nav class="menu-navigation">
-
-                <button class="menu-link active" type="button">
-                    <span>⌂</span>
-                    Inicio
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>◌</span>
-                    Entender
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>◇</span>
-                    Decidir
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>〰</span>
-                    Manejar
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>○</span>
-                    Practicar
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>♡</span>
-                    Hablar
-                </button>
-
-                <div class="menu-separator"></div>
-
-                <button class="menu-link" type="button">
-                    <span>✦</span>
-                    Mi Mente
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>?</span>
-                    Ayuda
-                </button>
-
-                <button class="menu-link" type="button">
-                    <span>⌘</span>
-                    Privacidad
-                </button>
-
-            </nav>
+        </section>
 
 
-            <div class="menu-footer">
 
-                <div class="menu-footer-mascot">
-                    <div class="mini-mascot">
-                        <span></span>
-                        <span></span>
-                    </div>
+        <!-- CIERRE -->
+
+        <section class="closing">
+
+            <div class="closing-mascot">
+
+                <div class="mini-mascot">
+
+                    <span></span>
+                    <span></span>
+
                 </div>
-
-                <p>
-                    Un espacio para pensar,
-                    entender y seguir adelante.
-                </p>
 
             </div>
 
-        </aside>
+
+            <p>
+                No tienes que resolverlo todo hoy.
+            </p>
+
+            <small>
+                Puedes empezar por una cosa.
+            </small>
+
+        </section>
+
+
+    </main>
 
 
 
-        <!-- =========================================
-             MODAL / MENSAJE
-        ========================================== -->
+    <!-- =========================================
+         PANTALLA DE CONVERSACIÓN
+    ========================================== -->
 
-        <div
-            class="message-layer"
-            id="messageLayer"
-        >
+    <main
+        class="chat-screen"
+        id="chatScreen"
+        aria-hidden="true"
+    >
 
-            <div class="message-box">
 
-                <button
-                    class="message-close"
-                    id="messageClose"
-                    type="button"
-                    aria-label="Cerrar"
-                >
-                    ×
-                </button>
+        <!-- CABECERA CHAT -->
 
-                <div class="message-mascot">
+        <div class="chat-header">
+
+
+            <button
+                class="back-button"
+                id="backButton"
+                type="button"
+                aria-label="Volver"
+            >
+                ←
+            </button>
+
+
+            <div class="chat-identity">
+
+                <div class="chat-mascot">
+
                     <div class="mini-mascot">
+
                         <span></span>
                         <span></span>
+
                     </div>
+
                 </div>
 
-                <p class="eyebrow">
-                    MENTE
-                </p>
 
-                <h2 id="messageTitle">
-                    Estoy aquí.
-                </h2>
+                <div>
 
-                <p id="messageText">
-                    Puedes empezar por donde quieras.
-                </p>
+                    <strong>
+                        Mente
+                    </strong>
 
-                <button
-                    class="message-action"
-                    id="messageAction"
-                    type="button"
-                >
-                    Continuar
-                </button>
+                    <small>
+                        aquí contigo
+                    </small>
+
+                </div>
 
             </div>
+
+
+            <button
+                class="chat-menu-button"
+                id="chatMenuButton"
+                type="button"
+                aria-label="Opciones"
+            >
+                ···
+            </button>
 
         </div>
 
 
-    </div>
+
+        <!-- MENSAJES -->
+
+        <div
+            class="chat-messages"
+            id="chatMessages"
+        >
 
 
-    <script src="script.js"></script>
+            <!-- MENSAJE INICIAL -->
+
+            <div class="message-row mente-message">
+
+                <div class="message-avatar">
+
+                    <div class="mini-mascot">
+
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bubble">
+
+                    <p>
+                        Estoy aquí.
+                    </p>
+
+                    <p>
+                        No tienes que saber exactamente
+                        cómo explicarlo.
+                    </p>
+
+                    <p>
+                        Cuéntame qué está pasando.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUGERENCIAS -->
+
+            <div
+                class="quick-options"
+                id="quickOptions"
+            >
+
+                <button
+                    type="button"
+                    data-message="No sé exactamente qué me pasa."
+                >
+                    No sé qué me pasa
+                </button>
+
+
+                <button
+                    type="button"
+                    data-message="Tengo algo que necesito contar."
+                >
+                    Necesito contar algo
+                </button>
+
+
+                <button
+                    type="button"
+                    data-message="Tengo que tomar una decisión."
+                >
+                    Necesito decidir
+                </button>
+
+
+                <button
+                    type="button"
+                    data-message="Me siento muy abrumado."
+                >
+                    Me siento abrumado
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- INDICADOR -->
+
+        <div
+            class="typing-indicator"
+            id="typingIndicator"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+
+        <!-- ESCRIBIR -->
+
+        <form
+            class="chat-input-area"
+            id="chatForm"
+        >
+
+            <textarea
+                id="chatInput"
+                rows="1"
+                maxlength="2000"
+                placeholder="Escribe lo que quieras..."
+                aria-label="Escribe tu mensaje"
+            ></textarea>
+
+
+            <button
+                class="send-button"
+                type="submit"
+                aria-label="Enviar"
+            >
+
+                ↑
+
+            </button>
+
+        </form>
+
+
+        <p class="chat-disclaimer">
+
+            Mente es un espacio de apoyo y orientación.
+            Si estás en peligro inmediato, busca ayuda humana.
+
+        </p>
+
+    </main>
+
+
+
+    <!-- =========================================
+         MENÚ LATERAL
+    ========================================== -->
+
+    <div
+        class="menu-overlay"
+        id="menuOverlay"
+    ></div>
+
+
+    <aside
+        class="side-menu"
+        id="sideMenu"
+        aria-hidden="true"
+    >
+
+
+        <div class="side-menu-header">
+
+            <span class="menu-title">
+                MENTE
+            </span>
+
+
+            <button
+                class="close-menu"
+                id="closeMenu"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <nav class="menu-navigation">
+
+
+            <button
+                class="menu-link active"
+                data-menu="Inicio"
+                type="button"
+            >
+
+                <span>⌂</span>
+
+                Inicio
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Entender"
+                type="button"
+            >
+
+                <span>◌</span>
+
+                Entender
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Decidir"
+                type="button"
+            >
+
+                <span>◇</span>
+
+                Decidir
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Manejar"
+                type="button"
+            >
+
+                <span>〰</span>
+
+                Manejar
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Practicar"
+                type="button"
+            >
+
+                <span>○</span>
+
+                Practicar
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Hablar"
+                type="button"
+            >
+
+                <span>♡</span>
+
+                Hablar
+
+            </button>
+
+
+            <div class="menu-separator"></div>
+
+
+            <button
+                class="menu-link"
+                data-menu="Mi Mente"
+                type="button"
+            >
+
+                <span>✦</span>
+
+                Mi Mente
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Ayuda"
+                type="button"
+            >
+
+                <span>?</span>
+
+                Ayuda
+
+            </button>
+
+
+            <button
+                class="menu-link"
+                data-menu="Privacidad"
+                type="button"
+            >
+
+                <span>⌘</span>
+
+                Privacidad
+
+            </button>
+
+
+        </nav>
+
+
+
+        <div class="menu-footer">
+
+            <div class="menu-footer-mascot">
+
+                <div class="mini-mascot">
+
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <p>
+                Un espacio para pensar,
+                entender y seguir adelante.
+            </p>
+
+        </div>
+
+
+    </aside>
+
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
