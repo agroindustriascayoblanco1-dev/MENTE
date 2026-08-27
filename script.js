@@ -24,6 +24,7 @@ function formatMessage(t){
 function showScreen(name){
  if(!screens[name])name="home";
  Object.entries(screens).forEach(([k,s])=>{if(s){s.hidden=k!==name;s.classList.toggle("active",k===name);s.setAttribute("aria-hidden",k===name?"false":"true")}});
+ document.querySelectorAll(".nav-item[data-screen]").forEach(b=>b.classList.toggle("active",b.dataset.screen===name));
  document.body.classList.toggle("chat-open",name==="chat");
  window.scrollTo({top:0,behavior:"smooth"});
  if(name==="journal")renderJournal();
@@ -120,12 +121,18 @@ function resizeInput(){if(chatInput){chatInput.style.height="auto";chatInput.sty
 
 document.addEventListener("DOMContentLoaded",()=>{
  $("brandButton")?.addEventListener("click",goHome);$("menuButton")?.addEventListener("click",openMenu);$("closeMenu")?.addEventListener("click",closeMenu);$("menuOverlay")?.addEventListener("click",closeMenu);
- $("mainAction")?.addEventListener("click",openChat);$("relaxButton")?.addEventListener("click",openRelax);$("journalButton")?.addEventListener("click",openJournal);$("backButton")?.addEventListener("click",closeChat);
+ $("mainAction")?.addEventListener("click",openChat);$("relaxButton")?.addEventListener("click",openRelax);$("journalButton")?.addEventListener("click",openJournal);$("backButton")?.addEventListener("click",closeChat);$("backFromChat")?.addEventListener("click",closeChat);
+ document.querySelectorAll(".nav-item[data-screen]").forEach(b=>b.addEventListener("click",()=>{const d=b.dataset.screen;if(d==="chat")openChat();else showScreen(d||"home")}));
  document.querySelectorAll("[data-menu]").forEach(b=>b.addEventListener("click",()=>menuAction(b.dataset.menu)));
  document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>{const f={Entender:openExplore,Calmarme:openRelax,Hablar:openChat,Decidir:openDecision}[b.dataset.action];if(f)f();}));
  document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>openTopic(b.dataset.topic)));
  document.querySelectorAll("[data-exercise]").forEach(b=>b.addEventListener("click",()=>openExercise(b.dataset.exercise)));
- document.querySelectorAll("[data-article]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.article;if(k==="respiracion")openExercise("respiracion");else if(k==="pensamientos")openDecision();else openDecision()}));
+ document.querySelectorAll("[data-article]").forEach(b=>b.addEventListener("click",()=>{
+  const k=b.dataset.article;
+  if(k==="respiracion")openExercise("respiracion");
+  else if(k==="pensamientos")openArticle("pensamientos");
+  else if(k==="ayuda")openArticle("ayuda");
+ }));
  document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>{if(b.closest("#articleScreen"))showScreen(state.articleBack||"home");else showScreen(b.dataset.back||"home")}));
  document.querySelectorAll("[data-mood]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-mood]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.selectedMood=b.dataset.mood}));
  saveJournalButton?.addEventListener("click",()=>{const text=journalEntry?.value.trim();if(!text){alert("Escribe algo antes de guardar tu entrada.");return}const a=getJournal();a.unshift({id:Date.now(),date:new Date().toLocaleString("es-HN",{dateStyle:"medium",timeStyle:"short"}),mood:state.selectedMood||"Sin estado de ánimo seleccionado",text});localStorage.setItem(JOURNAL_KEY,JSON.stringify(a));journalEntry.value="";state.selectedMood=null;document.querySelectorAll("[data-mood]").forEach(x=>x.classList.remove("selected"));renderJournal()});
