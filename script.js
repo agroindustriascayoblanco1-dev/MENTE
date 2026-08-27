@@ -6,6 +6,7 @@ const screens = {
     journal: $("journalScreen"),
     relax: $("relaxScreen"),
     article: $("articleScreen"),
+    biblical: $("biblicalScreen"),
     chat: $("chatScreen")
 };
 
@@ -66,6 +67,7 @@ function openChat() { closeMenu(); showScreen("chat"); }
 function openExplore() { closeMenu(); showScreen("explore"); }
 function openRelax() { closeMenu(); showScreen("relax"); }
 function openJournal() { closeMenu(); showScreen("journal"); }
+function openBiblical() { closeMenu(); showScreen("biblical"); }
 function goHome() { closeMenu(); showScreen("home"); }
 function closeChat() { showScreen("home"); }
 
@@ -90,6 +92,7 @@ function menuAction(action) {
     else if (action === "Entender") openExplore();
     else if (action === "Relajación") openRelax();
     else if (action === "Diario") openJournal();
+    else if (action === "Biblia") openBiblical();
     else if (action === "Decidir") openDecision();
     closeMenu();
 }
@@ -128,6 +131,40 @@ const topics = {
     ]]
 };
 
+// Biblical Emotional Intelligence
+const biblicalTopics = {
+    miedo: ["FE Y CONFIANZA", "Miedo y Confianza en Dios", "El miedo es natural, pero la fe nos recuerda que no estamos solos. Dios nos invita a confiar en su protección y amor.", [
+        ["Entender el miedo", "El miedo puede ser una señal de que necesitamos ayuda. No es debilidad, es parte de ser humano."],
+        ["Confía en Dios", "Salmos 27:1 - 'El Señor es mi luz y mi salvación, ¿de quién tendré temor?'"],
+        ["Pasos prácticos", "Ora, busca comunidad, recuerda momentos en que Dios te cuidó, lee promesas de Dios."]
+    ]],
+    ansiedad_biblica: ["PAZ INTERIOR", "Ansiedad y Paz", "Filipenses 4:6-7 - 'Por nada estén ansiosos, sino que en toda situación, mediante la oración y la petición, presenten sus peticiones a Dios.'", [
+        ["Reconoce tus preocupaciones", "Permite que tus miedos salgan a la luz. Dios ya los conoce."],
+        ["Oración transformadora", "Presenta a Dios lo que te preocupa. La paz que sobrepasa el entendimiento guardarás tu corazón."],
+        ["Herramientas", "Meditación en la Palabra, oración constante, comunidad de fe."]
+    ]],
+    ira: ["PERDÓN Y SANIDAD", "Ira y Perdón", "Efesios 4:26-27 - 'Si se enojan, no pequen.' La ira es válida, pero cómo la manejamos importa.", [
+        ["Expresa tu ira", "Está bien sentir enojo ante la injusticia. Dios también se enoja."],
+        ["El poder del perdón", "Perdonar no significa que lo que hicieron estuvo bien, sino liberarte del resentimiento."],
+        ["Pasos hacia la sanidad", "Reconoce la ira, habla con Dios, busca reconciliación cuando sea posible, perdónate a ti mismo."]
+    ]],
+    tristeza: ["ESPERANZA Y CONSUELO", "Tristeza y Esperanza", "Romanos 15:13 - 'Que el Dios de la esperanza os llene de todo gozo y paz en vuestra fe.'", [
+        ["La tristeza es válida", "Jesús lloró. Permitirse sentir tristeza es parte del proceso de sanidad."],
+        ["Dios está contigo", "Salmos 34:18 - 'Cercano est�� el Señor a los de corazón quebrantado.'"],
+        ["Caminar hacia la luz", "Busca apoyo, expresa tu dolor, confía en que hay esperanza, ayuda a otros."]
+    ]],
+    culpa: ["GRACIA Y PERDÓN", "Culpa y Gracia", "1 Juan 1:9 - 'Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados.'", [
+        ["Diferencia importante", "Convicción (nos lleva a cambiar) vs culpa (nos paraliza). Dios ofrece convicción, no culpa."],
+        ["La gracia de Dios", "Tu valor no depende de tus errores. Eres amado incondicionalmente."],
+        ["Movimiento hacia adelante", "Confiesa, acepta el perdón, perdónate a ti mismo, crece desde ahí."]
+    ]],
+    soledad: ["COMUNIDAD Y AMOR", "Soledad y Comunidad", "1 Tesalonicenses 5:11 - 'Por eso, anímense y edifíquense unos a otros.'", [
+        ["No estás solo", "Dios siempre está contigo. Además, Él nos creó para la comunidad."],
+        ["Busca conexión", "Pequeños grupos, iglesia, amigos de fe. La comunidad sana."],
+        ["Da y recibe", "La soledad se reduce cuando servimos y permitimos ser servidos por otros."]
+    ]]
+};
+
 function openTopic(key) {
     const data = topics[key];
     if (!data) return;
@@ -139,6 +176,21 @@ function openTopic(key) {
     $("articleContent").innerHTML = `<div class="article-intro"><p>${escapeHTML(data[2])}</p></div>` +
         data[3].map(section => `<section class="article-section"><h2>${escapeHTML(section[0])}</h2><p>${escapeHTML(section[1])}</p></section>`).join("") +
         `<div class="article-note"><strong>Recuerda</strong><p>La información de Mente es educativa y no sustituye una evaluación profesional.</p></div>`;
+    
+    showScreen("article");
+}
+
+function openBiblicalTopic(key) {
+    const data = biblicalTopics[key];
+    if (!data) return;
+    
+    state.articleBack = "biblical";
+    $("articleCategory").textContent = data[0];
+    $("articleTitle").textContent = data[1];
+    
+    $("articleContent").innerHTML = `<div class="article-intro"><p>${escapeHTML(data[2])}</p></div>` +
+        data[3].map(section => `<section class="article-section"><h2>${escapeHTML(section[0])}</h2><p>${escapeHTML(section[1])}</p></section>`).join("") +
+        `<div class="article-note"><strong>Reflexión</strong><p>Que esta sabiduría te acompañe en tu camino. Que encuentres paz en la fe.</p></div>`;
     
     showScreen("article");
 }
@@ -182,6 +234,11 @@ const exercises = {
     pausa: ["EJERCICIO", "Un minuto para ti", `
         <div class="article-intro"><p>No tienes que resolverlo todo durante este minuto. Solo necesitas detenerte.</p></div>
         <section class="article-section"><h2>Detente</h2><p>Respira profundo. Siéntete aquí. Mira a tu alrededor. Es suficiente.</p></section>
+    `],
+    oracion: ["EJERCICIO", "Oración Guiada", `
+        <div class="article-intro"><p>Un momento para conectar con Dios y encontrar paz interior.</p></div>
+        <section class="article-section"><h2>Prepárate</h2><p>Encuentra un lugar tranquilo. Siéntate cómodamente. Respira profundo.</p></section>
+        <section class="article-section"><h2>Oración</h2><p>"Señor, reconozco que no puedo hacer esto solo. Te entrego mis preocupaciones, mis miedos, mi carga. Ayúdame a confiar en ti. Lléname de tu paz. Que tu amor me transforme. Amén."</p></section>
     `]
 };
 
@@ -390,6 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("mainAction")?.addEventListener("click", openChat);
     $("relaxButton")?.addEventListener("click", openRelax);
     $("journalButton")?.addEventListener("click", openJournal);
+    $("biblicalButton")?.addEventListener("click", openBiblical);
     $("chatMenuButton")?.addEventListener("click", openMenu);
     
     // Menu links
@@ -397,14 +455,15 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => menuAction(btn.dataset.menu));
     });
     
-    // Action buttons (home screen quick access)
+    // Action buttons
     document.querySelectorAll("[data-action]").forEach(btn => {
         btn.addEventListener("click", () => {
             const actions = {
                 "Entender": openExplore,
                 "Calmarme": openRelax,
                 "Hablar": openChat,
-                "Decidir": openDecision
+                "Decidir": openDecision,
+                "Biblia": openBiblical
             };
             actions[btn.dataset.action]?.();
         });
@@ -413,6 +472,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Topics
     document.querySelectorAll("[data-topic]").forEach(btn => {
         btn.addEventListener("click", () => openTopic(btn.dataset.topic));
+    });
+
+    // Biblical Topics
+    document.querySelectorAll("[data-biblical]").forEach(btn => {
+        btn.addEventListener("click", () => openBiblicalTopic(btn.dataset.biblical));
     });
     
     // Exercises
