@@ -1,781 +1,137 @@
-/* =========================================================
-   MENTE — SCRIPT PRINCIPAL
-   Compatible con el nuevo index.html
-   ========================================================= */
+const $=id=>document.getElementById(id);
 
-const $ = (id) => document.getElementById(id);
+const screens={
+ home:$("homeScreen"),explore:$("exploreScreen"),journal:$("journalScreen"),
+ relax:$("relaxScreen"),article:$("articleScreen"),chat:$("chatScreen")
+};
+const chatForm=$("chatForm"),chatInput=$("chatInput"),chatMessages=$("chatMessages"),
+ typingIndicator=$("typingIndicator"),sendButton=$("sendButton"),
+ journalEntry=$("journalEntry"),saveJournalButton=$("saveJournalButton"),journalEntries=$("journalEntries");
 
-const screens = {
-    home: $("homeScreen"),
-    explore: $("exploreScreen"),
-    journal: $("journalScreen"),
-    relax: $("relaxScreen"),
-    article: $("articleScreen"),
-    chat: $("chatScreen")
+const WORKER_URL="https://mente-ai.cristhianosorio503.workers.dev/";
+const CHAT_KEY="mente_chat_memory_v2",JOURNAL_KEY="mente_journal_v1";
+const state={messages:[],selectedMood:null,articleBack:"home",busy:false};
+
+function escapeHTML(t){const d=document.createElement("div");d.textContent=String(t??"");return d.innerHTML}
+function normalize(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function containsAny(t,a){const v=normalize(t);return a.some(x=>v.includes(normalize(x)))}
+function formatMessage(t){
+ let h=escapeHTML(t).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+ h=h.replace(/(^|\n)[*-]\s+(.+)/g,'$1<span class="chat-bullet">• $2</span>');
+ return h.replace(/\n\n+/g,'<div class="chat-gap"></div>').replace(/\n/g,"<br>");
+}
+
+function showScreen(name){
+ if(!screens[name])name="home";
+ Object.entries(screens).forEach(([k,s])=>{if(s){s.hidden=k!==name;s.classList.toggle("active",k===name);s.setAttribute("aria-hidden",k===name?"false":"true")}});
+ document.body.classList.toggle("chat-open",name==="chat");
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(name==="journal")renderJournal();
+ if(name==="chat"){restoreChat();setTimeout(()=>{chatInput?.focus({preventScroll:true});scrollChatToBottom()},80)}
+}
+function openChat(){closeMenu();showScreen("chat")}
+function openExplore(){closeMenu();showScreen("explore")}
+function openRelax(){closeMenu();showScreen("relax")}
+function openJournal(){closeMenu();showScreen("journal")}
+function goHome(){closeMenu();showScreen("home")}
+function closeChat(){showScreen("home")}
+
+function openMenu(){ $("sideMenu")?.classList.add("open");$("menuOverlay")?.classList.add("visible");$("sideMenu")?.setAttribute("aria-hidden","false");$("menuButton")?.setAttribute("aria-expanded","true");document.body.classList.add("menu-open")}
+function closeMenu(){ $("sideMenu")?.classList.remove("open");$("menuOverlay")?.classList.remove("visible");$("sideMenu")?.setAttribute("aria-hidden","true");$("menuButton")?.setAttribute("aria-expanded","false");document.body.classList.remove("menu-open")}
+function menuAction(a){
+ if(a==="Inicio")goHome();else if(a==="Hablar")openChat();else if(a==="Entender")openExplore();else if(a==="Relajación")openRelax();else if(a==="Diario")openJournal();else if(a==="Decidir")openDecision();
+ closeMenu()
+}
+
+const topics={
+ ansiedad:["MENTE Y EMOCIONES","Ansiedad","La ansiedad es una respuesta de alerta que puede aparecer ante incertidumbre, presión o situaciones que interpretamos como amenazantes.",[["¿Qué es?","Puede producir preocupación, tensión, inquietud y cambios físicos. En cierta medida es normal; conviene atenderla cuando es intensa, frecuente o limita la vida."],["Señales","Preocupación constante, tensión muscular, respiración rápida, dificultad para concentrarse, cambios en el sueño o sensaciones físicas intensas."],["¿Qué puedes hacer?","Haz una pausa, apoya los pies en el suelo, observa lo que ocurre y pregúntate qué puedes controlar ahora. Divide el problema en un paso pequeño."],["Cuándo pedir ayuda","Si interfiere con el trabajo, estudios, relaciones, sueño o actividades importantes, hablar con un profesional puede ser útil."]]],
+ tdah:["APRENDER","TDAH","El TDAH es una condición del neurodesarrollo que puede influir en atención, organización, manejo del tiempo, impulsividad y regulación de la actividad.",[["Entenderlo","No es simplemente pereza o falta de voluntad. Las dificultades y fortalezas pueden presentarse de maneras diferentes."],["Organización","Usa alarmas, calendarios, listas visibles y lugares fijos para objetos importantes."],["Concentración","Divide tareas en periodos cortos, reduce distracciones y programa descansos."],["Evaluación","Tener algunos rasgos no significa automáticamente tener TDAH. Una evaluación profesional considera la historia y distintos contextos."]]],
+ estres:["BIENESTAR","Estrés","El estrés aparece cuando percibimos que las demandas son difíciles, excesivas o importantes.",[["Reconocerlo","Cansancio, irritabilidad, tensión, dificultad para dormir o sentir que todo es urgente pueden acompañar una sobrecarga."],["Romper el ciclo","Una pausa puede ayudarte a recuperar claridad. Identifica qué es urgente, qué puede esperar y cuál es el siguiente paso."],["Cuida lo básico","Dormir, alimentarte, moverte, descansar, hablar con alguien y establecer límites forman parte de la recuperación."],["Busca apoyo","Si el estrés persiste o afecta seriamente tu funcionamiento, considera hablar con un profesional."]]],
+ emociones:["CONOCERTE","Emociones","Las emociones aparecen ante lo que vivimos, pensamos, recordamos o interpretamos. Pueden aportar información sobre nuestras necesidades.",[["Ponle nombre","En vez de 'me siento mal', intenta precisar tristeza, miedo, enojo, culpa, frustración, soledad o confusión."],["Observa tu cuerpo","Nota dónde aparece la emoción: pecho, garganta, estómago, mandíbula u hombros."],["Pregunta qué necesitas","Puede existir una necesidad de descanso, seguridad, conexión, espacio, límites o comprensión."],["No actúes de inmediato","Una emoción intensa no obliga a actuar inmediatamente. Puedes reconocerla y decidir cuando baje su intensidad."]]],
+ autoestima:["CONOCERTE","Autoestima","La autoestima se relaciona con la valoración que hacemos de nosotros mismos.",[["Cómo te hablas","Observa si usas contigo palabras mucho más duras de las que usarías con alguien querido."],["Separa error de identidad","Cometer un error describe una experiencia; no define todo lo que eres."],["Pequeños avances","Registrar esfuerzos y pequeños logros puede ayudarte a observar tu progreso."],["Busca apoyo","Si la valoración negativa de ti mismo es muy intensa o persistente, hablar con un profesional puede ser útil."]]],
+ sueno:["DESCANSO","Sueño","Dormir es parte esencial de la recuperación y puede influir en energía, memoria, estado de ánimo y funcionamiento diario.",[["Rutina","Horarios relativamente estables y una rutina tranquila antes de acostarte pueden ayudar."],["Ambiente","Un espacio oscuro, silencioso y cómodo puede facilitar el sueño."],["Preocupaciones","Anota pendientes antes de acostarte para no intentar resolverlos todos en ese momento."],["Cuando es persistente","Si los problemas de sueño son frecuentes o afectan mucho tu vida, considera consultarlo con un profesional."]]]
 };
 
-const openChatButton = $("openChatButton");
-const chatForm = $("chatForm");
-const messageInput = $("messageInput");
-const chatMessages = $("chatMessages");
-const typingIndicator = $("typingIndicator");
-const backFromChat = $("backFromChat");
-
-const journalEntry = $("journalEntry");
-const saveJournalButton = $("saveJournalButton");
-const journalEntries = $("journalEntries");
-
-const MEMORY_KEY = "mente_chat_memory_v1";
-
-function loadChatMemory() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(MEMORY_KEY) || "[]");
-        return Array.isArray(saved) ? saved.filter(item =>
-            item && (item.role === "user" || item.role === "mente") &&
-            typeof item.content === "string" && item.content.trim()
-        ).slice(-30) : [];
-    } catch (error) {
-        console.warn("No se pudo cargar la memoria de Mente:", error);
-        return [];
-    }
+function openTopic(k){
+ const d=topics[k];if(!d)return;
+ state.articleBack="explore";$("articleCategory").textContent=d[0];$("articleTitle").textContent=d[1];
+ $("articleContent").innerHTML=`<div class="article-intro"><p>${escapeHTML(d[2])}</p></div>`+
+ d[3].map(x=>`<section class="article-section"><h2>${escapeHTML(x[0])}</h2><p>${escapeHTML(x[1])}</p></section>`).join("")+
+ `<div class="article-note"><strong>Recuerda</strong><p>La información de Mente es educativa y no sustituye una evaluación profesional.</p></div>`;
+ showScreen("article")
+}
+function openDecision(){
+ state.articleBack="home";$("articleCategory").textContent="REFLEXIÓN";$("articleTitle").textContent="Tomar una decisión";
+ $("articleContent").innerHTML=`<div class="article-intro"><p>Cuando una decisión pesa mucho, dividirla en pasos puede reducir la presión.</p></div>
+ <section class="article-section"><h2>1. Define qué estás decidiendo</h2><p>Escribe la decisión en una sola frase.</p></section>
+ <section class="article-section"><h2>2. Separa lo que controlas</h2><p>Distingue las cosas que dependen de ti de las que no.</p></section>
+ <section class="article-section"><h2>3. Mira las opciones</h2><p>Piensa en ventajas, dificultades y consecuencias razonables.</p></section>
+ <section class="article-section"><h2>4. Elige el siguiente paso</h2><p>No siempre necesitas resolver toda la situación hoy.</p></section>`;
+ showScreen("article")
 }
 
-function saveChatMemory() {
-    try {
-        localStorage.setItem(MEMORY_KEY, JSON.stringify(state.messages.slice(-30)));
-    } catch (error) {
-        console.warn("No se pudo guardar la memoria de Mente:", error);
-    }
-}
-
-const state = {
-    messages: loadChatMemory(),
-    selectedMood: null
+const exercises={
+ respiracion:["EJERCICIO","Respiración consciente",`<div class="article-intro"><p>Permite que tu respiración sea cómoda. La burbuja crece al inhalar y disminuye al exhalar.</p></div><div class="breathing-box"><div class="breathing-bubble"><span>Respira</span></div><div class="breathing-label">inhala · exhala</div></div><section class="article-section"><h2>Cómo hacerlo</h2><p>Inhala suavemente durante 4 segundos y exhala durante 6. No fuerces ni aguantes el aire.</p></section>`],
+ grounding:["EJERCICIO","Volver al presente",`<div class="article-intro"><p>Dirige tu atención hacia lo que puedes observar aquí y ahora.</p></div><section class="article-section"><h2>5 · 4 · 3 · 2 · 1</h2><p>Observa 5 cosas que ves, 4 que puedes tocar, 3 sonidos, 2 olores y 1 sabor.</p></section>`],
+ pausa:["EJERCICIO","Un minuto para ti",`<div class="article-intro"><p>No tienes que resolverlo todo durante este minuto. Solo necesitas detenerte.</p></div><section class="article-section"><h2>Detente</h2><p>Apoya los pies en el suelo, suelta los hombros y observa cómo te sientes.</p></section>`]
 };
+function openExercise(k){const d=exercises[k];if(!d)return;state.articleBack="relax";$("articleCategory").textContent=d[0];$("articleTitle").textContent=d[1];$("articleContent").innerHTML=d[2];showScreen("article")}
 
-/* =========================================================
-   UTILIDADES
-   ========================================================= */
-
-function normalize(text) {
-    return String(text || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+/* Diario */
+function getJournal(){try{return JSON.parse(localStorage.getItem(JOURNAL_KEY)||"[]")}catch{return[]}}
+function renderJournal(){
+ if(!journalEntries)return;const a=getJournal();
+ journalEntries.innerHTML=a.length?a.map(e=>`<article class="journal-entry"><div class="journal-entry-meta"><span>${escapeHTML(e.date)}</span><span>${escapeHTML(e.mood||"")}</span></div><p>${escapeHTML(e.text).replace(/\n/g,"<br>")}</p></article>`).join(""):`<div class="empty-journal"><p>Aún no tienes entradas.</p><small>Este puede ser un espacio solo para ti.</small></div>`
 }
 
-function containsAny(text, words) {
-    const value = normalize(text);
-    return words.some(word => value.includes(normalize(word)));
+/* Memoria */
+function saveChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(state.messages.slice(-30)))}catch{}}
+function loadChat(){try{const a=JSON.parse(localStorage.getItem(CHAT_KEY)||"[]");return Array.isArray(a)?a.filter(x=>(x.role==="user"||x.role==="mente")&&typeof x.content==="string"&&x.content.trim()).slice(-30):[]}catch{return[]}}
+function restoreChat(){
+ if(!chatMessages)return;const a=loadChat();
+ if(a.length){state.messages=a;chatMessages.innerHTML="";a.forEach(x=>addMessage(x.content,x.role));return}
+ state.messages=[];chatMessages.innerHTML="";addMessage("Estoy aquí.\n\nNo tienes que saber exactamente cómo explicarlo.\n\nCuéntame qué está pasando.","mente")
 }
-
-function escapeHTML(text) {
-    const div = document.createElement("div");
-    div.textContent = String(text ?? "");
-    return div.innerHTML;
+function addMessage(text,type){
+ const row=document.createElement("div");row.className=type==="user"?"message-row user-message":"message-row mente-message";
+ row.innerHTML=type==="user"?`<div class="bubble"><p>${escapeHTML(text).replace(/\n/g,"<br>")}</p></div>`:`<div class="message-avatar"><div class="mini-mascot"><span></span><span></span></div></div><div class="bubble">${formatMessage(text)}</div>`;
+ chatMessages?.appendChild(row);scrollChatToBottom()
 }
+function showTyping(){typingIndicator?.classList.add("visible");if(typingIndicator)typingIndicator.hidden=false;scrollChatToBottom()}
+function hideTyping(){typingIndicator?.classList.remove("visible");if(typingIndicator)typingIndicator.hidden=true}
+function scrollChatToBottom(){setTimeout(()=>{if(chatMessages)chatMessages.scrollTop=chatMessages.scrollHeight},30)}
 
-function formatMessage(text) {
-    const escaped = escapeHTML(text);
-    return escaped
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\n/g, "<br>");
+async function sendUserMessage(message){
+ const text=String(message||"").trim();if(!text||state.busy)return;
+ state.busy=true;if(sendButton)sendButton.disabled=true;addMessage(text,"user");state.messages.push({role:"user",content:text});saveChat();
+ if(chatInput){chatInput.value="";resizeInput()}
+ const safety=containsAny(text,["quiero suicidarme","quiero matarme","me quiero matar","quiero quitarme la vida","no quiero seguir viviendo","quiero hacerme daño","quiero hacerme dano"]);
+ if(safety){showTyping();setTimeout(()=>{const r="<strong>Quiero tomar esto en serio.</strong><p>Si existe peligro inmediato, busca a una persona de confianza y ayuda de emergencia. En Honduras puedes llamar al <strong>911</strong>.</p><p>¿Estás en peligro inmediato ahora mismo?</p>";hideTyping();addMessage(r,"mente");state.messages.push({role:"mente",content:r});saveChat();state.busy=false;if(sendButton)sendButton.disabled=false},650);return}
+ showTyping();
+ try{
+   const history=state.messages.slice(0,-1).slice(-24).map(x=>({role:x.role==="mente"?"model":"user",text:x.content}));
+   const r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:text,history})});
+   const data=await r.json();if(!r.ok||!data.ok||!data.reply)throw new Error(data?.error||"Mente no pudo responder.");
+   hideTyping();addMessage(data.reply,"mente");state.messages.push({role:"mente",content:String(data.reply)});saveChat()
+ }catch(e){console.error(e);hideTyping();addMessage("No pude conectarme con Mente en este momento. Intenta nuevamente en unos segundos.","mente")}
+ finally{state.busy=false;if(sendButton)sendButton.disabled=false}
 }
+function resizeInput(){if(chatInput){chatInput.style.height="auto";chatInput.style.height=Math.min(chatInput.scrollHeight,130)+"px"}}
 
-/* =========================================================
-   NAVEGACIÓN
-   ========================================================= */
-
-function showScreen(name) {
-    Object.entries(screens).forEach(([key, screen]) => {
-        if (!screen) return;
-
-        const active = key === name;
-
-        screen.hidden = !active;
-        screen.classList.toggle("active", active);
-        screen.setAttribute("aria-hidden", active ? "false" : "true");
-    });
-
-    document.querySelectorAll(".nav-item").forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.screen === name
-        );
-    });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    document.body.style.overflow =
-        name === "chat" ? "hidden" : "";
-}
-
-function goHome() {
-    showScreen("home");
-}
-
-function openChat() {
-    showScreen("chat");
-
-    if (!messageInput) return;
-
-    messageInput.disabled = false;
-    messageInput.readOnly = false;
-    messageInput.removeAttribute("disabled");
-    messageInput.removeAttribute("readonly");
-
-    setTimeout(() => {
-        messageInput.focus({ preventScroll: true });
-        resizeInput();
-        scrollChatToBottom();
-    }, 150);
-}
-
-function closeChat() {
-    goHome();
-}
-
-/* Navegación inferior */
-
-document.querySelectorAll(".nav-item").forEach(button => {
-    button.addEventListener("click", () => {
-        const destination = button.dataset.screen;
-
-        if (destination === "chat") {
-            openChat();
-        } else {
-            showScreen(destination || "home");
-        }
-    });
+document.addEventListener("DOMContentLoaded",()=>{
+ $("brandButton")?.addEventListener("click",goHome);$("menuButton")?.addEventListener("click",openMenu);$("closeMenu")?.addEventListener("click",closeMenu);$("menuOverlay")?.addEventListener("click",closeMenu);
+ $("mainAction")?.addEventListener("click",openChat);$("relaxButton")?.addEventListener("click",openRelax);$("journalButton")?.addEventListener("click",openJournal);$("backButton")?.addEventListener("click",closeChat);
+ document.querySelectorAll("[data-menu]").forEach(b=>b.addEventListener("click",()=>menuAction(b.dataset.menu)));
+ document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>{const f={Entender:openExplore,Calmarme:openRelax,Hablar:openChat,Decidir:openDecision}[b.dataset.action];if(f)f();}));
+ document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>openTopic(b.dataset.topic)));
+ document.querySelectorAll("[data-exercise]").forEach(b=>b.addEventListener("click",()=>openExercise(b.dataset.exercise)));
+ document.querySelectorAll("[data-article]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.article;if(k==="respiracion")openExercise("respiracion");else if(k==="pensamientos")openDecision();else openDecision()}));
+ document.querySelectorAll("[data-back]").forEach(b=>b.addEventListener("click",()=>{if(b.closest("#articleScreen"))showScreen(state.articleBack||"home");else showScreen(b.dataset.back||"home")}));
+ document.querySelectorAll("[data-mood]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-mood]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.selectedMood=b.dataset.mood}));
+ saveJournalButton?.addEventListener("click",()=>{const text=journalEntry?.value.trim();if(!text){alert("Escribe algo antes de guardar tu entrada.");return}const a=getJournal();a.unshift({id:Date.now(),date:new Date().toLocaleString("es-HN",{dateStyle:"medium",timeStyle:"short"}),mood:state.selectedMood||"Sin estado de ánimo seleccionado",text});localStorage.setItem(JOURNAL_KEY,JSON.stringify(a));journalEntry.value="";state.selectedMood=null;document.querySelectorAll("[data-mood]").forEach(x=>x.classList.remove("selected"));renderJournal()});
+ document.querySelectorAll("[data-message]").forEach(b=>b.addEventListener("click",()=>{openChat();sendUserMessage(b.dataset.message)}));
+ chatForm?.addEventListener("submit",e=>{e.preventDefault();sendUserMessage(chatInput?.value)});
+ chatInput?.addEventListener("input",resizeInput);chatInput?.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();chatForm?.requestSubmit()}});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();if(!screens.chat?.hidden)closeChat();else if(!screens.article?.hidden)showScreen(state.articleBack||"home")}});
+ renderJournal();showScreen("home")
 });
-
-if (openChatButton) {
-    openChatButton.addEventListener("click", openChat);
-}
-
-if (backFromChat) {
-    backFromChat.addEventListener("click", closeChat);
-}
-
-document.querySelectorAll("[data-back]").forEach(button => {
-    button.addEventListener("click", () => {
-        showScreen(button.dataset.back || "home");
-    });
-});
-
-/* =========================================================
-   TEMAS
-   ========================================================= */
-
-const topics = {
-    ansiedad: {
-        category: "MENTE Y EMOCIONES",
-        title: "Ansiedad",
-        intro: "La ansiedad puede sentirse como preocupación, tensión, miedo o una sensación de que algo malo va a ocurrir.",
-        sections: [
-            ["¿Qué es?", "Es una respuesta que puede aparecer ante una amenaza, incertidumbre o situación que nuestro cerebro interpreta como difícil."],
-            ["Señales frecuentes", "Puede aparecer preocupación constante, inquietud, tensión, dificultad para concentrarse, cambios en el sueño o sensaciones físicas intensas."],
-            ["¿Qué puedes probar?", "Haz una pausa, respira lentamente, identifica lo que estás sintiendo y divide el problema en un paso pequeño."],
-            ["Cuándo pedir ayuda", "Si la ansiedad interfiere mucho con tu vida diaria o resulta difícil de manejar, hablar con un profesional puede ser útil."]
-        ]
-    },
-
-    tdah: {
-        category: "APRENDER",
-        title: "TDAH",
-        intro: "El TDAH puede influir en la atención, organización, manejo del tiempo y control de impulsos.",
-        sections: [
-            ["Entenderlo", "Las dificultades relacionadas con el TDAH no significan falta de inteligencia ni de voluntad."],
-            ["Organización", "Divide las tareas grandes en pasos pequeños, utiliza recordatorios y elige una prioridad para comenzar."],
-            ["Concentración", "Reducir distracciones, trabajar durante periodos cortos y hacer pausas puede ayudar con algunas tareas."],
-            ["Ayuda profesional", "Un profesional puede realizar una evaluación y orientar sobre las opciones adecuadas para cada persona."]
-        ]
-    },
-
-    estres: {
-        category: "BIENESTAR",
-        title: "Estrés",
-        intro: "El estrés puede aparecer cuando sentimos que las exigencias superan los recursos disponibles.",
-        sections: [
-            ["Reconocerlo", "Cansancio, irritabilidad, tensión, dificultad para dormir o sentir que todo es urgente pueden acompañar periodos de estrés."],
-            ["Haz una pausa", "Identifica qué necesita atención hoy y qué puede esperar."],
-            ["Cuida lo básico", "Dormir, alimentarte, moverte y tener momentos de descanso forman parte del cuidado personal."],
-            ["Busca apoyo", "Si el estrés es persistente o afecta seriamente tu funcionamiento, considera hablar con un profesional."]
-        ]
-    },
-
-    emociones: {
-        category: "CONOCERTE",
-        title: "Emociones",
-        intro: "Las emociones son respuestas que nos ayudan a interpretar lo que ocurre y a reconocer nuestras necesidades.",
-        sections: [
-            ["Ponle nombre", "Preguntarte qué estás sintiendo puede ayudarte a convertir una sensación confusa en algo que puedas comprender."],
-            ["No tienes que pelear con ella", "Una emoción puede ser incómoda sin que tengas que actuar inmediatamente sobre ella."],
-            ["Pregúntate qué necesitas", "A veces necesitamos descanso, límites, compañía, expresar algo o simplemente tiempo."],
-            ["Hablar ayuda", "Compartir lo que sientes con una persona de confianza puede hacer una situación más manejable."]
-        ]
-    },
-
-    autoestima: {
-        category: "CONOCERTE",
-        title: "Autoestima",
-        intro: "La autoestima tiene relación con la manera en que nos valoramos y tratamos a nosotros mismos.",
-        sections: [
-            ["Habla contigo con amabilidad", "Observa si utilizas contigo palabras mucho más duras de las que utilizarías con alguien querido."],
-            ["Separa error de identidad", "Cometer un error no significa que seas un fracaso."],
-            ["Reconoce pequeños avances", "Registrar esfuerzos y pequeños logros puede ayudarte a observar tu progreso."],
-            ["Busca apoyo", "Si existe una sensación persistente de no valer o no merecer cosas buenas, hablar con un profesional puede ser útil."]
-        ]
-    },
-
-    sueno: {
-        category: "BIENESTAR",
-        title: "Sueño",
-        intro: "Dormir bien es importante para el cuerpo, la atención, el estado de ánimo y la capacidad de afrontar el día.",
-        sections: [
-            ["Prepara el momento", "Intenta crear una rutina tranquila antes de dormir y reducir estímulos intensos cerca de la hora de acostarte."],
-            ["Mantén cierta regularidad", "Horarios relativamente constantes pueden ayudar a establecer una rutina."],
-            ["No luches contra el sueño", "Si llevas mucho tiempo despierto, una actividad tranquila con poca luz puede ser mejor que frustrarte mirando el reloj."],
-            ["Cuando es persistente", "Si los problemas de sueño son frecuentes o afectan mucho tu vida, considera consultarlo con un profesional."]
-        ]
-    }
-};
-
-function openTopic(key) {
-    const data = topics[key];
-    if (!data) return;
-
-    const category = $("articleCategory");
-    const title = $("articleTitle");
-    const content = $("articleContent");
-
-    if (!category || !title || !content) return;
-
-    category.textContent = data.category;
-    title.textContent = data.title;
-
-    content.innerHTML = `
-        <div class="article-intro">
-            <p>${escapeHTML(data.intro)}</p>
-        </div>
-        ${data.sections.map(section => `
-            <section class="article-section">
-                <h2>${escapeHTML(section[0])}</h2>
-                <p>${escapeHTML(section[1])}</p>
-            </section>
-        `).join("")}
-    `;
-
-    showScreen("article");
-}
-
-document.querySelectorAll("[data-topic]").forEach(button => {
-    button.addEventListener("click", () => {
-        openTopic(button.dataset.topic);
-    });
-});
-
-/* =========================================================
-   ARTÍCULOS
-   ========================================================= */
-
-const articles = {
-    respiracion: {
-        category: "EJERCICIO",
-        title: "Una pausa para respirar",
-        content: `
-            <div class="article-intro">
-                <p>Una pausa breve puede ayudarte a dirigir tu atención hacia el momento presente.</p>
-            </div>
-            <section class="article-section">
-                <h2>Prueba esto</h2>
-                <p>Inhala lentamente durante 4 segundos y después exhala durante 6 segundos. Repite varias veces sin forzarte.</p>
-            </section>
-            <section class="article-section">
-                <h2>Recuerda</h2>
-                <p>No necesitas conseguir una respiración perfecta. La idea es disminuir el ritmo y darte unos minutos de pausa.</p>
-            </section>
-        `
-    },
-
-    pensamientos: {
-        category: "REFLEXIÓN",
-        title: "Cuando tus pensamientos no paran",
-        content: `
-            <div class="article-intro">
-                <p>No todos los pensamientos necesitan una respuesta inmediata.</p>
-            </div>
-            <section class="article-section">
-                <h2>Escribe lo que aparece</h2>
-                <p>Poner los pensamientos por escrito puede ayudarte a distinguir entre lo que puedes resolver ahora y lo que tendrá que esperar.</p>
-            </section>
-            <section class="article-section">
-                <h2>Elige un solo paso</h2>
-                <p>Pregúntate: ¿cuál es la cosa más pequeña que puedo hacer ahora mismo?</p>
-            </section>
-        `
-    },
-
-    ayuda: {
-        category: "INFORMACIÓN",
-        title: "¿Cuándo pedir ayuda?",
-        content: `
-            <div class="article-intro">
-                <p>Pedir ayuda no significa que hayas fallado. Puede ser una manera responsable de cuidar de ti.</p>
-            </div>
-            <section class="article-section">
-                <h2>Considera buscar apoyo</h2>
-                <p>Si lo que estás viviendo interfiere mucho con tu vida o se mantiene durante mucho tiempo, hablar con un profesional puede ser importante.</p>
-            </section>
-            <section class="article-section">
-                <h2>Si existe peligro inmediato</h2>
-                <p>Busca ayuda inmediata, contacta los servicios de emergencia de tu país y procura estar acompañado por una persona de confianza.</p>
-            </section>
-        `
-    }
-};
-
-document.querySelectorAll("[data-article]").forEach(button => {
-    button.addEventListener("click", () => {
-        const data = articles[button.dataset.article];
-        if (!data) return;
-
-        $("articleCategory").textContent = data.category;
-        $("articleTitle").textContent = data.title;
-        $("articleContent").innerHTML = data.content;
-
-        showScreen("article");
-    });
-});
-
-/* =========================================================
-   RELAJACIÓN
-   ========================================================= */
-
-const exercises = {
-    respiracion: {
-        title: "Respiración consciente",
-        text: "Inhala suavemente durante 4 segundos y exhala durante 6. Repite durante unos minutos, sin forzar la respiración."
-    },
-    grounding: {
-        title: "Volver al presente",
-        text: "Identifica 5 cosas que puedas ver, 4 que puedas tocar, 3 que puedas escuchar, 2 que puedas oler y 1 que puedas saborear."
-    },
-    pausa: {
-        title: "Un minuto para ti",
-        text: "Detente. Suelta los hombros. Respira lentamente y observa cómo se siente tu cuerpo."
-    }
-};
-
-document.querySelectorAll("[data-exercise]").forEach(button => {
-    button.addEventListener("click", () => {
-        const exercise = exercises[button.dataset.exercise];
-        if (!exercise) return;
-
-        alert(`${exercise.title}\n\n${exercise.text}`);
-    });
-});
-
-if ($("relaxButton")) {
-    $("relaxButton").addEventListener("click", () => showScreen("relax"));
-}
-
-/* =========================================================
-   DIARIO
-   ========================================================= */
-
-const JOURNAL_KEY = "mente_journal_v1";
-
-function getJournal() {
-    try {
-        return JSON.parse(localStorage.getItem(JOURNAL_KEY) || "[]");
-    } catch {
-        return [];
-    }
-}
-
-function renderJournal() {
-    if (!journalEntries) return;
-
-    const entries = getJournal();
-
-    if (!entries.length) {
-        journalEntries.innerHTML = `
-            <div class="empty-journal">
-                <p>Aún no tienes entradas.</p>
-                <small>Este puede ser un espacio solo para ti.</small>
-            </div>
-        `;
-        return;
-    }
-
-    journalEntries.innerHTML = entries.map(entry => `
-        <article class="journal-entry">
-            <div class="journal-entry-meta">
-                <span>${escapeHTML(entry.date)}</span>
-                <span>${escapeHTML(entry.mood || "")}</span>
-            </div>
-            <p>${escapeHTML(entry.text).replace(/\n/g, "<br>")}</p>
-        </article>
-    `).join("");
-}
-
-document.querySelectorAll("[data-mood]").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll("[data-mood]").forEach(item => {
-            item.classList.remove("selected");
-        });
-
-        button.classList.add("selected");
-        state.selectedMood = button.dataset.mood;
-    });
-});
-
-if (saveJournalButton) {
-    saveJournalButton.addEventListener("click", () => {
-        const text = journalEntry?.value.trim();
-
-        if (!text) {
-            alert("Escribe algo antes de guardar tu entrada.");
-            journalEntry?.focus();
-            return;
-        }
-
-        const entries = getJournal();
-
-        entries.unshift({
-            id: Date.now(),
-            date: new Date().toLocaleString("es-HN", {
-                dateStyle: "medium",
-                timeStyle: "short"
-            }),
-            mood: state.selectedMood || "Sin estado de ánimo seleccionado",
-            text
-        });
-
-        localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries));
-
-        journalEntry.value = "";
-        state.selectedMood = null;
-
-        document.querySelectorAll("[data-mood]").forEach(item => {
-            item.classList.remove("selected");
-        });
-
-        renderJournal();
-        alert("Tu entrada se guardó en este dispositivo.");
-    });
-}
-
-if ($("journalButton")) {
-    $("journalButton").addEventListener("click", () => {
-        renderJournal();
-        showScreen("journal");
-    });
-}
-
-/* =========================================================
-   SEGURIDAD
-   ========================================================= */
-
-function safetyLevel(message) {
-    const selfHarm = [
-        "quiero suicidarme",
-        "quiero matarme",
-        "me quiero matar",
-        "voy a suicidarme",
-        "voy a matarme",
-        "quiero acabar con mi vida",
-        "quiero quitarme la vida",
-        "me voy a quitar la vida",
-        "no quiero seguir viviendo",
-        "no quiero vivir",
-        "quiero morir",
-        "me quiero morir",
-        "me quiero hacer daño",
-        "me quiero hacer dano",
-        "quiero hacerme daño",
-        "quiero hacerme dano"
-    ];
-
-    const immediate = [
-        "estoy en peligro",
-        "estoy en peligro ahora",
-        "me quieren matar",
-        "me estan atacando",
-        "me están atacando",
-        "me estan golpeando",
-        "me están golpeando",
-        "me estan amenazando",
-        "me están amenazando"
-    ];
-
-    if (containsAny(message, selfHarm)) return "self_harm";
-    if (containsAny(message, immediate)) return "danger";
-
-    return null;
-}
-
-function safetyReply() {
-    return `
-        <strong>Quiero tomar esto en serio.</strong>
-        <p>No tienes que enfrentar este momento completamente solo.</p>
-        <p>Si existe peligro inmediato, aléjate de cualquier cosa con la que puedas hacerte daño y busca a una persona de confianza que pueda estar contigo ahora.</p>
-        <p>En Honduras puedes llamar al <strong>911</strong> o acudir al servicio de urgencias más cercano.</p>
-        <p>Si puedes, dime solamente esto: <strong>¿estás en peligro inmediato ahora mismo?</strong></p>
-    `;
-}
-
-/* =========================================================
-   CHAT — MEMORIA DE LA CONVERSACIÓN
-   ========================================================= */
-
-function addMessage(text, type) {
-    if (!chatMessages) return;
-
-    const row = document.createElement("div");
-    row.className =
-        type === "user"
-            ? "message-row user-message"
-            : "message-row mente-message";
-
-    if (type === "user") {
-        row.innerHTML = `
-            <div class="bubble">
-                <p>${escapeHTML(text)}</p>
-            </div>
-        `;
-    } else {
-        row.innerHTML = `
-            <div class="message-avatar">
-                <div class="mini-mascot">
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div class="bubble">
-                ${formatMessage(text)}
-            </div>
-        `;
-    }
-
-    chatMessages.appendChild(row);
-    scrollChatToBottom();
-}
-
-function showTyping() {
-    if (!typingIndicator) return;
-
-    typingIndicator.hidden = false;
-    typingIndicator.classList.add("visible");
-    scrollChatToBottom();
-}
-
-function hideTyping() {
-    if (!typingIndicator) return;
-
-    typingIndicator.hidden = true;
-    typingIndicator.classList.remove("visible");
-}
-
-function scrollChatToBottom() {
-    if (!chatMessages) return;
-
-    setTimeout(() => {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 40);
-}
-
-function resizeInput() {
-    if (!messageInput) return;
-
-    messageInput.style.height = "auto";
-    messageInput.style.height =
-        Math.min(messageInput.scrollHeight, 130) + "px";
-}
-
-/*
- * La URL se deja en una sola variable para que sea fácil
- * cambiarla si el Worker cambia en el futuro.
- */
-const WORKER_URL =
-    "https://mente-ai.cristhianosorio503.workers.dev/";
-
-async function sendMessage(message) {
-    const text = String(message || "").trim();
-
-    if (!text) return;
-
-    addMessage(text, "user");
-
-    state.messages.push({
-        role: "user",
-        content: text
-    });
-
-    if (messageInput) {
-        messageInput.value = "";
-        resizeInput();
-    }
-
-    const safety = safetyLevel(text);
-
-    if (safety) {
-        showTyping();
-
-        setTimeout(() => {
-            hideTyping();
-
-            const response = safetyReply();
-
-            addMessage(response, "mente");
-
-            state.messages.push({
-                role: "mente",
-                content: response
-            });
-            saveChatMemory();
-        }, 500);
-
-        return;
-    }
-
-    showTyping();
-
-    try {
-        /*
-         * IMPORTANTE:
-         * El Worker debe recibir también el historial.
-         * De esta manera Mente puede mantener el contexto.
-         */
-
-        const history = state.messages
-            .slice(0, -1)
-            .slice(-24)
-            .map(item => ({
-                role: item.role === "mente" ? "model" : "user",
-                text: item.content
-            }))
-            .filter(item => item.text);
-
-        const response = await fetch(WORKER_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: text,
-                history: history
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.ok) {
-            console.error("Mente AI:", data);
-            throw new Error(
-                data?.error || "Mente AI no pudo responder."
-            );
-        }
-
-        const reply = data.reply;
-
-        if (!reply) {
-            throw new Error("Mente no devolvió una respuesta.");
-        }
-
-        hideTyping();
-
-        addMessage(reply, "mente");
-
-        state.messages.push({
-            role: "mente",
-            content: reply
-        });
-        saveChatMemory();
-
-    } catch (error) {
-        console.error("Error conectando con Mente:", error);
-
-        hideTyping();
-
-        addMessage(
-            "No pude conectarme con Mente en este momento. Intenta nuevamente en unos segundos.",
-            "mente"
-        );
-    }
-}
-
-/* Formulario */
-
-if (chatForm) {
-    chatForm.addEventListener("submit", event => {
-        event.preventDefault();
-
-        const text = messageInput?.value.trim();
-
-        if (!text) return;
-
-        sendMessage(text);
-    });
-}
-
-/* Enter envía; Shift + Enter hace salto de línea */
-
-if (messageInput) {
-    messageInput.disabled = false;
-    messageInput.readOnly = false;
-    messageInput.removeAttribute("disabled");
-    messageInput.removeAttribute("readonly");
-
-    messageInput.addEventListener("input", resizeInput);
-
-    messageInput.addEventListener("keydown", event => {
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey &&
-            !event.isComposing
-        ) {
-            event.preventDefault();
-            chatForm?.requestSubmit();
-        }
-    });
-}
-
-/* =========================================================
-   BIENVENIDA DEL CHAT
-   ========================================================= */
-
-function initializeChat() {
-    if (!chatMessages) return;
-
-    if (chatMessages.children.length === 0) {
-        addMessage(
-            "Hola. Soy Mente. Este es un espacio para hablar con calma sobre lo que tengas en mente.",
-            "mente"
-        );
-    }
-}
-
-/* =========================================================
-   ESCAPE
-   ========================================================= */
-
-document.addEventListener("keydown", event => {
-    if (event.key !== "Escape") return;
-
-    if (screens.chat && !screens.chat.hidden) {
-        closeChat();
-    } else {
-        goHome();
-    }
-});
-
-/* =========================================================
-   INICIO
-   ========================================================= */
-
-initializeChat();
-renderJournal();
-showScreen("home");
-resizeInput();
